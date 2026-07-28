@@ -1,0 +1,360 @@
+# AURA — Hoja de ruta de desarrollo
+
+**Propietario técnico:** Axel  
+**Propietaria de estrategia e impacto:** Nicol  
+**Estado base:** MVP demostrable 0.2.0  
+**Objetivo:** convertir el flujo actual en un piloto medible y una candidatura
+respaldada por evidencia real.
+
+## 1. Qué ya existe
+
+- Página de presentación bilingüe.
+- Método A-U-R-A explicado.
+- Caso educativo simulado.
+- Flujo interactivo de cuatro etapas.
+- Selección de señales y fuentes.
+- Mapa de evidencia.
+- Tarjeta de evidencia copiable.
+- Equipo y hoja de ruta visibles.
+- Diseño responsivo y navegación por teclado.
+- Guía maestra versionada junto al proyecto.
+
+## 2. Alcance congelado del MVP
+
+El MVP de candidatura debe demostrar:
+
+1. Una misión completa en menos de cinco minutos.
+2. Fuentes visibles durante la investigación.
+3. Preguntas socráticas breves.
+4. Decisión inicial y decisión final.
+5. Mapa o registro de evidencia.
+6. Tarjeta de evidencia.
+7. Reto de transferencia.
+8. Operación en español e inglés.
+9. Funcionamiento correcto en móvil.
+10. Métricas mínimas para el piloto.
+
+Quedan fuera hasta validar lo anterior:
+
+- chat abierto;
+- feed social;
+- análisis de video;
+- extensiones de navegador;
+- aplicación móvil nativa;
+- gamificación compleja;
+- perfil social;
+- generación automática de casos sin revisión;
+- clasificación universal de verdad.
+
+## 3. Arquitectura objetivo inmediata
+
+```text
+Interfaz React
+├── Catálogo de casos versionado
+├── Motor determinista del flujo A-U-R-A
+├── Preguntas de respaldo sin IA
+├── Adaptador opcional de IA
+├── Eventos anónimos del piloto
+└── Exportación de Tarjeta de evidencia
+```
+
+Principio: la misión debe poder completarse si el servicio de IA no está
+disponible.
+
+## 4. Modelo de datos de casos
+
+Crear `data/cases/` con un archivo por caso y validación de esquema.
+
+Propuesta mínima:
+
+```ts
+type AuraCase = {
+  id: string;
+  status: "draft" | "reviewed" | "published";
+  locale: "es" | "en";
+  contentType: "simulated" | "adapted" | "real";
+  topic: string;
+  claim: string;
+  context: string;
+  signals: Signal[];
+  sources: Source[];
+  evidenceGaps: string[];
+  actions: ActionOption[];
+  fallbackQuestions: Question[];
+  transferPrompt: string;
+  review: {
+    reviewer: string;
+    reviewedAt: string;
+    notes: string;
+  };
+};
+```
+
+### Criterios de aceptación
+
+- El contenido del caso actual sale del componente React.
+- La interfaz renderiza cualquier caso válido.
+- Los textos ES/EN tienen paridad.
+- Un caso sin revisión no aparece en producción.
+- Toda fuente contiene tipo, título, contexto y limitación.
+
+## 5. Backlog priorizado
+
+### P0 — antes del primer piloto
+
+#### P0.1 Extraer el caso a datos
+
+- Crear esquema y caso 01.
+- Separar contenido de presentación y contenido del caso.
+- Añadir validación en build.
+
+**Aceptación:** cambiar de caso no exige editar el componente de la misión.
+
+#### P0.2 Reto de transferencia
+
+- Presentar una segunda afirmación breve.
+- Pedir al usuario elegir el primer movimiento de investigación.
+- No ofrecer las mismas pistas que en la misión guiada.
+- Registrar justificación.
+
+**Aceptación:** se puede comparar desempeño guiado y no guiado.
+
+#### P0.3 Instrumentación mínima
+
+Eventos propuestos:
+
+- `mission_started`
+- `initial_decision_recorded`
+- `signal_selected`
+- `source_opened`
+- `action_selected`
+- `evidence_card_generated`
+- `transfer_completed`
+- `mission_abandoned`
+
+Propiedades permitidas:
+
+- identificador anónimo de sesión;
+- identificador de caso;
+- idioma;
+- etapa;
+- duración;
+- opción seleccionada codificada;
+- versión del producto.
+
+**No recopilar:** nombre, correo, texto privado pegado, ubicación precisa,
+identificadores publicitarios o historial de navegación.
+
+**Aceptación:** existe diccionario de eventos, consentimiento definido y prueba
+de que ninguna propiedad contiene datos sensibles.
+
+#### P0.4 Modo facilitación
+
+- Código corto de sesión.
+- Pantalla con instrucciones.
+- Vista agregada, sin identificar personas.
+- Exportación CSV anonimizada.
+
+**Aceptación:** Nicol puede operar una sesión sin apoyo técnico durante la
+actividad.
+
+#### P0.5 Accesibilidad y dispositivos
+
+- WCAG 2.2 AA como objetivo.
+- Navegación completa con teclado.
+- Lectura comprensible con lector de pantalla.
+- Contraste verificado.
+- 320 px de ancho sin desplazamiento horizontal.
+- Prueba en Android de gama media.
+- Modo de reducción de movimiento.
+
+**Aceptación:** lista de comprobación firmada y defectos críticos resueltos.
+
+### P1 — candidatura y demo final
+
+#### P1.1 Tres casos equilibrados
+
+Incluir:
+
+- una afirmación verdadera presentada de forma sensacionalista;
+- una afirmación engañosa;
+- una afirmación con evidencia insuficiente.
+
+**Aceptación:** AURA no enseña que todo contenido viral es falso.
+
+#### P1.2 IA socrática acotada
+
+Usos permitidos:
+
+- reformular una pregunta según la acción observada;
+- pedir justificación;
+- resumir evidencia seleccionada;
+- señalar una omisión sin dar el veredicto;
+- generar feedback de transferencia sujeto a rúbrica.
+
+Salida estructurada sugerida:
+
+```json
+{
+  "question": "string",
+  "reason": "missing_source | missing_context | unsupported_action",
+  "references": ["source-id"],
+  "abstain": false
+}
+```
+
+**Aceptación:** si la salida es inválida, aparece una pregunta de respaldo; la IA
+no inventa fuentes ni oculta incertidumbre.
+
+#### P1.3 Exportar Tarjeta de evidencia
+
+- Imagen o PDF compartible.
+- Sello claro de “caso educativo”.
+- Fuentes y fecha.
+- Sin inferir identidad.
+- Versión accesible en texto.
+
+**Aceptación:** el archivo se genera en móvil y no presenta la conclusión como
+veredicto institucional de UNESCO.
+
+#### P1.4 Demo y video
+
+- Recorrido de 2–3 minutos.
+- Caso con cambio visible de razonamiento.
+- Subtítulos ES/EN.
+- Capturas reales del producto.
+- Contingencia: video local si falla internet.
+
+**Aceptación:** una persona externa comprende problema, método, diferencia,
+evidencia y siguiente paso sin explicación adicional.
+
+### P2 — después de enviar
+
+- AURA Circles.
+- Herramienta de creación local de casos.
+- Panel institucional.
+- Biblioteca de micromódulos.
+- Modo de bajo consumo de datos.
+- Nuevos países e idiomas.
+- Evaluación longitudinal.
+
+## 6. Plan de sprints
+
+### Sprint 0 — congelar producto
+
+- Revisar el prototipo con Axel y Nicol.
+- Confirmar tono, público, caso y recorrido.
+- Registrar decisiones.
+
+**Salida:** alcance firmado y backlog priorizado.
+
+### Sprint 1 — sistema de casos
+
+- Extraer datos.
+- Añadir casos 02 y 03.
+- Pruebas unitarias del esquema.
+
+**Salida:** catálogo bilingüe revisable.
+
+### Sprint 2 — transferencia y métricas
+
+- Crear reto sin ayuda.
+- Instrumentar eventos anónimos.
+- Añadir consentimiento.
+
+**Salida:** versión apta para ensayo interno.
+
+### Sprint 3 — facilitación
+
+- Modo de sesión.
+- Panel agregado.
+- Instrumento pre/post.
+
+**Salida:** paquete de piloto.
+
+### Sprint 4 — piloto
+
+- Ensayo con 5 personas.
+- Corregir defectos.
+- Piloto objetivo.
+- Analizar resultados sin exagerarlos.
+
+**Salida:** métricas reales y citas autorizadas.
+
+### Sprint 5 — candidatura
+
+- Integrar datos reales.
+- Grabar demo.
+- Editar video.
+- Revisión ES/EN.
+- Enviar antes del límite interno.
+
+**Salida:** candidatura completa y respaldada.
+
+## 7. Decisiones pendientes
+
+| Decisión | Responsable | Fecha límite | Criterio |
+|---|---|---:|---|
+| Licencia del repositorio | Axel + Nicol | Antes de hacerlo público | Apertura vs. protección |
+| Proveedor de IA | Axel | Antes de P1.2 | seguridad, costo, latencia |
+| Infraestructura del piloto | Axel | Antes de P0.3 | privacidad y simplicidad |
+| Institución o comunidad piloto | Nicol | Antes de Sprint 4 | acceso real y permiso |
+| Integrantes 3 y 4 | Equipo | Lo antes posible | complementariedad real |
+| Revisor AMI externo | Nicol | Antes del piloto | rigor pedagógico |
+
+## 8. Métricas de piloto
+
+No medir solo “acertó/no acertó”.
+
+### Conductas
+
+- pausa antes de compartir;
+- identifica la afirmación verificable;
+- abre fuente primaria;
+- realiza lectura lateral;
+- reconoce patrocinio o incentivo;
+- distingue lo medido de lo afirmado;
+- justifica una acción proporcional;
+- transfiere la estrategia a un caso nuevo.
+
+### Experiencia
+
+- finalización;
+- tiempo por etapa;
+- abandono;
+- comprensión del lenguaje;
+- utilidad percibida;
+- confianza calibrada;
+- intención de usar el método de nuevo.
+
+### Guardrails
+
+- no aumentar cinismo;
+- no presentar incertidumbre como falsedad;
+- no penalizar una decisión inicial;
+- no premiar obediencia a la IA;
+- no almacenar contenido privado sin consentimiento explícito.
+
+## 9. Revisión antes de cada release
+
+- [ ] La misión puede completarse sin ayuda del equipo.
+- [ ] ES y EN expresan el mismo significado.
+- [ ] No hay métricas inventadas.
+- [ ] Todo caso está etiquetado.
+- [ ] Las fuentes permanecen visibles.
+- [ ] La IA puede abstenerse.
+- [ ] El flujo funciona con teclado.
+- [ ] El flujo funciona en móvil.
+- [ ] Los eventos no contienen datos sensibles.
+- [ ] `npm run lint` pasa.
+- [ ] `npm test` pasa.
+- [ ] README y guía siguen vigentes.
+
+## 10. Criterio de victoria
+
+El producto estará listo para competir cuando el equipo pueda demostrar, no
+solo afirmar, lo siguiente:
+
+> Una persona completó una misión, produjo una conclusión trazable, aplicó la
+> habilidad a un caso nuevo y el equipo pudo medir ese aprendizaje sin pedirle
+> que obedeciera a una inteligencia artificial.
