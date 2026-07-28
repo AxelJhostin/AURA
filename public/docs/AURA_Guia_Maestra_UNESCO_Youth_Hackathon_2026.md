@@ -195,9 +195,16 @@ Validaciones técnicas completadas para AURA 0.8.0:
 - ruta pública de eventos probada con aceptación, rechazo y persistencia real;
 - generación, normalización y propagación del código de piloto verificadas;
 - ruta de resumen limitada a resultados agregados y clave server-side;
-- prueba desplegada completa: consentimiento, inicio de misión, persistencia y
-  lectura agregada de `1 participante / 1 misión iniciada`;
-- revisión visual en escritorio y móvil de 390 px sin desbordamiento horizontal;
+- prueba desplegada completa a 320 px: consentimiento, pulso inicial `3/5`,
+  caso 03, tarjeta `Respaldada con límites`, transferencia `2/2`, pulso final
+  `5/5` y lectura agregada con cambio pre/post de `+2`;
+- revisión visual a 320 px exactos con `scrollWidth = clientWidth = 320`, sin
+  desbordamiento horizontal;
+- RLS activa en Supabase, sin permisos para `anon` ni `authenticated`, y
+  `service_role` limitado a `SELECT` e `INSERT`;
+- asesores de seguridad y rendimiento de Supabase sin errores ni advertencias;
+  solo permanecen tres avisos informativos de índices aún no utilizados,
+  esperables antes del piloto real;
 - cero errores o advertencias en la consola del navegador del preview;
 - secretos fuera del repositorio;
 - despliegue Preview de Vercel confirmado.
