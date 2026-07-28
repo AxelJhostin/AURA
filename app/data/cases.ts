@@ -1,3 +1,6 @@
+import { balancedAuraCases } from "./balanced-cases";
+import { validateAuraCases } from "./case-validation";
+
 export type Locale = "es" | "en";
 export type LocalizedText = Record<Locale, string>;
 
@@ -42,7 +45,15 @@ export type AuraCase = {
   id: string;
   number: string;
   status: "published";
-  theme: "energy" | "context";
+  theme: "energy" | "context" | "wellbeing" | "uncertainty";
+  editorial: {
+    evidenceState: "supported-with-limits" | "misleading" | "insufficient";
+    reviewStatus: "internal-review-complete";
+    reviewedAt: string;
+    reviewerRole: LocalizedText;
+    learningObjective: LocalizedText;
+    nextGate: LocalizedText;
+  };
   catalog: {
     tag: LocalizedText;
     title: LocalizedText;
@@ -100,12 +111,29 @@ export type AuraCase = {
   };
 };
 
-export const auraCases: AuraCase[] = [
+const coreAuraCases: AuraCase[] = [
   {
     id: "energy-memory",
     number: "01",
     status: "published",
     theme: "energy",
+    editorial: {
+      evidenceState: "misleading",
+      reviewStatus: "internal-review-complete",
+      reviewedAt: "2026-07-28",
+      reviewerRole: {
+        es: "Revisión editorial interna AURA",
+        en: "AURA internal editorial review",
+      },
+      learningObjective: {
+        es: "Distinguir la variable realmente medida de la afirmación amplificada.",
+        en: "Distinguish the variable actually measured from the amplified claim.",
+      },
+      nextGate: {
+        es: "Revisión AMI externa antes del piloto formal.",
+        en: "External MIL review before the formal pilot.",
+      },
+    },
     catalog: {
       tag: { es: "SALUD · CIFRAS", en: "HEALTH · NUMBERS" },
       title: {
@@ -560,6 +588,23 @@ export const auraCases: AuraCase[] = [
     number: "02",
     status: "published",
     theme: "context",
+    editorial: {
+      evidenceState: "misleading",
+      reviewStatus: "internal-review-complete",
+      reviewedAt: "2026-07-28",
+      reviewerRole: {
+        es: "Revisión editorial interna AURA",
+        en: "AURA internal editorial review",
+      },
+      learningObjective: {
+        es: "Separar autenticidad del archivo, fecha, ubicación y contexto.",
+        en: "Separate file authenticity from date, location and context.",
+      },
+      nextGate: {
+        es: "Revisión AMI externa antes del piloto formal.",
+        en: "External MIL review before the formal pilot.",
+      },
+    },
     catalog: {
       tag: { es: "VIDEO · CONTEXTO", en: "VIDEO · CONTEXT" },
       title: {
@@ -986,6 +1031,18 @@ export const auraCases: AuraCase[] = [
     },
   },
 ];
+
+export const auraCases: AuraCase[] = [
+  ...coreAuraCases,
+  ...balancedAuraCases,
+];
+
+const caseValidationIssues = validateAuraCases(auraCases);
+if (caseValidationIssues.length > 0) {
+  throw new Error(
+    `AURA case catalog validation failed:\n${caseValidationIssues.join("\n")}`,
+  );
+}
 
 export function getAuraCase(id: string) {
   return auraCases.find((item) => item.id === id);

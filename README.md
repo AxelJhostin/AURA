@@ -16,18 +16,20 @@ Este repositorio reúne dos entregables que deben evolucionar juntos:
 
 ## Estado actual
 
-- **Versión:** MVP demostrable `0.7.0`
+- **Versión:** MVP técnico completo `0.8.0`
 - **Objetivo:** UNESCO Youth Hackathon 2026
 - **Equipo confirmado:** Hernández Axel + Nicole
 - **Modo:** Next.js estándar, publicado en GitHub y preparado para Vercel
-- **Casos incluidos:** dos misiones educativas simuladas sobre una afirmación
-  de salud y un video viral reutilizado fuera de contexto, más un reto de
-  transferencia sobre un enlace urgente de becas
+- **Casos incluidos:** cuatro misiones educativas simuladas que cubren
+  afirmaciones engañosas, una afirmación respaldada con límites y una
+  afirmación con evidencia insuficiente, más un reto de transferencia sobre un
+  enlace urgente de becas
 
 La demo ya permite:
 
 - Cambiar la interfaz entre español e inglés.
-- Elegir entre dos misiones mediante un catálogo reutilizable.
+- Elegir entre cuatro misiones mediante un catálogo reutilizable y validado en
+  cada build.
 - Registrar una reacción inicial sin señalarla como correcta o incorrecta.
 - Identificar señales que justifican una pausa.
 - Elegir fuentes y construir un mapa de evidencia.
@@ -38,8 +40,10 @@ La demo ya permite:
 - Resolver un reto final no guiado sobre un tema diferente.
 - Obtener una puntuación de transferencia `0–2` basada en acciones observables.
 - Registrar métricas anónimas con consentimiento explícito.
+- Comparar un pulso opcional de confianza pre/post mediante opciones `1–5`.
 - Generar un código de piloto y un enlace compartible sin crear cuentas.
 - Consultar un panel de facilitación con totales y promedios agregados.
+- Descargar un resumen agregado CSV que no contiene identificadores de sesión.
 - Descargar el reporte codificado de una sesión en CSV.
 - Solicitar una pregunta socrática adaptada mediante OpenAI en cada etapa.
 - Continuar con preguntas de respaldo cuando la IA no esté disponible.
@@ -111,9 +115,12 @@ AURA-UNESCO-2026/
 │   ├── components/
 │   │   ├── AuraExperience.tsx   # experiencia e interacciones
 │   │   ├── PilotFacilitator.tsx # enlaces y panel agregado del piloto
+│   │   ├── PilotConfidence.tsx  # pulso pre/post anónimo y opcional
 │   │   └── TransferChallenge.tsx # reto no guiado y reporte de sesión
 │   ├── data/
-│   │   ├── cases.ts             # catálogo bilingüe y contenido de misiones
+│   │   ├── cases.ts             # contrato y núcleo del catálogo bilingüe
+│   │   ├── balanced-cases.ts    # casos respaldado-con-límites e insuficiente
+│   │   ├── case-validation.ts   # compuerta editorial del build
 │   │   └── transfer.ts          # reto y rúbrica de transferencia
 │   ├── lib/
 │   │   └── analytics.ts         # eventos locales, consentimiento y CSV
@@ -130,7 +137,8 @@ AURA-UNESCO-2026/
 │   └── rendered-html.test.mjs   # smoke tests del render del servidor
 ├── supabase/migrations/
 │   ├── *_aura_learning_events.sql # tabla y RLS de analítica anónima
-│   └── *_anonymous_pilot_code.sql # agrupación e índice del piloto
+│   ├── *_anonymous_pilot_code.sql # agrupación e índice del piloto
+│   └── *_anonymous_pilot_pulse.sql # instrumento pre/post codificado
 ├── .env.example                 # nombres de variables, nunca secretos
 ├── CONTRIBUTING.md
 ├── package.json
@@ -271,24 +279,27 @@ Actúa — decisión proporcional
         ↓
 Tarjeta de evidencia
         ↓
+Estado de evidencia: respaldada / engañosa / insuficiente
+        ↓
 Reto de transferencia sin guía
         ↓
-Puntuación + reporte anónimo CSV
+Puntuación + pulso final opcional
         ↓
-Panel agregado del piloto
+Panel y CSV agregados del piloto
 ```
 
-## Próxima versión recomendada
+## Siguiente etapa recomendada
 
-La siguiente meta no es añadir un chatbot general. Supabase y el modo
-facilitador ya están integrados en `0.7.0`; ahora toca convertir el producto en
-evidencia evaluable:
+El código del MVP quedó cerrado en `0.8.0`: catálogo equilibrado, validación
+editorial estructural, instrumento pre/post, exportación agregada y salvaguardas
+de accesibilidad están implementados. La prioridad ya no es ampliar funciones,
+sino producir evidencia real y cerrar la candidatura:
 
-1. Crear un caso verdadero y otro con evidencia insuficiente.
-2. Añadir validación editorial formal al esquema de casos.
-3. Evaluar las preguntas generadas por IA con una rúbrica.
-4. Completar auditoría de accesibilidad y dispositivos.
-5. Ejecutar pruebas con usuarios antes de ampliar funciones.
+1. Ejecutar un ensayo interno con cinco personas.
+2. Corregir defectos observados, sin inventar resultados.
+3. Realizar el piloto objetivo con consentimiento y protocolo.
+4. Evaluar las preguntas generadas por IA con una rúbrica adversarial.
+5. Integrar métricas reales, demo bilingüe y video final.
 
 Cada elemento tiene criterios de aceptación en
 [`docs/DEVELOPMENT_ROADMAP.md`](docs/DEVELOPMENT_ROADMAP.md).
@@ -322,7 +333,7 @@ incluye una licencia de código porque esa decisión todavía pertenece al equip
 La guía maestra contiene:
 
 - briefing de incorporación y responsabilidades para Nicole;
-- estado verificable de AURA 0.7.0 y capacidades pendientes;
+- estado verificable de AURA 0.8.0 y capacidades pendientes;
 - lectura completa de la convocatoria;
 - propuesta de valor y diferenciación;
 - especificación del producto;

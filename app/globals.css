@@ -64,9 +64,28 @@ h3 {
 }
 
 button:focus-visible,
-a:focus-visible {
+a:focus-visible,
+input:focus-visible {
   outline: 3px solid rgba(13, 154, 131, 0.35);
   outline-offset: 4px;
+}
+
+.skip-link {
+  position: fixed;
+  z-index: 100;
+  top: 10px;
+  left: 10px;
+  transform: translateY(-150%);
+  padding: 11px 16px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
 }
 
 .section-shell {
@@ -766,6 +785,107 @@ a:focus-visible {
   color: #b9f5e9;
 }
 
+.pilot-confidence {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(270px, 0.75fr);
+  gap: 24px;
+  align-items: center;
+  margin: 18px 0 28px;
+  padding: 22px 24px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--ink);
+}
+
+.pilot-confidence-exit {
+  margin: 0;
+  background: var(--cream);
+}
+
+.pilot-confidence-copy {
+  min-width: 0;
+}
+
+.pilot-confidence-copy > span {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--teal-dark);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+}
+
+.pilot-confidence-copy h3 {
+  margin-bottom: 7px;
+  font-family: var(--display);
+  font-size: 25px;
+}
+
+.pilot-confidence-copy p {
+  color: var(--ink-soft);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.pilot-confidence-copy small {
+  display: block;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.confidence-scale {
+  display: grid;
+  gap: 7px;
+}
+
+.confidence-scale > div {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(44px, 1fr));
+  gap: 7px;
+}
+
+.confidence-scale > span {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.confidence-scale > span:last-child {
+  text-align: right;
+}
+
+.confidence-scale button {
+  min-width: 44px;
+  min-height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.confidence-scale button:hover,
+.confidence-scale button[aria-pressed="true"] {
+  border-color: var(--teal);
+  background: var(--teal);
+  color: var(--white);
+}
+
+.confidence-scale button:disabled {
+  cursor: default;
+  opacity: 1;
+}
+
+.confidence-saved {
+  grid-column: 1 / -1;
+  color: var(--teal-dark);
+  font-size: 12px;
+  font-weight: 800;
+}
+
 .mission-workspace {
   display: grid;
   grid-template-columns: minmax(280px, 0.72fr) minmax(0, 1.55fr);
@@ -1158,6 +1278,43 @@ a:focus-visible {
   border-radius: 50%;
   background: rgba(10, 34, 43, 0.22);
   color: #f9f4e9;
+}
+
+.post-media-wellbeing {
+  background:
+    radial-gradient(circle at 70% 20%, rgba(255, 255, 255, 0.72), transparent 18%),
+    linear-gradient(145deg, #d8efc8 0%, #87cdb7 48%, #f4c65a 100%);
+}
+
+.post-media-wellbeing .can-shape {
+  width: 88px;
+  height: 88px;
+  transform: rotate(-5deg);
+  border-radius: 50%;
+}
+
+.post-media-uncertainty {
+  background:
+    repeating-linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.08) 0,
+      rgba(255, 255, 255, 0.08) 12px,
+      transparent 12px,
+      transparent 24px
+    ),
+    linear-gradient(145deg, #d9d8d2 0%, #949f9f 52%, #4a666b 100%);
+  color: var(--white);
+}
+
+.post-media-uncertainty::before,
+.post-media-uncertainty::after {
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.post-media-uncertainty .can-shape {
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(16, 47, 53, 0.22);
+  color: var(--white);
 }
 
 .post-media::before,
@@ -1922,6 +2079,48 @@ a:focus-visible {
   box-shadow: 0 0 0 7px var(--teal-pale);
 }
 
+.evidence-state {
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr);
+  gap: 12px 18px;
+  align-items: center;
+  margin: 18px 0;
+  padding: 16px 18px;
+  border-left: 4px solid var(--violet);
+  background: var(--violet-pale);
+}
+
+.evidence-state > span {
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+}
+
+.evidence-state > strong {
+  font-size: 13px;
+}
+
+.evidence-state > p {
+  color: var(--ink-soft);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.evidence-state-supported-with-limits {
+  border-left-color: var(--teal);
+  background: var(--teal-pale);
+}
+
+.evidence-state-misleading {
+  border-left-color: var(--coral);
+  background: var(--coral-pale);
+}
+
+.evidence-state-insufficient {
+  border-left-color: var(--gold);
+  background: var(--gold-pale);
+}
+
 .result-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -2484,6 +2683,10 @@ a:focus-visible {
   line-height: 1.5;
 }
 
+.facilitator-export {
+  margin-top: 16px;
+}
+
 .team-section {
   padding: 125px 0;
   background: #f0ded4;
@@ -2933,6 +3136,10 @@ footer {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
+  .pilot-confidence {
+    grid-template-columns: 1fr;
+  }
+
   .team-grid {
     grid-template-columns: 1fr;
   }
@@ -3069,6 +3276,15 @@ footer {
 
   .analytics-consent-actions button {
     width: 100%;
+  }
+
+  .pilot-confidence {
+    margin-bottom: 22px;
+    padding: 19px 16px;
+  }
+
+  .confidence-scale > div {
+    gap: 5px;
   }
 
   .facilitator-panel {
@@ -3237,6 +3453,11 @@ footer {
     border-left: 0;
   }
 
+  .evidence-state {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
   .method-grid {
     grid-template-columns: 1fr;
   }
@@ -3297,6 +3518,63 @@ footer {
 
   .footer-grid > div {
     justify-content: flex-start;
+  }
+}
+
+@media (max-width: 360px) {
+  .section-shell {
+    width: calc(100% - 24px);
+  }
+
+  .site-header {
+    padding-inline: 12px;
+  }
+
+  .header-actions {
+    gap: 6px;
+  }
+
+  .case-library,
+  .post-panel,
+  .lab-panel,
+  .facilitator-panel,
+  .transfer-challenge {
+    padding-inline: 14px;
+  }
+
+  .post-media {
+    min-height: 220px;
+    padding-inline: 20px;
+  }
+
+  .post-media strong {
+    font-size: 58px;
+  }
+
+  .can-shape {
+    right: 20px;
+    transform: scale(0.85) rotate(10deg);
+    transform-origin: right bottom;
+  }
+
+  .pilot-report {
+    grid-template-columns: 1fr;
+  }
+
+  .facilitator-status span,
+  .active-pilot-code,
+  .reference-list a,
+  .reference-meta {
+    overflow-wrap: anywhere;
+  }
+
+  .confidence-scale > div {
+    grid-template-columns: repeat(5, minmax(42px, 1fr));
+    gap: 4px;
+  }
+
+  .confidence-scale button {
+    min-width: 42px;
   }
 }
 

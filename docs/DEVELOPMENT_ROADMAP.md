@@ -2,7 +2,7 @@
 
 - **Propietario técnico:** Hernández Axel
 - **Propietaria de estrategia e impacto:** Nicole
-- **Estado base:** MVP medible 0.7.0
+- **Estado base:** MVP técnico completo 0.8.0
 - **Objetivo:** convertir el flujo actual en un piloto medible y una candidatura
 respaldada por evidencia real.
 
@@ -10,7 +10,9 @@ respaldada por evidencia real.
 
 - Página de presentación bilingüe.
 - Método A-U-R-A explicado.
-- Motor bilingüe con dos casos educativos simulados.
+- Motor bilingüe con cuatro casos educativos simulados y equilibrados.
+- Validación formal de paridad bilingüe, procedencia, referencias y estado
+  editorial durante cada build.
 - Flujo interactivo de cuatro etapas.
 - Selección de señales y fuentes.
 - Expediente de procedencia para cada fuente simulada.
@@ -22,6 +24,8 @@ respaldada por evidencia real.
 - Ruta validada para persistencia opcional en Supabase.
 - Código aleatorio y enlace compartible para cada piloto.
 - Panel de facilitación con métricas agregadas y sin filas individuales.
+- Instrumento opcional pre/post `1–5` sin texto libre.
+- Exportación CSV agregada sin identificadores de sesión.
 - Preguntas socráticas adaptadas mediante OpenAI con respaldo determinista.
 - Build estándar de Next.js compatible con Vercel.
 - Equipo y hoja de ruta visibles.
@@ -85,6 +89,7 @@ type AuraCase = {
   id: string;
   number: string;
   status: "published";
+  editorial: EditorialReview;
   catalog: LocalizedContent;
   mission: LocalizedContent;
   artifact: LocalizedContent;
@@ -109,7 +114,7 @@ type AuraCase = {
 - [x] Toda fuente contiene tipo, título, contexto y limitación.
 - [x] Toda pieza simulada declara ID, procedencia, fecha y carácter ficticio.
 - [x] Cada caso enlaza referencias reales para contexto o método.
-- [ ] Añadir validación formal de esquema y estado de revisión editorial.
+- [x] Añadir validación formal de esquema y estado de revisión editorial.
 
 ## 5. Backlog priorizado
 
@@ -150,6 +155,8 @@ Eventos implementados:
 - `transfer_first_move_selected`
 - `transfer_reason_selected`
 - `transfer_completed`
+- `pilot_baseline_recorded`
+- `pilot_exit_recorded`
 
 Propiedades permitidas:
 
@@ -161,6 +168,7 @@ Propiedades permitidas:
 - opción seleccionada codificada;
 - versión del producto.
 - puntuación de transferencia.
+- respuesta codificada de confianza `1–5`.
 
 **No recopilar:** nombre, correo, texto privado pegado, ubicación precisa,
 IP almacenada, agente de navegador, identificadores publicitarios o historial
@@ -197,29 +205,32 @@ método de verificación.
 y consultar resultados agregados sin apoyo técnico. Falta validar el protocolo
 con personas reales antes de declarar alcanzada la aceptación operativa.
 
-#### P0.5 Accesibilidad y dispositivos
+#### P0.5 Accesibilidad y dispositivos — salvaguardas implementadas en 0.8.0
 
-- WCAG 2.2 AA como objetivo.
-- Navegación completa con teclado.
-- Lectura comprensible con lector de pantalla.
-- Contraste verificado.
-- 320 px de ancho sin desplazamiento horizontal.
-- Prueba en Android de gama media.
-- Modo de reducción de movimiento.
+- [x] WCAG 2.2 AA como objetivo documentado.
+- [x] Navegación completa con teclado y enlace para saltar a la misión.
+- [x] Regiones, estados y controles con etiquetas accesibles.
+- [x] Foco visible en enlaces, botones e inputs.
+- [x] Salvaguardas específicas para 320 px sin desplazamiento horizontal.
+- [ ] Prueba física en Android de gama media durante el ensayo interno.
+- [x] Modo de reducción de movimiento.
 
-**Aceptación:** lista de comprobación firmada y defectos críticos resueltos.
+**Aceptación técnica alcanzada:** build, lint, prueba automatizada y emulación de
+320 px sin defectos críticos. La prueba física pertenece al protocolo del
+ensayo, no al backlog de código.
 
 ### P1 — candidatura y demo final
 
-#### P1.1 Tres casos equilibrados
+#### P1.1 Casos equilibrados — implementado en 0.8.0
 
-Incluir:
+- [x] Una afirmación verdadera presentada de forma sensacionalista.
+- [x] Una afirmación engañosa.
+- [x] Una afirmación con evidencia insuficiente.
+- [x] Mostrar el estado de evidencia solo al terminar la investigación.
+- [x] Conservar referencias reales separadas del expediente ficticio.
 
-- una afirmación verdadera presentada de forma sensacionalista;
-- una afirmación engañosa;
-- una afirmación con evidencia insuficiente.
-
-**Aceptación:** AURA no enseña que todo contenido viral es falso.
+**Aceptación alcanzada:** el catálogo cubre `supported-with-limits`,
+`misleading` e `insufficient`; el build falla si uno de esos estados desaparece.
 
 #### P1.2 IA socrática acotada — primera versión implementada
 
@@ -320,7 +331,8 @@ evidencia y siguiente paso sin explicación adicional.
 
 - [x] Modo de sesión.
 - [x] Panel agregado.
-- [ ] Instrumento pre/post.
+- [x] Instrumento pre/post.
+- [x] Exportación agregada sin identificadores individuales.
 
 **Salida:** paquete de piloto.
 

@@ -10,7 +10,7 @@ type Props = {
   onActivateCode: (code: string) => void;
 };
 
-type PilotReport = {
+export type PilotReport = {
   code: string;
   participants: number;
   missionStarts: number;
@@ -19,10 +19,66 @@ type PilotReport = {
   completionRate: number;
   transferCompletions: number;
   averageTransferScore: number | null;
+  baselineResponses: number;
+  exitResponses: number;
+  matchedConfidenceResponses: number;
+  averageBaselineConfidence: number | null;
+  averageExitConfidence: number | null;
+  averageConfidenceDelta: number | null;
   averageMissionDurationSeconds: number | null;
   latestActivity: string | null;
   truncated: boolean;
 };
+
+function csvCell(value: string | number | boolean | null) {
+  const text = value === null ? "" : String(value);
+  const safeText = /^[=+\-@]/.test(text) ? `'${text}` : text;
+  return `"${safeText.replaceAll('"', '""')}"`;
+}
+
+export function pilotReportToCsv(report: PilotReport) {
+  const rows: Array<[string, string | number | boolean | null]> = [
+    ["pilot_code", report.code],
+    ["participants", report.participants],
+    ["mission_starts", report.missionStarts],
+    ["evidence_cards", report.evidenceCards],
+    ["completed_participants", report.completedParticipants],
+    ["completion_rate_percent", report.completionRate],
+    ["transfer_completions", report.transferCompletions],
+    ["average_transfer_score_out_of_2", report.averageTransferScore],
+    ["baseline_responses", report.baselineResponses],
+    ["exit_responses", report.exitResponses],
+    ["matched_confidence_responses", report.matchedConfidenceResponses],
+    ["average_baseline_confidence_out_of_5", report.averageBaselineConfidence],
+    ["average_exit_confidence_out_of_5", report.averageExitConfidence],
+    ["average_confidence_delta", report.averageConfidenceDelta],
+    [
+      "average_mission_duration_seconds",
+      report.averageMissionDurationSeconds,
+    ],
+    ["latest_activity", report.latestActivity],
+    ["report_truncated", report.truncated],
+  ];
+
+  return [
+    "metric,value",
+    ...rows.map(([metric, value]) =>
+      [csvCell(metric), csvCell(value)].join(","),
+    ),
+  ].join("\n");
+}
+
+function downloadPilotReportCsv(report: PilotReport) {
+  const blob = new Blob([pilotReportToCsv(report)], {
+    type: "text/csv;charset=utf-8",
+  });
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement("a");
+  anchor.href = url;
+  anchor.download = `aura-pilot-${report.code}.csv`;
+  anchor.click();
+  URL.revokeObjectURL(url);
+}
 
 export function PilotFacilitator({
   locale,
@@ -59,6 +115,11 @@ export function PilotFacilitator({
           cards: "tarjetas creadas",
           time: "tiempo promedio",
           seconds: "s",
+          baseline: "confianza inicial / 5",
+          exit: "confianza final / 5",
+          delta: "cambio pre/post",
+          paired: "respuestas pareadas",
+          export: "Descargar resumen CSV",
           empty: "El reporte comenzará a llenarse cuando las personas usen el enlace y permitan métricas anónimas.",
           privacy: "El código funciona como acceso al agregado: compártelo solo con el equipo facilitador y participantes del piloto.",
         }
@@ -84,6 +145,11 @@ export function PilotFacilitator({
           cards: "cards created",
           time: "average time",
           seconds: "s",
+          baseline: "baseline confidence / 5",
+          exit: "exit confidence / 5",
+          delta: "pre/post change",
+          paired: "paired responses",
+          export: "Download aggregate CSV",
           empty: "The report will populate once people use the link and allow anonymous metrics.",
           privacy: "The code grants access to the aggregate: share it only with the facilitation team and pilot participants.",
         };
@@ -241,8 +307,46 @@ export function PilotFacilitator({
             </strong>
             <span>{copy.time}</span>
           </div>
+          <div>
+            <strong>
+              {report.averageBaselineConfidence === null
+                ? "—"
+                : `${report.averageBaselineConfidence}/5`}
+            </strong>
+            <span>{copy.baseline}</span>
+          </div>
+          <div>
+            <strong>
+              {report.averageExitConfidence === null
+                ? "—"
+                : `${report.averageExitConfidence}/5`}
+            </strong>
+            <span>{copy.exit}</span>
+          </div>
+          <div>
+            <strong>
+              {report.averageConfidenceDelta === null
+                ? "—"
+                : `${report.averageConfidenceDelta > 0 ? "+" : ""}${report.averageConfidenceDelta}`}
+            </strong>
+            <span>{copy.delta}</span>
+          </div>
+          <div>
+            <strong>{report.matchedConfidenceResponses}</strong>
+            <span>{copy.paired}</span>
+          </div>
           {report.participants === 0 && <p>{copy.empty}</p>}
         </div>
+      )}
+
+      {report && (
+        <button
+          className="button button-ghost facilitator-export"
+          type="button"
+          onClick={() => downloadPilotReportCsv(report)}
+        >
+          {copy.export} <span aria-hidden="true">↓</span>
+        </button>
       )}
 
       <small className="facilitator-privacy">{copy.privacy}</small>

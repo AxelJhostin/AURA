@@ -7,6 +7,7 @@ type RateBucket = { count: number; resetAt: number };
 type PilotEventRow = {
   anonymous_session_id: string;
   event_name: string;
+  option_id: string | null;
   transfer_score: number | null;
   duration_ms: number | null;
   occurred_at: string;
@@ -51,11 +52,20 @@ function isRateLimited(id: string) {
   return current.count > RATE_LIMIT;
 }
 
-function roundedAverage(values: number[]) {
+function roundedAverage(values: number[], digits = 1) {
   if (values.length === 0) return null;
-  return Math.round(
-    values.reduce((total, value) => total + value, 0) / values.length,
+  const multiplier = 10 ** digits;
+  return (
+    Math.round(
+      (values.reduce((total, value) => total + value, 0) / values.length) *
+        multiplier,
+    ) / multiplier
   );
+}
+
+function confidenceScore(optionId: string | null) {
+  const match = optionId?.match(/^confidence-([1-5])$/);
+  return match ? Number(match[1]) : null;
 }
 
 export async function GET(request: Request) {
@@ -85,7 +95,7 @@ export async function GET(request: Request) {
 
   const query = new URLSearchParams({
     select:
-      "anonymous_session_id,event_name,transfer_score,duration_ms,occurred_at",
+      "anonymous_session_id,event_name,option_id,transfer_score,duration_ms,occurred_at",
     pilot_code: `eq.${code}`,
     order: "occurred_at.desc",
     limit: String(MAX_ROWS),
@@ -130,6 +140,32 @@ export async function GET(request: Request) {
     const evidenceCards = rows.filter(
       (row) => row.event_name === "evidence_card_generated",
     ).length;
+    const baselineBySession = new Map<string, number>();
+    const exitBySession = new Map<string, number>();
+
+    for (const row of rows) {
+      const score = confidenceScore(row.option_id);
+      if (score === null) continue;
+      if (
+        row.event_name === "pilot_baseline_recorded" &&
+        !baselineBySession.has(row.anonymous_session_id)
+      ) {
+        baselineBySession.set(row.anonymous_session_id, score);
+      }
+      if (
+        row.event_name === "pilot_exit_recorded" &&
+        !exitBySession.has(row.anonymous_session_id)
+      ) {
+        exitBySession.set(row.anonymous_session_id, score);
+      }
+    }
+
+    const confidenceDeltas = [...baselineBySession.entries()]
+      .filter(([sessionId]) => exitBySession.has(sessionId))
+      .map(
+        ([sessionId, baseline]) =>
+          (exitBySession.get(sessionId) as number) - baseline,
+      );
 
     return noStoreJson({
       code,
@@ -145,9 +181,18 @@ export async function GET(request: Request) {
       averageTransferScore: roundedAverage(
         transferRows.map((row) => row.transfer_score as number),
       ),
+      baselineResponses: baselineBySession.size,
+      exitResponses: exitBySession.size,
+      matchedConfidenceResponses: confidenceDeltas.length,
+      averageBaselineConfidence: roundedAverage([
+        ...baselineBySession.values(),
+      ]),
+      averageExitConfidence: roundedAverage([...exitBySession.values()]),
+      averageConfidenceDelta: roundedAverage(confidenceDeltas),
       averageMissionDurationSeconds: (() => {
         const average = roundedAverage(
           missionDurationRows.map((row) => row.duration_ms as number),
+          0,
         );
         return average === null ? null : Math.round(average / 1_000);
       })(),

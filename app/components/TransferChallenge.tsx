@@ -9,6 +9,7 @@ import {
   type AnalyticsEvent,
   type AnalyticsEventInput,
 } from "../lib/analytics";
+import { PilotConfidence } from "./PilotConfidence";
 
 type Props = {
   locale: Locale;
@@ -250,6 +251,16 @@ export function TransferChallenge({
                 {challenge.reset[locale]}
               </button>
             </div>
+          )}
+
+          {completed && (
+            <PilotConfidence
+              locale={locale}
+              phase="exit"
+              sessionId={sessionId}
+              events={events}
+              trackEvent={trackEvent}
+            />
           )}
 
           {completed && (
