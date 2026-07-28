@@ -16,16 +16,17 @@ Este repositorio reúne dos entregables que deben evolucionar juntos:
 
 ## Estado actual
 
-- **Versión:** MVP demostrable `0.3.0`
+- **Versión:** MVP demostrable `0.4.0`
 - **Objetivo:** UNESCO Youth Hackathon 2026
 - **Equipo confirmado:** Axel + Nicol
 - **Modo:** Next.js estándar, publicado en GitHub y preparado para Vercel
-**Caso incluido:** caso educativo simulado sobre una afirmación de bebidas
-energéticas y memoria
+- **Casos incluidos:** dos misiones educativas simuladas sobre una afirmación
+  de salud y un video viral reutilizado fuera de contexto
 
 La demo ya permite:
 
 - Cambiar la interfaz entre español e inglés.
+- Elegir entre dos misiones mediante un catálogo reutilizable.
 - Registrar una reacción inicial sin señalarla como correcta o incorrecta.
 - Identificar señales que justifican una pausa.
 - Elegir fuentes y construir un mapa de evidencia.
@@ -95,7 +96,9 @@ AURA-UNESCO-2026/
 │   ├── api/aura/coach/
 │   │   └── route.ts             # entrenador socrático del servidor
 │   ├── components/
-│   │   └── AuraExperience.tsx   # experiencia, contenido e interacciones
+│   │   └── AuraExperience.tsx   # experiencia e interacciones
+│   ├── data/
+│   │   └── cases.ts             # catálogo bilingüe y contenido de misiones
 │   ├── globals.css              # sistema visual y diseño responsivo
 │   ├── layout.tsx               # metadatos, idioma base y viewport
 │   └── page.tsx                 # entrada principal
@@ -172,11 +175,12 @@ El prototipo usa:
 - SDK oficial de OpenAI y Responses API en una ruta exclusiva del servidor.
 - CSS propio para identidad visual, diseño responsivo y accesibilidad.
 - Estado local de React para la misión.
+- Catálogo tipado de casos separado de la interfaz.
 
-La ruta de IA acepta solamente identificadores predefinidos de la misión, limita
-el tamaño y la frecuencia de las solicitudes, no almacena las respuestas en
-OpenAI y nunca envía la clave al navegador. No hay base de datos y no se
-recopilan datos personales.
+La ruta de IA acepta solamente el identificador de un caso publicado y opciones
+predefinidas dentro de ese caso. Limita el tamaño y la frecuencia de las
+solicitudes, no almacena las respuestas en OpenAI y nunca envía la clave al
+navegador. No hay base de datos y no se recopilan datos personales.
 
 ## Desplegar en Vercel
 

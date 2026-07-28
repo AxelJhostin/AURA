@@ -2,15 +2,15 @@
 
 - **Propietario técnico:** Axel
 - **Propietaria de estrategia e impacto:** Nicol
-- **Estado base:** MVP demostrable 0.3.0
-**Objetivo:** convertir el flujo actual en un piloto medible y una candidatura
+- **Estado base:** MVP demostrable 0.4.0
+- **Objetivo:** convertir el flujo actual en un piloto medible y una candidatura
 respaldada por evidencia real.
 
 ## 1. Qué ya existe
 
 - Página de presentación bilingüe.
 - Método A-U-R-A explicado.
-- Caso educativo simulado.
+- Motor bilingüe con dos casos educativos simulados.
 - Flujo interactivo de cuatro etapas.
 - Selección de señales y fuentes.
 - Mapa de evidencia.
@@ -63,57 +63,60 @@ Interfaz React
 Principio: la misión debe poder completarse si el servicio de IA no está
 disponible.
 
-## 4. Modelo de datos de casos
+## 4. Modelo de datos de casos — primera versión implementada
 
-Crear `data/cases/` con un archivo por caso y validación de esquema.
+El catálogo tipado vive en `app/data/cases.ts`. La interfaz y la ruta de IA
+consumen el mismo caso activo, por lo que añadir una misión ya no exige
+reescribir el flujo React ni duplicar listas de opciones en el servidor.
 
-Propuesta mínima:
+Modelo implementado:
 
 ```ts
 type AuraCase = {
   id: string;
-  status: "draft" | "reviewed" | "published";
-  locale: "es" | "en";
-  contentType: "simulated" | "adapted" | "real";
-  topic: string;
-  claim: string;
-  context: string;
-  signals: Signal[];
-  sources: Source[];
-  evidenceGaps: string[];
-  actions: ActionOption[];
-  fallbackQuestions: Question[];
-  transferPrompt: string;
-  review: {
-    reviewer: string;
-    reviewedAt: string;
-    notes: string;
-  };
+  number: string;
+  status: "published";
+  catalog: LocalizedContent;
+  mission: LocalizedContent;
+  artifact: LocalizedContent;
+  post: LocalizedContent;
+  stages: AuraStages;
+  initialChoices: CaseChoice[];
+  signals: CaseChoice[];
+  sources: CaseSource[];
+  actions: CaseChoice[];
+  evidenceMap: LocalizedContent;
+  result: LocalizedContent;
+  ai: ServerPromptContext;
 };
 ```
 
 ### Criterios de aceptación
 
-- El contenido del caso actual sale del componente React.
-- La interfaz renderiza cualquier caso válido.
-- Los textos ES/EN tienen paridad.
-- Un caso sin revisión no aparece en producción.
-- Toda fuente contiene tipo, título, contexto y limitación.
+- [x] El contenido de las misiones sale del componente React.
+- [x] La interfaz renderiza cualquier caso publicado del catálogo.
+- [x] Los textos ES/EN tienen paridad estructural.
+- [x] La ruta de IA valida opciones según el caso activo.
+- [x] Toda fuente contiene tipo, título, contexto y limitación.
+- [ ] Añadir validación formal de esquema y estado de revisión editorial.
 
 ## 5. Backlog priorizado
 
 ### P0 — antes del primer piloto
 
-#### P0.1 Extraer el caso a datos
+#### P0.1 Extraer el caso a datos — implementado en 0.4.0
 
-- Crear esquema y caso 01.
+- Catálogo tipado con casos 01 y 02.
 - Separar contenido de presentación y contenido del caso.
-- Añadir validación en build.
+- Añadir pruebas del contrato de casos en build.
 
-**Aceptación:** cambiar de caso no exige editar el componente de la misión.
+**Aceptación alcanzada:** cambiar o añadir un caso no exige editar el componente
+de la misión ni las listas permitidas de la ruta de IA.
 
 #### P0.2 Reto de transferencia
 
+- La versión 0.4.0 ya demuestra que el método opera sobre un segundo tema.
+- Aún falta el reto final no guiado para medir transferencia sin repetir pistas.
 - Presentar una segunda afirmación breve.
 - Pedir al usuario elegir el primer movimiento de investigación.
 - No ofrecer las mismas pistas que en la misión guiada.

@@ -1,4 +1,5 @@
 import OpenAI from "openai";
+import { getAuraCase } from "../../../data/cases";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -17,15 +18,6 @@ const allowedStages = new Set<CoachStage>([
   "research",
   "act",
 ]);
-const allowedDecisions = new Set(["share", "pause", "dismiss"]);
-const allowedSignals = new Set([
-  "vague-authority",
-  "precise-number",
-  "urgency",
-  "green",
-]);
-const allowedSources = new Set(["repost", "sponsor", "study", "guide"]);
-const allowedActions = new Set(["repeat", "context", "hold", "report"]);
 
 const globalForAura = globalThis as typeof globalThis & {
   auraCoachRateBuckets?: Map<string, RateBucket>;
@@ -34,32 +26,6 @@ const globalForAura = globalThis as typeof globalThis & {
 const rateBuckets =
   globalForAura.auraCoachRateBuckets ?? new Map<string, RateBucket>();
 globalForAura.auraCoachRateBuckets = rateBuckets;
-
-const labels = {
-  decision: {
-    share: "would share the post",
-    pause: "would pause to investigate",
-    dismiss: "would dismiss the post",
-  },
-  signal: {
-    "vague-authority": "noticed an unnamed study",
-    "precise-number": "noticed the unexplained 40% figure",
-    urgency: "noticed pressure to share before exams",
-    green: "noticed the green visual design",
-  },
-  source: {
-    repost: "opened a viral repost with no study link",
-    sponsor: "opened the sponsor's commercial release",
-    study: "opened the original study abstract",
-    guide: "opened independent university guidance",
-  },
-  action: {
-    repeat: "would repeat the claim as written",
-    context: "would share only with context and limitations",
-    hold: "would not share and would explain the uncertainty",
-    report: "would automatically report the account",
-  },
-} as const;
 
 function noStoreJson(body: unknown, init?: ResponseInit) {
   const headers = new Headers(init?.headers);
@@ -139,10 +105,24 @@ export async function POST(request: Request) {
   }
 
   const body = payload as Record<string, unknown>;
+  const caseId = body.caseId;
   const locale = body.locale;
   const stage = body.stage;
   const decision = body.decision;
   const action = body.action;
+  const activeCase =
+    typeof caseId === "string" ? getAuraCase(caseId) : undefined;
+
+  if (!activeCase) {
+    return noStoreJson({ error: "invalid_case" }, { status: 400 });
+  }
+
+  const allowedDecisions = new Set(
+    activeCase.initialChoices.map((item) => item.id),
+  );
+  const allowedSignals = new Set(activeCase.signals.map((item) => item.id));
+  const allowedSources = new Set(activeCase.sources.map((item) => item.id));
+  const allowedActions = new Set(activeCase.actions.map((item) => item.id));
 
   if (
     (locale !== "es" && locale !== "en") ||
@@ -152,8 +132,8 @@ export async function POST(request: Request) {
       (typeof decision !== "string" || !allowedDecisions.has(decision))) ||
     (action !== "" &&
       (typeof action !== "string" || !allowedActions.has(action))) ||
-    !validSelection(body.signals, allowedSignals, 4) ||
-    !validSelection(body.sources, allowedSources, 2)
+    !validSelection(body.signals, allowedSignals, activeCase.signals.length) ||
+    !validSelection(body.sources, allowedSources, activeCase.sourceLimit)
   ) {
     return noStoreJson({ error: "invalid_payload" }, { status: 400 });
   }
@@ -165,19 +145,21 @@ export async function POST(request: Request) {
 
   const typedLocale = locale as Locale;
   const typedStage = stage as CoachStage;
+  const decisionChoice = activeCase.initialChoices.find(
+    (item) => item.id === decision,
+  );
+  const actionChoice = activeCase.actions.find((item) => item.id === action);
   const observations = [
-    typeof decision === "string" && decision
-      ? labels.decision[decision as keyof typeof labels.decision]
-      : null,
+    decisionChoice?.coachLabel,
     ...(body.signals as string[]).map(
-      (item) => labels.signal[item as keyof typeof labels.signal],
+      (id) =>
+        activeCase.signals.find((item) => item.id === id)?.coachLabel ?? "",
     ),
     ...(body.sources as string[]).map(
-      (item) => labels.source[item as keyof typeof labels.source],
+      (id) =>
+        activeCase.sources.find((item) => item.id === id)?.coachLabel ?? "",
     ),
-    typeof action === "string" && action
-      ? labels.action[action as keyof typeof labels.action]
-      : null,
+    actionChoice?.coachLabel,
   ].filter(Boolean);
 
   const language = typedLocale === "es" ? "Spanish" : "English";
@@ -194,8 +176,9 @@ export async function POST(request: Request) {
   ].join(" ");
 
   const input = [
-    "Educational case: a simulated viral post claims that energy drinks improve memory by 40% and urges students to share it before exams.",
-    "Known case evidence: the original study had 24 participants, measured short-term alertness rather than memory, and had commercial sponsorship. An independent university guide distinguishes alertness, memory, and risk.",
+    `Case ID: ${activeCase.id}.`,
+    `Educational case: ${activeCase.ai.scenario}`,
+    `Known case evidence: ${activeCase.ai.knownEvidence}`,
     `Current A-U-R-A stage: ${typedStage}.`,
     `Observed learner actions: ${observations.join("; ") || "none yet"}.`,
     "Ask the single best next Socratic question for this exact stage and observed action.",

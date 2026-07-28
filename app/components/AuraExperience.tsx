@@ -1,172 +1,10 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { auraCases, type Locale } from "../data/cases";
 
-type Locale = "es" | "en";
 type MissionStep = 0 | 1 | 2 | 3;
 type CoachStage = "analyze" | "uncover" | "research" | "act";
-
-type Choice = {
-  id: string;
-  title: Record<Locale, string>;
-  detail: Record<Locale, string>;
-};
-
-const initialChoices: Choice[] = [
-  {
-    id: "share",
-    title: { es: "Lo compartiría", en: "I would share it" },
-    detail: {
-      es: "Parece útil y tiene una cifra concreta.",
-      en: "It looks useful and includes a concrete number.",
-    },
-  },
-  {
-    id: "pause",
-    title: { es: "Pausaría para investigar", en: "I would pause and investigate" },
-    detail: {
-      es: "La afirmación es verificable, pero aún no veo la fuente.",
-      en: "The claim is verifiable, but I cannot see the source yet.",
-    },
-  },
-  {
-    id: "dismiss",
-    title: { es: "Lo descartaría", en: "I would dismiss it" },
-    detail: {
-      es: "Suena demasiado bueno para ser verdad.",
-      en: "It sounds too good to be true.",
-    },
-  },
-];
-
-const signalChoices: Choice[] = [
-  {
-    id: "vague-authority",
-    title: { es: "“Un estudio confirma”", en: "“A study confirms”" },
-    detail: {
-      es: "Invoca autoridad sin nombrar el estudio.",
-      en: "It invokes authority without naming the study.",
-    },
-  },
-  {
-    id: "precise-number",
-    title: { es: "La cifra “40%”", en: "The “40%” figure" },
-    detail: {
-      es: "Parece precisa, pero no explica qué se midió.",
-      en: "It looks precise, but does not explain what was measured.",
-    },
-  },
-  {
-    id: "urgency",
-    title: { es: "“Compártelo antes de los exámenes”", en: "“Share before exams”" },
-    detail: {
-      es: "La urgencia empuja a reaccionar antes de verificar.",
-      en: "Urgency pushes people to react before checking.",
-    },
-  },
-  {
-    id: "green",
-    title: { es: "El diseño usa color verde", en: "The design uses green" },
-    detail: {
-      es: "Es un rasgo visual, no evidencia sobre la afirmación.",
-      en: "It is a visual trait, not evidence about the claim.",
-    },
-  },
-];
-
-const sourceChoices = [
-  {
-    id: "repost",
-    code: "S1",
-    kind: { es: "Publicación derivada", en: "Derivative post" },
-    title: {
-      es: "Video viral con 128 mil vistas",
-      en: "Viral video with 128K views",
-    },
-    detail: {
-      es: "Repite la cifra, pero no enlaza el estudio ni identifica autores.",
-      en: "Repeats the figure, but does not link the study or name its authors.",
-    },
-    clue: { es: "Popularidad ≠ evidencia", en: "Popularity ≠ evidence" },
-  },
-  {
-    id: "sponsor",
-    code: "S2",
-    kind: { es: "Comunicado comercial", en: "Commercial release" },
-    title: {
-      es: "Marca que financió la investigación",
-      en: "Brand that funded the research",
-    },
-    detail: {
-      es: "Habla de “rendimiento mental”, sin publicar metodología completa.",
-      en: "Mentions “mental performance” without publishing the full method.",
-    },
-    clue: { es: "Conflicto de interés", en: "Conflict of interest" },
-  },
-  {
-    id: "study",
-    code: "S3",
-    kind: { es: "Fuente primaria", en: "Primary source" },
-    title: {
-      es: "Resumen del estudio original",
-      en: "Original study abstract",
-    },
-    detail: {
-      es: "24 participantes; midió alerta durante 30 minutos, no memoria.",
-      en: "24 participants; measured alertness for 30 minutes, not memory.",
-    },
-    clue: { es: "Qué se midió realmente", en: "What was actually measured" },
-  },
-  {
-    id: "guide",
-    code: "S4",
-    kind: { es: "Contexto independiente", en: "Independent context" },
-    title: {
-      es: "Guía universitaria sobre cafeína",
-      en: "University guide on caffeine",
-    },
-    detail: {
-      es: "Distingue alerta, memoria y riesgos; cita revisiones sistemáticas.",
-      en: "Distinguishes alertness, memory and risks; cites systematic reviews.",
-    },
-    clue: { es: "Lectura lateral", en: "Lateral reading" },
-  },
-];
-
-const actionChoices: Choice[] = [
-  {
-    id: "repeat",
-    title: { es: "Compartir la afirmación tal como está", en: "Share the claim as written" },
-    detail: {
-      es: "Mantener el 40% y la referencia a memoria.",
-      en: "Keep the 40% figure and the reference to memory.",
-    },
-  },
-  {
-    id: "context",
-    title: { es: "Compartir solo con contexto", en: "Share only with context" },
-    detail: {
-      es: "Aclarar muestra, medición, patrocinio y límites.",
-      en: "Clarify sample, measurement, sponsorship and limits.",
-    },
-  },
-  {
-    id: "hold",
-    title: { es: "No compartir y explicar la incertidumbre", en: "Do not share; explain uncertainty" },
-    detail: {
-      es: "La evidencia disponible no sostiene la frase original.",
-      en: "Available evidence does not support the original wording.",
-    },
-  },
-  {
-    id: "report",
-    title: { es: "Denunciar automáticamente la cuenta", en: "Automatically report the account" },
-    detail: {
-      es: "Tratar una afirmación dudosa como una infracción confirmada.",
-      en: "Treat a questionable claim as a confirmed violation.",
-    },
-  },
-];
 
 const methodCards = [
   {
@@ -213,6 +51,13 @@ const methodCards = [
 
 const text = {
   es: {
+    homeLabel: "AURA, inicio",
+    navLabel: "Navegación principal",
+    languageLabel: "Idioma",
+    menuOpen: "Abrir menú",
+    menuClose: "Cerrar menú",
+    featuresLabel: "Características principales",
+    moreOptions: "Más opciones",
     navMethod: "Método",
     navWhy: "Diferencia",
     navPilot: "Piloto",
@@ -237,6 +82,9 @@ const text = {
     proofOne: "4 acciones memorables",
     proofTwo: "Evidencia siempre visible",
     proofThree: "Habilidad transferible",
+    caseLibraryEyebrow: "BIBLIOTECA DE MISIONES",
+    caseLibraryTitle: "Elige un caso para investigar",
+    caseActive: "Caso activo",
     missionEyebrow: "LABORATORIO DE EVIDENCIA · CASO 01",
     missionTitle: "Investiga antes de decidir",
     missionBody:
@@ -352,8 +200,8 @@ const text = {
     roadmapEyebrow: "ESTADO DEL MVP",
     roadmapTitle: "Ya no es solo una idea.",
     roadmapItems: [
-      ["Ahora", "Flujo A-U-R-A navegable, caso simulado y tarjeta de evidencia."],
-      ["Siguiente", "Modelo de casos, panel de facilitación y analítica mínima."],
+      ["Ahora", "Motor bilingüe con dos casos, IA socrática y tarjeta de evidencia."],
+      ["Siguiente", "Analítica mínima y reto de transferencia no guiado."],
       ["Antes de aplicar", "Piloto, métricas reales, demo bilingüe y video."],
     ],
     guideTitle: "La estrategia completa vive junto al código.",
@@ -364,6 +212,13 @@ const text = {
     footerNote: "Prototipo de trabajo · Ecuador · 2026",
   },
   en: {
+    homeLabel: "AURA, home",
+    navLabel: "Primary navigation",
+    languageLabel: "Language",
+    menuOpen: "Open menu",
+    menuClose: "Close menu",
+    featuresLabel: "Main features",
+    moreOptions: "More options",
     navMethod: "Method",
     navWhy: "Difference",
     navPilot: "Pilot",
@@ -388,6 +243,9 @@ const text = {
     proofOne: "4 memorable actions",
     proofTwo: "Evidence always visible",
     proofThree: "Transferable skill",
+    caseLibraryEyebrow: "MISSION LIBRARY",
+    caseLibraryTitle: "Choose a case to investigate",
+    caseActive: "Active case",
     missionEyebrow: "EVIDENCE LAB · CASE 01",
     missionTitle: "Investigate before deciding",
     missionBody:
@@ -503,8 +361,8 @@ const text = {
     roadmapEyebrow: "MVP STATUS",
     roadmapTitle: "It is no longer only an idea.",
     roadmapItems: [
-      ["Now", "Navigable A-U-R-A flow, simulated case and evidence card."],
-      ["Next", "Case model, facilitator panel and minimum analytics."],
+      ["Now", "Bilingual engine with two cases, Socratic AI and evidence cards."],
+      ["Next", "Minimum analytics and an unguided transfer challenge."],
       ["Before submission", "Pilot, real metrics, bilingual demo and video."],
     ],
     guideTitle: "The full strategy lives beside the code.",
@@ -526,6 +384,7 @@ function scrollToMission() {
 export function AuraExperience() {
   const [locale, setLocale] = useState<Locale>("es");
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [activeCaseId, setActiveCaseId] = useState(auraCases[0].id);
   const [step, setStep] = useState<MissionStep>(0);
   const [initialDecision, setInitialDecision] = useState("");
   const [signals, setSignals] = useState<string[]>([]);
@@ -534,6 +393,8 @@ export function AuraExperience() {
   const [cardReady, setCardReady] = useState(false);
   const [copied, setCopied] = useState(false);
   const t = text[locale];
+  const activeCase =
+    auraCases.find((item) => item.id === activeCaseId) ?? auraCases[0];
 
   useEffect(() => {
     document.documentElement.lang = locale;
@@ -541,19 +402,20 @@ export function AuraExperience() {
 
   const selectedSourceNames = useMemo(
     () =>
-      sourceChoices
+      activeCase.sources
         .filter((source) => sources.includes(source.id))
         .map((source) => source.title[locale]),
-    [sources, locale],
+    [activeCase, sources, locale],
   );
 
   const selectedAction =
-    actionChoices.find((choice) => choice.id === action)?.title[locale] ?? "—";
+    activeCase.actions.find((choice) => choice.id === action)?.title[locale] ??
+    "—";
 
   const canContinue =
     (step === 0 && Boolean(initialDecision)) ||
     (step === 1 && signals.length > 0) ||
-    (step === 2 && sources.length === 2) ||
+    (step === 2 && sources.length === activeCase.sourceLimit) ||
     (step === 3 && Boolean(action));
 
   function toggleSignal(id: string) {
@@ -569,7 +431,7 @@ export function AuraExperience() {
       if (current.includes(id)) {
         return current.filter((source) => source !== id);
       }
-      if (current.length === 2) return current;
+      if (current.length === activeCase.sourceLimit) return current;
       return [...current, id];
     });
   }
@@ -593,14 +455,20 @@ export function AuraExperience() {
     setCopied(false);
   }
 
+  function selectCase(caseId: string) {
+    if (caseId === activeCaseId) return;
+    setActiveCaseId(caseId);
+    resetMission();
+  }
+
   async function copyEvidenceCard() {
     const summary = [
       `AURA — ${t.cardTitle}`,
-      `${t.original}: ${t.claimShort}`,
+      `${t.original}: ${activeCase.artifact.claim[locale]}`,
       `${t.consulted}: ${selectedSourceNames.join(", ")}`,
-      `${t.conclusion}: ${t.conclusionText}`,
+      `${t.conclusion}: ${activeCase.result.conclusion[locale]}`,
       `${t.decision}: ${selectedAction}`,
-      `${t.habit}: ${t.habitText}`,
+      `${t.habit}: ${activeCase.result.habit[locale]}`,
     ].join("\n");
 
     try {
@@ -615,7 +483,7 @@ export function AuraExperience() {
   return (
     <main>
       <header className="site-header">
-        <a className="brand" href="#inicio" aria-label="AURA, inicio">
+        <a className="brand" href="#inicio" aria-label={t.homeLabel}>
           <span className="brand-mark" aria-hidden="true">
             A
           </span>
@@ -625,7 +493,10 @@ export function AuraExperience() {
           </span>
         </a>
 
-        <nav className={mobileNavOpen ? "main-nav is-open" : "main-nav"} aria-label="Principal">
+        <nav
+          className={mobileNavOpen ? "main-nav is-open" : "main-nav"}
+          aria-label={t.navLabel}
+        >
           <a href="#metodo" onClick={() => setMobileNavOpen(false)}>{t.navMethod}</a>
           <a href="#diferencia" onClick={() => setMobileNavOpen(false)}>{t.navWhy}</a>
           <a href="#piloto" onClick={() => setMobileNavOpen(false)}>{t.navPilot}</a>
@@ -633,7 +504,7 @@ export function AuraExperience() {
         </nav>
 
         <div className="header-actions">
-          <div className="language-switch" aria-label="Language">
+          <div className="language-switch" aria-label={t.languageLabel}>
             <button
               type="button"
               aria-pressed={locale === "es"}
@@ -656,7 +527,7 @@ export function AuraExperience() {
           <button
             className="menu-button"
             type="button"
-            aria-label={mobileNavOpen ? "Cerrar menú" : "Abrir menú"}
+            aria-label={mobileNavOpen ? t.menuClose : t.menuOpen}
             aria-expanded={mobileNavOpen}
             onClick={() => setMobileNavOpen((open) => !open)}
           >
@@ -704,21 +575,21 @@ export function AuraExperience() {
             <div className="preview-title">
               <span className="preview-logo">A</span>
               <div>
-                <strong>AURA / 01</strong>
-                <small>energy drinks · campus</small>
+                <strong>AURA / {activeCase.number}</strong>
+                <small>{activeCase.artifact.context[locale]}</small>
               </div>
             </div>
             <div className="preview-row">
               <span>{t.claim}</span>
-              <strong>{t.claimShort}</strong>
+              <strong>{activeCase.artifact.claim[locale]}</strong>
             </div>
             <div className="preview-row">
               <span>{t.evidence}</span>
-              <strong>{t.evidenceShort}</strong>
+              <strong>{activeCase.artifact.evidence[locale]}</strong>
             </div>
             <div className="preview-row">
               <span>{t.action}</span>
-              <strong>{t.actionShort}</strong>
+              <strong>{activeCase.artifact.action[locale]}</strong>
             </div>
             <div className="preview-track">
               <span />
@@ -735,7 +606,7 @@ export function AuraExperience() {
           </div>
         </div>
 
-        <div className="proof-strip" aria-label="Características principales">
+        <div className="proof-strip" aria-label={t.featuresLabel}>
           <span><b>01</b>{t.proofOne}</span>
           <span><b>02</b>{t.proofTwo}</span>
           <span><b>03</b>{t.proofThree}</span>
@@ -746,10 +617,40 @@ export function AuraExperience() {
         <div className="section-shell">
           <div className="mission-heading section-heading">
             <div>
-              <p className="eyebrow">{t.missionEyebrow}</p>
-              <h2>{t.missionTitle}</h2>
+              <p className="eyebrow">{activeCase.mission.eyebrow[locale]}</p>
+              <h2>{activeCase.mission.title[locale]}</h2>
             </div>
-            <p>{t.missionBody}</p>
+            <p>{activeCase.mission.body[locale]}</p>
+          </div>
+
+          <div className="case-library" aria-label={t.caseLibraryTitle}>
+            <div className="case-library-intro">
+              <span>{t.caseLibraryEyebrow}</span>
+              <strong>{t.caseLibraryTitle}</strong>
+            </div>
+            <div className="case-tabs">
+              {auraCases.map((item) => {
+                const active = item.id === activeCase.id;
+                return (
+                  <button
+                    key={item.id}
+                    type="button"
+                    className={active ? "case-tab is-active" : "case-tab"}
+                    aria-pressed={active}
+                    data-case-id={item.id}
+                    onClick={() => selectCase(item.id)}
+                  >
+                    <span className="case-tab-number">{item.number}</span>
+                    <span className="case-tab-copy">
+                      <small>{item.catalog.tag[locale]}</small>
+                      <strong>{item.catalog.title[locale]}</strong>
+                      <span>{item.catalog.summary[locale]}</span>
+                    </span>
+                    {active && <b>{t.caseActive}</b>}
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
           <div className="mission-workspace">
@@ -760,30 +661,41 @@ export function AuraExperience() {
               </div>
               <article className="viral-post">
                 <div className="post-author">
-                  <span className="post-avatar" aria-hidden="true">C</span>
+                  <span className="post-avatar" aria-hidden="true">
+                    {activeCase.post.avatar}
+                  </span>
                   <div>
-                    <strong>{t.postAccount}</strong>
-                    <span>{t.postMeta}</span>
+                    <strong>{activeCase.post.account[locale]}</strong>
+                    <span>{activeCase.post.meta[locale]}</span>
                   </div>
-                  <button type="button" aria-label="Más opciones" tabIndex={-1}>•••</button>
+                  <button
+                    type="button"
+                    aria-label={t.moreOptions}
+                    tabIndex={-1}
+                  >
+                    •••
+                  </button>
                 </div>
-                <p>{t.post}</p>
-                <div className="post-media" aria-hidden="true">
-                  <span className="media-kicker">FOCUS+ STUDY</span>
-                  <strong>+40%</strong>
-                  <span>MEMORY BOOST?</span>
-                  <div className="can-shape">F+</div>
+                <p>{activeCase.post.body[locale]}</p>
+                <div
+                  className={`post-media post-media-${activeCase.theme}`}
+                  aria-hidden="true"
+                >
+                  <span className="media-kicker">
+                    {activeCase.post.mediaKicker[locale]}
+                  </span>
+                  <strong>{activeCase.post.mediaValue}</strong>
+                  <span>{activeCase.post.mediaCaption[locale]}</span>
+                  <div className="can-shape">
+                    {activeCase.post.mediaMark}
+                  </div>
                 </div>
                 <div className="post-metrics">
-                  <span>◉ {t.views}</span>
-                  <span>↗ {t.reposts}</span>
+                  <span>◉ {activeCase.post.views[locale]}</span>
+                  <span>↗ {activeCase.post.reposts[locale]}</span>
                 </div>
               </article>
-              <p className="case-note">
-                {locale === "es"
-                  ? "Este caso es ficticio y fue diseñado para demostrar el método sin amplificar desinformación real."
-                  : "This case is fictional and designed to demonstrate the method without amplifying real misinformation."}
-              </p>
+              <p className="case-note">{activeCase.post.note[locale]}</p>
             </aside>
 
             <div className="lab-panel">
@@ -822,9 +734,12 @@ export function AuraExperience() {
                 <div className="stage" key={step}>
                   {step === 0 && (
                     <>
-                      <StageHeading title={t.stage0Title} body={t.stage0Body} />
+                      <StageHeading
+                        title={activeCase.stages.analyze.title[locale]}
+                        body={activeCase.stages.analyze.body[locale]}
+                      />
                       <div className="choice-grid">
-                        {initialChoices.map((choice) => (
+                        {activeCase.initialChoices.map((choice) => (
                           <ChoiceButton
                             key={choice.id}
                             active={initialDecision === choice.id}
@@ -837,12 +752,13 @@ export function AuraExperience() {
                       {initialDecision && (
                         <div className="neutral-feedback">
                           <span aria-hidden="true">✓</span>
-                          {t.stage0Feedback}
+                          {activeCase.stages.analyze.feedback[locale]}
                         </div>
                       )}
                       <CoachPrompt
-                        key={`analyze-${locale}-${initialDecision}`}
-                        text={t.stage0Coach}
+                        key={`${activeCase.id}-analyze-${locale}-${initialDecision}`}
+                        caseId={activeCase.id}
+                        text={activeCase.stages.analyze.coach[locale]}
                         locale={locale}
                         stage="analyze"
                         decision={initialDecision}
@@ -856,9 +772,12 @@ export function AuraExperience() {
 
                   {step === 1 && (
                     <>
-                      <StageHeading title={t.stage1Title} body={t.stage1Body} />
+                      <StageHeading
+                        title={activeCase.stages.uncover.title[locale]}
+                        body={activeCase.stages.uncover.body[locale]}
+                      />
                       <div className="signal-grid">
-                        {signalChoices.map((choice) => (
+                        {activeCase.signals.map((choice) => (
                           <ChoiceButton
                             key={choice.id}
                             active={signals.includes(choice.id)}
@@ -870,11 +789,13 @@ export function AuraExperience() {
                         ))}
                       </div>
                       <p className="selection-count">
-                        {signals.length} / {signalChoices.length} {t.selected}
+                        {signals.length} / {activeCase.signals.length}{" "}
+                        {t.selected}
                       </p>
                       <CoachPrompt
-                        key={`uncover-${locale}-${signals.join("-")}`}
-                        text={t.stage1Coach}
+                        key={`${activeCase.id}-uncover-${locale}-${signals.join("-")}`}
+                        caseId={activeCase.id}
+                        text={activeCase.stages.uncover.coach[locale]}
                         locale={locale}
                         stage="uncover"
                         decision={initialDecision}
@@ -888,11 +809,15 @@ export function AuraExperience() {
 
                   {step === 2 && (
                     <>
-                      <StageHeading title={t.stage2Title} body={t.stage2Body} />
+                      <StageHeading
+                        title={activeCase.stages.research.title[locale]}
+                        body={activeCase.stages.research.body[locale]}
+                      />
                       <div className="source-grid">
-                        {sourceChoices.map((source) => {
+                        {activeCase.sources.map((source) => {
                           const active = sources.includes(source.id);
-                          const blocked = sources.length === 2 && !active;
+                          const blocked =
+                            sources.length === activeCase.sourceLimit && !active;
                           return (
                             <button
                               className={active ? "source-card is-active" : "source-card"}
@@ -911,28 +836,34 @@ export function AuraExperience() {
                           );
                         })}
                       </div>
-                      <p className="selection-count">{sources.length} / 2 {t.sourcesSelected}</p>
-                      {sources.length === 2 && (
+                      <p className="selection-count">
+                        {sources.length} / {activeCase.sourceLimit}{" "}
+                        {t.sourcesSelected}
+                      </p>
+                      {sources.length === activeCase.sourceLimit && (
                         <div className="evidence-map">
                           <div>
                             <span>{t.mapClaim}</span>
-                            <strong>{t.mapClaimText}</strong>
+                            <strong>{activeCase.evidenceMap.claim[locale]}</strong>
                           </div>
                           <i aria-hidden="true">→</i>
                           <div>
                             <span>{t.mapEvidence}</span>
-                            <strong>{t.mapEvidenceText}</strong>
+                            <strong>
+                              {activeCase.evidenceMap.finding[locale]}
+                            </strong>
                           </div>
                           <i aria-hidden="true">→</i>
                           <div>
                             <span>{t.mapGap}</span>
-                            <strong>{t.mapGapText}</strong>
+                            <strong>{activeCase.evidenceMap.gap[locale]}</strong>
                           </div>
                         </div>
                       )}
                       <CoachPrompt
-                        key={`research-${locale}-${sources.join("-")}`}
-                        text={t.stage2Coach}
+                        key={`${activeCase.id}-research-${locale}-${sources.join("-")}`}
+                        caseId={activeCase.id}
+                        text={activeCase.stages.research.coach[locale]}
                         locale={locale}
                         stage="research"
                         decision={initialDecision}
@@ -946,9 +877,12 @@ export function AuraExperience() {
 
                   {step === 3 && (
                     <>
-                      <StageHeading title={t.stage3Title} body={t.stage3Body} />
+                      <StageHeading
+                        title={activeCase.stages.act.title[locale]}
+                        body={activeCase.stages.act.body[locale]}
+                      />
                       <div className="choice-grid action-grid">
-                        {actionChoices.map((choice) => (
+                        {activeCase.actions.map((choice) => (
                           <ChoiceButton
                             key={choice.id}
                             active={action === choice.id}
@@ -960,8 +894,9 @@ export function AuraExperience() {
                         ))}
                       </div>
                       <CoachPrompt
-                        key={`act-${locale}-${action}`}
-                        text={t.stage3Coach}
+                        key={`${activeCase.id}-act-${locale}-${action}`}
+                        caseId={activeCase.id}
+                        text={activeCase.stages.act.coach[locale]}
                         locale={locale}
                         stage="act"
                         decision={initialDecision}
@@ -1003,20 +938,30 @@ export function AuraExperience() {
                     <div>
                       <span className="result-kicker">AURA / EVIDENCE LAB</span>
                       <h3>{t.cardTitle}</h3>
-                      <p>{t.cardSubtitle}</p>
+                      <p>{activeCase.result.cardSubtitle[locale]}</p>
                     </div>
                     <span className="result-seal" aria-hidden="true">A</span>
                   </div>
 
                   <div className="result-grid">
-                    <ResultItem label={t.original} text={t.claimShort} />
+                    <ResultItem
+                      label={t.original}
+                      text={activeCase.artifact.claim[locale]}
+                    />
                     <ResultItem
                       label={t.consulted}
                       text={selectedSourceNames.length ? selectedSourceNames.join(" · ") : "—"}
                     />
-                    <ResultItem label={t.conclusion} text={t.conclusionText} wide />
+                    <ResultItem
+                      label={t.conclusion}
+                      text={activeCase.result.conclusion[locale]}
+                      wide
+                    />
                     <ResultItem label={t.decision} text={selectedAction} />
-                    <ResultItem label={t.habit} text={t.habitText} />
+                    <ResultItem
+                      label={t.habit}
+                      text={activeCase.result.habit[locale]}
+                    />
                   </div>
 
                   <div className="result-note">
@@ -1269,6 +1214,7 @@ function ChoiceButton({
 }
 
 function CoachPrompt({
+  caseId,
   text,
   locale,
   stage,
@@ -1278,6 +1224,7 @@ function CoachPrompt({
   action,
   enabled,
 }: {
+  caseId: string;
   text: string;
   locale: Locale;
   stage: CoachStage;
@@ -1300,6 +1247,7 @@ function CoachPrompt({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          caseId,
           locale,
           stage,
           decision,

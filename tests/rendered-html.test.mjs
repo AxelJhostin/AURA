@@ -22,16 +22,21 @@ test("builds the AURA page as standard Next.js output", async () => {
   assert.match(html, /data-ai-coach="analyze"/);
   assert.match(html, /role="progressbar"/);
   assert.match(html, /Contenido simulado para aprendizaje/);
+  assert.match(html, /La promesa del 40%/);
+  assert.match(html, /La inundación de “ahora”/);
+  assert.match(html, /data-case-id="energy-memory"/);
+  assert.match(html, /data-case-id="recycled-storm-video"/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/);
 });
 
 test("keeps the OpenAI key server-only and provides a fallback", async () => {
-  const [route, component, gitignore] = await Promise.all([
+  const [route, component, cases, gitignore] = await Promise.all([
     readFile(new URL("app/api/aura/coach/route.ts", root), "utf8"),
     readFile(
       new URL("app/components/AuraExperience.tsx", root),
       "utf8",
     ),
+    readFile(new URL("app/data/cases.ts", root), "utf8"),
     readFile(new URL(".gitignore", root), "utf8"),
   ]);
 
@@ -39,11 +44,34 @@ test("keeps the OpenAI key server-only and provides a fallback", async () => {
   assert.match(route, /client\.responses\.create/);
   assert.match(route, /store:\s*false/);
   assert.match(route, /RATE_LIMIT/);
+  assert.match(route, /getAuraCase/);
+  assert.match(route, /activeCase\.ai\.scenario/);
   assert.doesNotMatch(route, /NEXT_PUBLIC_OPENAI/);
   assert.doesNotMatch(route, /OPENAI_API_KEY\s*=/);
+  assert.match(component, /caseId,/);
   assert.match(component, /Pregunta de respaldo/);
   assert.match(component, /fallback question/i);
+  assert.match(cases, /coachLabel/);
   assert.match(gitignore, /^\.env\*/m);
+});
+
+test("renders published bilingual cases through the reusable case engine", async () => {
+  const [cases, component] = await Promise.all([
+    readFile(new URL("app/data/cases.ts", root), "utf8"),
+    readFile(
+      new URL("app/components/AuraExperience.tsx", root),
+      "utf8",
+    ),
+  ]);
+
+  assert.match(cases, /id: "energy-memory"/);
+  assert.match(cases, /id: "recycled-storm-video"/);
+  assert.match(cases, /status: "published"/);
+  assert.match(cases, /sourceLimit: 2/);
+  assert.match(component, /auraCases\.map/);
+  assert.match(component, /activeCase\.sources/);
+  assert.match(component, /activeCase\.result\.conclusion/);
+  assert.doesNotMatch(component, /const initialChoices|const sourceChoices/);
 });
 
 test("uses the Vercel-compatible Next.js build contract", async () => {
@@ -51,6 +79,7 @@ test("uses the Vercel-compatible Next.js build contract", async () => {
     await readFile(new URL("package.json", root), "utf8"),
   );
 
+  assert.equal(packageJson.version, "0.4.0");
   assert.equal(packageJson.scripts.dev, "next dev");
   assert.equal(packageJson.scripts.build, "next build");
   assert.equal(packageJson.scripts.start, "next start");
