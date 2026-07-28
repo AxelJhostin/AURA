@@ -17,6 +17,9 @@
 
 **Prototipo público:** [https://aura-opal-beta.vercel.app/](https://aura-opal-beta.vercel.app/)
 
+**Vista previa validada de AURA 0.7.0:**
+[https://aura-git-agent-aura-pilot-mode-axeljhostins-projects.vercel.app/](https://aura-git-agent-aura-pilot-mode-axeljhostins-projects.vercel.app/)
+
 **Repositorio:** [https://github.com/AxelJhostin/AURA](https://github.com/AxelJhostin/AURA)
 
 **Rama funcional validada:** `agent/aura-pilot-mode`, PR borrador
@@ -142,8 +145,8 @@ latinoamericano y participación juvenil.
 ### 5. Estado real del producto — AURA 0.7.0
 
 La siguiente tabla es la fuente de verdad. “Implementado” significa que existe
-en el repositorio y en la demo pública; no significa que ya fue validado con
-usuarios.
+en la rama validada y en su preview de Vercel; llegará al dominio público al
+fusionar el PR. No significa que ya fue validado con usuarios.
 
 | Capacidad | Estado | Evidencia actual |
 |---|---|---|
@@ -185,8 +188,12 @@ Validaciones técnicas completadas para AURA 0.7.0:
 - ruta pública de eventos probada con aceptación, rechazo y persistencia real;
 - generación, normalización y propagación del código de piloto verificadas;
 - ruta de resumen limitada a resultados agregados y clave server-side;
+- prueba desplegada completa: consentimiento, inicio de misión, persistencia y
+  lectura agregada de `1 participante / 1 misión iniciada`;
+- revisión visual en escritorio y móvil de 390 px sin desbordamiento horizontal;
+- cero errores o advertencias en la consola del navegador del preview;
 - secretos fuera del repositorio;
-- despliegue de Vercel confirmado.
+- despliegue Preview de Vercel confirmado.
 
 ### 6. Lo que todavía no se puede afirmar
 
