@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 
 type Locale = "es" | "en";
 type MissionStep = 0 | 1 | 2 | 3;
+type CoachStage = "analyze" | "uncover" | "research" | "act";
 
 type Choice = {
   id: string;
@@ -839,7 +840,17 @@ export function AuraExperience() {
                           {t.stage0Feedback}
                         </div>
                       )}
-                      <CoachPrompt text={t.stage0Coach} />
+                      <CoachPrompt
+                        key={`analyze-${locale}-${initialDecision}`}
+                        text={t.stage0Coach}
+                        locale={locale}
+                        stage="analyze"
+                        decision={initialDecision}
+                        signals={signals}
+                        sources={sources}
+                        action={action}
+                        enabled={Boolean(initialDecision)}
+                      />
                     </>
                   )}
 
@@ -861,7 +872,17 @@ export function AuraExperience() {
                       <p className="selection-count">
                         {signals.length} / {signalChoices.length} {t.selected}
                       </p>
-                      <CoachPrompt text={t.stage1Coach} />
+                      <CoachPrompt
+                        key={`uncover-${locale}-${signals.join("-")}`}
+                        text={t.stage1Coach}
+                        locale={locale}
+                        stage="uncover"
+                        decision={initialDecision}
+                        signals={signals}
+                        sources={sources}
+                        action={action}
+                        enabled={signals.length > 0}
+                      />
                     </>
                   )}
 
@@ -909,7 +930,17 @@ export function AuraExperience() {
                           </div>
                         </div>
                       )}
-                      <CoachPrompt text={t.stage2Coach} />
+                      <CoachPrompt
+                        key={`research-${locale}-${sources.join("-")}`}
+                        text={t.stage2Coach}
+                        locale={locale}
+                        stage="research"
+                        decision={initialDecision}
+                        signals={signals}
+                        sources={sources}
+                        action={action}
+                        enabled={sources.length > 0}
+                      />
                     </>
                   )}
 
@@ -928,7 +959,17 @@ export function AuraExperience() {
                           />
                         ))}
                       </div>
-                      <CoachPrompt text={t.stage3Coach} />
+                      <CoachPrompt
+                        key={`act-${locale}-${action}`}
+                        text={t.stage3Coach}
+                        locale={locale}
+                        stage="act"
+                        decision={initialDecision}
+                        signals={signals}
+                        sources={sources}
+                        action={action}
+                        enabled={Boolean(action)}
+                      />
                     </>
                   )}
 
@@ -1227,11 +1268,100 @@ function ChoiceButton({
   );
 }
 
-function CoachPrompt({ text }: { text: string }) {
+function CoachPrompt({
+  text,
+  locale,
+  stage,
+  decision,
+  signals,
+  sources,
+  action,
+  enabled,
+}: {
+  text: string;
+  locale: Locale;
+  stage: CoachStage;
+  decision: string;
+  signals: string[];
+  sources: string[];
+  action: string;
+  enabled: boolean;
+}) {
+  const [question, setQuestion] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [failed, setFailed] = useState(false);
+
+  async function requestQuestion() {
+    setLoading(true);
+    setFailed(false);
+
+    try {
+      const response = await fetch("/api/aura/coach", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          locale,
+          stage,
+          decision,
+          signals,
+          sources,
+          action,
+        }),
+      });
+      const data = (await response.json()) as {
+        question?: string;
+        error?: string;
+      };
+
+      if (!response.ok || !data.question) {
+        throw new Error(data.error ?? "coach_unavailable");
+      }
+
+      setQuestion(data.question);
+    } catch {
+      setFailed(true);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const labels =
+    locale === "es"
+      ? {
+          source: question ? "Pregunta adaptada con IA" : "Pregunta de respaldo",
+          loading: "AURA está formulando una pregunta…",
+          action: question ? "Nueva pregunta" : "Profundizar con IA",
+          unavailable:
+            "La IA no respondió. La pregunta de respaldo sigue disponible.",
+        }
+      : {
+          source: question ? "AI-adapted question" : "Fallback question",
+          loading: "AURA is shaping a question…",
+          action: question ? "New question" : "Go deeper with AI",
+          unavailable:
+            "AI did not respond. The fallback question remains available.",
+        };
+
   return (
-    <div className="coach-prompt">
+    <div
+      className={question ? "coach-prompt is-ai" : "coach-prompt"}
+      data-ai-coach={stage}
+    >
       <span className="coach-mark" aria-hidden="true">A</span>
-      <p>{text}</p>
+      <div className="coach-copy">
+        <span>{labels.source}</span>
+        <p aria-live="polite">{loading ? labels.loading : question || text}</p>
+        {failed && <small role="status">{labels.unavailable}</small>}
+      </div>
+      <button
+        className="coach-ai-button"
+        type="button"
+        disabled={!enabled || loading}
+        onClick={requestQuestion}
+      >
+        {loading ? <span className="coach-loader" aria-hidden="true" /> : "✦"}
+        {labels.action}
+      </button>
     </div>
   );
 }

@@ -16,10 +16,10 @@ Este repositorio reúne dos entregables que deben evolucionar juntos:
 
 ## Estado actual
 
-**Versión:** MVP demostrable `0.2.0`  
-**Objetivo:** UNESCO Youth Hackathon 2026  
-**Equipo confirmado:** Axel + Nicol  
-**Modo:** prototipo local, listo para versionarse en GitHub  
+- **Versión:** MVP demostrable `0.3.0`
+- **Objetivo:** UNESCO Youth Hackathon 2026
+- **Equipo confirmado:** Axel + Nicol
+- **Modo:** Next.js estándar, publicado en GitHub y preparado para Vercel
 **Caso incluido:** caso educativo simulado sobre una afirmación de bebidas
 energéticas y memoria
 
@@ -31,6 +31,8 @@ La demo ya permite:
 - Elegir fuentes y construir un mapa de evidencia.
 - Decidir una acción proporcional a la evidencia.
 - Generar y copiar una Tarjeta de evidencia.
+- Solicitar una pregunta socrática adaptada mediante OpenAI en cada etapa.
+- Continuar con preguntas de respaldo cuando la IA no esté disponible.
 - Reiniciar la misión y recorrerla de nuevo.
 - Consultar narrativa, método, diferenciación, piloto, equipo y hoja de ruta.
 
@@ -49,23 +51,29 @@ La demostración hace visible la diferencia central de AURA:
 | El resultado principal es una respuesta | El resultado es un artefacto trazable |
 | Éxito = acertar | Éxito = investigar, justificar y transferir |
 
-El MVP no depende todavía de IA, autenticación ni base de datos. Esta es una
-decisión deliberada: primero se valida la experiencia pedagógica central; luego
-se añade IA únicamente donde mejore las preguntas, la adaptación y el feedback.
+La IA está limitada a formular una pregunta socrática breve según las acciones
+observadas. No determina si la publicación es verdadera o falsa, no elige por la
+persona y no puede inventar nuevas fuentes. El recorrido completo sigue
+funcionando sin IA mediante preguntas de respaldo.
 
 ## Inicio rápido
 
 ### Requisitos
 
-- Node.js `>=22.13.0`
+- Node.js `22.x`
 - npm
 
 ### Ejecutar en local
 
 ```bash
 npm install
+cp .env.example .env.local
 npm run dev
 ```
+
+Completar `OPENAI_API_KEY` dentro de `.env.local`. Ese archivo está ignorado por
+Git y nunca debe subirse a GitHub. La variable no debe llevar el prefijo
+`NEXT_PUBLIC_`, porque solamente la ruta del servidor puede leerla.
 
 La terminal mostrará la URL local, normalmente
 `http://localhost:3000/`.
@@ -84,6 +92,8 @@ npm test
 ```text
 AURA-UNESCO-2026/
 ├── app/
+│   ├── api/aura/coach/
+│   │   └── route.ts             # entrenador socrático del servidor
 │   ├── components/
 │   │   └── AuraExperience.tsx   # experiencia, contenido e interacciones
 │   ├── globals.css              # sistema visual y diseño responsivo
@@ -97,8 +107,7 @@ AURA-UNESCO-2026/
 │   └── DEVELOPMENT_ROADMAP.md   # plan técnico y criterios de aceptación
 ├── tests/
 │   └── rendered-html.test.mjs   # smoke tests del render del servidor
-├── .openai/
-│   └── hosting.json             # configuración compatible con Sites
+├── .env.example                 # nombres de variables, nunca secretos
 ├── CONTRIBUTING.md
 ├── package.json
 └── README.md
@@ -159,14 +168,44 @@ Los nombres y responsabilidades solo se agregan cuando estén confirmados.
 El prototipo usa:
 
 - React 19.
-- Next.js 16 como contrato de aplicación.
-- vinext + Vite para el entorno local y compilación.
+- Next.js 16 con salida estándar `.next`, compatible con Vercel.
+- SDK oficial de OpenAI y Responses API en una ruta exclusiva del servidor.
 - CSS propio para identidad visual, diseño responsivo y accesibilidad.
 - Estado local de React para la misión.
 
-No hay backend en esta versión. No se recopilan datos ni se almacenan respuestas.
-Una base de datos solo debe añadirse después de definir el modelo de
-consentimiento, retención y privacidad.
+La ruta de IA acepta solamente identificadores predefinidos de la misión, limita
+el tamaño y la frecuencia de las solicitudes, no almacena las respuestas en
+OpenAI y nunca envía la clave al navegador. No hay base de datos y no se
+recopilan datos personales.
+
+## Desplegar en Vercel
+
+La aplicación debe usar la configuración normal de Next.js:
+
+1. **Framework Preset:** `Next.js`.
+2. **Build Command:** `npm run build` o el valor automático.
+3. **Output Directory:** dejarlo vacío; no usar `dist`, `.vinext` ni una carpeta
+   personalizada.
+4. **Install Command:** dejar el valor automático.
+5. **Node.js:** versión 22.
+
+En **Settings → Environment Variables**, agregar:
+
+```text
+OPENAI_API_KEY=<clave del proyecto>
+OPENAI_MODEL=gpt-5.6
+```
+
+Aplicar `OPENAI_API_KEY` a Production, Preview y Development según sea
+necesario. Después de guardarla hay que iniciar un nuevo deployment: Vercel no
+aplica variables nuevas a despliegues anteriores.
+
+`NEXT_PUBLIC_SITE_URL` es opcional. En Vercel, el proyecto usa
+`VERCEL_PROJECT_PRODUCTION_URL` automáticamente para los metadatos sociales.
+
+El error anterior de `.next not found` ocurría porque el script ejecutaba
+`vinext build`. La versión actual ejecuta `next build` y genera la carpeta que
+Vercel espera.
 
 ## Flujo funcional
 
@@ -196,7 +235,7 @@ aprendizaje:
 3. Añadir un reto de transferencia sin ayuda.
 4. Instrumentar eventos mínimos y anónimos.
 5. Crear modo de facilitación para el piloto.
-6. Integrar IA con salidas estructuradas y preguntas de respaldo.
+6. Evaluar las preguntas generadas por IA con una rúbrica.
 7. Ejecutar pruebas con usuarios antes de ampliar funciones.
 
 Cada elemento tiene criterios de aceptación en
@@ -204,23 +243,18 @@ Cada elemento tiene criterios de aceptación en
 
 ## GitHub
 
-El proyecto ya es un repositorio Git local. Antes de publicarlo:
-
-1. Revisar nombres y correos de autores.
-2. Elegir una licencia. No se ha asumido una licencia pública.
-3. Crear un repositorio remoto.
-4. Confirmar que no existan secretos ni datos del piloto.
-5. Hacer el primer commit.
-6. Conectar el remoto y subir la rama principal.
-
-Ejemplo de primer commit:
+El repositorio remoto es
+[`AxelJhostin/AURA`](https://github.com/AxelJhostin/AURA). Antes de cada push:
 
 ```bash
-git add .
-git commit -m "feat: launch AURA evidence lab prototype"
+git status
+git diff --check
+npm run lint
+npm test
 ```
 
-No se incluye una licencia de código porque esa decisión pertenece al equipo.
+Confirmar especialmente que `.env.local` no aparezca en `git status`. No se
+incluye una licencia de código porque esa decisión todavía pertenece al equipo.
 
 ## Convenciones
 

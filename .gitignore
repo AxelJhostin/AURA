@@ -28,9 +28,11 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 /.npm-cache/
+/.wrangler/
 
-# env files (can opt-in for committing if needed)
+# environment values are private; only the template is versioned
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -39,6 +41,5 @@ yarn-error.log*
 next-env.d.ts
 *.tsbuildinfo
 /dist/
-/.wrangler/
 /outputs/
 /work/

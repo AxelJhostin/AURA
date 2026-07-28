@@ -1,10 +1,14 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
+const canonicalUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "http://localhost:3000");
+
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
-  ),
+  metadataBase: new URL(canonicalUrl),
   title: "AURA — De la reacción a la evidencia",
   description:
     "Laboratorio bilingüe de evidencia para entrenar alfabetización mediática e informacional mediante el método Analiza, Ubica, Rastrea y Actúa.",

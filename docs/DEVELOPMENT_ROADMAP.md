@@ -1,8 +1,8 @@
 # AURA — Hoja de ruta de desarrollo
 
-**Propietario técnico:** Axel  
-**Propietaria de estrategia e impacto:** Nicol  
-**Estado base:** MVP demostrable 0.2.0  
+- **Propietario técnico:** Axel
+- **Propietaria de estrategia e impacto:** Nicol
+- **Estado base:** MVP demostrable 0.3.0
 **Objetivo:** convertir el flujo actual en un piloto medible y una candidatura
 respaldada por evidencia real.
 
@@ -15,6 +15,8 @@ respaldada por evidencia real.
 - Selección de señales y fuentes.
 - Mapa de evidencia.
 - Tarjeta de evidencia copiable.
+- Preguntas socráticas adaptadas mediante OpenAI con respaldo determinista.
+- Build estándar de Next.js compatible con Vercel.
 - Equipo y hoja de ruta visibles.
 - Diseño responsivo y navegación por teclado.
 - Guía maestra versionada junto al proyecto.
@@ -182,7 +184,7 @@ Incluir:
 
 **Aceptación:** AURA no enseña que todo contenido viral es falso.
 
-#### P1.2 IA socrática acotada
+#### P1.2 IA socrática acotada — primera versión implementada
 
 Usos permitidos:
 
@@ -205,6 +207,19 @@ Salida estructurada sugerida:
 
 **Aceptación:** si la salida es inválida, aparece una pregunta de respaldo; la IA
 no inventa fuentes ni oculta incertidumbre.
+
+Estado actual:
+
+- Ruta privada `POST /api/aura/coach`.
+- Responses API mediante el SDK oficial.
+- Modelo configurable con `OPENAI_MODEL`.
+- Entrada limitada a identificadores predefinidos.
+- Una sola pregunta, sin veredicto ni fuentes inventadas.
+- `store: false`, límite de salida y rate limit básico.
+- Preguntas de respaldo si la clave o el servicio no están disponibles.
+
+Pendiente: evaluación con una rúbrica, pruebas adversariales y limitación
+distribuida antes de tráfico público significativo.
 
 #### P1.3 Exportar Tarjeta de evidencia
 
@@ -296,7 +311,7 @@ evidencia y siguiente paso sin explicación adicional.
 | Decisión | Responsable | Fecha límite | Criterio |
 |---|---|---:|---|
 | Licencia del repositorio | Axel + Nicol | Antes de hacerlo público | Apertura vs. protección |
-| Proveedor de IA | Axel | Antes de P1.2 | seguridad, costo, latencia |
+| Modelo y costo de IA | Axel | Antes del piloto | evaluar calidad, costo y latencia |
 | Infraestructura del piloto | Axel | Antes de P0.3 | privacidad y simplicidad |
 | Institución o comunidad piloto | Nicol | Antes de Sprint 4 | acceso real y permiso |
 | Integrantes 3 y 4 | Equipo | Lo antes posible | complementariedad real |

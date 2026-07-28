@@ -971,13 +971,18 @@ a:focus-visible {
 
 .coach-prompt {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   gap: 12px;
   align-items: center;
   margin-top: 17px;
   padding: 14px 16px;
   border-left: 3px solid var(--gold);
   background: var(--gold-pale);
+}
+
+.coach-prompt.is-ai {
+  border-left-color: var(--teal);
+  background: var(--teal-pale);
 }
 
 .coach-mark {
@@ -993,12 +998,84 @@ a:focus-visible {
   font-style: italic;
 }
 
+.coach-copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.coach-copy > span {
+  color: #86631c;
+  font-size: 7px;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.coach-prompt.is-ai .coach-copy > span {
+  color: var(--teal-dark);
+}
+
 .coach-prompt p {
   color: #5c4b26;
   font-family: var(--display);
   font-size: 13px;
   font-style: italic;
   line-height: 1.4;
+}
+
+.coach-prompt.is-ai p {
+  color: var(--teal-dark);
+}
+
+.coach-copy small {
+  color: #8b5c42;
+  font-size: 8px;
+  line-height: 1.4;
+}
+
+.coach-ai-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 34px;
+  padding: 8px 11px;
+  border: 1px solid rgba(92, 75, 38, 0.2);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.48);
+  color: #5c4b26;
+  cursor: pointer;
+  font-size: 8px;
+  font-weight: 850;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  transition: transform 160ms ease, background 160ms ease, opacity 160ms ease;
+}
+
+.coach-ai-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.76);
+}
+
+.coach-ai-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.42;
+}
+
+.coach-loader {
+  width: 10px;
+  height: 10px;
+  border: 1px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: coach-spin 700ms linear infinite;
+}
+
+@keyframes coach-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .stage-actions {
@@ -2147,6 +2224,16 @@ footer {
 
   .evidence-map i {
     transform: rotate(90deg);
+  }
+
+  .coach-prompt {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .coach-ai-button {
+    grid-column: 2;
+    justify-self: start;
+    white-space: normal;
   }
 
   .stage-actions,
