@@ -16,9 +16,9 @@ Este repositorio reúne dos entregables que deben evolucionar juntos:
 
 ## Estado actual
 
-- **Versión:** MVP demostrable `0.6.0`
+- **Versión:** MVP demostrable `0.7.0`
 - **Objetivo:** UNESCO Youth Hackathon 2026
-- **Equipo confirmado:** Axel + Nicol
+- **Equipo confirmado:** Hernández Axel + Nicole
 - **Modo:** Next.js estándar, publicado en GitHub y preparado para Vercel
 - **Casos incluidos:** dos misiones educativas simuladas sobre una afirmación
   de salud y un video viral reutilizado fuera de contexto, más un reto de
@@ -38,6 +38,8 @@ La demo ya permite:
 - Resolver un reto final no guiado sobre un tema diferente.
 - Obtener una puntuación de transferencia `0–2` basada en acciones observables.
 - Registrar métricas anónimas con consentimiento explícito.
+- Generar un código de piloto y un enlace compartible sin crear cuentas.
+- Consultar un panel de facilitación con totales y promedios agregados.
 - Descargar el reporte codificado de una sesión en CSV.
 - Solicitar una pregunta socrática adaptada mediante OpenAI en cada etapa.
 - Continuar con preguntas de respaldo cuando la IA no esté disponible.
@@ -104,8 +106,11 @@ AURA-UNESCO-2026/
 │   │   └── route.ts             # entrenador socrático del servidor
 │   ├── api/aura/events/
 │   │   └── route.ts             # recepción y validación de métricas anónimas
+│   ├── api/aura/pilots/
+│   │   └── route.ts             # resumen agregado de un piloto
 │   ├── components/
 │   │   ├── AuraExperience.tsx   # experiencia e interacciones
+│   │   ├── PilotFacilitator.tsx # enlaces y panel agregado del piloto
 │   │   └── TransferChallenge.tsx # reto no guiado y reporte de sesión
 │   ├── data/
 │   │   ├── cases.ts             # catálogo bilingüe y contenido de misiones
@@ -124,7 +129,8 @@ AURA-UNESCO-2026/
 ├── tests/
 │   └── rendered-html.test.mjs   # smoke tests del render del servidor
 ├── supabase/migrations/
-│   └── *_aura_learning_events.sql # persistencia opcional del piloto
+│   ├── *_aura_learning_events.sql # tabla y RLS de analítica anónima
+│   └── *_anonymous_pilot_code.sql # agrupación e índice del piloto
 ├── .env.example                 # nombres de variables, nunca secretos
 ├── CONTRIBUTING.md
 ├── package.json
@@ -144,13 +150,13 @@ El backlog técnico y las decisiones de evolución están en:
 
 ## Equipo
 
-### Axel — liderazgo técnico
+### Hernández Axel — liderazgo técnico
 
 Ingeniero de software. Responsable de arquitectura, experiencia de producto,
 desarrollo del MVP, integración responsable de IA, analítica, seguridad,
 despliegue y demo técnica.
 
-### Nicol — estrategia e impacto
+### Nicole — estrategia e impacto
 
 Estudiante de Negocios Internacionales. Responsable de investigación del
 público, operación del piloto, alianzas, sostenibilidad, documentación,
@@ -199,13 +205,19 @@ solicitudes, no almacena las respuestas en OpenAI y nunca envía la clave al
 navegador. La misión principal no requiere base de datos ni recopila datos
 personales.
 
-La analítica utiliza un identificador UUID aleatorio de sesión y un conjunto
-cerrado de eventos. Registra únicamente idioma, caso, etapa, opción codificada,
-duración, versión y puntuación de transferencia. No admite nombre, correo,
+La analítica utiliza un identificador UUID aleatorio de sesión, un código
+aleatorio de piloto opcional y un conjunto cerrado de eventos. Registra
+únicamente idioma, caso, etapa, opción codificada, duración, versión y
+puntuación de transferencia. No admite nombre, correo,
 ubicación, texto libre, IP, agente de navegador ni historial. Sin Supabase
 configurado, los eventos permanecen en el dispositivo y pueden descargarse en
 CSV. Con Supabase configurado, solo se envían cuando la persona selecciona
 **Permitir métricas anónimas**.
+
+El código `AURA-XXXXXXXXXXXX` funciona como una capacidad compartida: agrupa
+sesiones y permite abrir un resumen, pero la API nunca devuelve identificadores
+de sesión ni filas individuales. Debe compartirse solo con el equipo de
+facilitación y las personas participantes del piloto.
 
 ## Desplegar en Vercel
 
@@ -233,9 +245,9 @@ aplica variables nuevas a despliegues anteriores.
 
 Las variables de Supabase son opcionales. Deben permanecer exclusivamente en
 el servidor y nunca usar el prefijo `NEXT_PUBLIC_`. Antes de activarlas, aplicar
-la migración `supabase/migrations/*_aura_learning_events.sql`. La tabla tiene
+las migraciones de `supabase/migrations/` en orden. La tabla tiene
 RLS activado, no concede acceso a `anon` ni `authenticated`, y admite inserción
-solo desde el rol secreto del servidor.
+y lectura agregada solo desde el rol secreto del servidor.
 
 `NEXT_PUBLIC_SITE_URL` es opcional. En Vercel, el proyecto usa
 `VERCEL_PROJECT_PRODUCTION_URL` automáticamente para los metadatos sociales.
@@ -262,19 +274,21 @@ Tarjeta de evidencia
 Reto de transferencia sin guía
         ↓
 Puntuación + reporte anónimo CSV
+        ↓
+Panel agregado del piloto
 ```
 
 ## Próxima versión recomendada
 
-La siguiente meta no es añadir un chatbot general. Es completar el ciclo de
-aprendizaje:
+La siguiente meta no es añadir un chatbot general. Supabase y el modo
+facilitador ya están integrados en `0.7.0`; ahora toca convertir el producto en
+evidencia evaluable:
 
-1. Conectar un proyecto Supabase exclusivo de AURA y aplicar la migración.
-2. Crear un caso verdadero y otro con evidencia insuficiente.
-3. Añadir validación editorial formal al esquema de casos.
-4. Crear modo de facilitación con agregados, sin datos individuales.
-5. Evaluar las preguntas generadas por IA con una rúbrica.
-6. Ejecutar pruebas con usuarios antes de ampliar funciones.
+1. Crear un caso verdadero y otro con evidencia insuficiente.
+2. Añadir validación editorial formal al esquema de casos.
+3. Evaluar las preguntas generadas por IA con una rúbrica.
+4. Completar auditoría de accesibilidad y dispositivos.
+5. Ejecutar pruebas con usuarios antes de ampliar funciones.
 
 Cada elemento tiene criterios de aceptación en
 [`docs/DEVELOPMENT_ROADMAP.md`](docs/DEVELOPMENT_ROADMAP.md).
@@ -307,8 +321,8 @@ incluye una licencia de código porque esa decisión todavía pertenece al equip
 
 La guía maestra contiene:
 
-- briefing de incorporación y responsabilidades para Nicol;
-- estado verificable de AURA 0.6.0 y capacidades pendientes;
+- briefing de incorporación y responsabilidades para Nicole;
+- estado verificable de AURA 0.7.0 y capacidades pendientes;
 - lectura completa de la convocatoria;
 - propuesta de valor y diferenciación;
 - especificación del producto;

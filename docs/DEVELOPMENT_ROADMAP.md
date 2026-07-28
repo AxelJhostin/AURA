@@ -1,8 +1,8 @@
 # AURA — Hoja de ruta de desarrollo
 
-- **Propietario técnico:** Axel
-- **Propietaria de estrategia e impacto:** Nicol
-- **Estado base:** MVP medible 0.6.0
+- **Propietario técnico:** Hernández Axel
+- **Propietaria de estrategia e impacto:** Nicole
+- **Estado base:** MVP medible 0.7.0
 - **Objetivo:** convertir el flujo actual en un piloto medible y una candidatura
 respaldada por evidencia real.
 
@@ -20,6 +20,8 @@ respaldada por evidencia real.
 - Reto de transferencia no guiado con rúbrica `0–2`.
 - Consentimiento de analítica y reporte CSV por sesión.
 - Ruta validada para persistencia opcional en Supabase.
+- Código aleatorio y enlace compartible para cada piloto.
+- Panel de facilitación con métricas agregadas y sin filas individuales.
 - Preguntas socráticas adaptadas mediante OpenAI con respaldo determinista.
 - Build estándar de Next.js compatible con Vercel.
 - Equipo y hoja de ruta visibles.
@@ -169,7 +171,7 @@ validación server-side, respaldo local y exportación CSV. La persistencia
 central está activa en Supabase, usa únicamente la ruta server-side y fue
 verificada con eventos anónimos de la aplicación pública.
 
-#### P0.3b Expediente de fuentes — implementado en 0.6.0
+#### P0.3b Expediente de fuentes — implementado en 0.7.0
 
 - [x] Identificador estable para cada pieza del caso.
 - [x] Procedencia, fecha y declaración explícita de simulación.
@@ -182,16 +184,18 @@ si fuera una publicación, estudio o reporte real. La persona puede distinguir
 qué pertenece al caso y abrir el material externo que respalda el contexto o el
 método de verificación.
 
-#### P0.4 Modo facilitación
+#### P0.4 Modo facilitación — implementado en 0.7.0
 
-- La exportación CSV por sesión ya está implementada.
-- Código corto de sesión.
-- Pantalla con instrucciones.
-- Vista agregada, sin identificar personas.
-- Exportación CSV anonimizada.
+- [x] Exportación CSV por sesión.
+- [x] Código aleatorio de piloto con 12 caracteres.
+- [x] Enlace de invitación compartible.
+- [x] Vista agregada, sin identificar personas ni devolver filas.
+- [x] Participantes, finalización, transferencia, tiempo y puntuación media.
+- [x] Validación server-side, límite de frecuencia e índice parcial en Supabase.
 
-**Aceptación:** Nicol puede operar una sesión sin apoyo técnico durante la
-actividad.
+**Aceptación técnica alcanzada:** Nicole puede crear un código, copiar el enlace
+y consultar resultados agregados sin apoyo técnico. Falta validar el protocolo
+con personas reales antes de declarar alcanzada la aceptación operativa.
 
 #### P0.5 Accesibilidad y dispositivos
 
@@ -290,7 +294,7 @@ evidencia y siguiente paso sin explicación adicional.
 
 ### Sprint 0 — congelar producto
 
-- Revisar el prototipo con Axel y Nicol.
+- Revisar el prototipo con Hernández Axel y Nicole.
 - Confirmar tono, público, caso y recorrido.
 - Registrar decisiones.
 
@@ -314,9 +318,9 @@ evidencia y siguiente paso sin explicación adicional.
 
 ### Sprint 3 — facilitación
 
-- Modo de sesión.
-- Panel agregado.
-- Instrumento pre/post.
+- [x] Modo de sesión.
+- [x] Panel agregado.
+- [ ] Instrumento pre/post.
 
 **Salida:** paquete de piloto.
 
@@ -343,12 +347,12 @@ evidencia y siguiente paso sin explicación adicional.
 
 | Decisión | Responsable | Fecha límite | Criterio |
 |---|---|---:|---|
-| Licencia del repositorio | Axel + Nicol | Antes de hacerlo público | Apertura vs. protección |
-| Modelo y costo de IA | Axel | Antes del piloto | evaluar calidad, costo y latencia |
-| Infraestructura del piloto | Axel | Antes de P0.3 | privacidad y simplicidad |
-| Institución o comunidad piloto | Nicol | Antes de Sprint 4 | acceso real y permiso |
+| Licencia del repositorio | Hernández Axel + Nicole | Antes de hacerlo público | Apertura vs. protección |
+| Modelo y costo de IA | Hernández Axel | Antes del piloto | evaluar calidad, costo y latencia |
+| Infraestructura del piloto | Hernández Axel | Antes de P0.3 | privacidad y simplicidad |
+| Institución o comunidad piloto | Nicole | Antes de Sprint 4 | acceso real y permiso |
 | Integrantes 3 y 4 | Equipo | Lo antes posible | complementariedad real |
-| Revisor AMI externo | Nicol | Antes del piloto | rigor pedagógico |
+| Revisor AMI externo | Nicole | Antes del piloto | rigor pedagógico |
 
 ## 8. Métricas de piloto
 

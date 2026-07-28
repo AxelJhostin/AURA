@@ -5,6 +5,7 @@ import { auraCases, type Locale } from "../data/cases";
 import {
   createAnalyticsEvent,
   getOrCreateSessionId,
+  normalizePilotCode,
   readAnalyticsConsent,
   saveLocalAnalyticsEvent,
   sendAnalyticsEvent,
@@ -15,6 +16,7 @@ import {
   type AnalyticsEventInput,
 } from "../lib/analytics";
 import { TransferChallenge } from "./TransferChallenge";
+import { PilotFacilitator } from "./PilotFacilitator";
 
 type MissionStep = 0 | 1 | 2 | 3;
 type CoachStage = "analyze" | "uncover" | "research" | "act";
@@ -231,8 +233,8 @@ const text = {
     roadmapEyebrow: "ESTADO DEL MVP",
     roadmapTitle: "Ya no es solo una idea.",
     roadmapItems: [
-      ["Ahora", "Dos casos, IA socrática, reto sin guía y analítica anónima."],
-      ["Siguiente", "Modo facilitación y agregados para operar el piloto."],
+      ["Ahora", "Dos casos, IA socrática, transferencia y modo facilitador."],
+      ["Siguiente", "Casos equilibrados, rúbrica de IA y accesibilidad."],
       ["Antes de aplicar", "Piloto, métricas reales, demo bilingüe y video."],
     ],
     guideTitle: "La estrategia completa vive junto al código.",
@@ -410,8 +412,8 @@ const text = {
     roadmapEyebrow: "MVP STATUS",
     roadmapTitle: "It is no longer only an idea.",
     roadmapItems: [
-      ["Now", "Two cases, Socratic AI, unguided transfer and anonymous analytics."],
-      ["Next", "Facilitation mode and aggregate pilot reporting."],
+      ["Now", "Two cases, Socratic AI, transfer and facilitator mode."],
+      ["Next", "Balanced cases, AI rubric and accessibility."],
       ["Before submission", "Pilot, real metrics, bilingual demo and video."],
     ],
     guideTitle: "The full strategy lives beside the code.",
@@ -449,6 +451,7 @@ export function AuraExperience() {
     useState<AnalyticsConsent>("pending");
   const [analyticsSessionId, setAnalyticsSessionId] = useState("");
   const [analyticsEvents, setAnalyticsEvents] = useState<AnalyticsEvent[]>([]);
+  const [pilotCode, setPilotCode] = useState("");
   const missionStartedAt = useRef(0);
   const t = text[locale];
   const activeCase =
@@ -464,6 +467,9 @@ export function AuraExperience() {
       setAnalyticsSessionId(sessionId);
       setAnalyticsConsent(readAnalyticsConsent());
       setAnalyticsEvents(sessionEvents(sessionId));
+      setPilotCode(
+        normalizePilotCode(new URL(window.location.href).searchParams.get("pilot")),
+      );
     }, 0);
 
     return () => window.clearTimeout(timer);
@@ -471,7 +477,10 @@ export function AuraExperience() {
 
   const trackEvent = useCallback(
     (input: AnalyticsEventInput) => {
-      const event = createAnalyticsEvent(input);
+      const event = createAnalyticsEvent({
+        ...input,
+        pilotCode: pilotCode || undefined,
+      });
       saveLocalAnalyticsEvent(event);
       setAnalyticsSessionId(event.sessionId);
       setAnalyticsEvents((current) => [...current, event].slice(-300));
@@ -480,7 +489,7 @@ export function AuraExperience() {
         void sendAnalyticsEvent(event);
       }
     },
-    [analyticsConsent],
+    [analyticsConsent, pilotCode],
   );
 
   const selectedSourceNames = useMemo(
@@ -628,6 +637,16 @@ export function AuraExperience() {
   ) {
     setAnalyticsConsent(value);
     writeAnalyticsConsent(value);
+  }
+
+  function activatePilotCode(code: string) {
+    const normalized = normalizePilotCode(code);
+    if (!normalized) return;
+
+    setPilotCode(normalized);
+    const url = new URL(window.location.href);
+    url.searchParams.set("pilot", normalized);
+    window.history.replaceState(null, "", url);
   }
 
   async function copyEvidenceCard() {
@@ -832,6 +851,12 @@ export function AuraExperience() {
             <div>
               <strong>{t.analyticsTitle}</strong>
               <p>{t.analyticsBody}</p>
+              {pilotCode && (
+                <small className="active-pilot-code">
+                  {locale === "es" ? "Piloto activo" : "Active pilot"} ·{" "}
+                  {pilotCode}
+                </small>
+              )}
             </div>
             <div className="analytics-consent-actions">
               <button
@@ -1382,6 +1407,11 @@ export function AuraExperience() {
             </article>
           ))}
         </div>
+        <PilotFacilitator
+          locale={locale}
+          activePilotCode={pilotCode}
+          onActivateCode={activatePilotCode}
+        />
       </section>
 
       <section className="team-section" id="equipo">
@@ -1395,18 +1425,18 @@ export function AuraExperience() {
           </div>
           <div className="team-grid">
             <article className="person-card axel">
-              <div className="person-monogram" aria-hidden="true">AX</div>
+              <div className="person-monogram" aria-hidden="true">HA</div>
               <span className="person-role">{t.axelRole}</span>
-              <h3>Axel</h3>
+              <h3>Hernández Axel</h3>
               <p>{t.axelText}</p>
               <div className="person-tags">
                 <span>Product</span><span>Engineering</span><span>AI</span>
               </div>
             </article>
             <article className="person-card nicol">
-              <div className="person-monogram" aria-hidden="true">NI</div>
+              <div className="person-monogram" aria-hidden="true">NO</div>
               <span className="person-role">{t.nicolRole}</span>
-              <h3>Nicol</h3>
+              <h3>Nicole</h3>
               <p>{t.nicolText}</p>
               <div className="person-tags">
                 <span>Strategy</span><span>Impact</span><span>Pitch</span>

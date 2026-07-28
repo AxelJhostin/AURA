@@ -1,6 +1,7 @@
 import { auraCases } from "../../../data/cases";
 import { transferChallenge } from "../../../data/transfer";
 import {
+  PILOT_CODE_PATTERN,
   PRODUCT_VERSION,
   type AnalyticsEventName,
   type AnalyticsStage,
@@ -210,6 +211,7 @@ export async function POST(request: Request) {
   const eventId = body.eventId;
   const eventName = body.eventName;
   const sessionId = body.sessionId;
+  const pilotCode = body.pilotCode;
   const occurredAt = body.occurredAt;
   const locale = body.locale;
   const caseId = body.caseId;
@@ -228,6 +230,9 @@ export async function POST(request: Request) {
     !allowedEventNames.has(eventName as AnalyticsEventName) ||
     typeof sessionId !== "string" ||
     !UUID_PATTERN.test(sessionId) ||
+    (pilotCode !== undefined &&
+      (typeof pilotCode !== "string" ||
+        !PILOT_CODE_PATTERN.test(pilotCode))) ||
     typeof occurredAt !== "string" ||
     !Number.isFinite(occurredTimestamp) ||
     Math.abs(Date.now() - occurredTimestamp) > MAX_CLOCK_DRIFT_MS ||
@@ -292,6 +297,7 @@ export async function POST(request: Request) {
         body: JSON.stringify({
           event_id: eventId,
           anonymous_session_id: sessionId,
+          pilot_code: pilotCode ?? null,
           event_name: eventName,
           occurred_at: occurredAt,
           locale,

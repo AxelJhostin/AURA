@@ -2325,6 +2325,165 @@ a:focus-visible {
   line-height: 1.55;
 }
 
+.active-pilot-code {
+  display: inline-flex;
+  margin-top: 8px;
+  color: var(--ink);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.facilitator-panel {
+  margin-top: 36px;
+  padding: clamp(24px, 4vw, 42px);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at top right, rgba(13, 154, 131, 0.16), transparent 34%),
+    var(--white);
+  box-shadow: 0 22px 60px rgba(16, 47, 53, 0.08);
+}
+
+.facilitator-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(18rem, 1.1fr);
+  gap: 32px;
+  align-items: end;
+}
+
+.facilitator-heading h3 {
+  max-width: 18ch;
+  margin-top: 7px;
+  font-family: var(--display);
+  font-size: clamp(28px, 4vw, 43px);
+  font-weight: 500;
+  line-height: 1.02;
+}
+
+.facilitator-heading > p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.facilitator-controls {
+  display: grid;
+  grid-template-columns: auto minmax(15rem, 1fr) auto auto auto;
+  gap: 10px;
+  align-items: end;
+  margin-top: 28px;
+}
+
+.facilitator-controls label {
+  display: grid;
+  gap: 7px;
+}
+
+.facilitator-controls label > span {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.facilitator-controls input {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.facilitator-controls input:focus {
+  border-color: var(--teal);
+  outline: 3px solid rgba(13, 154, 131, 0.18);
+}
+
+.facilitator-status {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: var(--teal-pale);
+  font-size: 11px;
+}
+
+.facilitator-status strong {
+  color: var(--teal-dark);
+}
+
+.facilitator-status span {
+  overflow-wrap: anywhere;
+}
+
+.facilitator-error {
+  margin-top: 12px;
+  color: #a63a3a;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.pilot-report {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 1px;
+  overflow: hidden;
+  margin-top: 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--line);
+}
+
+.pilot-report > div {
+  display: grid;
+  min-height: 108px;
+  padding: 16px;
+  place-content: center start;
+  background: var(--white);
+}
+
+.pilot-report strong {
+  font-family: var(--display);
+  font-size: 29px;
+  font-weight: 600;
+}
+
+.pilot-report span {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.pilot-report > p {
+  grid-column: 1 / -1;
+  padding: 14px 16px;
+  background: var(--white);
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.facilitator-privacy {
+  display: block;
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.5;
+}
+
 .team-section {
   padding: 125px 0;
   background: #f0ded4;
@@ -2753,6 +2912,27 @@ footer {
     border-bottom: 1px solid var(--line);
   }
 
+  .facilitator-heading {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .facilitator-heading h3 {
+    max-width: 22ch;
+  }
+
+  .facilitator-controls {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .facilitator-controls label {
+    grid-column: 1 / -1;
+  }
+
+  .pilot-report {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
   .team-grid {
     grid-template-columns: 1fr;
   }
@@ -2889,6 +3069,31 @@ footer {
 
   .analytics-consent-actions button {
     width: 100%;
+  }
+
+  .facilitator-panel {
+    padding: 22px 18px;
+  }
+
+  .facilitator-controls {
+    grid-template-columns: 1fr;
+  }
+
+  .facilitator-controls label {
+    grid-column: auto;
+  }
+
+  .facilitator-controls .button {
+    width: 100%;
+  }
+
+  .facilitator-status {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .pilot-report {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .transfer-challenge {

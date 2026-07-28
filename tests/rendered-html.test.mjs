@@ -17,8 +17,8 @@ test("builds the AURA page as standard Next.js output", async () => {
   assert.match(html, /Ubica/);
   assert.match(html, /Rastrea/);
   assert.match(html, /Actúa/);
-  assert.match(html, /Axel/);
-  assert.match(html, /Nicol/);
+  assert.match(html, /Hernández Axel/);
+  assert.match(html, /Nicole/);
   assert.match(html, /data-ai-coach="analyze"/);
   assert.match(html, /role="progressbar"/);
   assert.match(html, /Contenido simulado para aprendizaje/);
@@ -123,7 +123,7 @@ test("implements an unguided transfer challenge with anonymous coded analytics",
   assert.match(transfer, /RETO DE TRANSFERENCIA · SIN GUÍA/);
   assert.match(transfer, /score: 1/);
   assert.doesNotMatch(transfer, /textarea|freeText/);
-  assert.match(analytics, /PRODUCT_VERSION = "0.6.0"/);
+  assert.match(analytics, /PRODUCT_VERSION = "0.7.0"/);
   assert.match(analytics, /analyticsEventsToCsv/);
   assert.match(analytics, /cryptoApi\.getRandomValues/);
   assert.match(route, /process\.env\.SUPABASE_SECRET_KEY/);
@@ -151,7 +151,7 @@ test("uses the Vercel-compatible Next.js build contract", async () => {
     await readFile(new URL("package.json", root), "utf8"),
   );
 
-  assert.equal(packageJson.version, "0.6.0");
+  assert.equal(packageJson.version, "0.7.0");
   assert.equal(packageJson.scripts.dev, "next dev");
   assert.equal(packageJson.scripts.build, "next build");
   assert.equal(packageJson.scripts.start, "next start");
@@ -159,6 +159,49 @@ test("uses the Vercel-compatible Next.js build contract", async () => {
   assert.equal(packageJson.dependencies.openai.startsWith("^6."), true);
   assert.equal("vinext" in packageJson.devDependencies, false);
   assert.equal("wrangler" in packageJson.devDependencies, false);
+});
+
+test("groups anonymous sessions into private aggregate pilot reports", async () => {
+  const [component, facilitator, analytics, route, migration] =
+    await Promise.all([
+      readFile(
+        new URL("app/components/AuraExperience.tsx", root),
+        "utf8",
+      ),
+      readFile(
+        new URL("app/components/PilotFacilitator.tsx", root),
+        "utf8",
+      ),
+      readFile(new URL("app/lib/analytics.ts", root), "utf8"),
+      readFile(new URL("app/api/aura/pilots/route.ts", root), "utf8"),
+      readFile(
+        new URL(
+          "supabase/migrations/20260728141033_add_anonymous_pilot_code.sql",
+          root,
+        ),
+        "utf8",
+      ),
+    ]);
+
+  assert.match(component, /<PilotFacilitator/);
+  assert.match(component, /pilotCode: pilotCode \|\| undefined/);
+  assert.match(facilitator, /createPilotCode/);
+  assert.match(facilitator, /Copiar enlace/);
+  assert.match(facilitator, /resultados agregados/);
+  assert.match(analytics, /PILOT_CODE_PATTERN/);
+  assert.match(analytics, /cryptoApi\.getRandomValues\(bytes\)/);
+  assert.match(route, /MAX_ROWS = 5_000/);
+  assert.match(route, /process\.env\.SUPABASE_SECRET_KEY/);
+  assert.match(route, /completionRate/);
+  assert.match(route, /averageTransferScore/);
+  assert.doesNotMatch(route, /NEXT_PUBLIC_SUPABASE/);
+  assert.match(migration, /add column if not exists pilot_code text/i);
+  assert.match(migration, /grant select, insert.*service_role/i);
+  assert.match(migration, /where pilot_code is not null/i);
+  assert.doesNotMatch(
+    migration,
+    /\b(email|full_name|user_agent|ip_address)\b/i,
+  );
 });
 
 test("keeps a current, self-contained master handoff for the team", async () => {
@@ -170,9 +213,9 @@ test("keeps a current, self-contained master handoff for the team", async () => 
     "utf8",
   );
 
-  assert.match(guide, /Briefing de incorporación para Nicol/);
-  assert.match(guide, /Versión funcional de referencia:\*\* AURA 0\.6\.0/);
-  assert.match(guide, /Estado real del producto — AURA 0\.6\.0/);
+  assert.match(guide, /Briefing de incorporación para Nicole/);
+  assert.match(guide, /Versión funcional de referencia:\*\* AURA 0\.7\.0/);
+  assert.match(guide, /Estado real del producto — AURA 0\.7\.0/);
   assert.match(guide, /Ruta crítica hasta el 16 de agosto/);
   assert.match(guide, /Persistencia central \| Activa y verificada/);
   assert.match(guide, /https:\/\/aura-opal-beta\.vercel\.app\//);
