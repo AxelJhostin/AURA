@@ -2919,6 +2919,17 @@ input:focus-visible {
   white-space: nowrap;
 }
 
+.guide-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.guide-actions a:first-child {
+  color: var(--teal-dark);
+}
+
 footer {
   padding: 38px 0;
   border-top: 1px solid var(--line);
@@ -3157,7 +3168,7 @@ footer {
     grid-template-columns: auto 1fr;
   }
 
-  .guide-callout a {
+  .guide-actions {
     grid-column: 2;
   }
 
@@ -3507,8 +3518,11 @@ footer {
     padding: 24px;
   }
 
-  .guide-callout a {
+  .guide-actions {
     grid-column: 1;
+  }
+
+  .guide-callout a {
     white-space: normal;
   }
 

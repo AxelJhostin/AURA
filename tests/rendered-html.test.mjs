@@ -32,6 +32,10 @@ test("builds the AURA page as standard Next.js output", async () => {
   assert.match(html, /data-case-id="grayscale-grades"/);
   assert.match(html, /Medición anónima del aprendizaje/);
   assert.match(html, /Saltar a la misión/);
+  assert.match(
+    html,
+    /\/docs\/AURA_Dossier_Postulacion_y_Matriz_Evaluacion_2026\.md/,
+  );
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/);
 });
 
@@ -302,4 +306,30 @@ test("keeps a current, self-contained master handoff for the team", async () => 
   assert.match(guide, /Persistencia central \| Activa y verificada/);
   assert.match(guide, /https:\/\/aura-opal-beta\.vercel\.app\//);
   assert.doesNotMatch(guide, /sk-proj-|sb_secret_|SUPABASE_SECRET_KEY=/);
+});
+
+test("maps the official UNESCO criteria to evidence and submission gates", async () => {
+  const dossier = await readFile(
+    new URL(
+      "public/docs/AURA_Dossier_Postulacion_y_Matriz_Evaluacion_2026.md",
+      root,
+    ),
+    "utf8",
+  );
+
+  assert.match(dossier, /Documento operativo para Hernández Axel, Nicole/);
+  assert.match(dossier, /16 de agosto de 2026, 23:59, hora de París/);
+  assert.match(dossier, /Cada proyecto será revisado por tres expertos/i);
+  assert.match(dossier, /Consistency with the Theme and MIL Principles/);
+  assert.match(dossier, /Clarity of Presentation/);
+  assert.match(dossier, /Innovation and Creativity/);
+  assert.match(dossier, /Feasibility and Sustainability/);
+  assert.match(dossier, /Impact and Inclusion/);
+  assert.match(dossier, /No existe evidencia pública de/);
+  assert.match(dossier, /PDF con texto nativo y seleccionable/);
+  assert.match(dossier, /15 de agosto de 2026, 18:00, hora de Ecuador/);
+  assert.doesNotMatch(
+    dossier,
+    /sk-proj-|sb_secret_|SUPABASE_SECRET_KEY=/,
+  );
 });

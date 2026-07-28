@@ -8,11 +8,13 @@ AURA es un laboratorio bilingüe de Alfabetización Mediática e Informacional
 entrena a la persona para investigar una afirmación, comparar evidencia,
 justificar una decisión y transferir la habilidad a un caso nuevo.
 
-Este repositorio reúne dos entregables que deben evolucionar juntos:
+Este repositorio reúne tres entregables que deben evolucionar juntos:
 
 1. Un **prototipo web funcional** para demostrar el método A-U-R-A.
 2. La **guía maestra del proyecto** para estrategia, candidatura, piloto,
    producto, IA responsable, riesgos, pitch y ejecución.
+3. Un **dossier operativo de postulación** que convierte los criterios
+   oficiales en evidencia, responsables, fechas y controles de envío.
 
 ## Estado actual
 
@@ -129,7 +131,8 @@ AURA-UNESCO-2026/
 │   └── page.tsx                 # entrada principal
 ├── public/
 │   ├── docs/
-│   │   └── AURA_Guia_Maestra_UNESCO_Youth_Hackathon_2026.md
+│   │   ├── AURA_Guia_Maestra_UNESCO_Youth_Hackathon_2026.md
+│   │   └── AURA_Dossier_Postulacion_y_Matriz_Evaluacion_2026.md
 │   └── og.png                    # portada social del proyecto
 ├── docs/
 │   └── DEVELOPMENT_ROADMAP.md   # plan técnico y criterios de aceptación
@@ -148,6 +151,11 @@ AURA-UNESCO-2026/
 La fuente estratégica principal es:
 
 [`public/docs/AURA_Guia_Maestra_UNESCO_Youth_Hackathon_2026.md`](public/docs/AURA_Guia_Maestra_UNESCO_Youth_Hackathon_2026.md)
+
+El plan diario para Nicole, la matriz de los cinco criterios oficiales y la
+compuerta de elegibilidad están en:
+
+[`public/docs/AURA_Dossier_Postulacion_y_Matriz_Evaluacion_2026.md`](public/docs/AURA_Dossier_Postulacion_y_Matriz_Evaluacion_2026.md)
 
 Para una URL de producción, configurar `NEXT_PUBLIC_SITE_URL` con el origen
 canónico antes de compilar; así la portada social usa una URL absoluta correcta.
