@@ -75,6 +75,29 @@ test("renders published bilingual cases through the reusable case engine", async
   assert.doesNotMatch(component, /const initialChoices|const sourceChoices/);
 });
 
+test("separates simulated case evidence from auditable real references", async () => {
+  const [cases, component] = await Promise.all([
+    readFile(new URL("app/data/cases.ts", root), "utf8"),
+    readFile(
+      new URL("app/components/AuraExperience.tsx", root),
+      "utf8",
+    ),
+  ]);
+
+  assert.match(cases, /status: "simulated"/);
+  assert.match(cases, /documentId: "AURA-01-S3"/);
+  assert.match(cases, /documentId: "AURA-02-S3"/);
+  assert.match(cases, /Fictional study abstract/);
+  assert.match(cases, /https:\/\/pubmed\.ncbi\.nlm\.nih\.gov\/33800853\//);
+  assert.match(cases, /https:\/\/www\.unesco\.org\/en\/articles\/journalism-fake-news-disinformation/);
+  assert.match(cases, /accessedAt: "2026-07-28"/);
+  assert.match(component, /source\.provenance\.documentId/);
+  assert.match(component, /source\.provenance\.disclosure/);
+  assert.match(component, /className="reference-dossier"/);
+  assert.match(component, /target="_blank"/);
+  assert.match(component, /rel="noreferrer"/);
+});
+
 test("implements an unguided transfer challenge with anonymous coded analytics", async () => {
   const [component, transfer, analytics, route, migration] = await Promise.all([
     readFile(
@@ -100,7 +123,7 @@ test("implements an unguided transfer challenge with anonymous coded analytics",
   assert.match(transfer, /RETO DE TRANSFERENCIA · SIN GUÍA/);
   assert.match(transfer, /score: 1/);
   assert.doesNotMatch(transfer, /textarea|freeText/);
-  assert.match(analytics, /PRODUCT_VERSION = "0.5.0"/);
+  assert.match(analytics, /PRODUCT_VERSION = "0.6.0"/);
   assert.match(analytics, /analyticsEventsToCsv/);
   assert.match(analytics, /cryptoApi\.getRandomValues/);
   assert.match(route, /process\.env\.SUPABASE_SECRET_KEY/);
@@ -128,7 +151,7 @@ test("uses the Vercel-compatible Next.js build contract", async () => {
     await readFile(new URL("package.json", root), "utf8"),
   );
 
-  assert.equal(packageJson.version, "0.5.0");
+  assert.equal(packageJson.version, "0.6.0");
   assert.equal(packageJson.scripts.dev, "next dev");
   assert.equal(packageJson.scripts.build, "next build");
   assert.equal(packageJson.scripts.start, "next start");
@@ -148,10 +171,10 @@ test("keeps a current, self-contained master handoff for the team", async () => 
   );
 
   assert.match(guide, /Briefing de incorporación para Nicol/);
-  assert.match(guide, /Versión funcional de referencia:\*\* AURA 0\.5\.0/);
-  assert.match(guide, /Estado real del producto — AURA 0\.5\.0/);
+  assert.match(guide, /Versión funcional de referencia:\*\* AURA 0\.6\.0/);
+  assert.match(guide, /Estado real del producto — AURA 0\.6\.0/);
   assert.match(guide, /Ruta crítica hasta el 16 de agosto/);
-  assert.match(guide, /Persistencia central \| Preparada, no activa/);
+  assert.match(guide, /Persistencia central \| Activa y verificada/);
   assert.match(guide, /https:\/\/aura-opal-beta\.vercel\.app\//);
   assert.doesNotMatch(guide, /sk-proj-|sb_secret_|SUPABASE_SECRET_KEY=/);
 });

@@ -16,7 +16,7 @@ Este repositorio reúne dos entregables que deben evolucionar juntos:
 
 ## Estado actual
 
-- **Versión:** MVP demostrable `0.5.0`
+- **Versión:** MVP demostrable `0.6.0`
 - **Objetivo:** UNESCO Youth Hackathon 2026
 - **Equipo confirmado:** Axel + Nicol
 - **Modo:** Next.js estándar, publicado en GitHub y preparado para Vercel
@@ -31,6 +31,8 @@ La demo ya permite:
 - Registrar una reacción inicial sin señalarla como correcta o incorrecta.
 - Identificar señales que justifican una pausa.
 - Elegir fuentes y construir un mapa de evidencia.
+- Auditar la procedencia de cada pieza simulada y abrir referencias reales
+  separadas del expediente educativo.
 - Decidir una acción proporcional a la evidencia.
 - Generar y copiar una Tarjeta de evidencia.
 - Resolver un reto final no guiado sobre un tema diferente.
@@ -306,7 +308,7 @@ incluye una licencia de código porque esa decisión todavía pertenece al equip
 La guía maestra contiene:
 
 - briefing de incorporación y responsabilidades para Nicol;
-- estado verificable de AURA 0.5.0 y capacidades pendientes;
+- estado verificable de AURA 0.6.0 y capacidades pendientes;
 - lectura completa de la convocatoria;
 - propuesta de valor y diferenciación;
 - especificación del producto;

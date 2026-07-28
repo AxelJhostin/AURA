@@ -1,6 +1,6 @@
 import type { Locale } from "../data/cases";
 
-export const PRODUCT_VERSION = "0.5.0";
+export const PRODUCT_VERSION = "0.6.0";
 
 export type AnalyticsConsent = "pending" | "granted" | "local-only";
 export type AnalyticsEventName =

@@ -140,6 +140,17 @@ const text = {
     stage2Coach:
       "Pregunta AURA: ¿quién hizo la afirmación original, qué midió y quién más puede contextualizarla?",
     sourcesSelected: "fuentes abiertas",
+    simulatedSource: "Fuente simulada",
+    sourceFile: "Expediente",
+    sourcePublisher: "Procedencia",
+    sourceDate: "Fecha",
+    realReferences: "REFERENCIAS REALES",
+    realReferencesTitle: "Contexto auditable del caso",
+    realReferencesBody:
+      "Estas referencias externas respaldan el contexto científico o el método de verificación. No sustituyen las piezas simuladas del caso.",
+    published: "Publicado",
+    accessed: "Consultado",
+    openReference: "Abrir referencia original",
     mapClaim: "Afirmación viral",
     mapEvidence: "Hallazgo rastreado",
     mapGap: "Brecha",
@@ -308,6 +319,17 @@ const text = {
     stage2Coach:
       "AURA asks: who made the original claim, what did they measure and who else can contextualize it?",
     sourcesSelected: "sources opened",
+    simulatedSource: "Simulated source",
+    sourceFile: "Dossier",
+    sourcePublisher: "Provenance",
+    sourceDate: "Date",
+    realReferences: "REAL REFERENCES",
+    realReferencesTitle: "Auditable case context",
+    realReferencesBody:
+      "These external references support the scientific context or verification method. They do not replace the simulated case materials.",
+    published: "Published",
+    accessed: "Accessed",
+    openReference: "Open original reference",
     mapClaim: "Viral claim",
     mapEvidence: "Traced finding",
     mapGap: "Gap",
@@ -465,7 +487,10 @@ export function AuraExperience() {
     () =>
       activeCase.sources
         .filter((source) => sources.includes(source.id))
-        .map((source) => source.title[locale]),
+        .map(
+          (source) =>
+            `${source.provenance.documentId} · ${source.title[locale]}`,
+        ),
     [activeCase, sources, locale],
   );
 
@@ -1002,20 +1027,59 @@ export function AuraExperience() {
                           const blocked =
                             sources.length === activeCase.sourceLimit && !active;
                           return (
-                            <button
-                              className={active ? "source-card is-active" : "source-card"}
-                              type="button"
-                              aria-pressed={active}
+                            <article
+                              className={
+                                active
+                                  ? "source-card is-active"
+                                  : blocked
+                                    ? "source-card is-blocked"
+                                    : "source-card"
+                              }
                               key={source.id}
-                              disabled={blocked}
-                              onClick={() => toggleSource(source.id)}
                             >
-                              <span className="source-code">{source.code}</span>
-                              <span className="source-kind">{source.kind[locale]}</span>
-                              <strong>{source.title[locale]}</strong>
-                              <span className="source-detail">{source.detail[locale]}</span>
-                              <span className="source-clue">{active ? "✓ " : "+ "}{source.clue[locale]}</span>
-                            </button>
+                              <button
+                                className="source-select"
+                                type="button"
+                                aria-pressed={active}
+                                disabled={blocked}
+                                onClick={() => toggleSource(source.id)}
+                              >
+                                <span className="source-code">{source.code}</span>
+                                <span className="source-kind">
+                                  {source.kind[locale]}
+                                </span>
+                                <strong>{source.title[locale]}</strong>
+                                <span className="source-detail">
+                                  {source.detail[locale]}
+                                </span>
+                                <span className="source-clue">
+                                  {active ? "✓ " : "+ "}
+                                  {source.clue[locale]}
+                                </span>
+                              </button>
+                              <div className="source-provenance">
+                                <span className="source-status">
+                                  {t.simulatedSource}
+                                </span>
+                                <dl>
+                                  <div>
+                                    <dt>{t.sourceFile}</dt>
+                                    <dd>{source.provenance.documentId}</dd>
+                                  </div>
+                                  <div>
+                                    <dt>{t.sourcePublisher}</dt>
+                                    <dd>
+                                      {source.provenance.publisher[locale]}
+                                    </dd>
+                                  </div>
+                                  <div>
+                                    <dt>{t.sourceDate}</dt>
+                                    <dd>{source.provenance.publishedAt}</dd>
+                                  </div>
+                                </dl>
+                                <p>{source.provenance.disclosure[locale]}</p>
+                              </div>
+                            </article>
                           );
                         })}
                       </div>
@@ -1023,6 +1087,46 @@ export function AuraExperience() {
                         {sources.length} / {activeCase.sourceLimit}{" "}
                         {t.sourcesSelected}
                       </p>
+                      <aside
+                        className="reference-dossier"
+                        aria-labelledby={`reference-title-${activeCase.id}`}
+                      >
+                        <div className="reference-intro">
+                          <span>{t.realReferences}</span>
+                          <h4 id={`reference-title-${activeCase.id}`}>
+                            {t.realReferencesTitle}
+                          </h4>
+                          <p>{t.realReferencesBody}</p>
+                        </div>
+                        <div className="reference-list">
+                          {activeCase.references.map((reference) => (
+                            <article key={reference.id}>
+                              <div>
+                                <span>{reference.publisher}</span>
+                                <strong>{reference.title[locale]}</strong>
+                                <small>{reference.author}</small>
+                              </div>
+                              <p>{reference.relevance[locale]}</p>
+                              <div className="reference-meta">
+                                <span>
+                                  {t.published}: {reference.publishedAt}
+                                </span>
+                                <span>
+                                  {t.accessed}: {reference.accessedAt}
+                                </span>
+                              </div>
+                              <a
+                                href={reference.url}
+                                target="_blank"
+                                rel="noreferrer"
+                              >
+                                {t.openReference}
+                                <span aria-hidden="true">↗</span>
+                              </a>
+                            </article>
+                          ))}
+                        </div>
+                      </aside>
                       {sources.length === activeCase.sourceLimit && (
                         <div className="evidence-map">
                           <div>

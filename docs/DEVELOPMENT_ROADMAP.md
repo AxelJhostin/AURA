@@ -2,7 +2,7 @@
 
 - **Propietario técnico:** Axel
 - **Propietaria de estrategia e impacto:** Nicol
-- **Estado base:** MVP medible 0.5.0
+- **Estado base:** MVP medible 0.6.0
 - **Objetivo:** convertir el flujo actual en un piloto medible y una candidatura
 respaldada por evidencia real.
 
@@ -13,6 +13,8 @@ respaldada por evidencia real.
 - Motor bilingüe con dos casos educativos simulados.
 - Flujo interactivo de cuatro etapas.
 - Selección de señales y fuentes.
+- Expediente de procedencia para cada fuente simulada.
+- Referencias reales auditables separadas del material ficticio.
 - Mapa de evidencia.
 - Tarjeta de evidencia copiable.
 - Reto de transferencia no guiado con rúbrica `0–2`.
@@ -103,6 +105,8 @@ type AuraCase = {
 - [x] Los textos ES/EN tienen paridad estructural.
 - [x] La ruta de IA valida opciones según el caso activo.
 - [x] Toda fuente contiene tipo, título, contexto y limitación.
+- [x] Toda pieza simulada declara ID, procedencia, fecha y carácter ficticio.
+- [x] Cada caso enlaza referencias reales para contexto o método.
 - [ ] Añadir validación formal de esquema y estado de revisión editorial.
 
 ## 5. Backlog priorizado
@@ -162,8 +166,21 @@ de navegación.
 
 **Aceptación alcanzada:** existe un contrato cerrado, consentimiento explícito,
 validación server-side, respaldo local y exportación CSV. La persistencia
-central queda activable al conectar un proyecto Supabase exclusivo de AURA y
-aplicar la migración incluida.
+central está activa en Supabase, usa únicamente la ruta server-side y fue
+verificada con eventos anónimos de la aplicación pública.
+
+#### P0.3b Expediente de fuentes — implementado en 0.6.0
+
+- [x] Identificador estable para cada pieza del caso.
+- [x] Procedencia, fecha y declaración explícita de simulación.
+- [x] Separación visual entre evidencia ficticia y referencias reales.
+- [x] Referencias abiertas con autor, editor, fecha y fecha de consulta.
+- [x] Paridad estructural en español e inglés.
+
+**Aceptación alcanzada:** AURA ya no presenta una pieza educativa inventada como
+si fuera una publicación, estudio o reporte real. La persona puede distinguir
+qué pertenece al caso y abrir el material externo que respalda el contexto o el
+método de verificación.
 
 #### P0.4 Modo facilitación
 

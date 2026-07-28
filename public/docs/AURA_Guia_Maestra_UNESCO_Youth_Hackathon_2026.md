@@ -9,7 +9,7 @@
 **Promesa del producto:** AURA no decide qué creer. Entrena a las personas para investigar con evidencia.  
 **Estado de este documento:** Fuente maestra de estrategia, producto, operación y candidatura — versión 2.0.
 
-**Versión funcional de referencia:** AURA 0.5.0.
+**Versión funcional de referencia:** AURA 0.6.0.
 
 **Ubicación en el proyecto:** `public/docs/`, accesible desde el prototipo y versionada junto al código.  
 **Fecha de referencia:** 27 de julio de 2026.  
@@ -138,7 +138,7 @@ proyectos ya trabajan en espacios cercanos. La originalidad está en la
 integración concreta de acciones, trazabilidad, transferencia, contexto
 latinoamericano y participación juvenil.
 
-### 5. Estado real del producto — AURA 0.5.0
+### 5. Estado real del producto — AURA 0.6.0
 
 La siguiente tabla es la fuente de verdad. “Implementado” significa que existe
 en el repositorio y en la demo pública; no significa que ya fue validado con
@@ -154,6 +154,8 @@ usuarios.
 | Decisión inicial | Implementado | Opción codificada antes de investigar |
 | Señales investigables | Implementado | Selección de señales por caso |
 | Mapa de fuentes | Implementado | Dos fuentes seleccionadas por misión |
+| Expediente de procedencia | Implementado | Cada pieza simulada muestra ID, origen, fecha y declaración explícita |
+| Referencias reales | Implementado | Enlaces auditables separados del material ficticio de cada caso |
 | Acción proporcional | Implementado | Selección y justificación mediante el caso |
 | Tarjeta de Evidencia | Implementado | Artefacto copiable al finalizar |
 | Entrenador socrático con OpenAI | Implementado | Pregunta adaptada por caso y etapa |
@@ -164,20 +166,20 @@ usuarios.
 | Informe de sesión | Implementado | Eventos, tiempo y puntuación |
 | Exportación CSV | Implementado | Descarga desde el dispositivo |
 | API de eventos validada | Implementado | Rechaza eventos y opciones inventadas |
-| Persistencia central | Preparada, no activa | Migración Supabase lista; falta proyecto AURA |
+| Persistencia central | Activa y verificada | Vercel inserta eventos anónimos server-side en Supabase |
 | Vista de facilitador | Pendiente | Prioridad de la siguiente versión |
 | Pilotos con participantes reales | Pendiente | No existen resultados que puedan afirmarse |
 | Casos adicionales revisados | Pendiente | Meta: seis casos totales |
 | Propuesta final en inglés | Pendiente | Banco de texto disponible en esta guía |
 | Pitch grabado | Pendiente | Guion y lista de planos disponibles |
 
-Validaciones técnicas completadas para AURA 0.5.0:
+Validaciones técnicas completadas para AURA 0.6.0:
 
 - compilación de producción Next.js correcta;
 - TypeScript y lint sin errores;
-- cinco pruebas automatizadas aprobadas;
+- siete pruebas automatizadas aprobadas;
 - cero vulnerabilidades reportadas en dependencias de producción;
-- ruta pública de eventos probada con aceptación y rechazo;
+- ruta pública de eventos probada con aceptación, rechazo y persistencia real;
 - secretos fuera del repositorio;
 - despliegue de Vercel confirmado.
 
@@ -291,7 +293,7 @@ Navegador
          |
          +--> validación de origen, tamaño, frecuencia y esquema
          +--> modo local cuando Supabase no está configurado
-         +--> Supabase opcional solo desde el servidor
+         +--> Supabase solo desde el servidor y con consentimiento
 ```
 
 Infraestructura:
@@ -299,10 +301,11 @@ Infraestructura:
 - código y control de versiones: GitHub;
 - producción: Vercel;
 - IA: OpenAI desde una ruta server-side;
-- base opcional: Supabase PostgreSQL;
+- persistencia central: Supabase PostgreSQL desde la ruta server-side;
 - secretos: variables de entorno, nunca código ni `NEXT_PUBLIC_*`;
-- datos actuales: almacenamiento local y CSV;
-- migración preparada:
+- datos actuales: almacenamiento local, CSV y eventos anónimos centrales cuando
+  existe consentimiento;
+- migración aplicada y versionada:
   `supabase/migrations/20260728033416_aura_learning_events.sql`.
 
 ### 10. Privacidad y límites de IA
@@ -319,8 +322,8 @@ Principios no negociables:
 - la experiencia funciona con preguntas curadas si la IA falla;
 - ninguna clave secreta debe aparecer en GitHub, capturas o video.
 
-La persistencia central requiere un proyecto Supabase exclusivo de AURA. La
-migración:
+La persistencia central está activa en un proyecto de la organización del
+equipo. La migración:
 
 - habilita Row Level Security;
 - revoca acceso a `anon` y `authenticated`;
@@ -608,7 +611,7 @@ Pitch de 30 segundos en inglés:
 | Propuesta PDF/Word | Pendiente |
 | Video pitch | Pendiente |
 | Resultados de piloto | Pendiente |
-| Proyecto Supabase AURA | Pendiente de conexión |
+| Proyecto Supabase AURA | Conectado; eventos anónimos verificados |
 
 Nunca colocar en esta guía:
 
@@ -1346,7 +1349,7 @@ Si el tiempo escasea, proteger:
 
 ## 12. Función de la IA
 
-### Implementación real en AURA 0.5.0
+### Implementación real en AURA 0.6.0
 
 La IA actual tiene un alcance deliberadamente estrecho: recibe el identificador
 del caso, la etapa, el idioma y opciones codificadas ya seleccionadas. Devuelve
@@ -1360,7 +1363,7 @@ pregunta de respaldo. Este alcance es suficiente para demostrar el uso
 responsable de IA sin convertirla en una autoridad de verdad.
 
 Las capacidades descritas a continuación representan límites y posibles
-extensiones, no todas están implementadas en la versión 0.5.0.
+extensiones, no todas están implementadas en la versión 0.6.0.
 
 ### La IA sí puede
 
@@ -1471,7 +1474,7 @@ Revisar:
 
 El objetivo es minimizar componentes.
 
-AURA 0.5.0 ya sigue esta decisión: una sola aplicación Next.js desplegada en
+AURA 0.6.0 ya sigue esta decisión: una sola aplicación Next.js desplegada en
 Vercel contiene interfaz, rutas de servidor, motor de casos y modo degradado. No
 existe un segundo backend que deba desplegarse o mantenerse.
 
@@ -1788,7 +1791,7 @@ Puntuación automática actual: 0–2
 La puntuación `0–2` evalúa el primer movimiento y su justificación. La rúbrica
 manual `0–18` puede aplicarse por un facilitador para una evaluación educativa
 más rica, pero no debe presentarse como calculada automáticamente por la versión
-0.5.0.
+0.6.0.
 
 #### Calibración
 
@@ -2129,7 +2132,8 @@ Cambiar estas decisiones después solo si existe evidencia clara.
 
 El desarrollo está adelantado respecto al plan inicial: landing, flujo A-U-R-A,
 dos misiones guiadas, IA, modo degradado, bilingüismo, Tarjeta de Evidencia,
-transferencia, analítica local y despliegue ya existen en AURA 0.5.0. La ruta
+transferencia, analítica local, expediente de procedencia, referencias reales y
+despliegue ya existen en AURA 0.6.0. La ruta
 crítica cambia de “construir una demo” a **probar, documentar y presentar una
 intervención creíble**.
 
@@ -2730,6 +2734,13 @@ Estado verificado al 27 de julio de 2026:
 - [Inoculation and accuracy prompting increase accuracy discernment in combination but not alone](https://www.nature.com/articles/s41562-024-02023-2)
 - [Psychological booster shots targeting memory increase long-term resistance against misinformation](https://www.nature.com/articles/s41467-025-57205-x)
 
+### Expedientes de los casos
+
+- [Caffeine and Cognitive Functions in Sports — revisión sistemática y metaanálisis](https://pubmed.ncbi.nlm.nih.gov/33800853/)
+- [EFSA — Scientific Opinion on the safety of caffeine](https://efsa.onlinelibrary.wiley.com/doi/10.2903/j.efsa.2015.4102)
+- [Manual de Verificación — procedencia, fecha y ubicación de video](https://verificationhandbook.com/book_es/chapter9.php)
+- [UNESCO — Journalism, Fake News & Disinformation](https://www.unesco.org/en/articles/journalism-fake-news-disinformation)
+
 ### UNESCO AMI e IA
 
 - [Media and Information Literacy — UNESCO](https://www.unesco.org/en/ami)
@@ -2758,8 +2769,8 @@ Estado verificado al 27 de julio de 2026:
 - [ ] Seis casos.
 - [x] Nombre visual: AURA.
 - [x] Idioma principal español con experiencia completa en inglés.
-- [x] Stack: Next.js, Vercel, OpenAI server-side y Supabase opcional.
-- [x] Analítica: consentimiento, registro local, CSV y persistencia central opcional.
+- [x] Stack: Next.js, Vercel, OpenAI server-side y Supabase server-side.
+- [x] Analítica: consentimiento, registro local, CSV y persistencia central activa.
 - [ ] Fecha del piloto.
 - [ ] Presentador del video.
 - [ ] Editor del video.

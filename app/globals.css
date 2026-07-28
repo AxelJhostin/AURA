@@ -1580,27 +1580,49 @@ a:focus-visible {
 .source-card {
   position: relative;
   display: flex;
-  min-height: 158px;
   flex-direction: column;
   align-items: flex-start;
-  padding: 15px;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.62);
   text-align: left;
-  cursor: pointer;
   transition: border 160ms ease, background 160ms ease;
 }
 
-.source-card:disabled {
-  cursor: not-allowed;
+.source-card.is-blocked {
   opacity: 0.44;
 }
 
 .source-card.is-active {
   border-color: var(--violet);
   background: var(--violet-pale);
+}
+
+.source-select {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-height: 158px;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 15px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.source-select:disabled {
+  cursor: not-allowed;
+}
+
+.source-select:focus-visible {
+  outline: 3px solid rgba(84, 67, 198, 0.22);
+  outline-offset: -3px;
 }
 
 .source-code {
@@ -1622,7 +1644,7 @@ a:focus-visible {
   text-transform: uppercase;
 }
 
-.source-card strong {
+.source-select strong {
   padding-right: 22px;
   font-size: 11px;
   line-height: 1.35;
@@ -1643,6 +1665,160 @@ a:focus-visible {
   font-weight: 800;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+}
+
+.source-provenance {
+  width: 100%;
+  padding: 12px 15px 14px;
+  border-top: 1px solid rgba(84, 67, 198, 0.12);
+  background: rgba(84, 67, 198, 0.035);
+}
+
+.source-status {
+  display: inline-flex;
+  padding: 4px 6px;
+  border: 1px solid rgba(84, 67, 198, 0.24);
+  border-radius: 999px;
+  color: var(--violet);
+  font-size: 7px;
+  font-weight: 850;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.source-provenance dl {
+  display: grid;
+  gap: 6px;
+  margin: 10px 0 0;
+}
+
+.source-provenance dl div {
+  display: grid;
+  grid-template-columns: 74px 1fr;
+  gap: 8px;
+}
+
+.source-provenance dt,
+.source-provenance dd {
+  margin: 0;
+  font-size: 8px;
+  line-height: 1.35;
+}
+
+.source-provenance dt {
+  color: var(--muted);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.source-provenance dd {
+  font-weight: 700;
+}
+
+.source-provenance p {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 8px;
+  line-height: 1.45;
+}
+
+.reference-dossier {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.55fr) minmax(0, 1.45fr);
+  gap: 16px;
+  margin-top: 14px;
+  padding: 16px;
+  border: 1px solid rgba(13, 154, 131, 0.22);
+  border-radius: 9px;
+  background: rgba(13, 154, 131, 0.045);
+}
+
+.reference-intro > span {
+  color: var(--teal);
+  font-size: 7px;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+}
+
+.reference-intro h4 {
+  margin: 6px 0 0;
+  font-size: 12px;
+}
+
+.reference-intro p {
+  margin: 7px 0 0;
+  color: var(--muted);
+  font-size: 8px;
+  line-height: 1.5;
+}
+
+.reference-list {
+  display: grid;
+  gap: 8px;
+}
+
+.reference-list article {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(165px, 0.9fr);
+  gap: 8px 14px;
+  padding: 12px;
+  border: 1px solid rgba(13, 154, 131, 0.16);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.reference-list article > div:first-child {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.reference-list article > div:first-child > span {
+  color: var(--teal);
+  font-size: 7px;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.reference-list strong {
+  margin-top: 4px;
+  font-size: 9px;
+  line-height: 1.4;
+}
+
+.reference-list small {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 7px;
+}
+
+.reference-list article > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 8px;
+  line-height: 1.5;
+}
+
+.reference-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 10px;
+  color: var(--muted);
+  font-size: 7px;
+}
+
+.reference-list a {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  justify-self: end;
+  color: var(--teal-dark);
+  font-size: 8px;
+  font-weight: 850;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .evidence-map {
@@ -2800,6 +2976,15 @@ footer {
   .action-grid,
   .source-grid {
     grid-template-columns: 1fr;
+  }
+
+  .reference-dossier,
+  .reference-list article {
+    grid-template-columns: 1fr;
+  }
+
+  .reference-list a {
+    justify-self: start;
   }
 
   .evidence-map {
