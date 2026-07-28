@@ -21,7 +21,8 @@ Este repositorio reúne dos entregables que deben evolucionar juntos:
 - **Equipo confirmado:** Axel + Nicol
 - **Modo:** Next.js estándar, publicado en GitHub y preparado para Vercel
 - **Casos incluidos:** dos misiones educativas simuladas sobre una afirmación
-  de salud y un video viral reutilizado fuera de contexto
+  de salud y un video viral reutilizado fuera de contexto, más un reto de
+  transferencia sobre un enlace urgente de becas
 
 La demo ya permite:
 
@@ -144,7 +145,7 @@ El backlog técnico y las decisiones de evolución están en:
 ### Axel — liderazgo técnico
 
 Ingeniero de software. Responsable de arquitectura, experiencia de producto,
-desarrollo del MVP, futura integración responsable de IA, analítica, seguridad,
+desarrollo del MVP, integración responsable de IA, analítica, seguridad,
 despliegue y demo técnica.
 
 ### Nicol — estrategia e impacto
@@ -304,6 +305,8 @@ incluye una licencia de código porque esa decisión todavía pertenece al equip
 
 La guía maestra contiene:
 
+- briefing de incorporación y responsabilidades para Nicol;
+- estado verificable de AURA 0.5.0 y capacidades pendientes;
 - lectura completa de la convocatoria;
 - propuesta de valor y diferenciación;
 - especificación del producto;

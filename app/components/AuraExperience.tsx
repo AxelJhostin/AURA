@@ -226,7 +226,7 @@ const text = {
     ],
     guideTitle: "La estrategia completa vive junto al código.",
     guideBody:
-      "La guía maestra documenta candidatura, producto, IA responsable, piloto, riesgos, pitch y control del proyecto.",
+      "La guía maestra reúne el contexto para el equipo, estado real del producto, candidatura, piloto, IA responsable, riesgos y pitch.",
     guideCta: "Descargar guía maestra (.md)",
     footerTagline: "From reaction to evidence.",
     footerNote: "Prototipo de trabajo · Ecuador · 2026",
@@ -394,7 +394,7 @@ const text = {
     ],
     guideTitle: "The full strategy lives beside the code.",
     guideBody:
-      "The master guide documents the submission, product, responsible AI, pilot, risks, pitch and project controls.",
+      "The master guide brings together team context, verified product status, submission, pilot, responsible AI, risks and pitch.",
     guideCta: "Download master guide (.md)",
     footerTagline: "De la reacción a la evidencia.",
     footerNote: "Working prototype · Ecuador · 2026",

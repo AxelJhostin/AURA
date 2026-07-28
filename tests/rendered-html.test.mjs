@@ -137,3 +137,21 @@ test("uses the Vercel-compatible Next.js build contract", async () => {
   assert.equal("vinext" in packageJson.devDependencies, false);
   assert.equal("wrangler" in packageJson.devDependencies, false);
 });
+
+test("keeps a current, self-contained master handoff for the team", async () => {
+  const guide = await readFile(
+    new URL(
+      "public/docs/AURA_Guia_Maestra_UNESCO_Youth_Hackathon_2026.md",
+      root,
+    ),
+    "utf8",
+  );
+
+  assert.match(guide, /Briefing de incorporación para Nicol/);
+  assert.match(guide, /Versión funcional de referencia:\*\* AURA 0\.5\.0/);
+  assert.match(guide, /Estado real del producto — AURA 0\.5\.0/);
+  assert.match(guide, /Ruta crítica hasta el 16 de agosto/);
+  assert.match(guide, /Persistencia central \| Preparada, no activa/);
+  assert.match(guide, /https:\/\/aura-opal-beta\.vercel\.app\//);
+  assert.doesNotMatch(guide, /sk-proj-|sb_secret_|SUPABASE_SECRET_KEY=/);
+});
