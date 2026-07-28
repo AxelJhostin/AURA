@@ -5,6 +5,7 @@ import { auraCases, type Locale } from "../data/cases";
 import {
   createAnalyticsEvent,
   getOrCreateSessionId,
+  normalizePilotCode,
   readAnalyticsConsent,
   saveLocalAnalyticsEvent,
   sendAnalyticsEvent,
@@ -15,9 +16,26 @@ import {
   type AnalyticsEventInput,
 } from "../lib/analytics";
 import { TransferChallenge } from "./TransferChallenge";
+import { PilotFacilitator } from "./PilotFacilitator";
+import { PilotConfidence } from "./PilotConfidence";
 
 type MissionStep = 0 | 1 | 2 | 3;
 type CoachStage = "analyze" | "uncover" | "research" | "act";
+
+const evidenceStateCopy = {
+  es: {
+    label: "ESTADO DE LA EVIDENCIA",
+    "supported-with-limits": "Respaldada con límites",
+    misleading: "Engañosa",
+    insufficient: "Evidencia insuficiente",
+  },
+  en: {
+    label: "EVIDENCE STATE",
+    "supported-with-limits": "Supported with limits",
+    misleading: "Misleading",
+    insufficient: "Insufficient evidence",
+  },
+} as const;
 
 const methodCards = [
   {
@@ -100,7 +118,7 @@ const text = {
     caseActive: "Caso activo",
     analyticsTitle: "Medición anónima del aprendizaje",
     analyticsBody:
-      "AURA puede enviar eventos codificados —opciones, tiempo y puntuación— para evaluar el piloto. No incluye nombres, correos, texto libre, IP ni historial.",
+      "AURA puede enviar eventos codificados —opciones, tiempo, puntuación y un pulso pre/post de 1 a 5— para evaluar el piloto. No incluye nombres, correos, texto libre, IP ni historial.",
     analyticsAllow: "Permitir métricas anónimas",
     analyticsLocal: "Mantener solo en este dispositivo",
     analyticsAllowed: "Envío anónimo permitido",
@@ -140,6 +158,17 @@ const text = {
     stage2Coach:
       "Pregunta AURA: ¿quién hizo la afirmación original, qué midió y quién más puede contextualizarla?",
     sourcesSelected: "fuentes abiertas",
+    simulatedSource: "Fuente simulada",
+    sourceFile: "Expediente",
+    sourcePublisher: "Procedencia",
+    sourceDate: "Fecha",
+    realReferences: "REFERENCIAS REALES",
+    realReferencesTitle: "Contexto auditable del caso",
+    realReferencesBody:
+      "Estas referencias externas respaldan el contexto científico o el método de verificación. No sustituyen las piezas simuladas del caso.",
+    published: "Publicado",
+    accessed: "Consultado",
+    openReference: "Abrir referencia original",
     mapClaim: "Afirmación viral",
     mapEvidence: "Hallazgo rastreado",
     mapGap: "Brecha",
@@ -220,9 +249,9 @@ const text = {
     roadmapEyebrow: "ESTADO DEL MVP",
     roadmapTitle: "Ya no es solo una idea.",
     roadmapItems: [
-      ["Ahora", "Dos casos, IA socrática, reto sin guía y analítica anónima."],
-      ["Siguiente", "Modo facilitación y agregados para operar el piloto."],
-      ["Antes de aplicar", "Piloto, métricas reales, demo bilingüe y video."],
+      ["Ahora", "Cuatro casos equilibrados, transferencia, pre/post y facilitación."],
+      ["Validación", "Accesibilidad 320 px, catálogo auditado y datos anónimos."],
+      ["Antes de aplicar", "Piloto con personas reales, demo bilingüe y video."],
     ],
     guideTitle: "La estrategia completa vive junto al código.",
     guideBody:
@@ -268,7 +297,7 @@ const text = {
     caseActive: "Active case",
     analyticsTitle: "Anonymous learning measurement",
     analyticsBody:
-      "AURA can send coded events—options, time and score—to evaluate the pilot. It includes no names, emails, free text, IP addresses or browsing history.",
+      "AURA can send coded events—options, time, score and a 1–5 pre/post pulse—to evaluate the pilot. It includes no names, emails, free text, IP addresses or browsing history.",
     analyticsAllow: "Allow anonymous metrics",
     analyticsLocal: "Keep only on this device",
     analyticsAllowed: "Anonymous delivery allowed",
@@ -308,6 +337,17 @@ const text = {
     stage2Coach:
       "AURA asks: who made the original claim, what did they measure and who else can contextualize it?",
     sourcesSelected: "sources opened",
+    simulatedSource: "Simulated source",
+    sourceFile: "Dossier",
+    sourcePublisher: "Provenance",
+    sourceDate: "Date",
+    realReferences: "REAL REFERENCES",
+    realReferencesTitle: "Auditable case context",
+    realReferencesBody:
+      "These external references support the scientific context or verification method. They do not replace the simulated case materials.",
+    published: "Published",
+    accessed: "Accessed",
+    openReference: "Open original reference",
     mapClaim: "Viral claim",
     mapEvidence: "Traced finding",
     mapGap: "Gap",
@@ -388,9 +428,9 @@ const text = {
     roadmapEyebrow: "MVP STATUS",
     roadmapTitle: "It is no longer only an idea.",
     roadmapItems: [
-      ["Now", "Two cases, Socratic AI, unguided transfer and anonymous analytics."],
-      ["Next", "Facilitation mode and aggregate pilot reporting."],
-      ["Before submission", "Pilot, real metrics, bilingual demo and video."],
+      ["Now", "Four balanced cases, transfer, pre/post and facilitation."],
+      ["Validation", "320 px accessibility, audited catalog and anonymous data."],
+      ["Before submission", "Pilot with real people, bilingual demo and video."],
     ],
     guideTitle: "The full strategy lives beside the code.",
     guideBody:
@@ -427,6 +467,7 @@ export function AuraExperience() {
     useState<AnalyticsConsent>("pending");
   const [analyticsSessionId, setAnalyticsSessionId] = useState("");
   const [analyticsEvents, setAnalyticsEvents] = useState<AnalyticsEvent[]>([]);
+  const [pilotCode, setPilotCode] = useState("");
   const missionStartedAt = useRef(0);
   const t = text[locale];
   const activeCase =
@@ -442,6 +483,9 @@ export function AuraExperience() {
       setAnalyticsSessionId(sessionId);
       setAnalyticsConsent(readAnalyticsConsent());
       setAnalyticsEvents(sessionEvents(sessionId));
+      setPilotCode(
+        normalizePilotCode(new URL(window.location.href).searchParams.get("pilot")),
+      );
     }, 0);
 
     return () => window.clearTimeout(timer);
@@ -449,7 +493,10 @@ export function AuraExperience() {
 
   const trackEvent = useCallback(
     (input: AnalyticsEventInput) => {
-      const event = createAnalyticsEvent(input);
+      const event = createAnalyticsEvent({
+        ...input,
+        pilotCode: pilotCode || undefined,
+      });
       saveLocalAnalyticsEvent(event);
       setAnalyticsSessionId(event.sessionId);
       setAnalyticsEvents((current) => [...current, event].slice(-300));
@@ -458,14 +505,17 @@ export function AuraExperience() {
         void sendAnalyticsEvent(event);
       }
     },
-    [analyticsConsent],
+    [analyticsConsent, pilotCode],
   );
 
   const selectedSourceNames = useMemo(
     () =>
       activeCase.sources
         .filter((source) => sources.includes(source.id))
-        .map((source) => source.title[locale]),
+        .map(
+          (source) =>
+            `${source.provenance.documentId} · ${source.title[locale]}`,
+        ),
     [activeCase, sources, locale],
   );
 
@@ -605,6 +655,16 @@ export function AuraExperience() {
     writeAnalyticsConsent(value);
   }
 
+  function activatePilotCode(code: string) {
+    const normalized = normalizePilotCode(code);
+    if (!normalized) return;
+
+    setPilotCode(normalized);
+    const url = new URL(window.location.href);
+    url.searchParams.set("pilot", normalized);
+    window.history.replaceState(null, "", url);
+  }
+
   async function copyEvidenceCard() {
     const summary = [
       `AURA — ${t.cardTitle}`,
@@ -626,6 +686,9 @@ export function AuraExperience() {
 
   return (
     <main>
+      <a className="skip-link" href="#mision">
+        {locale === "es" ? "Saltar a la misión" : "Skip to mission"}
+      </a>
       <header className="site-header">
         <a className="brand" href="#inicio" aria-label={t.homeLabel}>
           <span className="brand-mark" aria-hidden="true">
@@ -807,6 +870,12 @@ export function AuraExperience() {
             <div>
               <strong>{t.analyticsTitle}</strong>
               <p>{t.analyticsBody}</p>
+              {pilotCode && (
+                <small className="active-pilot-code">
+                  {locale === "es" ? "Piloto activo" : "Active pilot"} ·{" "}
+                  {pilotCode}
+                </small>
+              )}
             </div>
             <div className="analytics-consent-actions">
               <button
@@ -835,6 +904,16 @@ export function AuraExperience() {
               </button>
             </div>
           </div>
+
+          {analyticsConsent !== "pending" && analyticsSessionId && (
+            <PilotConfidence
+              locale={locale}
+              phase="baseline"
+              sessionId={analyticsSessionId}
+              events={analyticsEvents}
+              trackEvent={trackEvent}
+            />
+          )}
 
           <div className="mission-workspace">
             <aside className="post-panel">
@@ -1002,20 +1081,59 @@ export function AuraExperience() {
                           const blocked =
                             sources.length === activeCase.sourceLimit && !active;
                           return (
-                            <button
-                              className={active ? "source-card is-active" : "source-card"}
-                              type="button"
-                              aria-pressed={active}
+                            <article
+                              className={
+                                active
+                                  ? "source-card is-active"
+                                  : blocked
+                                    ? "source-card is-blocked"
+                                    : "source-card"
+                              }
                               key={source.id}
-                              disabled={blocked}
-                              onClick={() => toggleSource(source.id)}
                             >
-                              <span className="source-code">{source.code}</span>
-                              <span className="source-kind">{source.kind[locale]}</span>
-                              <strong>{source.title[locale]}</strong>
-                              <span className="source-detail">{source.detail[locale]}</span>
-                              <span className="source-clue">{active ? "✓ " : "+ "}{source.clue[locale]}</span>
-                            </button>
+                              <button
+                                className="source-select"
+                                type="button"
+                                aria-pressed={active}
+                                disabled={blocked}
+                                onClick={() => toggleSource(source.id)}
+                              >
+                                <span className="source-code">{source.code}</span>
+                                <span className="source-kind">
+                                  {source.kind[locale]}
+                                </span>
+                                <strong>{source.title[locale]}</strong>
+                                <span className="source-detail">
+                                  {source.detail[locale]}
+                                </span>
+                                <span className="source-clue">
+                                  {active ? "✓ " : "+ "}
+                                  {source.clue[locale]}
+                                </span>
+                              </button>
+                              <div className="source-provenance">
+                                <span className="source-status">
+                                  {t.simulatedSource}
+                                </span>
+                                <dl>
+                                  <div>
+                                    <dt>{t.sourceFile}</dt>
+                                    <dd>{source.provenance.documentId}</dd>
+                                  </div>
+                                  <div>
+                                    <dt>{t.sourcePublisher}</dt>
+                                    <dd>
+                                      {source.provenance.publisher[locale]}
+                                    </dd>
+                                  </div>
+                                  <div>
+                                    <dt>{t.sourceDate}</dt>
+                                    <dd>{source.provenance.publishedAt}</dd>
+                                  </div>
+                                </dl>
+                                <p>{source.provenance.disclosure[locale]}</p>
+                              </div>
+                            </article>
                           );
                         })}
                       </div>
@@ -1023,6 +1141,46 @@ export function AuraExperience() {
                         {sources.length} / {activeCase.sourceLimit}{" "}
                         {t.sourcesSelected}
                       </p>
+                      <aside
+                        className="reference-dossier"
+                        aria-labelledby={`reference-title-${activeCase.id}`}
+                      >
+                        <div className="reference-intro">
+                          <span>{t.realReferences}</span>
+                          <h4 id={`reference-title-${activeCase.id}`}>
+                            {t.realReferencesTitle}
+                          </h4>
+                          <p>{t.realReferencesBody}</p>
+                        </div>
+                        <div className="reference-list">
+                          {activeCase.references.map((reference) => (
+                            <article key={reference.id}>
+                              <div>
+                                <span>{reference.publisher}</span>
+                                <strong>{reference.title[locale]}</strong>
+                                <small>{reference.author}</small>
+                              </div>
+                              <p>{reference.relevance[locale]}</p>
+                              <div className="reference-meta">
+                                <span>
+                                  {t.published}: {reference.publishedAt}
+                                </span>
+                                <span>
+                                  {t.accessed}: {reference.accessedAt}
+                                </span>
+                              </div>
+                              <a
+                                href={reference.url}
+                                target="_blank"
+                                rel="noreferrer"
+                              >
+                                {t.openReference}
+                                <span aria-hidden="true">↗</span>
+                              </a>
+                            </article>
+                          ))}
+                        </div>
+                      </aside>
                       {sources.length === activeCase.sourceLimit && (
                         <div className="evidence-map">
                           <div>
@@ -1124,6 +1282,20 @@ export function AuraExperience() {
                       <p>{activeCase.result.cardSubtitle[locale]}</p>
                     </div>
                     <span className="result-seal" aria-hidden="true">A</span>
+                  </div>
+
+                  <div
+                    className={`evidence-state evidence-state-${activeCase.editorial.evidenceState}`}
+                  >
+                    <span>{evidenceStateCopy[locale].label}</span>
+                    <strong>
+                      {
+                        evidenceStateCopy[locale][
+                          activeCase.editorial.evidenceState
+                        ]
+                      }
+                    </strong>
+                    <p>{activeCase.editorial.learningObjective[locale]}</p>
                   </div>
 
                   <div className="result-grid">
@@ -1278,6 +1450,11 @@ export function AuraExperience() {
             </article>
           ))}
         </div>
+        <PilotFacilitator
+          locale={locale}
+          activePilotCode={pilotCode}
+          onActivateCode={activatePilotCode}
+        />
       </section>
 
       <section className="team-section" id="equipo">
@@ -1291,18 +1468,18 @@ export function AuraExperience() {
           </div>
           <div className="team-grid">
             <article className="person-card axel">
-              <div className="person-monogram" aria-hidden="true">AX</div>
+              <div className="person-monogram" aria-hidden="true">HA</div>
               <span className="person-role">{t.axelRole}</span>
-              <h3>Axel</h3>
+              <h3>Hernández Axel</h3>
               <p>{t.axelText}</p>
               <div className="person-tags">
                 <span>Product</span><span>Engineering</span><span>AI</span>
               </div>
             </article>
             <article className="person-card nicol">
-              <div className="person-monogram" aria-hidden="true">NI</div>
+              <div className="person-monogram" aria-hidden="true">NO</div>
               <span className="person-role">{t.nicolRole}</span>
-              <h3>Nicol</h3>
+              <h3>Nicole</h3>
               <p>{t.nicolText}</p>
               <div className="person-tags">
                 <span>Strategy</span><span>Impact</span><span>Pitch</span>

@@ -16,26 +16,34 @@ Este repositorio reúne dos entregables que deben evolucionar juntos:
 
 ## Estado actual
 
-- **Versión:** MVP demostrable `0.5.0`
+- **Versión:** MVP técnico completo `0.8.0`
 - **Objetivo:** UNESCO Youth Hackathon 2026
-- **Equipo confirmado:** Axel + Nicol
+- **Equipo confirmado:** Hernández Axel + Nicole
 - **Modo:** Next.js estándar, publicado en GitHub y preparado para Vercel
-- **Casos incluidos:** dos misiones educativas simuladas sobre una afirmación
-  de salud y un video viral reutilizado fuera de contexto, más un reto de
-  transferencia sobre un enlace urgente de becas
+- **Casos incluidos:** cuatro misiones educativas simuladas que cubren
+  afirmaciones engañosas, una afirmación respaldada con límites y una
+  afirmación con evidencia insuficiente, más un reto de transferencia sobre un
+  enlace urgente de becas
 
 La demo ya permite:
 
 - Cambiar la interfaz entre español e inglés.
-- Elegir entre dos misiones mediante un catálogo reutilizable.
+- Elegir entre cuatro misiones mediante un catálogo reutilizable y validado en
+  cada build.
 - Registrar una reacción inicial sin señalarla como correcta o incorrecta.
 - Identificar señales que justifican una pausa.
 - Elegir fuentes y construir un mapa de evidencia.
+- Auditar la procedencia de cada pieza simulada y abrir referencias reales
+  separadas del expediente educativo.
 - Decidir una acción proporcional a la evidencia.
 - Generar y copiar una Tarjeta de evidencia.
 - Resolver un reto final no guiado sobre un tema diferente.
 - Obtener una puntuación de transferencia `0–2` basada en acciones observables.
 - Registrar métricas anónimas con consentimiento explícito.
+- Comparar un pulso opcional de confianza pre/post mediante opciones `1–5`.
+- Generar un código de piloto y un enlace compartible sin crear cuentas.
+- Consultar un panel de facilitación con totales y promedios agregados.
+- Descargar un resumen agregado CSV que no contiene identificadores de sesión.
 - Descargar el reporte codificado de una sesión en CSV.
 - Solicitar una pregunta socrática adaptada mediante OpenAI en cada etapa.
 - Continuar con preguntas de respaldo cuando la IA no esté disponible.
@@ -102,11 +110,17 @@ AURA-UNESCO-2026/
 │   │   └── route.ts             # entrenador socrático del servidor
 │   ├── api/aura/events/
 │   │   └── route.ts             # recepción y validación de métricas anónimas
+│   ├── api/aura/pilots/
+│   │   └── route.ts             # resumen agregado de un piloto
 │   ├── components/
 │   │   ├── AuraExperience.tsx   # experiencia e interacciones
+│   │   ├── PilotFacilitator.tsx # enlaces y panel agregado del piloto
+│   │   ├── PilotConfidence.tsx  # pulso pre/post anónimo y opcional
 │   │   └── TransferChallenge.tsx # reto no guiado y reporte de sesión
 │   ├── data/
-│   │   ├── cases.ts             # catálogo bilingüe y contenido de misiones
+│   │   ├── cases.ts             # contrato y núcleo del catálogo bilingüe
+│   │   ├── balanced-cases.ts    # casos respaldado-con-límites e insuficiente
+│   │   ├── case-validation.ts   # compuerta editorial del build
 │   │   └── transfer.ts          # reto y rúbrica de transferencia
 │   ├── lib/
 │   │   └── analytics.ts         # eventos locales, consentimiento y CSV
@@ -122,7 +136,9 @@ AURA-UNESCO-2026/
 ├── tests/
 │   └── rendered-html.test.mjs   # smoke tests del render del servidor
 ├── supabase/migrations/
-│   └── *_aura_learning_events.sql # persistencia opcional del piloto
+│   ├── *_aura_learning_events.sql # tabla y RLS de analítica anónima
+│   ├── *_anonymous_pilot_code.sql # agrupación e índice del piloto
+│   └── *_anonymous_pilot_pulse.sql # instrumento pre/post codificado
 ├── .env.example                 # nombres de variables, nunca secretos
 ├── CONTRIBUTING.md
 ├── package.json
@@ -142,13 +158,13 @@ El backlog técnico y las decisiones de evolución están en:
 
 ## Equipo
 
-### Axel — liderazgo técnico
+### Hernández Axel — liderazgo técnico
 
 Ingeniero de software. Responsable de arquitectura, experiencia de producto,
 desarrollo del MVP, integración responsable de IA, analítica, seguridad,
 despliegue y demo técnica.
 
-### Nicol — estrategia e impacto
+### Nicole — estrategia e impacto
 
 Estudiante de Negocios Internacionales. Responsable de investigación del
 público, operación del piloto, alianzas, sostenibilidad, documentación,
@@ -197,13 +213,19 @@ solicitudes, no almacena las respuestas en OpenAI y nunca envía la clave al
 navegador. La misión principal no requiere base de datos ni recopila datos
 personales.
 
-La analítica utiliza un identificador UUID aleatorio de sesión y un conjunto
-cerrado de eventos. Registra únicamente idioma, caso, etapa, opción codificada,
-duración, versión y puntuación de transferencia. No admite nombre, correo,
+La analítica utiliza un identificador UUID aleatorio de sesión, un código
+aleatorio de piloto opcional y un conjunto cerrado de eventos. Registra
+únicamente idioma, caso, etapa, opción codificada, duración, versión y
+puntuación de transferencia. No admite nombre, correo,
 ubicación, texto libre, IP, agente de navegador ni historial. Sin Supabase
 configurado, los eventos permanecen en el dispositivo y pueden descargarse en
 CSV. Con Supabase configurado, solo se envían cuando la persona selecciona
 **Permitir métricas anónimas**.
+
+El código `AURA-XXXXXXXXXXXX` funciona como una capacidad compartida: agrupa
+sesiones y permite abrir un resumen, pero la API nunca devuelve identificadores
+de sesión ni filas individuales. Debe compartirse solo con el equipo de
+facilitación y las personas participantes del piloto.
 
 ## Desplegar en Vercel
 
@@ -231,9 +253,9 @@ aplica variables nuevas a despliegues anteriores.
 
 Las variables de Supabase son opcionales. Deben permanecer exclusivamente en
 el servidor y nunca usar el prefijo `NEXT_PUBLIC_`. Antes de activarlas, aplicar
-la migración `supabase/migrations/*_aura_learning_events.sql`. La tabla tiene
+las migraciones de `supabase/migrations/` en orden. La tabla tiene
 RLS activado, no concede acceso a `anon` ni `authenticated`, y admite inserción
-solo desde el rol secreto del servidor.
+y lectura agregada solo desde el rol secreto del servidor.
 
 `NEXT_PUBLIC_SITE_URL` es opcional. En Vercel, el proyecto usa
 `VERCEL_PROJECT_PRODUCTION_URL` automáticamente para los metadatos sociales.
@@ -257,22 +279,27 @@ Actúa — decisión proporcional
         ↓
 Tarjeta de evidencia
         ↓
+Estado de evidencia: respaldada / engañosa / insuficiente
+        ↓
 Reto de transferencia sin guía
         ↓
-Puntuación + reporte anónimo CSV
+Puntuación + pulso final opcional
+        ↓
+Panel y CSV agregados del piloto
 ```
 
-## Próxima versión recomendada
+## Siguiente etapa recomendada
 
-La siguiente meta no es añadir un chatbot general. Es completar el ciclo de
-aprendizaje:
+El código del MVP quedó cerrado en `0.8.0`: catálogo equilibrado, validación
+editorial estructural, instrumento pre/post, exportación agregada y salvaguardas
+de accesibilidad están implementados. La prioridad ya no es ampliar funciones,
+sino producir evidencia real y cerrar la candidatura:
 
-1. Conectar un proyecto Supabase exclusivo de AURA y aplicar la migración.
-2. Crear un caso verdadero y otro con evidencia insuficiente.
-3. Añadir validación editorial formal al esquema de casos.
-4. Crear modo de facilitación con agregados, sin datos individuales.
-5. Evaluar las preguntas generadas por IA con una rúbrica.
-6. Ejecutar pruebas con usuarios antes de ampliar funciones.
+1. Ejecutar un ensayo interno con cinco personas.
+2. Corregir defectos observados, sin inventar resultados.
+3. Realizar el piloto objetivo con consentimiento y protocolo.
+4. Evaluar las preguntas generadas por IA con una rúbrica adversarial.
+5. Integrar métricas reales, demo bilingüe y video final.
 
 Cada elemento tiene criterios de aceptación en
 [`docs/DEVELOPMENT_ROADMAP.md`](docs/DEVELOPMENT_ROADMAP.md).
@@ -305,8 +332,8 @@ incluye una licencia de código porque esa decisión todavía pertenece al equip
 
 La guía maestra contiene:
 
-- briefing de incorporación y responsabilidades para Nicol;
-- estado verificable de AURA 0.5.0 y capacidades pendientes;
+- briefing de incorporación y responsabilidades para Nicole;
+- estado verificable de AURA 0.8.0 y capacidades pendientes;
 - lectura completa de la convocatoria;
 - propuesta de valor y diferenciación;
 - especificación del producto;

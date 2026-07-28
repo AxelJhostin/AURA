@@ -1,6 +1,9 @@
 import type { Locale } from "../data/cases";
 
-export const PRODUCT_VERSION = "0.5.0";
+export const PRODUCT_VERSION = "0.8.0";
+export const PILOT_EVALUATION_CASE_ID = "pilot-evaluation";
+export const PILOT_CODE_PATTERN =
+  /^AURA-[ABCDEFGHJKLMNPQRSTUVWXYZ23456789]{12}$/;
 
 export type AnalyticsConsent = "pending" | "granted" | "local-only";
 export type AnalyticsEventName =
@@ -14,18 +17,22 @@ export type AnalyticsEventName =
   | "transfer_started"
   | "transfer_first_move_selected"
   | "transfer_reason_selected"
-  | "transfer_completed";
+  | "transfer_completed"
+  | "pilot_baseline_recorded"
+  | "pilot_exit_recorded";
 
 export type AnalyticsStage =
   | "analyze"
   | "uncover"
   | "research"
   | "act"
-  | "transfer";
+  | "transfer"
+  | "survey";
 
 export type AnalyticsEvent = {
   eventId: string;
   sessionId: string;
+  pilotCode?: string;
   eventName: AnalyticsEventName;
   occurredAt: string;
   locale: Locale;
@@ -46,6 +53,7 @@ const SESSION_KEY = "aura_anonymous_session_v1";
 const EVENTS_KEY = "aura_anonymous_events_v1";
 const CONSENT_KEY = "aura_analytics_consent_v1";
 const MAX_LOCAL_EVENTS = 300;
+const PILOT_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
 function randomId() {
   const cryptoApi =
@@ -91,6 +99,30 @@ export function getOrCreateSessionId() {
   } catch {
     return randomId();
   }
+}
+
+export function normalizePilotCode(value: string | null | undefined) {
+  const normalized = value?.trim().toUpperCase() ?? "";
+  return PILOT_CODE_PATTERN.test(normalized) ? normalized : "";
+}
+
+export function createPilotCode() {
+  const cryptoApi =
+    typeof globalThis.crypto === "undefined"
+      ? undefined
+      : (globalThis.crypto as Partial<Crypto>);
+  const bytes = new Uint8Array(12);
+
+  if (typeof cryptoApi?.getRandomValues !== "function") {
+    throw new Error("secure_random_unavailable");
+  }
+
+  cryptoApi.getRandomValues(bytes);
+  const suffix = Array.from(
+    bytes,
+    (byte) => PILOT_ALPHABET[byte % PILOT_ALPHABET.length],
+  ).join("");
+  return `AURA-${suffix}`;
 }
 
 export function readAnalyticsConsent(): AnalyticsConsent {
@@ -180,6 +212,7 @@ function csvCell(value: string | number | undefined) {
 export function analyticsEventsToCsv(events: AnalyticsEvent[]) {
   const headers = [
     "anonymous_session_id",
+    "pilot_code",
     "event_name",
     "occurred_at",
     "locale",
@@ -193,6 +226,7 @@ export function analyticsEventsToCsv(events: AnalyticsEvent[]) {
   const rows = events.map((event) =>
     [
       event.sessionId,
+      event.pilotCode,
       event.eventName,
       event.occurredAt,
       event.locale,

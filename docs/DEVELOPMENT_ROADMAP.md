@@ -1,8 +1,8 @@
 # AURA — Hoja de ruta de desarrollo
 
-- **Propietario técnico:** Axel
-- **Propietaria de estrategia e impacto:** Nicol
-- **Estado base:** MVP medible 0.5.0
+- **Propietario técnico:** Hernández Axel
+- **Propietaria de estrategia e impacto:** Nicole
+- **Estado base:** MVP técnico completo 0.8.0
 - **Objetivo:** convertir el flujo actual en un piloto medible y una candidatura
 respaldada por evidencia real.
 
@@ -10,14 +10,22 @@ respaldada por evidencia real.
 
 - Página de presentación bilingüe.
 - Método A-U-R-A explicado.
-- Motor bilingüe con dos casos educativos simulados.
+- Motor bilingüe con cuatro casos educativos simulados y equilibrados.
+- Validación formal de paridad bilingüe, procedencia, referencias y estado
+  editorial durante cada build.
 - Flujo interactivo de cuatro etapas.
 - Selección de señales y fuentes.
+- Expediente de procedencia para cada fuente simulada.
+- Referencias reales auditables separadas del material ficticio.
 - Mapa de evidencia.
 - Tarjeta de evidencia copiable.
 - Reto de transferencia no guiado con rúbrica `0–2`.
 - Consentimiento de analítica y reporte CSV por sesión.
 - Ruta validada para persistencia opcional en Supabase.
+- Código aleatorio y enlace compartible para cada piloto.
+- Panel de facilitación con métricas agregadas y sin filas individuales.
+- Instrumento opcional pre/post `1–5` sin texto libre.
+- Exportación CSV agregada sin identificadores de sesión.
 - Preguntas socráticas adaptadas mediante OpenAI con respaldo determinista.
 - Build estándar de Next.js compatible con Vercel.
 - Equipo y hoja de ruta visibles.
@@ -81,6 +89,7 @@ type AuraCase = {
   id: string;
   number: string;
   status: "published";
+  editorial: EditorialReview;
   catalog: LocalizedContent;
   mission: LocalizedContent;
   artifact: LocalizedContent;
@@ -103,7 +112,9 @@ type AuraCase = {
 - [x] Los textos ES/EN tienen paridad estructural.
 - [x] La ruta de IA valida opciones según el caso activo.
 - [x] Toda fuente contiene tipo, título, contexto y limitación.
-- [ ] Añadir validación formal de esquema y estado de revisión editorial.
+- [x] Toda pieza simulada declara ID, procedencia, fecha y carácter ficticio.
+- [x] Cada caso enlaza referencias reales para contexto o método.
+- [x] Añadir validación formal de esquema y estado de revisión editorial.
 
 ## 5. Backlog priorizado
 
@@ -144,6 +155,8 @@ Eventos implementados:
 - `transfer_first_move_selected`
 - `transfer_reason_selected`
 - `transfer_completed`
+- `pilot_baseline_recorded`
+- `pilot_exit_recorded`
 
 Propiedades permitidas:
 
@@ -155,6 +168,7 @@ Propiedades permitidas:
 - opción seleccionada codificada;
 - versión del producto.
 - puntuación de transferencia.
+- respuesta codificada de confianza `1–5`.
 
 **No recopilar:** nombre, correo, texto privado pegado, ubicación precisa,
 IP almacenada, agente de navegador, identificadores publicitarios o historial
@@ -162,43 +176,61 @@ de navegación.
 
 **Aceptación alcanzada:** existe un contrato cerrado, consentimiento explícito,
 validación server-side, respaldo local y exportación CSV. La persistencia
-central queda activable al conectar un proyecto Supabase exclusivo de AURA y
-aplicar la migración incluida.
+central está activa en Supabase, usa únicamente la ruta server-side y fue
+verificada con eventos anónimos de la aplicación pública.
 
-#### P0.4 Modo facilitación
+#### P0.3b Expediente de fuentes — implementado en 0.7.0
 
-- La exportación CSV por sesión ya está implementada.
-- Código corto de sesión.
-- Pantalla con instrucciones.
-- Vista agregada, sin identificar personas.
-- Exportación CSV anonimizada.
+- [x] Identificador estable para cada pieza del caso.
+- [x] Procedencia, fecha y declaración explícita de simulación.
+- [x] Separación visual entre evidencia ficticia y referencias reales.
+- [x] Referencias abiertas con autor, editor, fecha y fecha de consulta.
+- [x] Paridad estructural en español e inglés.
 
-**Aceptación:** Nicol puede operar una sesión sin apoyo técnico durante la
-actividad.
+**Aceptación alcanzada:** AURA ya no presenta una pieza educativa inventada como
+si fuera una publicación, estudio o reporte real. La persona puede distinguir
+qué pertenece al caso y abrir el material externo que respalda el contexto o el
+método de verificación.
 
-#### P0.5 Accesibilidad y dispositivos
+#### P0.4 Modo facilitación — implementado en 0.7.0
 
-- WCAG 2.2 AA como objetivo.
-- Navegación completa con teclado.
-- Lectura comprensible con lector de pantalla.
-- Contraste verificado.
-- 320 px de ancho sin desplazamiento horizontal.
-- Prueba en Android de gama media.
-- Modo de reducción de movimiento.
+- [x] Exportación CSV por sesión.
+- [x] Código aleatorio de piloto con 12 caracteres.
+- [x] Enlace de invitación compartible.
+- [x] Vista agregada, sin identificar personas ni devolver filas.
+- [x] Participantes, finalización, transferencia, tiempo y puntuación media.
+- [x] Validación server-side, límite de frecuencia e índice parcial en Supabase.
 
-**Aceptación:** lista de comprobación firmada y defectos críticos resueltos.
+**Aceptación técnica alcanzada:** Nicole puede crear un código, copiar el enlace
+y consultar resultados agregados sin apoyo técnico. Falta validar el protocolo
+con personas reales antes de declarar alcanzada la aceptación operativa.
+
+#### P0.5 Accesibilidad y dispositivos — salvaguardas implementadas en 0.8.0
+
+- [x] WCAG 2.2 AA como objetivo documentado.
+- [x] Navegación completa con teclado y enlace para saltar a la misión.
+- [x] Regiones, estados y controles con etiquetas accesibles.
+- [x] Foco visible en enlaces, botones e inputs.
+- [x] Salvaguardas específicas para 320 px sin desplazamiento horizontal.
+- [ ] Prueba física en Android de gama media durante el ensayo interno.
+- [x] Modo de reducción de movimiento.
+
+**Aceptación técnica alcanzada:** build, lint, prueba automatizada y emulación de
+320 px sin defectos críticos. La prueba física pertenece al protocolo del
+ensayo, no al backlog de código.
 
 ### P1 — candidatura y demo final
 
-#### P1.1 Tres casos equilibrados
+#### P1.1 Casos equilibrados — implementado en 0.8.0
 
-Incluir:
+- [x] Una afirmación verdadera presentada de forma sensacionalista.
+- [x] Una afirmación engañosa.
+- [x] Una afirmación con evidencia insuficiente.
+- [x] Mostrar el estado de evidencia solo al terminar la investigación.
+- [x] Conservar referencias reales separadas del expediente ficticio.
 
-- una afirmación verdadera presentada de forma sensacionalista;
-- una afirmación engañosa;
-- una afirmación con evidencia insuficiente.
-
-**Aceptación:** AURA no enseña que todo contenido viral es falso.
+**Aceptación alcanzada:** el catálogo cubre `supported-with-limits`,
+`misleading` e `insufficient`; el build falla si uno de esos estados desaparece.
 
 #### P1.2 IA socrática acotada — primera versión implementada
 
@@ -273,7 +305,7 @@ evidencia y siguiente paso sin explicación adicional.
 
 ### Sprint 0 — congelar producto
 
-- Revisar el prototipo con Axel y Nicol.
+- Revisar el prototipo con Hernández Axel y Nicole.
 - Confirmar tono, público, caso y recorrido.
 - Registrar decisiones.
 
@@ -297,9 +329,10 @@ evidencia y siguiente paso sin explicación adicional.
 
 ### Sprint 3 — facilitación
 
-- Modo de sesión.
-- Panel agregado.
-- Instrumento pre/post.
+- [x] Modo de sesión.
+- [x] Panel agregado.
+- [x] Instrumento pre/post.
+- [x] Exportación agregada sin identificadores individuales.
 
 **Salida:** paquete de piloto.
 
@@ -326,12 +359,12 @@ evidencia y siguiente paso sin explicación adicional.
 
 | Decisión | Responsable | Fecha límite | Criterio |
 |---|---|---:|---|
-| Licencia del repositorio | Axel + Nicol | Antes de hacerlo público | Apertura vs. protección |
-| Modelo y costo de IA | Axel | Antes del piloto | evaluar calidad, costo y latencia |
-| Infraestructura del piloto | Axel | Antes de P0.3 | privacidad y simplicidad |
-| Institución o comunidad piloto | Nicol | Antes de Sprint 4 | acceso real y permiso |
+| Licencia del repositorio | Hernández Axel + Nicole | Antes de hacerlo público | Apertura vs. protección |
+| Modelo y costo de IA | Hernández Axel | Antes del piloto | evaluar calidad, costo y latencia |
+| Infraestructura del piloto | Hernández Axel | Antes de P0.3 | privacidad y simplicidad |
+| Institución o comunidad piloto | Nicole | Antes de Sprint 4 | acceso real y permiso |
 | Integrantes 3 y 4 | Equipo | Lo antes posible | complementariedad real |
-| Revisor AMI externo | Nicol | Antes del piloto | rigor pedagógico |
+| Revisor AMI externo | Nicole | Antes del piloto | rigor pedagógico |
 
 ## 8. Métricas de piloto
 

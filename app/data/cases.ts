@@ -1,3 +1,6 @@
+import { balancedAuraCases } from "./balanced-cases";
+import { validateAuraCases } from "./case-validation";
+
 export type Locale = "es" | "en";
 export type LocalizedText = Record<Locale, string>;
 
@@ -12,6 +15,24 @@ export type CaseSource = CaseChoice & {
   code: string;
   kind: LocalizedText;
   clue: LocalizedText;
+  provenance: {
+    status: "simulated";
+    documentId: string;
+    publisher: LocalizedText;
+    publishedAt: string;
+    disclosure: LocalizedText;
+  };
+};
+
+export type CaseReference = {
+  id: string;
+  title: LocalizedText;
+  publisher: string;
+  author: string;
+  publishedAt: string;
+  accessedAt: string;
+  url: string;
+  relevance: LocalizedText;
 };
 
 type StageCopy = {
@@ -24,7 +45,15 @@ export type AuraCase = {
   id: string;
   number: string;
   status: "published";
-  theme: "energy" | "context";
+  theme: "energy" | "context" | "wellbeing" | "uncertainty";
+  editorial: {
+    evidenceState: "supported-with-limits" | "misleading" | "insufficient";
+    reviewStatus: "internal-review-complete";
+    reviewedAt: string;
+    reviewerRole: LocalizedText;
+    learningObjective: LocalizedText;
+    nextGate: LocalizedText;
+  };
   catalog: {
     tag: LocalizedText;
     title: LocalizedText;
@@ -63,6 +92,7 @@ export type AuraCase = {
   initialChoices: CaseChoice[];
   signals: CaseChoice[];
   sources: CaseSource[];
+  references: CaseReference[];
   sourceLimit: number;
   actions: CaseChoice[];
   evidenceMap: {
@@ -81,12 +111,29 @@ export type AuraCase = {
   };
 };
 
-export const auraCases: AuraCase[] = [
+const coreAuraCases: AuraCase[] = [
   {
     id: "energy-memory",
     number: "01",
     status: "published",
     theme: "energy",
+    editorial: {
+      evidenceState: "misleading",
+      reviewStatus: "internal-review-complete",
+      reviewedAt: "2026-07-28",
+      reviewerRole: {
+        es: "Revisión editorial interna AURA",
+        en: "AURA internal editorial review",
+      },
+      learningObjective: {
+        es: "Distinguir la variable realmente medida de la afirmación amplificada.",
+        en: "Distinguish the variable actually measured from the amplified claim.",
+      },
+      nextGate: {
+        es: "Revisión AMI externa antes del piloto formal.",
+        en: "External MIL review before the formal pilot.",
+      },
+    },
     catalog: {
       tag: { es: "SALUD · CIFRAS", en: "HEALTH · NUMBERS" },
       title: {
@@ -307,6 +354,19 @@ export const auraCases: AuraCase[] = [
           es: "Popularidad ≠ evidencia",
           en: "Popularity ≠ evidence",
         },
+        provenance: {
+          status: "simulated",
+          documentId: "AURA-01-S1",
+          publisher: {
+            es: "Campus al Día · artefacto AURA",
+            en: "Campus Today · AURA artifact",
+          },
+          publishedAt: "2026-07-28",
+          disclosure: {
+            es: "Publicación ficticia creada exclusivamente para practicar análisis de procedencia.",
+            en: "Fictional post created exclusively to practise provenance analysis.",
+          },
+        },
         coachLabel: "opened a viral repost with no study link",
       },
       {
@@ -324,6 +384,19 @@ export const auraCases: AuraCase[] = [
         clue: {
           es: "Conflicto de interés",
           en: "Conflict of interest",
+        },
+        provenance: {
+          status: "simulated",
+          documentId: "AURA-01-S2",
+          publisher: {
+            es: "Focus+ · artefacto AURA",
+            en: "Focus+ · AURA artifact",
+          },
+          publishedAt: "2026-07-28",
+          disclosure: {
+            es: "Comunicado comercial simulado; la marca y el patrocinio no existen.",
+            en: "Simulated commercial release; the brand and sponsorship do not exist.",
+          },
         },
         coachLabel: "opened the sponsor's commercial release",
       },
@@ -343,6 +416,19 @@ export const auraCases: AuraCase[] = [
           es: "Qué se midió realmente",
           en: "What was actually measured",
         },
+        provenance: {
+          status: "simulated",
+          documentId: "AURA-01-S3",
+          publisher: {
+            es: "Laboratorio de Evidencia AURA",
+            en: "AURA Evidence Lab",
+          },
+          publishedAt: "2026-07-28",
+          disclosure: {
+            es: "Resumen de estudio ficticio. Sus 24 participantes y resultados son datos del caso, no hallazgos científicos reales.",
+            en: "Fictional study abstract. Its 24 participants and results are case data, not real scientific findings.",
+          },
+        },
         coachLabel: "opened the original study abstract",
       },
       {
@@ -361,7 +447,54 @@ export const auraCases: AuraCase[] = [
           en: "Distinguishes alertness, memory and risks; cites systematic reviews.",
         },
         clue: { es: "Lectura lateral", en: "Lateral reading" },
+        provenance: {
+          status: "simulated",
+          documentId: "AURA-01-S4",
+          publisher: {
+            es: "Servicio Universitario de Salud · artefacto AURA",
+            en: "University Health Service · AURA artifact",
+          },
+          publishedAt: "2026-07-28",
+          disclosure: {
+            es: "Guía universitaria simulada; las referencias reales aparecen debajo del expediente.",
+            en: "Simulated university guide; real references appear below the dossier.",
+          },
+        },
         coachLabel: "opened independent university guidance",
+      },
+    ],
+    references: [
+      {
+        id: "caffeine-cognition-review",
+        title: {
+          es: "Cafeína y funciones cognitivas en el deporte: revisión sistemática y metaanálisis",
+          en: "Caffeine and Cognitive Functions in Sports: A Systematic Review and Meta-Analysis",
+        },
+        publisher: "Nutrients / PubMed",
+        author: "Jorge Lorenzo Calvo et al.",
+        publishedAt: "2021-03-06",
+        accessedAt: "2026-07-28",
+        url: "https://pubmed.ncbi.nlm.nih.gov/33800853/",
+        relevance: {
+          es: "La síntesis encontró efectos agrupados en atención, precisión y velocidad, y advierte que otros resultados dependen del protocolo. No respalda una mejora universal de memoria del 40%.",
+          en: "The synthesis found pooled effects for attention, accuracy and speed, while other outcomes depended on study protocols. It does not support a universal 40% memory improvement.",
+        },
+      },
+      {
+        id: "efsa-caffeine-safety",
+        title: {
+          es: "Opinión científica sobre la seguridad de la cafeína",
+          en: "Scientific Opinion on the safety of caffeine",
+        },
+        publisher: "EFSA Journal",
+        author: "EFSA NDA Panel",
+        publishedAt: "2015-05-27",
+        accessedAt: "2026-07-28",
+        url: "https://efsa.onlinelibrary.wiley.com/doi/10.2903/j.efsa.2015.4102",
+        relevance: {
+          es: "Aporta contexto independiente sobre dosis, alerta, somnolencia y seguridad. Una evaluación de seguridad no valida por sí sola una afirmación comercial de memoria.",
+          en: "Provides independent context on dose, alertness, sleepiness and safety. A safety assessment does not by itself validate a commercial memory claim.",
+        },
       },
     ],
     sourceLimit: 2,
@@ -455,6 +588,23 @@ export const auraCases: AuraCase[] = [
     number: "02",
     status: "published",
     theme: "context",
+    editorial: {
+      evidenceState: "misleading",
+      reviewStatus: "internal-review-complete",
+      reviewedAt: "2026-07-28",
+      reviewerRole: {
+        es: "Revisión editorial interna AURA",
+        en: "AURA internal editorial review",
+      },
+      learningObjective: {
+        es: "Separar autenticidad del archivo, fecha, ubicación y contexto.",
+        en: "Separate file authenticity from date, location and context.",
+      },
+      nextGate: {
+        es: "Revisión AMI externa antes del piloto formal.",
+        en: "External MIL review before the formal pilot.",
+      },
+    },
     catalog: {
       tag: { es: "VIDEO · CONTEXTO", en: "VIDEO · CONTEXT" },
       title: {
@@ -663,6 +813,19 @@ export const auraCases: AuraCase[] = [
           en: "It gains views but adds no origin, date or verifiable location.",
         },
         clue: { es: "Repetición ≠ confirmación", en: "Repetition ≠ confirmation" },
+        provenance: {
+          status: "simulated",
+          documentId: "AURA-02-S1",
+          publisher: {
+            es: "Red social simulada · artefacto AURA",
+            en: "Simulated social platform · AURA artifact",
+          },
+          publishedAt: "2026-07-28",
+          disclosure: {
+            es: "Copia viral ficticia; no representa una cuenta ni un desastre real.",
+            en: "Fictional viral copy; it represents no real account or disaster.",
+          },
+        },
         coachLabel: "opened another viral copy with no provenance",
       },
       {
@@ -678,6 +841,19 @@ export const auraCases: AuraCase[] = [
           en: "It posts content from several countries and identifies no responsible editors.",
         },
         clue: { es: "Credibilidad limitada", en: "Limited accountability" },
+        provenance: {
+          status: "simulated",
+          documentId: "AURA-02-S2",
+          publisher: {
+            es: "Alerta Costa EC · artefacto AURA",
+            en: "Coast Alert EC · AURA artifact",
+          },
+          publishedAt: "2026-07-28",
+          disclosure: {
+            es: "Historial de cuenta ficticio diseñado para practicar evaluación de responsabilidad editorial.",
+            en: "Fictional account history designed to practise editorial accountability assessment.",
+          },
+        },
         coachLabel: "reviewed the alert account's mixed-country history",
       },
       {
@@ -693,6 +869,19 @@ export const auraCases: AuraCase[] = [
           en: "The same video appeared in 2023 and was filmed in another country.",
         },
         clue: { es: "Fecha y procedencia", en: "Date and provenance" },
+        provenance: {
+          status: "simulated",
+          documentId: "AURA-02-S3",
+          publisher: {
+            es: "Archivo de video AURA",
+            en: "AURA Video Archive",
+          },
+          publishedAt: "2026-07-28",
+          disclosure: {
+            es: "Registro de procedencia simulado. La fecha 2023 y el país alternativo pertenecen solo al caso educativo.",
+            en: "Simulated provenance record. The 2023 date and alternate country belong only to the learning case.",
+          },
+        },
         coachLabel: "found the earliest upload from 2023 in another country",
       },
       {
@@ -708,7 +897,54 @@ export const auraCases: AuraCase[] = [
           en: "It reports no flood in Puerto Azul and publishes current waterfront images.",
         },
         clue: { es: "Verificación del lugar", en: "Location verification" },
+        provenance: {
+          status: "simulated",
+          documentId: "AURA-02-S4",
+          publisher: {
+            es: "Observatorio Puerto Azul · artefacto AURA",
+            en: "Puerto Azul Observatory · AURA artifact",
+          },
+          publishedAt: "2026-07-28",
+          disclosure: {
+            es: "Reporte local ficticio. Puerto Azul no corresponde a una emergencia ni a un municipio real del caso.",
+            en: "Fictional local report. Puerto Azul corresponds to no real emergency or municipality in this case.",
+          },
+        },
         coachLabel: "opened independent current reporting from Puerto Azul",
+      },
+    ],
+    references: [
+      {
+        id: "verification-handbook-video",
+        title: {
+          es: "Manual de Verificación: procedencia, fecha y ubicación de video",
+          en: "Verification Handbook: video provenance, date and location",
+        },
+        publisher: "Verification Handbook",
+        author: "Verification Handbook contributors",
+        publishedAt: "2014",
+        accessedAt: "2026-07-28",
+        url: "https://verificationhandbook.com/book_es/chapter9.php",
+        relevance: {
+          es: "Describe cómo identificar la fuente original, rastrear apariciones anteriores y comprobar fecha y ubicación mediante señales independientes.",
+          en: "Explains how to identify the original source, trace earlier appearances and verify date and location through independent signals.",
+        },
+      },
+      {
+        id: "unesco-verification-curriculum",
+        title: {
+          es: "Periodismo, noticias falsas y desinformación",
+          en: "Journalism, Fake News & Disinformation",
+        },
+        publisher: "UNESCO",
+        author: "Cherilyn Ireton & Julie Posetti (eds.)",
+        publishedAt: "2018-06-12",
+        accessedAt: "2026-07-28",
+        url: "https://www.unesco.org/en/articles/journalism-fake-news-disinformation",
+        relevance: {
+          es: "Ofrece un currículo internacional con lecciones prácticas de verificación en línea y contextualización de contenido.",
+          en: "Provides an international curriculum with practical lessons on online verification and contextualising content.",
+        },
       },
     ],
     sourceLimit: 2,
@@ -796,7 +1032,18 @@ export const auraCases: AuraCase[] = [
   },
 ];
 
+export const auraCases: AuraCase[] = [
+  ...coreAuraCases,
+  ...balancedAuraCases,
+];
+
+const caseValidationIssues = validateAuraCases(auraCases);
+if (caseValidationIssues.length > 0) {
+  throw new Error(
+    `AURA case catalog validation failed:\n${caseValidationIssues.join("\n")}`,
+  );
+}
+
 export function getAuraCase(id: string) {
   return auraCases.find((item) => item.id === id);
 }
-

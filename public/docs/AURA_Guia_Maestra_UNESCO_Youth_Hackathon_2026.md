@@ -7,23 +7,27 @@
 **Eslogan principal:** De la reacción a la evidencia.  
 **Eslogan en inglés:** From reaction to evidence.  
 **Promesa del producto:** AURA no decide qué creer. Entrena a las personas para investigar con evidencia.  
-**Estado de este documento:** Fuente maestra de estrategia, producto, operación y candidatura — versión 2.0.
+**Estado de este documento:** Fuente maestra de estrategia, producto, operación y candidatura — versión 2.2.
 
-**Versión funcional de referencia:** AURA 0.5.0.
+**Versión funcional de referencia:** AURA 0.8.0.
 
 **Ubicación en el proyecto:** `public/docs/`, accesible desde el prototipo y versionada junto al código.  
-**Fecha de referencia:** 27 de julio de 2026.  
+**Fecha de referencia:** 28 de julio de 2026.
 **Fecha límite oficial:** 16 de agosto de 2026, 23:59, hora de París. En Ecuador continental equivale aproximadamente a las 16:59. El objetivo interno debe ser enviar como máximo al mediodía de Ecuador del 16 de agosto.
 
 **Prototipo público:** [https://aura-opal-beta.vercel.app/](https://aura-opal-beta.vercel.app/)
 
+**Vista previa de la rama AURA 0.8.0:**
+[https://aura-git-agent-aura-pilot-mode-axeljhostins-projects.vercel.app/](https://aura-git-agent-aura-pilot-mode-axeljhostins-projects.vercel.app/)
+
 **Repositorio:** [https://github.com/AxelJhostin/AURA](https://github.com/AxelJhostin/AURA)
 
-**Último commit funcional validado al crear esta edición:** `7cebf2b`.
+**Rama funcional validada:** `agent/aura-pilot-mode`, PR listo para revisión
+[#1](https://github.com/AxelJhostin/AURA/pull/1).
 
 ---
 
-## Briefing de incorporación para Nicol
+## Briefing de incorporación para Nicole
 
 Esta sección permite entender el proyecto, su estado y las decisiones inmediatas
 sin tener que leer primero las más de dos mil líneas de la guía. El resto del
@@ -138,11 +142,11 @@ proyectos ya trabajan en espacios cercanos. La originalidad está en la
 integración concreta de acciones, trazabilidad, transferencia, contexto
 latinoamericano y participación juvenil.
 
-### 5. Estado real del producto — AURA 0.5.0
+### 5. Estado real del producto — AURA 0.8.0
 
 La siguiente tabla es la fuente de verdad. “Implementado” significa que existe
-en el repositorio y en la demo pública; no significa que ya fue validado con
-usuarios.
+en la rama validada y en su preview de Vercel; llegará al dominio público al
+fusionar el PR. No significa que ya fue validado con usuarios.
 
 | Capacidad | Estado | Evidencia actual |
 |---|---|---|
@@ -150,10 +154,15 @@ usuarios.
 | Método A-U-R-A | Implementado | Flujo completo de cuatro etapas |
 | Caso 01: bebidas energéticas y memoria | Implementado | Misión guiada bilingüe |
 | Caso 02: video de tormenta reciclado | Implementado | Misión guiada bilingüe |
+| Caso 03: beneficio real presentado como cura instantánea | Implementado | Estado `supported-with-limits` y referencias OMS/BMJ |
+| Caso 04: piloto pequeño generalizado a todo el campus | Implementado | Estado `insufficient` y referencias NIH/NCCIH |
 | Motor reutilizable de casos | Implementado | Contenido separado de la interfaz |
+| Compuerta editorial del catálogo | Implementada | El build valida ES/EN, IDs, procedencia, referencias y equilibrio |
 | Decisión inicial | Implementado | Opción codificada antes de investigar |
 | Señales investigables | Implementado | Selección de señales por caso |
 | Mapa de fuentes | Implementado | Dos fuentes seleccionadas por misión |
+| Expediente de procedencia | Implementado | Cada pieza simulada muestra ID, origen, fecha y declaración explícita |
+| Referencias reales | Implementado | Enlaces auditables separados del material ficticio de cada caso |
 | Acción proporcional | Implementado | Selección y justificación mediante el caso |
 | Tarjeta de Evidencia | Implementado | Artefacto copiable al finalizar |
 | Entrenador socrático con OpenAI | Implementado | Pregunta adaptada por caso y etapa |
@@ -161,25 +170,44 @@ usuarios.
 | Reto de transferencia sin guía | Implementado | Caso de enlace de becas |
 | Puntuación de transferencia | Implementado | Rúbrica observable de 0 a 2 |
 | Consentimiento de métricas | Implementado | Envío anónimo o modo solo local |
+| Pulso opcional pre/post | Implementado en 0.8.0 | Opción codificada `1–5`, sin nombre ni texto libre |
 | Informe de sesión | Implementado | Eventos, tiempo y puntuación |
 | Exportación CSV | Implementado | Descarga desde el dispositivo |
 | API de eventos validada | Implementado | Rechaza eventos y opciones inventadas |
-| Persistencia central | Preparada, no activa | Migración Supabase lista; falta proyecto AURA |
-| Vista de facilitador | Pendiente | Prioridad de la siguiente versión |
+| Persistencia central | Activa y verificada | Vercel inserta eventos anónimos server-side en Supabase |
+| Código y enlace de piloto | Implementado en 0.7.0 | Código aleatorio de 12 caracteres, sin cuenta ni PII |
+| Vista de facilitador | Implementada en 0.7.0 | Totales y promedios; la API no devuelve filas ni identificadores |
+| Comparación agregada pre/post | Implementada en 0.8.0 | Promedios inicial/final, delta y número de pares |
+| Exportación agregada CSV | Implementada en 0.8.0 | Solo métricas del piloto; no contiene IDs de sesión |
+| Migración de piloto en producción | Activa y verificada | Columna, restricción, índice, RLS y privilegios comprobados |
+| Accesibilidad técnica | Implementada en 0.8.0 | Enlace de salto, foco visible, movimiento reducido y layout de 320 px |
 | Pilotos con participantes reales | Pendiente | No existen resultados que puedan afirmarse |
-| Casos adicionales revisados | Pendiente | Meta: seis casos totales |
+| Revisión AMI externa de los casos | Pendiente | La revisión interna está registrada; falta el gate externo |
 | Propuesta final en inglés | Pendiente | Banco de texto disponible en esta guía |
 | Pitch grabado | Pendiente | Guion y lista de planos disponibles |
 
-Validaciones técnicas completadas para AURA 0.5.0:
+Validaciones técnicas completadas para AURA 0.8.0:
 
 - compilación de producción Next.js correcta;
 - TypeScript y lint sin errores;
-- cinco pruebas automatizadas aprobadas;
+- once pruebas automatizadas aprobadas;
 - cero vulnerabilidades reportadas en dependencias de producción;
-- ruta pública de eventos probada con aceptación y rechazo;
+- ruta pública de eventos probada con aceptación, rechazo y persistencia real;
+- generación, normalización y propagación del código de piloto verificadas;
+- ruta de resumen limitada a resultados agregados y clave server-side;
+- prueba desplegada completa a 320 px: consentimiento, pulso inicial `3/5`,
+  caso 03, tarjeta `Respaldada con límites`, transferencia `2/2`, pulso final
+  `5/5` y lectura agregada con cambio pre/post de `+2`;
+- revisión visual a 320 px exactos con `scrollWidth = clientWidth = 320`, sin
+  desbordamiento horizontal;
+- RLS activa en Supabase, sin permisos para `anon` ni `authenticated`, y
+  `service_role` limitado a `SELECT` e `INSERT`;
+- asesores de seguridad y rendimiento de Supabase sin errores ni advertencias;
+  solo permanecen tres avisos informativos de índices aún no utilizados,
+  esperables antes del piloto real;
+- cero errores o advertencias en la consola del navegador del preview;
 - secretos fuera del repositorio;
-- despliegue de Vercel confirmado.
+- despliegue Preview de Vercel confirmado.
 
 ### 6. Lo que todavía no se puede afirmar
 
@@ -199,10 +227,11 @@ Sí se puede decir:
 
 - existe un prototipo funcional y público;
 - el flujo es bilingüe;
-- hay dos misiones guiadas y un reto no guiado;
+- hay cuatro misiones guiadas equilibradas y un reto no guiado;
 - AURA genera una Tarjeta de Evidencia;
-- existe medición anónima local y exportación CSV;
-- la persistencia central está diseñada, pero todavía no activada;
+- existe medición anónima local, pulso pre/post y exportación CSV;
+- la persistencia central está activa para eventos autorizados y usa RLS,
+  privilegios explícitos y rutas exclusivamente server-side;
 - el equipo está preparando un piloto y reportará sus resultados con
   limitaciones.
 
@@ -288,10 +317,17 @@ Navegador
   |      +--> pregunta curada si la IA no responde
   |
   +--> POST /api/aura/events
+  |      |
+  |      +--> validación de origen, tamaño, frecuencia y esquema
+  |      +--> código de piloto opcional
+  |      +--> modo local cuando Supabase no está configurado
+  |      +--> Supabase solo desde el servidor y con consentimiento
+  |
+  +--> GET /api/aura/pilots?code=AURA-...
          |
-         +--> validación de origen, tamaño, frecuencia y esquema
-         +--> modo local cuando Supabase no está configurado
-         +--> Supabase opcional solo desde el servidor
+         +--> validación de origen, formato y frecuencia
+         +--> agregación server-side
+         +--> totales y promedios; nunca filas ni identificadores
 ```
 
 Infraestructura:
@@ -299,11 +335,14 @@ Infraestructura:
 - código y control de versiones: GitHub;
 - producción: Vercel;
 - IA: OpenAI desde una ruta server-side;
-- base opcional: Supabase PostgreSQL;
+- persistencia central: Supabase PostgreSQL desde la ruta server-side;
 - secretos: variables de entorno, nunca código ni `NEXT_PUBLIC_*`;
-- datos actuales: almacenamiento local y CSV;
-- migración preparada:
-  `supabase/migrations/20260728033416_aura_learning_events.sql`.
+- datos actuales: almacenamiento local, CSV y eventos anónimos centrales cuando
+  existe consentimiento;
+- migración base aplicada y versionada:
+  `supabase/migrations/20260728033416_aura_learning_events.sql`;
+- migración de piloto aplicada, verificada y versionada:
+  `supabase/migrations/20260728141033_add_anonymous_pilot_code.sql`.
 
 ### 10. Privacidad y límites de IA
 
@@ -319,8 +358,8 @@ Principios no negociables:
 - la experiencia funciona con preguntas curadas si la IA falla;
 - ninguna clave secreta debe aparecer en GitHub, capturas o video.
 
-La persistencia central requiere un proyecto Supabase exclusivo de AURA. La
-migración:
+La persistencia central está activa en un proyecto de la organización del
+equipo. La migración:
 
 - habilita Row Level Security;
 - revoca acceso a `anon` y `authenticated`;
@@ -334,7 +373,7 @@ descargarlos como CSV.
 
 ### 11. Responsabilidades del equipo
 
-#### Axel — liderazgo técnico y de producto
+#### Hernández Axel — liderazgo técnico y de producto
 
 Responsable principal de:
 
@@ -348,10 +387,10 @@ Responsable principal de:
 - soporte durante el piloto;
 - documentación del funcionamiento real.
 
-Axel no debe absorber en solitario investigación, alianzas, propuesta, logística
+Hernández Axel no debe absorber en solitario investigación, alianzas, propuesta, logística
 de piloto y edición del video. Esa concentración sería un riesgo de ejecución.
 
-#### Nicol — estrategia, impacto y operación
+#### Nicole — estrategia, impacto y operación
 
 Responsable principal de:
 
@@ -366,7 +405,7 @@ Responsable principal de:
 - coordinar propuesta, formulario y video;
 - cuidar la narrativa en inglés con apoyo de revisión externa.
 
-Primeros entregables recomendados para Nicol:
+Primeros entregables recomendados para Nicole:
 
 1. Leer este briefing y las secciones 1–3, 15–16, 19, 21 y 24–28.
 2. Preparar una lista de 10 contactos posibles para reclutamiento o validación.
@@ -393,7 +432,7 @@ equipos de dos. Una nueva persona debe aportar al menos una capacidad faltante:
 Toda persona confirmada debe tener 18–30 años, aceptar responsabilidades
 concretas y poder contribuir antes del cierre.
 
-### 12. Sistema de coordinación Axel–Nicol
+### 12. Sistema de coordinación Hernández Axel–Nicole
 
 Ritmo mínimo:
 
@@ -433,22 +472,20 @@ Bloqueo:
 
 #### 27–29 de julio — congelar narrativa y operación
 
-- Nicol completa la incorporación.
-- El equipo prueba AURA 0.5 de extremo a extremo.
+- Nicole completa la incorporación.
+- El equipo prueba AURA 0.8 de extremo a extremo.
 - Se congela el público inicial.
 - Se decide si entran más integrantes.
 - Se consiguen los primeros participantes.
-- Se seleccionan tres casos adicionales.
-- Se conecta un proyecto Supabase exclusivo de AURA o se confirma el protocolo
-  CSV.
+- Se revisan los cuatro casos con una persona experta en AMI.
+- Se confirma el protocolo de consentimiento y acceso al agregado.
 
-#### 30 de julio–2 de agosto — completar instrumento y facilitación
+#### 30 de julio–2 de agosto — ensayo interno y facilitación
 
-- Crear vista mínima de facilitador o plantilla agregada equivalente.
-- Preparar consentimiento e instrucciones.
-- Preparar encuesta breve de salida.
-- Revisar accesibilidad móvil.
-- Construir al menos un caso adicional.
+- Ensayar la vista de facilitador y la exportación agregada.
+- Revisar consentimiento e instrucciones con Nicole.
+- Verificar el pulso inicial/final.
+- Probar 320 px y un Android de gama media.
 - Ensayar el flujo del piloto.
 
 #### 3–5 de agosto — prueba exploratoria
@@ -590,7 +627,7 @@ Pitch de 30 segundos en inglés:
 | Integrante sin rol real | Aceptar solo perfiles con entregables |
 | Propuesta genérica | Usar público, casos y contexto de Ecuador |
 | Enseñar cinismo | Incluir contenido correcto, engañoso e incierto |
-| Dependencia de Axel | Nicol lidera piloto, narrativa y operación |
+| Dependencia de Hernández Axel | Nicole lidera piloto, narrativa y operación |
 
 ### 17. Inventario de activos
 
@@ -608,7 +645,7 @@ Pitch de 30 segundos en inglés:
 | Propuesta PDF/Word | Pendiente |
 | Video pitch | Pendiente |
 | Resultados de piloto | Pendiente |
-| Proyecto Supabase AURA | Pendiente de conexión |
+| Proyecto Supabase AURA | Conectado; eventos anónimos verificados |
 
 Nunca colocar en esta guía:
 
@@ -631,7 +668,7 @@ Nunca colocar en esta guía:
 
 ## Índice ejecutivo
 
-- [Briefing de incorporación para Nicol](#briefing-de-incorporación-para-nicol)
+- [Briefing de incorporación para Nicole](#briefing-de-incorporación-para-nicol)
 - [0. Cómo usar esta guía](#0-cómo-usar-esta-guía)
 - [Parte I — Decisión estratégica](#parte-i--decisión-estratégica)
 - [Parte II — Definición del proyecto](#parte-ii--definición-del-proyecto)
@@ -1217,16 +1254,21 @@ La biblioteca debe incluir:
 
 Esto evita que el usuario aprenda que “todo lo emocional es falso” o que “desconfiar siempre” equivale a pensar críticamente.
 
-### MVP recomendado: seis casos
+### Biblioteca objetivo y estado actual
 
 | Caso | Tipo | Habilidad principal | Uso |
 |---|---|---|---|
 | 1 | Salud, cifra precisa y autoridad vaga | Rastrear qué midió la fuente | Guiado — implementado |
 | 2 | Video real con fecha y lugar alterados | Verificar procedencia y contexto | Guiado — implementado |
-| 3 | Noticia verdadera con titular emocional | No confundir emoción con falsedad | Guiado — pendiente |
-| 4 | Estadística real sin denominador | Contextualizar datos | Guiado — pendiente |
-| 5 | Publicación institucional auténtica | Reconocer evidencia suficiente | Transferencia — pendiente |
+| 3 | Beneficio real convertido en cura instantánea | Conservar el núcleo cierto y corregir el exceso | Guiado — implementado |
+| 4 | Piloto pequeño convertido en política universal | Reconocer evidencia insuficiente | Guiado — implementado |
+| 5 | Publicación institucional auténtica | Reconocer evidencia suficiente | Expansión posterior al MVP |
 | 6 | Enlace urgente de becas que pide datos | Priorizar fuente oficial y procedencia | Transferencia — implementado |
+
+Los cuatro casos guiados cubren los tres estados mínimos exigidos por el diseño:
+`supported-with-limits`, `misleading` e `insufficient`. El catálogo valida esta
+cobertura automáticamente. Los casos 5 y futuros amplían variedad, pero no
+bloquean el MVP técnico.
 
 ### Ficha obligatoria de cada caso
 
@@ -1279,17 +1321,17 @@ La demo debe incluir una fuente primaria, una fuente secundaria fiable y una fue
 ## 11. Alcance del MVP
 
 Esta sección define el alcance objetivo para la candidatura. El estado real se
-encuentra en la tabla del briefing de incorporación. A 27 de julio, AURA tiene
-dos casos guiados y un reto de transferencia; las capacidades pendientes no
-deben presentarse como terminadas.
+encuentra en la tabla del briefing de incorporación. A 28 de julio, AURA tiene
+cuatro casos guiados equilibrados y un reto de transferencia; los pilotos con
+personas reales y los entregables de candidatura siguen pendientes.
 
 ### Incluido en el alcance objetivo
 
 - Aplicación web móvil.
 - Español e inglés.
 - Método A-U-R-A.
-- Seis casos curados en total: cuatro misiones guiadas y dos retos de
-  transferencia.
+- Cuatro misiones guiadas equilibradas y un reto de transferencia; nuevos casos
+  solo si pasan la misma compuerta editorial.
 - Evaluación inicial.
 - Tres preguntas socráticas.
 - Anotaciones de señales.
@@ -1346,7 +1388,7 @@ Si el tiempo escasea, proteger:
 
 ## 12. Función de la IA
 
-### Implementación real en AURA 0.5.0
+### Implementación real en AURA 0.8.0
 
 La IA actual tiene un alcance deliberadamente estrecho: recibe el identificador
 del caso, la etapa, el idioma y opciones codificadas ya seleccionadas. Devuelve
@@ -1360,7 +1402,7 @@ pregunta de respaldo. Este alcance es suficiente para demostrar el uso
 responsable de IA sin convertirla en una autoridad de verdad.
 
 Las capacidades descritas a continuación representan límites y posibles
-extensiones, no todas están implementadas en la versión 0.5.0.
+extensiones, no todas están implementadas en la versión 0.8.0.
 
 ### La IA sí puede
 
@@ -1471,7 +1513,7 @@ Revisar:
 
 El objetivo es minimizar componentes.
 
-AURA 0.5.0 ya sigue esta decisión: una sola aplicación Next.js desplegada en
+AURA 0.8.0 ya sigue esta decisión: una sola aplicación Next.js desplegada en
 Vercel contiene interfaz, rutas de servidor, motor de casos y modo degradado. No
 existe un segundo backend que deba desplegarse o mantenerse.
 
@@ -1751,7 +1793,7 @@ No utilizar logos ni nombres de instituciones como aliados sin autorización.
 
 No pedir afiliación política.
 
-Los datos demográficos no forman parte del registro técnico de AURA 0.5. Si el
+Los datos demográficos no forman parte del registro técnico de AURA 0.8. Si el
 piloto los necesita, deben recopilarse en un formulario separado, con
 consentimiento, categorías amplias y sin una clave que permita unirlos con la
 sesión técnica salvo que el protocolo lo justifique.
@@ -1788,7 +1830,7 @@ Puntuación automática actual: 0–2
 La puntuación `0–2` evalúa el primer movimiento y su justificación. La rúbrica
 manual `0–18` puede aplicarse por un facilitador para una evaluación educativa
 más rica, pero no debe presentarse como calculada automáticamente por la versión
-0.5.0.
+0.8.0.
 
 #### Calibración
 
@@ -1955,7 +1997,7 @@ La escala no se basará solamente en más usuarios. Se basará en:
 
 ### Confirmados
 
-#### Axel — Desarrollo e ingeniería de software
+#### Hernández Axel — Desarrollo e ingeniería de software
 
 Responsabilidades:
 
@@ -1968,7 +2010,7 @@ Responsabilidades:
 - Seguridad.
 - Demo técnica.
 
-#### Nicol — Estudiante de Negocios Internacionales
+#### Nicole — Estudiante de Negocios Internacionales
 
 Asignación base acordada:
 
@@ -2128,28 +2170,29 @@ Cambiar estas decisiones después solo si existe evidencia clara.
 ## 21. Cronograma crítico
 
 El desarrollo está adelantado respecto al plan inicial: landing, flujo A-U-R-A,
-dos misiones guiadas, IA, modo degradado, bilingüismo, Tarjeta de Evidencia,
-transferencia, analítica local y despliegue ya existen en AURA 0.5.0. La ruta
+cuatro misiones guiadas equilibradas, IA, modo degradado, bilingüismo, Tarjeta
+de Evidencia, transferencia, analítica local, expediente de procedencia,
+referencias reales, instrumento pre/post y modo facilitador ya existen en AURA
+0.8.0. La ruta
 crítica cambia de “construir una demo” a **probar, documentar y presentar una
 intervención creíble**.
 
 ### 27–29 de julio — Congelar estrategia y operación
 
-- Incorporar a Nicol con esta guía.
+- Incorporar a Nicole con esta guía.
 - Confirmar equipo mínimo.
 - Congelar one-liner, público y alcance final.
-- Seleccionar tres casos adicionales.
+- Revisar los cuatro casos implementados con una persona experta en AMI.
 - Preparar lista de participantes.
-- Conectar Supabase dedicado o aprobar protocolo CSV.
+- Verificar el modo piloto completo después del despliegue 0.8.0.
 - Crear tablero y responsables.
 
-### 30 de julio–2 de agosto — Instrumento y facilitación
+### 30 de julio–2 de agosto — Ensayo interno y facilitación
 
-- Crear vista mínima de facilitador o consolidación equivalente.
+- Ensayar la vista de facilitador con Nicole.
 - Preparar consentimiento.
-- Preparar encuesta breve de salida.
-- Completar al menos un caso adicional.
-- Revisar accesibilidad móvil.
+- Verificar el pulso pre/post y la exportación agregada.
+- Probar 320 px y un Android de gama media.
 - Ensayar el piloto completo.
 
 ### 3–5 de agosto — Prueba exploratoria
@@ -2730,6 +2773,13 @@ Estado verificado al 27 de julio de 2026:
 - [Inoculation and accuracy prompting increase accuracy discernment in combination but not alone](https://www.nature.com/articles/s41562-024-02023-2)
 - [Psychological booster shots targeting memory increase long-term resistance against misinformation](https://www.nature.com/articles/s41467-025-57205-x)
 
+### Expedientes de los casos
+
+- [Caffeine and Cognitive Functions in Sports — revisión sistemática y metaanálisis](https://pubmed.ncbi.nlm.nih.gov/33800853/)
+- [EFSA — Scientific Opinion on the safety of caffeine](https://efsa.onlinelibrary.wiley.com/doi/10.2903/j.efsa.2015.4102)
+- [Manual de Verificación — procedencia, fecha y ubicación de video](https://verificationhandbook.com/book_es/chapter9.php)
+- [UNESCO — Journalism, Fake News & Disinformation](https://www.unesco.org/en/articles/journalism-fake-news-disinformation)
+
 ### UNESCO AMI e IA
 
 - [Media and Information Literacy — UNESCO](https://www.unesco.org/en/ami)
@@ -2758,8 +2808,8 @@ Estado verificado al 27 de julio de 2026:
 - [ ] Seis casos.
 - [x] Nombre visual: AURA.
 - [x] Idioma principal español con experiencia completa en inglés.
-- [x] Stack: Next.js, Vercel, OpenAI server-side y Supabase opcional.
-- [x] Analítica: consentimiento, registro local, CSV y persistencia central opcional.
+- [x] Stack: Next.js, Vercel, OpenAI server-side y Supabase server-side.
+- [x] Analítica: consentimiento, registro local, CSV y persistencia central activa.
 - [ ] Fecha del piloto.
 - [ ] Presentador del video.
 - [ ] Editor del video.
@@ -2773,11 +2823,11 @@ Estado verificado al 27 de julio de 2026:
 | 27-07-2026 | Reposicionar AURA como laboratorio de evidencia | Diferenciar de TITAN y medir acciones | Equipo | Congelada |
 | 27-07-2026 | Método A-U-R-A bilingüe | Claridad y memorabilidad | Equipo | Congelada |
 | 27-07-2026 | Público inicial universitario/juvenil en Ecuador | Viabilidad de piloto | Equipo | Por confirmar |
-| 27-07-2026 | Axel y Nicol forman el equipo núcleo confirmado | Son los integrantes con compromiso confirmado | Equipo | Congelada |
-| 27-07-2026 | Arquitectura única Next.js desplegada en Vercel | Reducir complejidad y riesgo de demo | Axel | Congelada |
-| 27-07-2026 | La IA pregunta, no verifica ni puntúa | Proteger autonomía y reducir alucinaciones | Axel | Congelada |
+| 27-07-2026 | Hernández Axel y Nicole forman el equipo núcleo confirmado | Son los integrantes con compromiso confirmado | Equipo | Congelada |
+| 27-07-2026 | Arquitectura única Next.js desplegada en Vercel | Reducir complejidad y riesgo de demo | Hernández Axel | Congelada |
+| 27-07-2026 | La IA pregunta, no verifica ni puntúa | Proteger autonomía y reducir alucinaciones | Hernández Axel | Congelada |
 | 27-07-2026 | Medir transferencia mediante acciones `0–2` | Probar conducta reutilizable sin premiar obediencia | Equipo | Revisar con piloto |
-| 27-07-2026 | No aceptar texto libre ni datos personales en analítica | Privacidad y minimización | Axel | Congelada |
+| 27-07-2026 | No aceptar texto libre ni datos personales en analítica | Privacidad y minimización | Hernández Axel | Congelada |
 
 ## 37. Datos que deben reemplazarse
 

@@ -1,6 +1,8 @@
 import { auraCases } from "../../../data/cases";
 import { transferChallenge } from "../../../data/transfer";
 import {
+  PILOT_CODE_PATTERN,
+  PILOT_EVALUATION_CASE_ID,
   PRODUCT_VERSION,
   type AnalyticsEventName,
   type AnalyticsStage,
@@ -31,6 +33,8 @@ const allowedEventNames = new Set<AnalyticsEventName>([
   "transfer_first_move_selected",
   "transfer_reason_selected",
   "transfer_completed",
+  "pilot_baseline_recorded",
+  "pilot_exit_recorded",
 ]);
 const allowedStages = new Set<AnalyticsStage>([
   "analyze",
@@ -38,6 +42,7 @@ const allowedStages = new Set<AnalyticsStage>([
   "research",
   "act",
   "transfer",
+  "survey",
 ]);
 
 const globalForAuraEvents = globalThis as typeof globalThis & {
@@ -97,6 +102,17 @@ function validOption(
   if (noOptionEvents.has(eventName)) return optionId === undefined;
 
   if (
+    eventName === "pilot_baseline_recorded" ||
+    eventName === "pilot_exit_recorded"
+  ) {
+    return (
+      caseId === PILOT_EVALUATION_CASE_ID &&
+      typeof optionId === "string" &&
+      /^confidence-[1-5]$/.test(optionId)
+    );
+  }
+
+  if (
     eventName === "transfer_first_move_selected" ||
     eventName === "transfer_reason_selected"
   ) {
@@ -142,6 +158,8 @@ function validEventShape(
     transfer_first_move_selected: "transfer",
     transfer_reason_selected: "transfer",
     transfer_completed: "transfer",
+    pilot_baseline_recorded: "survey",
+    pilot_exit_recorded: "survey",
   };
   const timedEvents = new Set<AnalyticsEventName>([
     "evidence_card_generated",
@@ -210,6 +228,7 @@ export async function POST(request: Request) {
   const eventId = body.eventId;
   const eventName = body.eventName;
   const sessionId = body.sessionId;
+  const pilotCode = body.pilotCode;
   const occurredAt = body.occurredAt;
   const locale = body.locale;
   const caseId = body.caseId;
@@ -228,6 +247,9 @@ export async function POST(request: Request) {
     !allowedEventNames.has(eventName as AnalyticsEventName) ||
     typeof sessionId !== "string" ||
     !UUID_PATTERN.test(sessionId) ||
+    (pilotCode !== undefined &&
+      (typeof pilotCode !== "string" ||
+        !PILOT_CODE_PATTERN.test(pilotCode))) ||
     typeof occurredAt !== "string" ||
     !Number.isFinite(occurredTimestamp) ||
     Math.abs(Date.now() - occurredTimestamp) > MAX_CLOCK_DRIFT_MS ||
@@ -256,9 +278,14 @@ export async function POST(request: Request) {
   }
 
   const isTransferEvent = eventName.startsWith("transfer_");
+  const isSurveyEvent =
+    eventName === "pilot_baseline_recorded" ||
+    eventName === "pilot_exit_recorded";
   if (
     (isTransferEvent && caseId !== transferChallenge.id) ||
+    (isSurveyEvent && caseId !== PILOT_EVALUATION_CASE_ID) ||
     (!isTransferEvent &&
+      !isSurveyEvent &&
       !auraCases.some((item) => item.id === caseId)) ||
     !validEventShape(
       eventName as AnalyticsEventName,
@@ -292,6 +319,7 @@ export async function POST(request: Request) {
         body: JSON.stringify({
           event_id: eventId,
           anonymous_session_id: sessionId,
+          pilot_code: pilotCode ?? null,
           event_name: eventName,
           occurred_at: occurredAt,
           locale,
