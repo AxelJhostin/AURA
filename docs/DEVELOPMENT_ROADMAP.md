@@ -2,7 +2,7 @@
 
 - **Propietario técnico:** Axel
 - **Propietaria de estrategia e impacto:** Nicol
-- **Estado base:** MVP demostrable 0.4.0
+- **Estado base:** MVP medible 0.5.0
 - **Objetivo:** convertir el flujo actual en un piloto medible y una candidatura
 respaldada por evidencia real.
 
@@ -15,6 +15,9 @@ respaldada por evidencia real.
 - Selección de señales y fuentes.
 - Mapa de evidencia.
 - Tarjeta de evidencia copiable.
+- Reto de transferencia no guiado con rúbrica `0–2`.
+- Consentimiento de analítica y reporte CSV por sesión.
+- Ruta validada para persistencia opcional en Supabase.
 - Preguntas socráticas adaptadas mediante OpenAI con respaldo determinista.
 - Build estándar de Next.js compatible con Vercel.
 - Equipo y hoja de ruta visibles.
@@ -56,8 +59,10 @@ Interfaz React
 ├── Motor determinista del flujo A-U-R-A
 ├── Preguntas de respaldo sin IA
 ├── Adaptador opcional de IA
+├── Reto de transferencia sin guía
 ├── Eventos anónimos del piloto
-└── Exportación de Tarjeta de evidencia
+├── Persistencia server-side opcional
+└── Exportación de Tarjeta de evidencia + CSV
 ```
 
 Principio: la misión debe poder completarse si el servicio de IA no está
@@ -113,20 +118,20 @@ type AuraCase = {
 **Aceptación alcanzada:** cambiar o añadir un caso no exige editar el componente
 de la misión ni las listas permitidas de la ruta de IA.
 
-#### P0.2 Reto de transferencia
+#### P0.2 Reto de transferencia — implementado en 0.5.0
 
-- La versión 0.4.0 ya demuestra que el método opera sobre un segundo tema.
-- Aún falta el reto final no guiado para medir transferencia sin repetir pistas.
-- Presentar una segunda afirmación breve.
-- Pedir al usuario elegir el primer movimiento de investigación.
-- No ofrecer las mismas pistas que en la misión guiada.
-- Registrar justificación.
+- [x] Presentar una afirmación nueva sobre una convocatoria de becas.
+- [x] Pedir el primer movimiento de investigación.
+- [x] No mostrar fuentes, pistas ni preguntas de AURA.
+- [x] Registrar una justificación mediante opciones codificadas.
+- [x] Calcular una puntuación observable `0–2`.
 
-**Aceptación:** se puede comparar desempeño guiado y no guiado.
+**Aceptación alcanzada:** el reto permite medir si la persona identifica la
+fuente primaria y justifica la importancia de la procedencia sin ayuda.
 
-#### P0.3 Instrumentación mínima
+#### P0.3 Instrumentación mínima — implementada en 0.5.0
 
-Eventos propuestos:
+Eventos implementados:
 
 - `mission_started`
 - `initial_decision_recorded`
@@ -134,8 +139,11 @@ Eventos propuestos:
 - `source_opened`
 - `action_selected`
 - `evidence_card_generated`
-- `transfer_completed`
 - `mission_abandoned`
+- `transfer_started`
+- `transfer_first_move_selected`
+- `transfer_reason_selected`
+- `transfer_completed`
 
 Propiedades permitidas:
 
@@ -146,15 +154,20 @@ Propiedades permitidas:
 - duración;
 - opción seleccionada codificada;
 - versión del producto.
+- puntuación de transferencia.
 
 **No recopilar:** nombre, correo, texto privado pegado, ubicación precisa,
-identificadores publicitarios o historial de navegación.
+IP almacenada, agente de navegador, identificadores publicitarios o historial
+de navegación.
 
-**Aceptación:** existe diccionario de eventos, consentimiento definido y prueba
-de que ninguna propiedad contiene datos sensibles.
+**Aceptación alcanzada:** existe un contrato cerrado, consentimiento explícito,
+validación server-side, respaldo local y exportación CSV. La persistencia
+central queda activable al conectar un proyecto Supabase exclusivo de AURA y
+aplicar la migración incluida.
 
 #### P0.4 Modo facilitación
 
+- La exportación CSV por sesión ya está implementada.
 - Código corto de sesión.
 - Pantalla con instrucciones.
 - Vista agregada, sin identificar personas.

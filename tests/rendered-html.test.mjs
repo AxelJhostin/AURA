@@ -26,6 +26,7 @@ test("builds the AURA page as standard Next.js output", async () => {
   assert.match(html, /La inundación de “ahora”/);
   assert.match(html, /data-case-id="energy-memory"/);
   assert.match(html, /data-case-id="recycled-storm-video"/);
+  assert.match(html, /Medición anónima del aprendizaje/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/);
 });
 
@@ -74,12 +75,60 @@ test("renders published bilingual cases through the reusable case engine", async
   assert.doesNotMatch(component, /const initialChoices|const sourceChoices/);
 });
 
+test("implements an unguided transfer challenge with anonymous coded analytics", async () => {
+  const [component, transfer, analytics, route, migration] = await Promise.all([
+    readFile(
+      new URL("app/components/AuraExperience.tsx", root),
+      "utf8",
+    ),
+    readFile(new URL("app/data/transfer.ts", root), "utf8"),
+    readFile(new URL("app/lib/analytics.ts", root), "utf8"),
+    readFile(new URL("app/api/aura/events/route.ts", root), "utf8"),
+    readFile(
+      new URL(
+        "supabase/migrations/20260728033416_aura_learning_events.sql",
+        root,
+      ),
+      "utf8",
+    ),
+  ]);
+
+  assert.match(component, /<TransferChallenge/);
+  assert.match(component, /analyticsConsent/);
+  assert.match(component, /evidence_card_generated/);
+  assert.match(transfer, /id: "scholarship-link"/);
+  assert.match(transfer, /RETO DE TRANSFERENCIA · SIN GUÍA/);
+  assert.match(transfer, /score: 1/);
+  assert.doesNotMatch(transfer, /textarea|freeText/);
+  assert.match(analytics, /PRODUCT_VERSION = "0.5.0"/);
+  assert.match(analytics, /analyticsEventsToCsv/);
+  assert.match(analytics, /cryptoApi\.getRandomValues/);
+  assert.match(route, /process\.env\.SUPABASE_SECRET_KEY/);
+  assert.match(route, /origin_not_allowed/);
+  assert.match(route, /request\.text\(\)/);
+  assert.match(route, /TextEncoder/);
+  assert.match(route, /validOption/);
+  assert.match(route, /apikey: supabaseSecretKey/);
+  assert.doesNotMatch(route, /Authorization: `Bearer \$\{supabaseSecretKey\}`/);
+  assert.doesNotMatch(route, /NEXT_PUBLIC_SUPABASE/);
+  assert.match(migration, /enable row level security/i);
+  assert.match(
+    migration,
+    /revoke all on table public\.aura_learning_events from anon, authenticated/i,
+  );
+  assert.match(
+    migration,
+    /grant insert on table public\.aura_learning_events to service_role/i,
+  );
+  assert.doesNotMatch(migration, /\b(email|full_name|user_agent|ip_address)\b/i);
+});
+
 test("uses the Vercel-compatible Next.js build contract", async () => {
   const packageJson = JSON.parse(
     await readFile(new URL("package.json", root), "utf8"),
   );
 
-  assert.equal(packageJson.version, "0.4.0");
+  assert.equal(packageJson.version, "0.5.0");
   assert.equal(packageJson.scripts.dev, "next dev");
   assert.equal(packageJson.scripts.build, "next build");
   assert.equal(packageJson.scripts.start, "next start");

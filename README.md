@@ -16,7 +16,7 @@ Este repositorio reúne dos entregables que deben evolucionar juntos:
 
 ## Estado actual
 
-- **Versión:** MVP demostrable `0.4.0`
+- **Versión:** MVP demostrable `0.5.0`
 - **Objetivo:** UNESCO Youth Hackathon 2026
 - **Equipo confirmado:** Axel + Nicol
 - **Modo:** Next.js estándar, publicado en GitHub y preparado para Vercel
@@ -32,6 +32,10 @@ La demo ya permite:
 - Elegir fuentes y construir un mapa de evidencia.
 - Decidir una acción proporcional a la evidencia.
 - Generar y copiar una Tarjeta de evidencia.
+- Resolver un reto final no guiado sobre un tema diferente.
+- Obtener una puntuación de transferencia `0–2` basada en acciones observables.
+- Registrar métricas anónimas con consentimiento explícito.
+- Descargar el reporte codificado de una sesión en CSV.
 - Solicitar una pregunta socrática adaptada mediante OpenAI en cada etapa.
 - Continuar con preguntas de respaldo cuando la IA no esté disponible.
 - Reiniciar la misión y recorrerla de nuevo.
@@ -95,10 +99,16 @@ AURA-UNESCO-2026/
 ├── app/
 │   ├── api/aura/coach/
 │   │   └── route.ts             # entrenador socrático del servidor
+│   ├── api/aura/events/
+│   │   └── route.ts             # recepción y validación de métricas anónimas
 │   ├── components/
-│   │   └── AuraExperience.tsx   # experiencia e interacciones
+│   │   ├── AuraExperience.tsx   # experiencia e interacciones
+│   │   └── TransferChallenge.tsx # reto no guiado y reporte de sesión
 │   ├── data/
-│   │   └── cases.ts             # catálogo bilingüe y contenido de misiones
+│   │   ├── cases.ts             # catálogo bilingüe y contenido de misiones
+│   │   └── transfer.ts          # reto y rúbrica de transferencia
+│   ├── lib/
+│   │   └── analytics.ts         # eventos locales, consentimiento y CSV
 │   ├── globals.css              # sistema visual y diseño responsivo
 │   ├── layout.tsx               # metadatos, idioma base y viewport
 │   └── page.tsx                 # entrada principal
@@ -110,6 +120,8 @@ AURA-UNESCO-2026/
 │   └── DEVELOPMENT_ROADMAP.md   # plan técnico y criterios de aceptación
 ├── tests/
 │   └── rendered-html.test.mjs   # smoke tests del render del servidor
+├── supabase/migrations/
+│   └── *_aura_learning_events.sql # persistencia opcional del piloto
 ├── .env.example                 # nombres de variables, nunca secretos
 ├── CONTRIBUTING.md
 ├── package.json
@@ -176,11 +188,21 @@ El prototipo usa:
 - CSS propio para identidad visual, diseño responsivo y accesibilidad.
 - Estado local de React para la misión.
 - Catálogo tipado de casos separado de la interfaz.
+- Analítica local con envío server-side opcional a Supabase.
 
 La ruta de IA acepta solamente el identificador de un caso publicado y opciones
 predefinidas dentro de ese caso. Limita el tamaño y la frecuencia de las
 solicitudes, no almacena las respuestas en OpenAI y nunca envía la clave al
-navegador. No hay base de datos y no se recopilan datos personales.
+navegador. La misión principal no requiere base de datos ni recopila datos
+personales.
+
+La analítica utiliza un identificador UUID aleatorio de sesión y un conjunto
+cerrado de eventos. Registra únicamente idioma, caso, etapa, opción codificada,
+duración, versión y puntuación de transferencia. No admite nombre, correo,
+ubicación, texto libre, IP, agente de navegador ni historial. Sin Supabase
+configurado, los eventos permanecen en el dispositivo y pueden descargarse en
+CSV. Con Supabase configurado, solo se envían cuando la persona selecciona
+**Permitir métricas anónimas**.
 
 ## Desplegar en Vercel
 
@@ -198,11 +220,19 @@ En **Settings → Environment Variables**, agregar:
 ```text
 OPENAI_API_KEY=<clave del proyecto>
 OPENAI_MODEL=gpt-5.6
+SUPABASE_URL=https://<project-ref>.supabase.co
+SUPABASE_SECRET_KEY=<clave-secreta-del-servidor>
 ```
 
 Aplicar `OPENAI_API_KEY` a Production, Preview y Development según sea
 necesario. Después de guardarla hay que iniciar un nuevo deployment: Vercel no
 aplica variables nuevas a despliegues anteriores.
+
+Las variables de Supabase son opcionales. Deben permanecer exclusivamente en
+el servidor y nunca usar el prefijo `NEXT_PUBLIC_`. Antes de activarlas, aplicar
+la migración `supabase/migrations/*_aura_learning_events.sql`. La tabla tiene
+RLS activado, no concede acceso a `anon` ni `authenticated`, y admite inserción
+solo desde el rol secreto del servidor.
 
 `NEXT_PUBLIC_SITE_URL` es opcional. En Vercel, el proyecto usa
 `VERCEL_PROJECT_PRODUCTION_URL` automáticamente para los metadatos sociales.
@@ -226,7 +256,9 @@ Actúa — decisión proporcional
         ↓
 Tarjeta de evidencia
         ↓
-Futuro: reto de transferencia
+Reto de transferencia sin guía
+        ↓
+Puntuación + reporte anónimo CSV
 ```
 
 ## Próxima versión recomendada
@@ -234,13 +266,12 @@ Futuro: reto de transferencia
 La siguiente meta no es añadir un chatbot general. Es completar el ciclo de
 aprendizaje:
 
-1. Extraer los casos a un esquema de datos reutilizable.
-2. Crear dos casos adicionales: uno verdadero y uno incierto.
-3. Añadir un reto de transferencia sin ayuda.
-4. Instrumentar eventos mínimos y anónimos.
-5. Crear modo de facilitación para el piloto.
-6. Evaluar las preguntas generadas por IA con una rúbrica.
-7. Ejecutar pruebas con usuarios antes de ampliar funciones.
+1. Conectar un proyecto Supabase exclusivo de AURA y aplicar la migración.
+2. Crear un caso verdadero y otro con evidencia insuficiente.
+3. Añadir validación editorial formal al esquema de casos.
+4. Crear modo de facilitación con agregados, sin datos individuales.
+5. Evaluar las preguntas generadas por IA con una rúbrica.
+6. Ejecutar pruebas con usuarios antes de ampliar funciones.
 
 Cada elemento tiene criterios de aceptación en
 [`docs/DEVELOPMENT_ROADMAP.md`](docs/DEVELOPMENT_ROADMAP.md).

@@ -1,7 +1,20 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { auraCases, type Locale } from "../data/cases";
+import {
+  createAnalyticsEvent,
+  getOrCreateSessionId,
+  readAnalyticsConsent,
+  saveLocalAnalyticsEvent,
+  sendAnalyticsEvent,
+  sessionEvents,
+  writeAnalyticsConsent,
+  type AnalyticsConsent,
+  type AnalyticsEvent,
+  type AnalyticsEventInput,
+} from "../lib/analytics";
+import { TransferChallenge } from "./TransferChallenge";
 
 type MissionStep = 0 | 1 | 2 | 3;
 type CoachStage = "analyze" | "uncover" | "research" | "act";
@@ -85,6 +98,13 @@ const text = {
     caseLibraryEyebrow: "BIBLIOTECA DE MISIONES",
     caseLibraryTitle: "Elige un caso para investigar",
     caseActive: "Caso activo",
+    analyticsTitle: "Medición anónima del aprendizaje",
+    analyticsBody:
+      "AURA puede enviar eventos codificados —opciones, tiempo y puntuación— para evaluar el piloto. No incluye nombres, correos, texto libre, IP ni historial.",
+    analyticsAllow: "Permitir métricas anónimas",
+    analyticsLocal: "Mantener solo en este dispositivo",
+    analyticsAllowed: "Envío anónimo permitido",
+    analyticsLocalOnly: "Modo local activado",
     missionEyebrow: "LABORATORIO DE EVIDENCIA · CASO 01",
     missionTitle: "Investiga antes de decidir",
     missionBody:
@@ -200,8 +220,8 @@ const text = {
     roadmapEyebrow: "ESTADO DEL MVP",
     roadmapTitle: "Ya no es solo una idea.",
     roadmapItems: [
-      ["Ahora", "Motor bilingüe con dos casos, IA socrática y tarjeta de evidencia."],
-      ["Siguiente", "Analítica mínima y reto de transferencia no guiado."],
+      ["Ahora", "Dos casos, IA socrática, reto sin guía y analítica anónima."],
+      ["Siguiente", "Modo facilitación y agregados para operar el piloto."],
       ["Antes de aplicar", "Piloto, métricas reales, demo bilingüe y video."],
     ],
     guideTitle: "La estrategia completa vive junto al código.",
@@ -246,6 +266,13 @@ const text = {
     caseLibraryEyebrow: "MISSION LIBRARY",
     caseLibraryTitle: "Choose a case to investigate",
     caseActive: "Active case",
+    analyticsTitle: "Anonymous learning measurement",
+    analyticsBody:
+      "AURA can send coded events—options, time and score—to evaluate the pilot. It includes no names, emails, free text, IP addresses or browsing history.",
+    analyticsAllow: "Allow anonymous metrics",
+    analyticsLocal: "Keep only on this device",
+    analyticsAllowed: "Anonymous delivery allowed",
+    analyticsLocalOnly: "Local mode enabled",
     missionEyebrow: "EVIDENCE LAB · CASE 01",
     missionTitle: "Investigate before deciding",
     missionBody:
@@ -361,8 +388,8 @@ const text = {
     roadmapEyebrow: "MVP STATUS",
     roadmapTitle: "It is no longer only an idea.",
     roadmapItems: [
-      ["Now", "Bilingual engine with two cases, Socratic AI and evidence cards."],
-      ["Next", "Minimum analytics and an unguided transfer challenge."],
+      ["Now", "Two cases, Socratic AI, unguided transfer and anonymous analytics."],
+      ["Next", "Facilitation mode and aggregate pilot reporting."],
       ["Before submission", "Pilot, real metrics, bilingual demo and video."],
     ],
     guideTitle: "The full strategy lives beside the code.",
@@ -381,6 +408,10 @@ function scrollToMission() {
   });
 }
 
+function nowMs() {
+  return Date.now();
+}
+
 export function AuraExperience() {
   const [locale, setLocale] = useState<Locale>("es");
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
@@ -392,6 +423,11 @@ export function AuraExperience() {
   const [action, setAction] = useState("");
   const [cardReady, setCardReady] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [analyticsConsent, setAnalyticsConsent] =
+    useState<AnalyticsConsent>("pending");
+  const [analyticsSessionId, setAnalyticsSessionId] = useState("");
+  const [analyticsEvents, setAnalyticsEvents] = useState<AnalyticsEvent[]>([]);
+  const missionStartedAt = useRef(0);
   const t = text[locale];
   const activeCase =
     auraCases.find((item) => item.id === activeCaseId) ?? auraCases[0];
@@ -399,6 +435,31 @@ export function AuraExperience() {
   useEffect(() => {
     document.documentElement.lang = locale;
   }, [locale]);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      const sessionId = getOrCreateSessionId();
+      setAnalyticsSessionId(sessionId);
+      setAnalyticsConsent(readAnalyticsConsent());
+      setAnalyticsEvents(sessionEvents(sessionId));
+    }, 0);
+
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  const trackEvent = useCallback(
+    (input: AnalyticsEventInput) => {
+      const event = createAnalyticsEvent(input);
+      saveLocalAnalyticsEvent(event);
+      setAnalyticsSessionId(event.sessionId);
+      setAnalyticsEvents((current) => [...current, event].slice(-300));
+
+      if (analyticsConsent === "granted") {
+        void sendAnalyticsEvent(event);
+      }
+    },
+    [analyticsConsent],
+  );
 
   const selectedSourceNames = useMemo(
     () =>
@@ -419,11 +480,20 @@ export function AuraExperience() {
     (step === 3 && Boolean(action));
 
   function toggleSignal(id: string) {
-    setSignals((current) =>
-      current.includes(id)
-        ? current.filter((signal) => signal !== id)
-        : [...current, id],
-    );
+    setSignals((current) => {
+      if (current.includes(id)) {
+        return current.filter((signal) => signal !== id);
+      }
+
+      trackEvent({
+        eventName: "signal_selected",
+        locale,
+        caseId: activeCase.id,
+        stage: "uncover",
+        optionId: id,
+      });
+      return [...current, id];
+    });
   }
 
   function toggleSource(id: string) {
@@ -432,7 +502,46 @@ export function AuraExperience() {
         return current.filter((source) => source !== id);
       }
       if (current.length === activeCase.sourceLimit) return current;
+      trackEvent({
+        eventName: "source_opened",
+        locale,
+        caseId: activeCase.id,
+        stage: "research",
+        optionId: id,
+      });
       return [...current, id];
+    });
+  }
+
+  function chooseInitialDecision(id: string) {
+    if (!missionStartedAt.current) {
+      missionStartedAt.current = nowMs();
+      trackEvent({
+        eventName: "mission_started",
+        locale,
+        caseId: activeCase.id,
+        stage: "analyze",
+      });
+    }
+
+    setInitialDecision(id);
+    trackEvent({
+      eventName: "initial_decision_recorded",
+      locale,
+      caseId: activeCase.id,
+      stage: "analyze",
+      optionId: id,
+    });
+  }
+
+  function chooseAction(id: string) {
+    setAction(id);
+    trackEvent({
+      eventName: "action_selected",
+      locale,
+      caseId: activeCase.id,
+      stage: "act",
+      optionId: id,
     });
   }
 
@@ -442,10 +551,37 @@ export function AuraExperience() {
       setStep((current) => (current + 1) as MissionStep);
       return;
     }
+
+    trackEvent({
+      eventName: "evidence_card_generated",
+      locale,
+      caseId: activeCase.id,
+      stage: "act",
+      durationMs: missionStartedAt.current
+        ? nowMs() - missionStartedAt.current
+        : 0,
+    });
     setCardReady(true);
   }
 
   function resetMission() {
+    if (missionStartedAt.current && !cardReady) {
+      trackEvent({
+        eventName: "mission_abandoned",
+        locale,
+        caseId: activeCase.id,
+        stage:
+          step === 0
+            ? "analyze"
+            : step === 1
+              ? "uncover"
+              : step === 2
+                ? "research"
+                : "act",
+        durationMs: nowMs() - missionStartedAt.current,
+      });
+    }
+
     setStep(0);
     setInitialDecision("");
     setSignals([]);
@@ -453,12 +589,20 @@ export function AuraExperience() {
     setAction("");
     setCardReady(false);
     setCopied(false);
+    missionStartedAt.current = 0;
   }
 
   function selectCase(caseId: string) {
     if (caseId === activeCaseId) return;
     setActiveCaseId(caseId);
     resetMission();
+  }
+
+  function chooseAnalyticsConsent(
+    value: Exclude<AnalyticsConsent, "pending">,
+  ) {
+    setAnalyticsConsent(value);
+    writeAnalyticsConsent(value);
   }
 
   async function copyEvidenceCard() {
@@ -653,6 +797,45 @@ export function AuraExperience() {
             </div>
           </div>
 
+          <div
+            className={`analytics-consent analytics-consent-${analyticsConsent}`}
+            aria-label={t.analyticsTitle}
+          >
+            <span className="analytics-consent-mark" aria-hidden="true">
+              ◌
+            </span>
+            <div>
+              <strong>{t.analyticsTitle}</strong>
+              <p>{t.analyticsBody}</p>
+            </div>
+            <div className="analytics-consent-actions">
+              <button
+                type="button"
+                className={
+                  analyticsConsent === "granted" ? "is-selected" : undefined
+                }
+                aria-pressed={analyticsConsent === "granted"}
+                onClick={() => chooseAnalyticsConsent("granted")}
+              >
+                {analyticsConsent === "granted"
+                  ? `✓ ${t.analyticsAllowed}`
+                  : t.analyticsAllow}
+              </button>
+              <button
+                type="button"
+                className={
+                  analyticsConsent === "local-only" ? "is-selected" : undefined
+                }
+                aria-pressed={analyticsConsent === "local-only"}
+                onClick={() => chooseAnalyticsConsent("local-only")}
+              >
+                {analyticsConsent === "local-only"
+                  ? `✓ ${t.analyticsLocalOnly}`
+                  : t.analyticsLocal}
+              </button>
+            </div>
+          </div>
+
           <div className="mission-workspace">
             <aside className="post-panel">
               <div className="simulation-label">
@@ -745,7 +928,7 @@ export function AuraExperience() {
                             active={initialDecision === choice.id}
                             title={choice.title[locale]}
                             detail={choice.detail[locale]}
-                            onClick={() => setInitialDecision(choice.id)}
+                            onClick={() => chooseInitialDecision(choice.id)}
                           />
                         ))}
                       </div>
@@ -888,7 +1071,7 @@ export function AuraExperience() {
                             active={action === choice.id}
                             title={choice.title[locale]}
                             detail={choice.detail[locale]}
-                            onClick={() => setAction(choice.id)}
+                            onClick={() => chooseAction(choice.id)}
                             compact
                           />
                         ))}
@@ -981,6 +1164,18 @@ export function AuraExperience() {
               )}
             </div>
           </div>
+
+          {cardReady && analyticsSessionId && (
+            <TransferChallenge
+              key={`${activeCase.id}-${analyticsSessionId}`}
+              locale={locale}
+              guidedCaseId={activeCase.id}
+              sessionId={analyticsSessionId}
+              events={analyticsEvents}
+              consent={analyticsConsent}
+              trackEvent={trackEvent}
+            />
+          )}
         </div>
       </section>
 
