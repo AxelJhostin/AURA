@@ -257,6 +257,7 @@ const text = {
     guideBody:
       "La guía maestra reúne el contexto para el equipo, estado real del producto, candidatura, piloto, IA responsable, riesgos y pitch.",
     guideCta: "Descargar guía maestra (.md)",
+    dossierCta: "Abrir plan de postulación (.md)",
     footerTagline: "From reaction to evidence.",
     footerNote: "Prototipo de trabajo · Ecuador · 2026",
   },
@@ -436,6 +437,7 @@ const text = {
     guideBody:
       "The master guide brings together team context, verified product status, submission, pilot, responsible AI, risks and pitch.",
     guideCta: "Download master guide (.md)",
+    dossierCta: "Open submission plan (.md)",
     footerTagline: "De la reacción a la evidencia.",
     footerNote: "Working prototype · Ecuador · 2026",
   },
@@ -1520,12 +1522,19 @@ export function AuraExperience() {
             <h3>{t.guideTitle}</h3>
             <p>{t.guideBody}</p>
           </div>
-          <a
-            href="/docs/AURA_Guia_Maestra_UNESCO_Youth_Hackathon_2026.md"
-            download
-          >
-            {t.guideCta} <span aria-hidden="true">→</span>
-          </a>
+          <div className="guide-actions">
+            <a
+              href="/docs/AURA_Dossier_Postulacion_y_Matriz_Evaluacion_2026.md"
+            >
+              {t.dossierCta} <span aria-hidden="true">→</span>
+            </a>
+            <a
+              href="/docs/AURA_Guia_Maestra_UNESCO_Youth_Hackathon_2026.md"
+              download
+            >
+              {t.guideCta} <span aria-hidden="true">↓</span>
+            </a>
+          </div>
         </div>
       </section>
 

@@ -7,23 +7,25 @@
 **Eslogan principal:** De la reacción a la evidencia.  
 **Eslogan en inglés:** From reaction to evidence.  
 **Promesa del producto:** AURA no decide qué creer. Entrena a las personas para investigar con evidencia.  
-**Estado de este documento:** Fuente maestra de estrategia, producto, operación y candidatura — versión 2.2.
+**Estado de este documento:** Fuente maestra de estrategia, producto, operación y candidatura — versión 2.3.
 
 **Versión funcional de referencia:** AURA 0.8.0.
 
 **Ubicación en el proyecto:** `public/docs/`, accesible desde el prototipo y versionada junto al código.  
 **Fecha de referencia:** 28 de julio de 2026.
-**Fecha límite oficial:** 16 de agosto de 2026, 23:59, hora de París. En Ecuador continental equivale aproximadamente a las 16:59. El objetivo interno debe ser enviar como máximo al mediodía de Ecuador del 16 de agosto.
+**Fecha límite oficial:** 16 de agosto de 2026, 23:59, hora de París. En Ecuador continental equivale aproximadamente a las 16:59. El objetivo interno es enviar el 15 de agosto a las 18:00 de Ecuador.
 
 **Prototipo público:** [https://aura-opal-beta.vercel.app/](https://aura-opal-beta.vercel.app/)
 
-**Vista previa de la rama AURA 0.8.0:**
-[https://aura-git-agent-aura-pilot-mode-axeljhostins-projects.vercel.app/](https://aura-git-agent-aura-pilot-mode-axeljhostins-projects.vercel.app/)
-
 **Repositorio:** [https://github.com/AxelJhostin/AURA](https://github.com/AxelJhostin/AURA)
 
-**Rama funcional validada:** `agent/aura-pilot-mode`, PR listo para revisión
+**Versión en producción:** `main`, commit
+[`343a687`](https://github.com/AxelJhostin/AURA/commit/343a6872e45b01e4028db1e8be937554548a3410),
+fusionado mediante el
 [#1](https://github.com/AxelJhostin/AURA/pull/1).
+
+**Plan operativo de postulación para Nicole:**
+[Dossier y matriz de evaluación UNESCO 2026](./AURA_Dossier_Postulacion_y_Matriz_Evaluacion_2026.md).
 
 ---
 
@@ -145,8 +147,8 @@ latinoamericano y participación juvenil.
 ### 5. Estado real del producto — AURA 0.8.0
 
 La siguiente tabla es la fuente de verdad. “Implementado” significa que existe
-en la rama validada y en su preview de Vercel; llegará al dominio público al
-fusionar el PR. No significa que ya fue validado con usuarios.
+en `main` y en el dominio público de Vercel. No significa que ya fue validado
+con usuarios.
 
 | Capacidad | Estado | Evidencia actual |
 |---|---|---|
@@ -205,9 +207,9 @@ Validaciones técnicas completadas para AURA 0.8.0:
 - asesores de seguridad y rendimiento de Supabase sin errores ni advertencias;
   solo permanecen tres avisos informativos de índices aún no utilizados,
   esperables antes del piloto real;
-- cero errores o advertencias en la consola del navegador del preview;
+- cero errores o advertencias en la consola del navegador de producción;
 - secretos fuera del repositorio;
-- despliegue Preview de Vercel confirmado.
+- despliegue Production de Vercel confirmado.
 
 ### 6. Lo que todavía no se puede afirmar
 
@@ -636,6 +638,7 @@ Pitch de 30 segundos en inglés:
 | Demo pública | `https://aura-opal-beta.vercel.app/` |
 | Código | `https://github.com/AxelJhostin/AURA` |
 | Guía maestra | Este archivo |
+| Dossier de postulación | `public/docs/AURA_Dossier_Postulacion_y_Matriz_Evaluacion_2026.md` |
 | Roadmap técnico | `docs/DEVELOPMENT_ROADMAP.md` |
 | Casos guiados | `app/data/cases.ts` |
 | Reto de transferencia | `app/data/transfer.ts` |
@@ -658,10 +661,10 @@ Nunca colocar en esta guía:
 
 ### 18. Próximas cinco decisiones
 
-1. Confirmar si el equipo final será de dos, tres o cuatro personas.
-2. Confirmar los primeros participantes y fecha de prueba.
-3. Elegir tres casos adicionales y sus objetivos educativos.
-4. Activar Supabase dedicado o congelar un protocolo CSV para el piloto.
+1. Confirmar equipo final, edades elegibles y persona líder.
+2. Confirmar cinco participantes y fecha del piloto de ensayo.
+3. Cerrar calendario y reclutamiento del piloto principal.
+4. Confirmar una persona revisora externa de AMI/MIL.
 5. Confirmar responsables y fechas de propuesta, video y revisión de inglés.
 
 ---
@@ -1363,7 +1366,7 @@ personas reales y los entregables de candidatura siguen pendientes.
 
 ### Definition of Done
 
-El MVP está terminado cuando:
+El MVP técnico está terminado cuando:
 
 1. Un usuario puede completar una misión de extremo a extremo en móvil.
 2. Las cuatro etapas se entienden sin explicación oral.
@@ -1371,10 +1374,13 @@ El MVP está terminado cuando:
 4. La IA puede fallar sin romper la experiencia.
 5. El usuario produce una Tarjeta de Evidencia.
 6. Se registra una métrica de transferencia.
-7. Existen seis casos revisados en total.
+7. Existen cuatro casos equilibrados y auditables.
 8. Español e inglés funcionan.
 9. El equipo puede demostrarlo en menos de 90 segundos.
-10. Se ha probado con usuarios reales.
+10. Producción, pruebas automatizadas y analítica están operativas.
+
+AURA 0.8.0 cumple esta definición técnica. La prueba con personas reales es el
+siguiente gate de validación y no una razón para ampliar funciones.
 
 ### Función estrella
 
@@ -2468,7 +2474,7 @@ Estos textos son una base. Deben actualizarse con resultados, nombres y datos fi
 
 ### Feasibility
 
-> The current public MVP intentionally focuses on one complete learning loop rather than universal fact-checking. It includes two reviewed guided missions, one unguided transfer challenge, bilingual Socratic guidance, an Evidence Map, an Evidence Card and anonymous local reporting. Our pre-submission target is six reviewed cases in total and a lightweight facilitator summary. Video deepfake detection, arbitrary private-content ingestion, mass monitoring and automatic truth scoring are explicitly out of scope.
+> The current public MVP intentionally focuses on a complete learning loop rather than universal fact-checking. It includes four balanced bilingual guided missions, one unguided transfer challenge, Socratic guidance with curated fallback questions, an Evidence Map, an Evidence Card, optional anonymous pre/post measurement and aggregate facilitator reporting. The product is deployed and ready for real-world pilots. Video deepfake detection, arbitrary private-content ingestion, mass monitoring and automatic truth scoring are explicitly out of scope.
 
 ### Sustainability
 
@@ -2512,7 +2518,7 @@ El guion final debe actualizar resultados y equipo.
 >
 > We are starting with university students and youth leaders in Ecuador through a mobile-first experience in Spanish and English. AURA Circles will allow young facilitators to bring reviewed local cases into universities and community organizations.
 >
-> Our current public MVP includes two guided evidence missions, a functional four-step experience, an unguided transfer challenge and anonymous session reporting. [Update the case count only when additional cases are published. Insert one concise real pilot result here.]
+> Our current public MVP includes four balanced bilingual evidence missions, a functional four-step experience, an unguided transfer challenge, optional pre/post measurement and aggregate anonymous pilot reporting. [Insert one concise real pilot result here only after the pilot dataset is closed.]
 >
 > Our team combines software engineering with international business, giving us the capacity to build, test and develop a realistic path for adoption.
 >
