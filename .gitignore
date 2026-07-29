@@ -43,3 +43,6 @@ next-env.d.ts
 /dist/
 /outputs/
 /work/
+
+# private team handoffs may contain personal contact details
+/docs/private/

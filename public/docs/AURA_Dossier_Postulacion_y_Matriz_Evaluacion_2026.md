@@ -1,23 +1,24 @@
 # AURA — Dossier de postulación y matriz de evaluación UNESCO 2026
 
-## Documento operativo para Hernández Axel, Nicole y futuras incorporaciones
+## Documento operativo para Hernández Axel, Nicole y José Luis
 
 **Proyecto:** AURA — Assess · Uncover · Research · Act  
 **Descriptor:** Bilingual evidence-training lab for Media and Information Literacy  
 **Versión funcional:** AURA 0.8.0  
-**Estado técnico:** MVP público terminado y desplegado  
+**Estado técnico:** 100 % del alcance técnico del MVP, probado y desplegado
 **Fecha de referencia:** 28 de julio de 2026  
 **Fecha límite oficial:** 16 de agosto de 2026, 23:59, hora de París  
 **Objetivo interno de envío:** 15 de agosto de 2026, 18:00, hora de Ecuador  
 **Prototipo público:** <https://aura-opal-beta.vercel.app/>  
 **Repositorio:** <https://github.com/AxelJhostin/AURA>  
+**Commit de producción de referencia:** [`c1228d2`](https://github.com/AxelJhostin/AURA/commit/c1228d2850a3075344c053585b86aca7c726478a)
 **Fuente estratégica completa:** [Guía maestra de AURA](./AURA_Guia_Maestra_UNESCO_Youth_Hackathon_2026.md)
 
 ---
 
 ## 1. Para qué sirve este documento
 
-Este es el documento que Nicole debe leer primero. Resume:
+Este es el documento público que Axel, Nicole y José deben leer primero. Resume:
 
 - qué es AURA;
 - qué ya existe y puede demostrarse;
@@ -39,7 +40,8 @@ un plan de entrega.
 
 ### Lo que ya tenemos
 
-AURA ya no es una idea ni un mockup. Es una aplicación bilingüe pública que:
+AURA ya no es una idea ni un mockup. El **100 % del alcance técnico definido
+para el MVP** está implementado. Es una aplicación bilingüe pública que:
 
 1. presenta cuatro misiones AMI equilibradas;
 2. guía a la persona mediante Analiza, Ubica, Rastrea y Actúa;
@@ -50,12 +52,15 @@ AURA ya no es una idea ni un mockup. Es una aplicación bilingüe pública que:
 7. registra métricas anónimas con consentimiento;
 8. compara un pulso opcional pre/post;
 9. permite operar pilotos y consultar resultados agregados;
-10. funciona en español, inglés y pantallas de 320 px.
+10. funciona en español, inglés y pantallas de 320 px;
+11. superó build de producción, TypeScript, lint y 17 pruebas automatizadas;
+12. tiene entrega de eventos serializada y reintentos ante fallos transitorios.
 
 ### Lo que falta
 
-No falta una función crítica del MVP. Falta convertir el producto en evidencia
-y la evidencia en una candidatura excelente:
+No falta una función crítica del MVP. Pilotos, PDF y video no son código
+incompleto: son la fase de validación y candidatura. Falta convertir el
+producto en evidencia y la evidencia en una candidatura excelente:
 
 - piloto de ensayo con cinco personas;
 - piloto principal con participantes reales;
@@ -89,6 +94,27 @@ UNESCO publica que:
 - la evaluación se realizará del 18 de agosto al 13 de septiembre;
 - se aplicarán cinco criterios: tema y AMI, claridad, innovación, viabilidad y
   sostenibilidad, e impacto e inclusión.
+
+### Campos confirmados del formulario Tally
+
+El formulario oficial fue inspeccionado el 28 de julio de 2026 sin enviar una
+postulación. Solicita:
+
+- para el líder: First name, Last name, Email Address, confirmación del correo,
+  país, género, fecha de nacimiento, ocupación/estado e institución;
+- para el segundo integrante: los mismos datos, sin campo de confirmación del
+  correo;
+- integrantes 3–6 opcionales con nombre, apellido, correo, país, género, fecha
+  de nacimiento, ocupación/estado e institución;
+- nombre de la propuesta;
+- introducción breve;
+- categoría;
+- un PDF o Word de máximo 10 MB;
+- enlace público al video.
+
+Para AURA se completarán únicamente tres integrantes y se seleccionará
+`Applications / Websites`. Los correos y fechas de nacimiento permanecen en la
+hoja privada del equipo, no en este repositorio.
 
 ### Lo que no está publicado
 
@@ -137,8 +163,8 @@ misma identidad.
 | Áreas principales | AI and MIL; MIL Education |
 | Áreas complementarias | Community Impact; Youth Engagement |
 | Público inicial | University students and youth leaders aged 18–24 in Ecuador |
-| Estado | Functional public MVP; real-world pilot pending |
-| Equipo confirmado | Hernández Axel and Nicole |
+| Estado | Technical MVP scope 100% complete; real-world pilot pending |
+| Equipo confirmado | Hernández Axel; Nicole Madelyne Pincay Soledispa; José Luis Cañarte Plúa |
 | País inicial | Ecuador |
 
 ### One-liner oficial
@@ -165,19 +191,19 @@ conozca la calidad del producto.
 
 | Requisito | Estado | Evidencia o acción | Responsable |
 |---|---|---|---|
-| Equipo de 2–6 integrantes | LISTO | Axel + Nicole confirmados | Ambos |
-| Todos tienen 18–30 años | VERIFICAR | Confirmar edades a la fecha del envío | Nicole |
-| Nombres legales y correos correctos | PENDIENTE | Hoja privada de datos del equipo | Nicole |
-| Líder del equipo definido | PENDIENTE | Propuesta: Axel; confirmar por escrito | Ambos |
+| Equipo de 2–6 integrantes | LISTO | Axel, Nicole y José confirmados; equipo cerrado | Los tres |
+| Todos tienen 18–30 años | VERIFICAR | Confirmar fechas y edades a la fecha del envío | Nicole + José |
+| Nombres legales y correos correctos | PARCIAL | Nombres y correos recibidos; confirmar división First/Last y demás campos privados | Nicole + José |
+| Líder del equipo definido | POR CONFIRMAR | Propuesta: Axel; registrar acuerdo de los tres | Los tres |
 | Valores de paz, diversidad y libertad de expresión | LISTO | Principios de diseño y narrativa AMI | Nicole |
-| Equilibrio e inclusión considerados | EN PROGRESO | Equipo, público, accesibilidad y plan comunitario | Nicole |
-| Documento PDF o Word | PENDIENTE | Generar PDF final con texto seleccionable | Axel |
-| Archivo menor de 10 MB | PENDIENTE | Comprobar antes de cargar | Axel |
-| Video de máximo 3:00 | PENDIENTE | Objetivo interno 2:50–2:57 | Ambos |
+| Equilibrio e inclusión considerados | EN PROGRESO | Equipo, público, accesibilidad y plan comunitario | Nicole + José |
+| Documento PDF o Word | PENDIENTE | Nicole y José producen; Axel verifica hechos técnicos | Nicole + José |
+| Archivo menor de 10 MB | PENDIENTE | Comprobar antes de cargar | José + Axel |
+| Video de máximo 3:00 | PENDIENTE | Objetivo interno 2:50–2:57 | Los tres |
 | Enlace de video público sin login | PENDIENTE | Probar en incógnito y otro dispositivo | Axel |
 | Postulación única por líder | PENDIENTE | No enviar ensayos incompletos como finales | Líder |
 | Envío antes del plazo | PENDIENTE | Objetivo interno: 15 de agosto, 18:00 Ecuador | Líder |
-| Confirmación conservada | PENDIENTE | Captura, correo y copia de archivos enviados | Nicole |
+| Confirmación conservada | PENDIENTE | Captura, correo y copia de archivos enviados | Los tres |
 
 ---
 
@@ -189,7 +215,7 @@ texto.
 
 | Componente solicitado | Encabezado recomendado | Evidencia AURA | Estado |
 |---|---|---|---|
-| Team members | `Team and Capacity to Deliver` | Axel: producto/ingeniería; Nicole: estrategia/impacto | Parcial |
+| Team members | `Team and Capacity to Deliver` | Axel: producto/ingeniería; Nicole: estrategia/impacto; José: investigación/inglés/edición | Listo; faltan biografías |
 | Problem statement | `Problem Statement` | Brecha entre recibir un fact-check y aprender a investigar | Listo |
 | Objectives | `Objectives and Theory of Change` | Conductas observables + transferencia | Listo |
 | Target audience | `Target Audience and Inclusion` | Jóvenes 18–24 en Ecuador | Validar |
@@ -231,7 +257,8 @@ responsable.
   AMI;
 - una frase explícita sobre “Play Your Part” como agencia de la persona.
 
-**Responsables:** Nicole redacta; Axel verifica que coincida con el producto.  
+**Responsables:** Nicole redacta; José edita y verifica referencias; Axel
+comprueba que coincida con el producto.
 **Preparación interna:** ALTA.
 
 ### 7.2 Clarity of Presentation
@@ -247,7 +274,8 @@ de transferencia.
 - one-liner canónico;
 - demo pública;
 - método visual de cuatro pasos;
-- roles complementarios de Axel y Nicole;
+- tres roles complementarios: producto/ingeniería, estrategia/impacto e
+  investigación/edición;
 - guía, guion y banco de texto.
 
 **Falta:**
@@ -258,7 +286,8 @@ de transferencia.
 - video definitivo;
 - una captura legible por cada momento clave.
 
-**Responsables:** Nicole dirige narrativa; Axel produce demo y capturas.  
+**Responsables:** Nicole dirige narrativa; José dirige edición e inglés; Axel
+produce demo y capturas.
 **Preparación interna:** MEDIA-ALTA.
 
 ### 7.3 Innovation and Creativity
@@ -286,7 +315,8 @@ misma conducta en un caso nuevo sin guía.
 - explicar que la innovación es la combinación y la ejecución, no una falsa
   afirmación de ser “los primeros”.
 
-**Responsables:** Axel aporta producto; Nicole redacta comparación.  
+**Responsables:** Axel aporta producto; Nicole redacta comparación; José
+comprueba claridad y referencias.
 **Preparación interna:** ALTA.
 
 ### 7.4 Feasibility and Sustainability
@@ -302,7 +332,7 @@ sin cuentas.
 
 - producción en Vercel;
 - Next.js, OpenAI server-side y Supabase;
-- once pruebas automatizadas;
+- 17 pruebas automatizadas;
 - RLS y privilegios mínimos;
 - cuatro casos reutilizables;
 - CSV y panel agregado;
@@ -318,7 +348,8 @@ sin cuentas.
   institucional;
 - dos riesgos principales con mitigación.
 
-**Responsables:** Axel calcula costos; Nicole define adopción y alianzas.  
+**Responsables:** Axel calcula costos; Nicole define adopción y alianzas; José
+edita el argumento de viabilidad.
 **Preparación interna:** MEDIA-ALTA.
 
 ### 7.5 Impact and Inclusion
@@ -349,7 +380,8 @@ lleven la práctica a universidades y organizaciones.
 - evidencia de necesidades del público;
 - ruta concreta para jóvenes con conectividad o acceso limitados.
 
-**Responsables:** Nicole lidera; Axel exporta y visualiza métricas.  
+**Responsables:** Nicole lidera; Axel exporta y visualiza métricas; José
+sintetiza resultados y limitaciones.
 **Preparación interna:** MEDIA hasta completar el piloto.
 
 ---
@@ -387,7 +419,7 @@ debe presentarse como objetivo, hipótesis o plan.
 
 ### 28–29 de julio — Preparar validación
 
-**Nicole**
+**Nicole + José**
 
 - confirmar edades, nombres legales, correos y rol del líder;
 - reclutar cinco personas para ensayo;
@@ -555,7 +587,33 @@ El 16 de agosto queda únicamente como margen de emergencia.
 
 ---
 
-## 11. Plan operativo de Axel
+## 11. Plan operativo de José
+
+### Prioridad 1 — Inglés y estructura
+
+- crear el esqueleto del PDF con los encabezados oficiales;
+- mantener una única terminología en inglés;
+- editar oraciones para claridad, precisión y lectura rápida;
+- comprobar que las referencias y pies de figura correspondan a cada
+  afirmación.
+
+### Prioridad 2 — Evidencia
+
+- mantener la matriz afirmación → evidencia → limitación;
+- revisar denominadores, fechas y fuentes;
+- sintetizar los resultados del piloto sin exagerarlos;
+- separar hechos actuales, resultados observados y planes futuros.
+
+### Prioridad 3 — Entregables
+
+- coliderar con Nicole la propuesta final;
+- revisar transcripción y subtítulos del video;
+- verificar que Tally, PDF y video usen los mismos nombres y cifras;
+- preparar el documento para que se entienda sin explicación oral.
+
+---
+
+## 12. Plan operativo de Axel
 
 - mantener producción disponible;
 - no agregar funciones por entusiasmo;
@@ -572,26 +630,27 @@ El 16 de agosto queda únicamente como margen de emergencia.
 
 ---
 
-## 12. Responsabilidades compartidas
+## 13. Responsabilidades compartidas
 
 | Entregable | Lidera | Aprueba |
 |---|---|---|
-| Equipo final y elegibilidad | Nicole | Ambos |
-| Operación de pilotos | Nicole | Ambos |
+| Equipo final y elegibilidad | Nicole + José | Los tres |
+| Operación de pilotos | Nicole | Los tres |
 | Estabilidad técnica | Axel | Axel |
-| Análisis de métricas | Axel | Nicole |
-| Interpretación de impacto | Nicole | Ambos |
-| Revisión AMI | Nicole | Ambos |
-| Presupuesto técnico | Axel | Nicole |
-| Sostenibilidad y alianzas | Nicole | Ambos |
-| PDF final | Nicole | Ambos |
-| Demo y capturas | Axel | Ambos |
-| Video | Ambos | Ambos |
-| Formulario y envío | Líder confirmado | Ambos |
+| Análisis de métricas | Axel | Nicole + José |
+| Interpretación de impacto | Nicole | Los tres |
+| Revisión AMI | Nicole | Los tres |
+| Presupuesto técnico | Axel | Nicole + José |
+| Sostenibilidad y alianzas | Nicole | Los tres |
+| PDF final | Nicole + José | Los tres |
+| Inglés y referencias | José | Los tres |
+| Demo y capturas | Axel | Los tres |
+| Video | Los tres | Los tres |
+| Formulario y envío | Líder confirmado | Los tres |
 
 ---
 
-## 13. Arquitectura del PDF final
+## 14. Arquitectura del PDF final
 
 Usar los nombres oficiales de los criterios en inglés. El PDF debe ser legible
 como documento y no como un conjunto de diapositivas sin contexto.
@@ -668,7 +727,7 @@ como documento y no como un conjunto de diapositivas sin contexto.
 - roles;
 - evidencia de ejecución;
 - distribución de responsabilidades;
-- posibles incorporaciones solo si están confirmadas.
+- Axel, Nicole y José como equipo final cerrado.
 
 ### Page 10 — Evidence and Next Steps
 
@@ -680,7 +739,7 @@ como documento y no como un conjunto de diapositivas sin contexto.
 
 ---
 
-## 14. Diseño para revisión humana y comprobación automática
+## 15. Diseño para revisión humana y comprobación automática
 
 ### Hacer
 
@@ -732,7 +791,7 @@ extracción de texto sin intentar manipular el proceso.
 
 ---
 
-## 15. Simulación de los tres expertos
+## 16. Simulación de los tres expertos
 
 UNESCO anuncia tres expertos por proyecto. AURA debe reproducir ese proceso
 antes del envío.
@@ -800,7 +859,7 @@ Esta condición es interna y no representa una nota oficial.
 
 ---
 
-## 16. Métricas que sí deben presentarse
+## 17. Métricas que sí deben presentarse
 
 Después del piloto:
 
@@ -828,24 +887,24 @@ Después del piloto:
 
 ---
 
-## 17. Riesgos de candidatura
+## 18. Riesgos de candidatura
 
 | Riesgo | Señal | Mitigación | Responsable |
 |---|---|---|---|
 | Producto fuerte, impacto débil | No hay pilotos | Priorizar validación desde ahora | Nicole |
-| Confusión con fact-checker | Jurado espera un veredicto | Mostrar transferencia y Tarjeta | Ambos |
-| IA ocupa demasiado protagonismo | Pitch parece chatbot | Persona y evidencia al centro | Nicole |
-| Sostenibilidad vaga | Solo se menciona “alianzas” | Costos y plan de seis meses | Ambos |
+| Confusión con fact-checker | Jurado espera un veredicto | Mostrar transferencia y Tarjeta | Los tres |
+| IA ocupa demasiado protagonismo | Pitch parece chatbot | Persona y evidencia al centro | Nicole + José |
+| Sostenibilidad vaga | Solo se menciona “alianzas” | Costos y plan de seis meses | Los tres |
 | Inclusión declarativa | No hay decisiones concretas | Móvil, bilingüe, privacidad y facilitación | Nicole |
-| Métricas infladas | Cifras sin limitaciones | Denominador, método y cautela | Ambos |
-| Equipo poco creíble | Roles genéricos | Entregables y responsables concretos | Ambos |
+| Métricas infladas | Cifras sin limitaciones | Denominador, método y cautela | José + Axel |
+| Equipo poco creíble | Roles genéricos | Entregables y responsables concretos | Los tres |
 | Archivo no elegible | Peso, duración o acceso | Compuerta técnica final | Axel |
 | Envío tardío | Problema de red o formulario | Enviar el 15 de agosto | Líder |
-| Inconsistencia entre materiales | Nombres o cifras distintas | Identidad canónica y fuente única | Nicole |
+| Inconsistencia entre materiales | Nombres o cifras distintas | Identidad canónica y fuente única | José |
 
 ---
 
-## 18. Definición de candidatura terminada
+## 19. Definición de candidatura terminada
 
 La candidatura está terminada únicamente cuando:
 
@@ -866,7 +925,7 @@ La candidatura está terminada únicamente cuando:
 
 ---
 
-## 19. Fuentes oficiales
+## 20. Fuentes oficiales
 
 - [UNESCO Youth Hackathon 2026](https://www.unesco.org/en/articles/unesco-youth-hackathon-2026)
 - [Portal oficial de envío](https://tally.so/r/MePkYk)
@@ -874,7 +933,7 @@ La candidatura está terminada únicamente cuando:
 
 ---
 
-## 20. Regla final
+## 21. Regla final
 
 No intentaremos “engañar” una automatización hipotética. Construiremos una
 postulación que pase cualquier filtro administrativo, sea fácil de analizar,

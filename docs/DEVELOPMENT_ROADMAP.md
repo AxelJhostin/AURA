@@ -2,7 +2,8 @@
 
 - **Propietario técnico:** Hernández Axel
 - **Propietaria de estrategia e impacto:** Nicole
-- **Estado base:** MVP técnico completo 0.8.0
+- **Propietario de investigación, inglés y edición:** José Luis Cañarte Plúa
+- **Estado base:** MVP técnico 0.8.0 — 100 % del alcance definido
 - **Objetivo:** convertir el flujo actual en un piloto medible y una candidatura
 respaldada por evidencia real.
 
@@ -305,7 +306,7 @@ evidencia y siguiente paso sin explicación adicional.
 
 ### Sprint 0 — congelar producto
 
-- Revisar el prototipo con Hernández Axel y Nicole.
+- Revisar el prototipo con Hernández Axel, Nicole y José.
 - Confirmar tono, público, caso y recorrido.
 - Registrar decisiones.
 
@@ -359,12 +360,12 @@ evidencia y siguiente paso sin explicación adicional.
 
 | Decisión | Responsable | Fecha límite | Criterio |
 |---|---|---:|---|
-| Licencia del repositorio | Hernández Axel + Nicole | Antes de hacerlo público | Apertura vs. protección |
+| Licencia del repositorio | Los tres | Antes de definir licencia | Apertura vs. protección |
 | Modelo y costo de IA | Hernández Axel | Antes del piloto | evaluar calidad, costo y latencia |
 | Infraestructura del piloto | Hernández Axel | Antes de P0.3 | privacidad y simplicidad |
-| Institución o comunidad piloto | Nicole | Antes de Sprint 4 | acceso real y permiso |
+| Institución o comunidad piloto | Nicole + José | Antes del piloto | acceso real y permiso |
 | Integrantes 3 y 4 | Equipo | Lo antes posible | complementariedad real |
-| Revisor AMI externo | Nicole | Antes del piloto | rigor pedagógico |
+| Revisor AMI externo | Nicole + José | Antes del piloto | rigor pedagógico |
 
 ## 8. Métricas de piloto
 

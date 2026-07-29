@@ -18,9 +18,10 @@ Este repositorio reúne tres entregables que deben evolucionar juntos:
 
 ## Estado actual
 
-- **Versión:** MVP técnico completo `0.8.0`
+- **Versión:** MVP técnico `0.8.0`, **100 % del alcance definido**
 - **Objetivo:** UNESCO Youth Hackathon 2026
-- **Equipo confirmado:** Hernández Axel + Nicole
+- **Equipo final confirmado:** Hernández Axel + Nicole Madelyne Pincay
+  Soledispa + José Luis Cañarte Plúa
 - **Modo:** Next.js estándar, publicado en GitHub y preparado para Vercel
 - **Casos incluidos:** cuatro misiones educativas simuladas que cubren
   afirmaciones engañosas, una afirmación respaldada con límites y una
@@ -152,7 +153,7 @@ La fuente estratégica principal es:
 
 [`public/docs/AURA_Guia_Maestra_UNESCO_Youth_Hackathon_2026.md`](public/docs/AURA_Guia_Maestra_UNESCO_Youth_Hackathon_2026.md)
 
-El plan diario para Nicole, la matriz de los cinco criterios oficiales y la
+El plan operativo del equipo, la matriz de los cinco criterios oficiales y la
 compuerta de elegibilidad están en:
 
 [`public/docs/AURA_Dossier_Postulacion_y_Matriz_Evaluacion_2026.md`](public/docs/AURA_Dossier_Postulacion_y_Matriz_Evaluacion_2026.md)
@@ -172,23 +173,20 @@ Ingeniero de software. Responsable de arquitectura, experiencia de producto,
 desarrollo del MVP, integración responsable de IA, analítica, seguridad,
 despliegue y demo técnica.
 
-### Nicole — estrategia e impacto
+### Nicole Madelyne Pincay Soledispa — estrategia e impacto
 
 Estudiante de Negocios Internacionales. Responsable de investigación del
 público, operación del piloto, alianzas, sostenibilidad, documentación,
 narrativa, pitch y presentación.
 
-### Incorporaciones en evaluación
+### José Luis Cañarte Plúa — investigación y edición
 
-Hasta dos personas adicionales. La prioridad no es llenar plazas, sino sumar
-capacidades complementarias:
+Responsable de investigación, estructura de informes, comprobación de
+evidencia, referencias y revisión editorial en inglés para la candidatura.
 
-- AMI/MIL, educación o periodismo.
-- Investigación y evaluación.
-- Diseño UX educativo.
-- Facilitación comunitaria y producción audiovisual.
-
-Los nombres y responsabilidades solo se agregan cuando estén confirmados.
+El equipo se cierra con estas tres personas. Los correos y demás datos
+personales requeridos por la postulación se mantienen fuera del repositorio
+público.
 
 ## Principios no negociables
 
@@ -298,10 +296,11 @@ Panel y CSV agregados del piloto
 
 ## Siguiente etapa recomendada
 
-El código del MVP quedó cerrado en `0.8.0`: catálogo equilibrado, validación
-editorial estructural, instrumento pre/post, exportación agregada y salvaguardas
-de accesibilidad están implementados. La prioridad ya no es ampliar funciones,
-sino producir evidencia real y cerrar la candidatura:
+El código del MVP quedó al **100 % del alcance técnico congelado** en `0.8.0`:
+catálogo equilibrado, validación editorial estructural, instrumento pre/post,
+exportación agregada, confiabilidad de eventos y salvaguardas de accesibilidad
+están implementados. La prioridad ya no es ampliar funciones, sino producir
+evidencia real y cerrar la candidatura:
 
 1. Ejecutar un ensayo interno con cinco personas.
 2. Corregir defectos observados, sin inventar resultados.
@@ -340,7 +339,7 @@ incluye una licencia de código porque esa decisión todavía pertenece al equip
 
 La guía maestra contiene:
 
-- briefing de incorporación y responsabilidades para Nicole;
+- briefing y responsabilidades del equipo final de tres personas;
 - estado verificable de AURA 0.8.0 y capacidades pendientes;
 - lectura completa de la convocatoria;
 - propuesta de valor y diferenciación;

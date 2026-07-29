@@ -21,7 +21,7 @@ Regla de lenguaje (igual que el dossier):
 |---|---|---|
 | Líder del equipo (postulación) | Hernández Menéndez Axel | **DECIDIDO** |
 | Nombre a usar en formularios | Hernández Menéndez Axel | **DECIDIDO** |
-| Equipo confirmado | Axel + Nicole | Sin cambio |
+| Equipo confirmado | Axel + Nicole + José | **DECIDIDO; equipo cerrado** |
 | Licencia del repositorio | Aún no se publica licencia | **DECIDIDO (por ahora)** |
 
 **Nota para redacción:** hasta elegir licencia, no afirmar redistribución abierta
@@ -101,19 +101,20 @@ aprender.
 
 | Tema | Responsable sugerido | Notas |
 |---|---|---|
-| Plan técnico a 6 meses (bullets de Axel) | Axel | Resolver después; Nicole aporta adopción/alianzas |
-| Mantenimiento editorial de casos (quién + frecuencia) | Axel + Nicole | Sin decisión aún |
+| Plan técnico a 6 meses (bullets de Axel) | Axel | Resolver después; Nicole aporta adopción/alianzas y José edita |
+| Mantenimiento editorial de casos (quién + frecuencia) | Los tres | Sin decisión aún |
 | Dos riesgos técnicos principales + mitigación (texto final) | Axel | Pendiente de redacción; el dossier ya tiene borradores de riesgos |
 | URL canónica definitiva | Axel | Después; mientras tanto usar demo Vercel |
 | Desglose de costos 100 / 1.000 / 10.000 | Axel | Solo cuando haya estimaciones honestas |
-| Licencia pública concreta (MIT, etc.) | Axel + Nicole | Cuando decidan publicarla |
+| Licencia pública concreta (MIT, etc.) | Los tres | Cuando decidan publicarla |
 
 ---
 
 ## 7. Texto usable en la propuesta (borrador, solo hechos)
 
-> AURA is led by Hernández Menéndez Axel (technical lead) with Nicole
-> (strategy and impact). The public MVP runs on Vercel’s free tier and optional
+> AURA is led by Hernández Menéndez Axel (technical and product lead), Nicole
+> Madelyne Pincay Soledispa (strategy and impact) and José Luis Cañarte Plúa
+> (research, English and editorial review). The public MVP runs on Vercel’s free tier and optional
 > Supabase free-tier analytics, currently served at a `*.vercel.app` URL. The
 > Socratic coach uses OpenAI (GPT-5.6 family), which will be retained for the
 > pilot with a practical API budget ceiling of about USD 30; the full mission
@@ -125,8 +126,10 @@ aprender.
 
 Versión ES (misma restricción de hechos):
 
-> AURA está liderada por Hernández Menéndez Axel (liderazgo técnico) con Nicole
-> (estrategia e impacto). El MVP público corre en el plan gratuito de Vercel y
+> AURA está liderada por Hernández Menéndez Axel (liderazgo técnico y de
+> producto), Nicole Madelyne Pincay Soledispa (estrategia e impacto) y José
+> Luis Cañarte Plúa (investigación, inglés y revisión editorial). El MVP público
+> corre en el plan gratuito de Vercel y
 > analítica opcional en Supabase free, hoy en una URL `*.vercel.app`. El coach
 > socrático usa OpenAI (familia GPT-5.6), que se mantiene para el piloto con un
 > techo práctico de gasto en API de unos USD 30; la misión completa sigue
@@ -147,7 +150,7 @@ Versión ES (misma restricción de hechos):
 4. Si Axel actualiza costos, URL o licencia, editar primero esta tabla y luego
    sincronizar guía/dossier.
 5. Nicole sigue siendo dueña de alianzas, reclutamiento del piloto e impacto
-   cualitativo.
+   cualitativo; José lidera inglés, evidencia y edición.
 
 ---
 

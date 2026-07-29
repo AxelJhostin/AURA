@@ -7,9 +7,11 @@
 **Eslogan principal:** De la reacción a la evidencia.  
 **Eslogan en inglés:** From reaction to evidence.  
 **Promesa del producto:** AURA no decide qué creer. Entrena a las personas para investigar con evidencia.  
-**Estado de este documento:** Fuente maestra de estrategia, producto, operación y candidatura — versión 2.3.
+**Estado de este documento:** Fuente pública de estrategia, producto, operación
+y candidatura — versión 2.4.
 
-**Versión funcional de referencia:** AURA 0.8.0.
+**Versión funcional de referencia:** AURA 0.8.0 — 100 % del alcance técnico
+definido para el MVP.
 
 **Ubicación en el proyecto:** `public/docs/`, accesible desde el prototipo y versionada junto al código.  
 **Fecha de referencia:** 28 de julio de 2026.
@@ -20,16 +22,16 @@
 **Repositorio:** [https://github.com/AxelJhostin/AURA](https://github.com/AxelJhostin/AURA)
 
 **Versión en producción:** `main`, commit
-[`343a687`](https://github.com/AxelJhostin/AURA/commit/343a6872e45b01e4028db1e8be937554548a3410),
-fusionado mediante el
-[#1](https://github.com/AxelJhostin/AURA/pull/1).
+[`c1228d2`](https://github.com/AxelJhostin/AURA/commit/c1228d2850a3075344c053585b86aca7c726478a),
+con la corrección crítica de analítica fusionada mediante el
+[#4](https://github.com/AxelJhostin/AURA/pull/4).
 
-**Plan operativo de postulación para Nicole:**
+**Plan operativo de postulación para el equipo final:**
 [Dossier y matriz de evaluación UNESCO 2026](./AURA_Dossier_Postulacion_y_Matriz_Evaluacion_2026.md).
 
 ---
 
-## Briefing de incorporación para Nicole
+## Briefing de incorporación para Axel, Nicole y José
 
 Esta sección permite entender el proyecto, su estado y las decisiones inmediatas
 sin tener que leer primero las más de dos mil líneas de la guía. El resto del
@@ -144,7 +146,7 @@ proyectos ya trabajan en espacios cercanos. La originalidad está en la
 integración concreta de acciones, trazabilidad, transferencia, contexto
 latinoamericano y participación juvenil.
 
-### 5. Estado real del producto — AURA 0.8.0
+### 5. Estado real del producto — AURA 0.8.0, MVP técnico al 100 %
 
 La siguiente tabla es la fuente de verdad. “Implementado” significa que existe
 en `main` y en el dominio público de Vercel. No significa que ya fue validado
@@ -192,7 +194,7 @@ Validaciones técnicas completadas para AURA 0.8.0:
 
 - compilación de producción Next.js correcta;
 - TypeScript y lint sin errores;
-- once pruebas automatizadas aprobadas;
+- 17 pruebas automatizadas aprobadas;
 - cero vulnerabilidades reportadas en dependencias de producción;
 - ruta pública de eventos probada con aceptación, rechazo y persistencia real;
 - generación, normalización y propagación del código de piloto verificadas;
@@ -405,7 +407,7 @@ Responsable principal de:
 - mantener el registro de evidencia y resultados;
 - revisar que ninguna afirmación del pitch sea inventada;
 - coordinar propuesta, formulario y video;
-- cuidar la narrativa en inglés con apoyo de revisión externa.
+- coordinar con José la narrativa, el PDF y la versión en inglés.
 
 Primeros entregables recomendados para Nicole:
 
@@ -419,22 +421,28 @@ Primeros entregables recomendados para Nicole:
 7. Mantener un archivo de afirmaciones permitidas y evidencia asociada.
 8. Coordinar la disponibilidad del equipo hasta el 16 de agosto.
 
-#### Integrantes posibles
+#### José Luis Cañarte Plúa — investigación, inglés y edición
 
-No añadir personas solo para alcanzar cuatro integrantes. La convocatoria acepta
-equipos de dos. Una nueva persona debe aportar al menos una capacidad faltante:
+Responsable principal de:
 
-- pedagogía o AMI;
-- investigación y evaluación;
-- acceso verificable a participantes;
-- periodismo o verificación;
-- diseño y edición audiovisual;
-- implementación comunitaria.
+- estructura y edición del PDF;
+- claridad, gramática y consistencia en inglés;
+- comprobación de referencias, pies de figura y afirmaciones;
+- síntesis de resultados y limitaciones del piloto;
+- control de los cinco criterios oficiales;
+- transcripción y subtítulos del video;
+- revisión para que la candidatura funcione sin explicación oral.
 
-Toda persona confirmada debe tener 18–30 años, aceptar responsabilidades
-concretas y poder contribuir antes del cierre.
+El perfil académico o profesional exacto de José debe confirmarse antes de
+redactar su biografía. No se inferirá a partir de su correo institucional.
 
-### 12. Sistema de coordinación Hernández Axel–Nicole
+#### Equipo cerrado
+
+AURA queda confirmado con tres integrantes: Hernández Axel, Nicole Madelyne
+Pincay Soledispa y José Luis Cañarte Plúa. No hay plazas abiertas. Cualquier
+cambio debe ser aprobado por los tres y respetar la elegibilidad de 18–30 años.
+
+### 12. Sistema de coordinación Axel–Nicole–José
 
 Ritmo mínimo:
 
@@ -474,10 +482,10 @@ Bloqueo:
 
 #### 27–29 de julio — congelar narrativa y operación
 
-- Nicole completa la incorporación.
+- Nicole y José completan la incorporación.
 - El equipo prueba AURA 0.8 de extremo a extremo.
 - Se congela el público inicial.
-- Se decide si entran más integrantes.
+- Se registra que el equipo final queda cerrado en tres integrantes.
 - Se consiguen los primeros participantes.
 - Se revisan los cuatro casos con una persona experta en AMI.
 - Se confirma el protocolo de consentimiento y acceso al agregado.
@@ -485,7 +493,7 @@ Bloqueo:
 #### 30 de julio–2 de agosto — ensayo interno y facilitación
 
 - Ensayar la vista de facilitador y la exportación agregada.
-- Revisar consentimiento e instrucciones con Nicole.
+- Revisar consentimiento e instrucciones con Nicole y José.
 - Verificar el pulso inicial/final.
 - Probar 320 px y un Android de gama media.
 - Ensayar el flujo del piloto.
@@ -629,7 +637,7 @@ Pitch de 30 segundos en inglés:
 | Integrante sin rol real | Aceptar solo perfiles con entregables |
 | Propuesta genérica | Usar público, casos y contexto de Ecuador |
 | Enseñar cinismo | Incluir contenido correcto, engañoso e incierto |
-| Dependencia de Hernández Axel | Nicole lidera piloto, narrativa y operación |
+| Dependencia de Hernández Axel | Nicole lidera piloto e impacto; José lidera edición e inglés |
 
 ### 17. Inventario de activos
 
@@ -671,7 +679,7 @@ Nunca colocar en esta guía:
 
 ## Índice ejecutivo
 
-- [Briefing de incorporación para Nicole](#briefing-de-incorporación-para-nicol)
+- [Briefing de incorporación para Axel, Nicole y José](#briefing-de-incorporación-para-axel-nicole-y-josé)
 - [0. Cómo usar esta guía](#0-cómo-usar-esta-guía)
 - [Parte I — Decisión estratégica](#parte-i--decisión-estratégica)
 - [Parte II — Definición del proyecto](#parte-ii--definición-del-proyecto)
@@ -2029,30 +2037,22 @@ Asignación base acordada:
 - Coordinación del pitch.
 - Presentación y narrativa.
 
-### Posibles
+#### José Luis Cañarte Plúa — Investigación y edición
 
-#### Integrante 3 — Estudiante de Negocios Internacionales
+Asignación base acordada:
 
-Responsabilidades sugeridas:
+- Investigación y control de evidencia.
+- Estructura y edición de informes.
+- Revisión de inglés.
+- Comprobación de referencias.
+- Síntesis de resultados y limitaciones.
+- Transcripción y subtítulos del video.
+- Control editorial de la propuesta final.
 
-- Reclutamiento del piloto.
-- AURA Circles.
-- Mapeo de aliados.
-- Investigación de mercado.
-- Métricas.
-- Comunicación bilingüe.
-- Producción del video.
+### Equipo final
 
-#### Integrante 4 — Perfil prioritario
-
-Ideal:
-
-- Comunicación.
-- Periodismo.
-- Educación.
-- Psicología educativa.
-- Alfabetización mediática.
-- Diseño UX con experiencia educativa.
+El equipo queda cerrado con tres integrantes. No se mantienen plazas en
+evaluación.
 
 Responsabilidades:
 
@@ -2185,8 +2185,8 @@ intervención creíble**.
 
 ### 27–29 de julio — Congelar estrategia y operación
 
-- Incorporar a Nicole con esta guía.
-- Confirmar equipo mínimo.
+- Incorporar a Nicole y José con esta guía.
+- Confirmar datos privados y elegibilidad del equipo final.
 - Congelar one-liner, público y alcance final.
 - Revisar los cuatro casos implementados con una persona experta en AMI.
 - Preparar lista de participantes.
@@ -2195,7 +2195,7 @@ intervención creíble**.
 
 ### 30 de julio–2 de agosto — Ensayo interno y facilitación
 
-- Ensayar la vista de facilitador con Nicole.
+- Ensayar la vista de facilitador con Nicole y José.
 - Preparar consentimiento.
 - Verificar el pulso pre/post y la exportación agregada.
 - Probar 320 px y un Android de gama media.
@@ -2480,9 +2480,9 @@ Estos textos son una base. Deben actualizarse con resultados, nombres y datos fi
 
 > AURA will keep its core learner experience and base educational cases free. Scale will rely on reusable case packs, youth facilitator training, partnerships with universities and civil society, and grants or institutional support for localization and evaluation. Curated fallback content also reduces dependence on continuous AI inference and supports low-cost deployment.
 
-### Team paragraph — two-person version
+### Team paragraph — final three-person version
 
-> Our confirmed team combines software engineering and international business. The technical lead is responsible for product architecture, development, AI integration, deployment and data protection. The strategy and impact lead is responsible for user research, pilot operations, sustainability, partnerships and the project narrative. We are also evaluating complementary team members for community implementation and MIL/educational design; the final submission will list only confirmed contributors.
+> Our confirmed three-person team combines software engineering, international business, impact strategy, research and English-language editorial review. Hernández Axel leads product architecture, development, responsible AI, deployment and data protection. Nicole Madelyne Pincay Soledispa leads audience research, pilot operations, inclusion, sustainability and narrative. José Luis Cañarte Plúa leads evidence review, report structure, references and English-language editing. This division connects a working product with a clear, verifiable and feasible submission.
 
 ### Closing
 
@@ -2807,7 +2807,7 @@ Estado verificado al 27 de julio de 2026:
 
 ## 35. Decisiones que el equipo debe cerrar
 
-- [ ] Integrantes finales.
+- [x] Integrantes finales: Axel, Nicole y José.
 - [ ] Persona líder.
 - [ ] Público exacto.
 - [ ] Instituciones donde se realizará el piloto, si hay autorización.
@@ -2819,7 +2819,7 @@ Estado verificado al 27 de julio de 2026:
 - [ ] Fecha del piloto.
 - [ ] Presentador del video.
 - [ ] Editor del video.
-- [ ] Revisor de inglés.
+- [x] Revisor de inglés: José.
 - [ ] Revisor externo AMI.
 
 ## 36. Registro de decisiones
@@ -2829,7 +2829,8 @@ Estado verificado al 27 de julio de 2026:
 | 27-07-2026 | Reposicionar AURA como laboratorio de evidencia | Diferenciar de TITAN y medir acciones | Equipo | Congelada |
 | 27-07-2026 | Método A-U-R-A bilingüe | Claridad y memorabilidad | Equipo | Congelada |
 | 27-07-2026 | Público inicial universitario/juvenil en Ecuador | Viabilidad de piloto | Equipo | Por confirmar |
-| 27-07-2026 | Hernández Axel y Nicole forman el equipo núcleo confirmado | Son los integrantes con compromiso confirmado | Equipo | Congelada |
+| 28-07-2026 | Hernández Axel, Nicole Madelyne Pincay Soledispa y José Luis Cañarte Plúa forman el equipo final | Los tres tienen compromiso confirmado y roles complementarios | Equipo | Congelada |
+| 28-07-2026 | El alcance técnico del MVP está completo al 100 % | Build, TypeScript, lint, 17 pruebas y producción verificadas | Hernández Axel | Congelada |
 | 27-07-2026 | Arquitectura única Next.js desplegada en Vercel | Reducir complejidad y riesgo de demo | Hernández Axel | Congelada |
 | 27-07-2026 | La IA pregunta, no verifica ni puntúa | Proteger autonomía y reducir alucinaciones | Hernández Axel | Congelada |
 | 27-07-2026 | Medir transferencia mediante acciones `0–2` | Probar conducta reutilizable sin premiar obediencia | Equipo | Revisar con piloto |
@@ -2843,7 +2844,7 @@ Buscar en todo el documento:
 - `N participants`
 - `X to Y`
 - `Z%`
-- Nombres de los posibles integrantes 3 y 4, cuando se confirmen.
+- Datos privados y biografías finales de Axel, Nicole y José.
 - Instituciones.
 - QR.
 - Enlace de video.
