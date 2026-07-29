@@ -54,6 +54,9 @@ const EVENTS_KEY = "aura_anonymous_events_v1";
 const CONSENT_KEY = "aura_analytics_consent_v1";
 const MAX_LOCAL_EVENTS = 300;
 const PILOT_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+const ANALYTICS_MAX_ATTEMPTS = 3;
+const ANALYTICS_RETRY_BASE_MS = 250;
+let analyticsSendQueue: Promise<void> = Promise.resolve();
 
 function randomId() {
   const cryptoApi =
@@ -182,19 +185,41 @@ export function saveLocalAnalyticsEvent(event: AnalyticsEvent) {
   }
 }
 
-export async function sendAnalyticsEvent(event: AnalyticsEvent) {
-  try {
-    const response = await fetch("/api/aura/events", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(event),
-      keepalive: true,
-    });
+function wait(milliseconds: number) {
+  return new Promise((resolve) => globalThis.setTimeout(resolve, milliseconds));
+}
 
-    return response.ok;
-  } catch {
-    return false;
+async function postAnalyticsEvent(event: AnalyticsEvent) {
+  for (let attempt = 1; attempt <= ANALYTICS_MAX_ATTEMPTS; attempt += 1) {
+    try {
+      const response = await fetch("/api/aura/events", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(event),
+        keepalive: true,
+      });
+
+      if (response.ok) return true;
+      if (response.status < 500) return false;
+    } catch {
+      // A transient network failure can be retried with the same event ID.
+    }
+
+    if (attempt < ANALYTICS_MAX_ATTEMPTS) {
+      await wait(ANALYTICS_RETRY_BASE_MS * 2 ** (attempt - 1));
+    }
   }
+
+  return false;
+}
+
+export function sendAnalyticsEvent(event: AnalyticsEvent) {
+  const request = analyticsSendQueue.then(() => postAnalyticsEvent(event));
+  analyticsSendQueue = request.then(
+    () => undefined,
+    () => undefined,
+  );
+  return request;
 }
 
 export function sessionEvents(sessionId: string) {
