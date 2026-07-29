@@ -134,12 +134,13 @@ export async function GET(request: Request) {
         row.event_name === "evidence_card_generated" &&
         typeof row.duration_ms === "number",
     );
-    const missionStarts = rows.filter(
+    const recordedMissionStarts = rows.filter(
       (row) => row.event_name === "mission_started",
     ).length;
     const evidenceCards = rows.filter(
       (row) => row.event_name === "evidence_card_generated",
     ).length;
+    const missionStarts = Math.max(recordedMissionStarts, evidenceCards);
     const baselineBySession = new Map<string, number>();
     const exitBySession = new Map<string, number>();
 

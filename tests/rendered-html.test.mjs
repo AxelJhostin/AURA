@@ -377,3 +377,16 @@ test("closes the five scoped MVP technical fixes", async () => {
   assert.doesNotMatch(component, /<p>MODELO COMÚN<\/p>/);
   assert.doesNotMatch(component, /<p>AURA MODEL<\/p>/);
 });
+
+test("keeps aggregate pilot metrics internally consistent", async () => {
+  const route = await readFile(
+    new URL("app/api/aura/pilots/route.ts", root),
+    "utf8",
+  );
+
+  assert.match(route, /const recordedMissionStarts = rows\.filter/);
+  assert.match(
+    route,
+    /const missionStarts = Math\.max\(recordedMissionStarts, evidenceCards\)/,
+  );
+});
