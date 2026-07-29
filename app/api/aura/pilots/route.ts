@@ -3,21 +3,15 @@ import {
   PRODUCT_VERSION,
 } from "../../../lib/analytics";
 import { transferChallenge } from "../../../data/transfer";
+import {
+  buildPilotReport,
+  type PilotEventRow,
+} from "../../../domain/pilot-report";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 type RateBucket = { count: number; resetAt: number };
-type PilotEventRow = {
-  anonymous_session_id: string;
-  event_name: string;
-  option_id: string | null;
-  transfer_score: number | null;
-  duration_ms: number | null;
-  occurred_at: string;
-  product_version: string;
-};
-
 const RATE_LIMIT = 30;
 const RATE_WINDOW_MS = 60_000;
 const MAX_ROWS = 5_000;
@@ -55,22 +49,6 @@ function isRateLimited(id: string) {
 
   current.count += 1;
   return current.count > RATE_LIMIT;
-}
-
-function roundedAverage(values: number[], digits = 1) {
-  if (values.length === 0) return null;
-  const multiplier = 10 ** digits;
-  return (
-    Math.round(
-      (values.reduce((total, value) => total + value, 0) / values.length) *
-        multiplier,
-    ) / multiplier
-  );
-}
-
-function confidenceScore(optionId: string | null) {
-  const match = optionId?.match(/^confidence-([1-5])$/);
-  return match ? Number(match[1]) : null;
 }
 
 export async function GET(request: Request) {
@@ -121,95 +99,15 @@ export async function GET(request: Request) {
     }
 
     const allRows = (await response.json()) as PilotEventRow[];
-    const rows = allRows.filter(
-      (row) => row.product_version === PRODUCT_VERSION,
+    return noStoreJson(
+      buildPilotReport({
+        code,
+        allRows,
+        productVersion: PRODUCT_VERSION,
+        transferMaxScore: transferChallenge.maxScore,
+        maximumRows: MAX_ROWS,
+      }),
     );
-    const participants = new Set(
-      rows.map((row) => row.anonymous_session_id),
-    );
-    const completedSessions = new Set(
-      rows
-        .filter((row) => row.event_name === "evidence_card_generated")
-        .map((row) => row.anonymous_session_id),
-    );
-    const transferRows = rows.filter(
-      (row) =>
-        row.event_name === "transfer_completed" &&
-        typeof row.transfer_score === "number",
-    );
-    const missionDurationRows = rows.filter(
-      (row) =>
-        row.event_name === "evidence_card_generated" &&
-        typeof row.duration_ms === "number",
-    );
-    const recordedMissionStarts = rows.filter(
-      (row) => row.event_name === "mission_started",
-    ).length;
-    const evidenceCards = rows.filter(
-      (row) => row.event_name === "evidence_card_generated",
-    ).length;
-    const missionStarts = Math.max(recordedMissionStarts, evidenceCards);
-    const baselineBySession = new Map<string, number>();
-    const exitBySession = new Map<string, number>();
-
-    for (const row of rows) {
-      const score = confidenceScore(row.option_id);
-      if (score === null) continue;
-      if (
-        row.event_name === "pilot_baseline_recorded" &&
-        !baselineBySession.has(row.anonymous_session_id)
-      ) {
-        baselineBySession.set(row.anonymous_session_id, score);
-      }
-      if (
-        row.event_name === "pilot_exit_recorded" &&
-        !exitBySession.has(row.anonymous_session_id)
-      ) {
-        exitBySession.set(row.anonymous_session_id, score);
-      }
-    }
-
-    const confidenceDeltas = [...baselineBySession.entries()]
-      .filter(([sessionId]) => exitBySession.has(sessionId))
-      .map(
-        ([sessionId, baseline]) =>
-          (exitBySession.get(sessionId) as number) - baseline,
-      );
-
-    return noStoreJson({
-      code,
-      productVersion: PRODUCT_VERSION,
-      transferMaxScore: transferChallenge.maxScore,
-      participants: participants.size,
-      missionStarts,
-      evidenceCards,
-      completedParticipants: completedSessions.size,
-      completionRate:
-        participants.size === 0
-          ? 0
-          : Math.round((completedSessions.size / participants.size) * 100),
-      transferCompletions: transferRows.length,
-      averageTransferScore: roundedAverage(
-        transferRows.map((row) => row.transfer_score as number),
-      ),
-      baselineResponses: baselineBySession.size,
-      exitResponses: exitBySession.size,
-      matchedConfidenceResponses: confidenceDeltas.length,
-      averageBaselineConfidence: roundedAverage([
-        ...baselineBySession.values(),
-      ]),
-      averageExitConfidence: roundedAverage([...exitBySession.values()]),
-      averageConfidenceDelta: roundedAverage(confidenceDeltas),
-      averageMissionDurationSeconds: (() => {
-        const average = roundedAverage(
-          missionDurationRows.map((row) => row.duration_ms as number),
-          0,
-        );
-        return average === null ? null : Math.round(average / 1_000);
-      })(),
-      latestActivity: rows[0]?.occurred_at ?? null,
-      truncated: allRows.length === MAX_ROWS,
-    });
   } catch {
     return noStoreJson({ error: "reporting_unavailable" }, { status: 503 });
   }

@@ -4,6 +4,12 @@ import { useRef, useState } from "react";
 import type { Locale } from "../data/cases";
 import { transferChallenge } from "../data/transfer";
 import {
+  hasCompleteTransferAnswers,
+  scoreTransferAnswers,
+  transferFeedbackTier,
+  type TransferAnswers,
+} from "../domain/transfer-scoring";
+import {
   downloadAnalyticsCsv,
   type AnalyticsConsent,
   type AnalyticsEvent,
@@ -33,7 +39,7 @@ export function TransferChallenge({
   trackEvent,
 }: Props) {
   const [started, setStarted] = useState(false);
-  const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [answers, setAnswers] = useState<TransferAnswers>({});
   const [completed, setCompleted] = useState(false);
   const [score, setScore] = useState(0);
   const startedAt = useRef(0);
@@ -86,8 +92,9 @@ export function TransferChallenge({
   const guidedSeconds = guidedCompletion?.durationMs
     ? Math.round(guidedCompletion.durationMs / 1_000)
     : 0;
-  const allAnswered = challenge.questions.every(
-    (question) => answers[question.id],
+  const allAnswered = hasCompleteTransferAnswers(
+    challenge.questions,
+    answers,
   );
 
   function startChallenge() {
@@ -118,12 +125,9 @@ export function TransferChallenge({
   function finishChallenge() {
     if (!allAnswered) return;
 
-    const finalScore = challenge.questions.reduce((total, question) => {
-      const selected = question.options.find(
-        (option) => option.id === answers[question.id],
-      );
-      return total + (selected?.score ?? 0);
-    }, 0);
+    const result = scoreTransferAnswers(challenge.questions, answers);
+    if (!result.completed) return;
+    const finalScore = result.score;
 
     setScore(finalScore);
     setCompleted(true);
@@ -138,13 +142,7 @@ export function TransferChallenge({
   }
 
   const feedback =
-    score === challenge.maxScore
-      ? challenge.feedback.strong
-      : score >= 4
-        ? challenge.feedback.solid
-        : score >= 2
-          ? challenge.feedback.emerging
-          : challenge.feedback.needsPractice;
+    challenge.feedback[transferFeedbackTier(score, challenge.maxScore)];
 
   return (
     <section className="transfer-challenge" aria-labelledby="transfer-title">

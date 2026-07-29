@@ -26,12 +26,22 @@ seguridad de las personas.
 4. Ejecuta:
 
    ```bash
-   npm run lint
-   npm test
+   npm run check
    ```
 
-5. Documenta cualquier decisión pedagógica o de privacidad.
-6. Abre una revisión antes de fusionar.
+5. Si cambia el esquema o las reglas de persistencia, ejecuta también:
+
+   ```bash
+   npm run db:start
+   npm run test:db
+   npm run db:stop
+   ```
+
+6. Documenta cualquier decisión pedagógica o de privacidad.
+7. Abre una revisión antes de fusionar.
+
+Consulta [`docs/ARCHITECTURE_AND_TESTING.md`](docs/ARCHITECTURE_AND_TESTING.md)
+antes de agregar estados, rutas, eventos o migraciones.
 
 ## Definición de terminado
 

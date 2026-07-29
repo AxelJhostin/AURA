@@ -121,6 +121,7 @@ test("implements structured reasoning and a six-behavior transfer challenge", as
     transfer,
     analytics,
     route,
+    eventDomain,
     baseMigration,
     v2Migration,
   ] = await Promise.all([
@@ -135,6 +136,7 @@ test("implements structured reasoning and a six-behavior transfer challenge", as
     readFile(new URL("app/data/transfer.ts", root), "utf8"),
     readFile(new URL("app/lib/analytics.ts", root), "utf8"),
     readFile(new URL("app/api/aura/events/route.ts", root), "utf8"),
+    readFile(new URL("app/domain/analytics-event.ts", root), "utf8"),
     readFile(
       new URL(
         "supabase/migrations/20260728033416_aura_learning_events.sql",
@@ -181,9 +183,11 @@ test("implements structured reasoning and a six-behavior transfer challenge", as
   assert.match(route, /origin_not_allowed/);
   assert.match(route, /request\.text\(\)/);
   assert.match(route, /TextEncoder/);
-  assert.match(route, /validOption/);
-  assert.match(route, /transferOptionIds/);
-  assert.match(route, /transferChallenge\.maxScore/);
+  assert.match(route, /validateAnalyticsEvent/);
+  assert.match(route, /analyticsEventToRow/);
+  assert.match(eventDomain, /validOption/);
+  assert.match(eventDomain, /transferOptionIds/);
+  assert.match(eventDomain, /transferChallenge\.maxScore/);
   assert.match(route, /apikey: supabaseSecretKey/);
   assert.doesNotMatch(route, /Authorization: `Bearer \$\{supabaseSecretKey\}`/);
   assert.doesNotMatch(route, /NEXT_PUBLIC_SUPABASE/);
@@ -220,6 +224,35 @@ test("uses the Vercel-compatible Next.js build contract", async () => {
   assert.equal("wrangler" in packageJson.devDependencies, false);
 });
 
+test("keeps layered automated quality gates in the repository", async () => {
+  const [packageText, architecture, workflow, databaseTest] =
+    await Promise.all([
+      readFile(new URL("package.json", root), "utf8"),
+      readFile(new URL("docs/ARCHITECTURE_AND_TESTING.md", root), "utf8"),
+      readFile(new URL(".github/workflows/quality.yml", root), "utf8"),
+      readFile(
+        new URL(
+          "supabase/tests/database/aura_learning_events.test.sql",
+          root,
+        ),
+        "utf8",
+      ),
+    ]);
+  const packageJson = JSON.parse(packageText);
+
+  assert.match(packageJson.scripts["test:unit"], /tests\/unit/);
+  assert.match(packageJson.scripts["test:integration"], /tests\/integration/);
+  assert.match(packageJson.scripts["test:contract"], /npm run build/);
+  assert.match(packageJson.scripts["test:coverage"], /test-coverage-lines=90/);
+  assert.match(packageJson.scripts["test:db"], /run-supabase\.mjs/);
+  assert.match(architecture, /Deuda técnica controlada/);
+  assert.match(architecture, /AuraExperience\.tsx/);
+  assert.match(workflow, /npm run check/);
+  assert.match(workflow, /supabase test db --local/);
+  assert.match(databaseTest, /select plan\(12\)/);
+  assert.match(databaseTest, /row level security is enabled/);
+});
+
 test("validates the balanced editorial catalog during every build", async () => {
   const [cases, balancedCases, validation] = await Promise.all([
     readFile(new URL("app/data/cases.ts", root), "utf8"),
@@ -240,12 +273,12 @@ test("validates the balanced editorial catalog during every build", async () => 
 });
 
 test("measures anonymous pre/post confidence and exports aggregates only", async () => {
-  const [pulse, analytics, eventRoute, pilotRoute, facilitator, migration] =
+  const [pulse, analytics, eventDomain, pilotReport, facilitator, migration] =
     await Promise.all([
       readFile(new URL("app/components/PilotConfidence.tsx", root), "utf8"),
       readFile(new URL("app/lib/analytics.ts", root), "utf8"),
-      readFile(new URL("app/api/aura/events/route.ts", root), "utf8"),
-      readFile(new URL("app/api/aura/pilots/route.ts", root), "utf8"),
+      readFile(new URL("app/domain/analytics-event.ts", root), "utf8"),
+      readFile(new URL("app/domain/pilot-report.ts", root), "utf8"),
       readFile(
         new URL("app/components/PilotFacilitator.tsx", root),
         "utf8",
@@ -264,9 +297,9 @@ test("measures anonymous pre/post confidence and exports aggregates only", async
   assert.match(pulse, /confidence-\$\{score\}/);
   assert.doesNotMatch(pulse, /<textarea|type="email"|\sname="/i);
   assert.match(analytics, /PILOT_EVALUATION_CASE_ID = "pilot-evaluation"/);
-  assert.match(eventRoute, /\/\^confidence-\[1-5\]\$\//);
-  assert.match(pilotRoute, /averageConfidenceDelta/);
-  assert.match(pilotRoute, /matchedConfidenceResponses/);
+  assert.match(eventDomain, /\/\^confidence-\[1-5\]\$\//);
+  assert.match(pilotReport, /averageConfidenceDelta/);
+  assert.match(pilotReport, /matchedConfidenceResponses/);
   assert.match(facilitator, /pilotReportToCsv/);
   assert.match(facilitator, /Download aggregate CSV/);
   assert.doesNotMatch(facilitator, /anonymous_session_id/);
@@ -293,7 +326,7 @@ test("includes keyboard, reduced-motion and 320px accessibility safeguards", asy
 });
 
 test("groups anonymous sessions into private aggregate pilot reports", async () => {
-  const [component, facilitator, analytics, route, migration] =
+  const [component, facilitator, analytics, route, reportDomain, migration] =
     await Promise.all([
       readFile(
         new URL("app/components/AuraExperience.tsx", root),
@@ -305,6 +338,7 @@ test("groups anonymous sessions into private aggregate pilot reports", async () 
       ),
       readFile(new URL("app/lib/analytics.ts", root), "utf8"),
       readFile(new URL("app/api/aura/pilots/route.ts", root), "utf8"),
+      readFile(new URL("app/domain/pilot-report.ts", root), "utf8"),
       readFile(
         new URL(
           "supabase/migrations/20260728141033_add_anonymous_pilot_code.sql",
@@ -323,8 +357,9 @@ test("groups anonymous sessions into private aggregate pilot reports", async () 
   assert.match(analytics, /cryptoApi\.getRandomValues\(bytes\)/);
   assert.match(route, /MAX_ROWS = 5_000/);
   assert.match(route, /process\.env\.SUPABASE_SECRET_KEY/);
-  assert.match(route, /completionRate/);
-  assert.match(route, /averageTransferScore/);
+  assert.match(route, /buildPilotReport/);
+  assert.match(reportDomain, /completionRate/);
+  assert.match(reportDomain, /averageTransferScore/);
   assert.doesNotMatch(route, /NEXT_PUBLIC_SUPABASE/);
   assert.match(migration, /add column if not exists pilot_code text/i);
   assert.match(migration, /grant select, insert.*service_role/i);
@@ -437,14 +472,14 @@ test("closes the five scoped MVP technical fixes", async () => {
 });
 
 test("keeps aggregate pilot metrics internally consistent", async () => {
-  const route = await readFile(
-    new URL("app/api/aura/pilots/route.ts", root),
+  const reportDomain = await readFile(
+    new URL("app/domain/pilot-report.ts", root),
     "utf8",
   );
 
-  assert.match(route, /const recordedMissionStarts = rows\.filter/);
+  assert.match(reportDomain, /const recordedMissionStarts = rows\.filter/);
   assert.match(
-    route,
+    reportDomain,
     /const missionStarts = Math\.max\(recordedMissionStarts, evidenceCards\)/,
   );
 });

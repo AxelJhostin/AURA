@@ -103,10 +103,22 @@ La terminal mostrará la URL local, normalmente
 
 ```bash
 npm run lint
+npm run typecheck
 npm test
 ```
 
-`npm test` construye la aplicación y comprueba el HTML renderizado del MVP.
+`npm test` ejecuta pruebas unitarias, integración de rutas y el contrato del
+build de producción. Para Supabase local y pgTAP:
+
+```bash
+npm run db:start
+npm run test:db
+npm run db:stop
+```
+
+La arquitectura, límites de módulos, pirámide de pruebas y procedimiento para
+cambios grandes están documentados en
+[`docs/ARCHITECTURE_AND_TESTING.md`](docs/ARCHITECTURE_AND_TESTING.md).
 
 ## Estructura del repositorio
 
@@ -129,6 +141,10 @@ AURA-UNESCO-2026/
 │   │   ├── balanced-cases.ts    # casos respaldado-con-límites e insuficiente
 │   │   ├── case-validation.ts   # compuerta editorial del build
 │   │   └── transfer.ts          # reto y rúbrica de transferencia
+│   ├── domain/
+│   │   ├── analytics-event.ts   # contrato puro de eventos codificados
+│   │   ├── pilot-report.ts      # agregados privados del piloto
+│   │   └── transfer-scoring.ts  # puntuación observable de transferencia
 │   ├── lib/
 │   │   └── analytics.ts         # eventos locales, consentimiento y CSV
 │   ├── globals.css              # sistema visual y diseño responsivo
@@ -140,14 +156,18 @@ AURA-UNESCO-2026/
 │   │   └── AURA_Dossier_Postulacion_y_Matriz_Evaluacion_2026.md
 │   └── og.png                    # portada social del proyecto
 ├── docs/
-│   └── DEVELOPMENT_ROADMAP.md   # plan técnico y criterios de aceptación
+│   ├── ARCHITECTURE_AND_TESTING.md # modularidad y estrategia de pruebas
+│   └── DEVELOPMENT_ROADMAP.md      # plan técnico y criterios de aceptación
 ├── tests/
-│   └── rendered-html.test.mjs   # smoke tests del render del servidor
+│   ├── unit/                    # reglas puras, rápidas y aisladas
+│   ├── integration/             # rutas Next.js con límites simulados
+│   └── *.test.mjs               # contrato del build y HTML renderizado
 ├── supabase/migrations/
 │   ├── *_aura_learning_events.sql # tabla y RLS de analítica anónima
 │   ├── *_anonymous_pilot_code.sql # agrupación e índice del piloto
 │   ├── *_anonymous_pilot_pulse.sql # instrumento pre/post codificado
 │   └── *_reasoning_and_transfer_v2.sql # eventos de conclusión y escala 0–6
+├── supabase/tests/database/     # restricciones y RLS mediante pgTAP
 ├── .env.example                 # nombres de variables, nunca secretos
 ├── CONTRIBUTING.md
 ├── package.json

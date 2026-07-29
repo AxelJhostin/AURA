@@ -1,15 +1,7 @@
-import { auraCases } from "../../../data/cases";
 import {
-  transferChallenge,
-  transferOptionIds,
-} from "../../../data/transfer";
-import {
-  PILOT_CODE_PATTERN,
-  PILOT_EVALUATION_CASE_ID,
-  PRODUCT_VERSION,
-  type AnalyticsEventName,
-  type AnalyticsStage,
-} from "../../../lib/analytics";
+  analyticsEventToRow,
+  validateAnalyticsEvent,
+} from "../../../domain/analytics-event";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -19,35 +11,6 @@ type RateBucket = { count: number; resetAt: number };
 const RATE_LIMIT = 120;
 const RATE_WINDOW_MS = 60_000;
 const MAX_BODY_BYTES = 2_000;
-const MAX_DURATION_MS = 60 * 60 * 1_000;
-const MAX_CLOCK_DRIFT_MS = 24 * 60 * 60 * 1_000;
-const UUID_PATTERN =
-  /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-
-const allowedEventNames = new Set<AnalyticsEventName>([
-  "mission_started",
-  "initial_decision_recorded",
-  "signal_selected",
-  "source_opened",
-  "action_selected",
-  "reasoning_finding_selected",
-  "reasoning_limit_selected",
-  "evidence_card_generated",
-  "mission_abandoned",
-  "transfer_started",
-  "transfer_choice_selected",
-  "transfer_completed",
-  "pilot_baseline_recorded",
-  "pilot_exit_recorded",
-]);
-const allowedStages = new Set<AnalyticsStage>([
-  "analyze",
-  "uncover",
-  "research",
-  "act",
-  "transfer",
-  "survey",
-]);
 
 const globalForAuraEvents = globalThis as typeof globalThis & {
   auraEventRateBuckets?: Map<string, RateBucket>;
@@ -81,116 +44,6 @@ function isRateLimited(id: string) {
 
   current.count += 1;
   return current.count > RATE_LIMIT;
-}
-
-function validOptionalString(value: unknown, maximum: number) {
-  return (
-    value === undefined ||
-    (typeof value === "string" && value.length > 0 && value.length <= maximum)
-  );
-}
-
-function validOption(
-  eventName: AnalyticsEventName,
-  caseId: string | undefined,
-  optionId: string | undefined,
-) {
-  const noOptionEvents = new Set<AnalyticsEventName>([
-    "mission_started",
-    "evidence_card_generated",
-    "mission_abandoned",
-    "transfer_started",
-    "transfer_completed",
-  ]);
-
-  if (noOptionEvents.has(eventName)) return optionId === undefined;
-
-  if (
-    eventName === "pilot_baseline_recorded" ||
-    eventName === "pilot_exit_recorded"
-  ) {
-    return (
-      caseId === PILOT_EVALUATION_CASE_ID &&
-      typeof optionId === "string" &&
-      /^confidence-[1-5]$/.test(optionId)
-    );
-  }
-
-  if (eventName === "transfer_choice_selected") {
-    return (
-      caseId === transferChallenge.id &&
-      typeof optionId === "string" &&
-      transferOptionIds.has(optionId)
-    );
-  }
-
-  const activeCase = auraCases.find((item) => item.id === caseId);
-  if (!activeCase || typeof optionId !== "string") return false;
-
-  if (
-    eventName === "reasoning_finding_selected" ||
-    eventName === "reasoning_limit_selected"
-  ) {
-    const allowedReasoningIds =
-      eventName === "reasoning_finding_selected"
-        ? new Set(["traced-finding", "viral-claim", "popularity-proof"])
-        : new Set(["evidence-gap", "no-limit", "uncertainty-means-false"]);
-    return allowedReasoningIds.has(optionId);
-  }
-
-  const list =
-    eventName === "initial_decision_recorded"
-      ? activeCase.initialChoices
-      : eventName === "signal_selected"
-        ? activeCase.signals
-        : eventName === "source_opened"
-          ? activeCase.sources
-          : activeCase.actions;
-  return list.some((item) => item.id === optionId);
-}
-
-function validEventShape(
-  eventName: AnalyticsEventName,
-  stage: AnalyticsStage | undefined,
-  durationMs: number | undefined,
-  transferScore: number | undefined,
-) {
-  const expectedStage: Partial<Record<AnalyticsEventName, AnalyticsStage>> = {
-    mission_started: "analyze",
-    initial_decision_recorded: "analyze",
-    signal_selected: "uncover",
-    source_opened: "research",
-    action_selected: "act",
-    reasoning_finding_selected: "act",
-    reasoning_limit_selected: "act",
-    evidence_card_generated: "act",
-    transfer_started: "transfer",
-    transfer_choice_selected: "transfer",
-    transfer_completed: "transfer",
-    pilot_baseline_recorded: "survey",
-    pilot_exit_recorded: "survey",
-  };
-  const timedEvents = new Set<AnalyticsEventName>([
-    "evidence_card_generated",
-    "mission_abandoned",
-    "transfer_completed",
-  ]);
-
-  if (
-    eventName === "mission_abandoned"
-      ? stage === undefined || stage === "transfer"
-      : stage !== expectedStage[eventName]
-  ) {
-    return false;
-  }
-
-  if (timedEvents.has(eventName) !== (durationMs !== undefined)) {
-    return false;
-  }
-
-  return eventName === "transfer_completed"
-    ? transferScore !== undefined
-    : transferScore === undefined;
 }
 
 export async function POST(request: Request) {
@@ -229,81 +82,12 @@ export async function POST(request: Request) {
     return noStoreJson({ error: "invalid_json" }, { status: 400 });
   }
 
-  if (!payload || typeof payload !== "object") {
-    return noStoreJson({ error: "invalid_payload" }, { status: 400 });
-  }
-
-  const body = payload as Record<string, unknown>;
-  const eventId = body.eventId;
-  const eventName = body.eventName;
-  const sessionId = body.sessionId;
-  const pilotCode = body.pilotCode;
-  const occurredAt = body.occurredAt;
-  const locale = body.locale;
-  const caseId = body.caseId;
-  const stage = body.stage;
-  const optionId = body.optionId;
-  const durationMs = body.durationMs;
-  const transferScore = body.transferScore;
-  const productVersion = body.productVersion;
-  const occurredTimestamp =
-    typeof occurredAt === "string" ? Date.parse(occurredAt) : Number.NaN;
-
-  if (
-    typeof eventId !== "string" ||
-    !UUID_PATTERN.test(eventId) ||
-    typeof eventName !== "string" ||
-    !allowedEventNames.has(eventName as AnalyticsEventName) ||
-    typeof sessionId !== "string" ||
-    !UUID_PATTERN.test(sessionId) ||
-    (pilotCode !== undefined &&
-      (typeof pilotCode !== "string" ||
-        !PILOT_CODE_PATTERN.test(pilotCode))) ||
-    typeof occurredAt !== "string" ||
-    !Number.isFinite(occurredTimestamp) ||
-    Math.abs(Date.now() - occurredTimestamp) > MAX_CLOCK_DRIFT_MS ||
-    (locale !== "es" && locale !== "en") ||
-    !validOptionalString(caseId, 80) ||
-    !validOptionalString(stage, 20) ||
-    (stage !== undefined &&
-      !allowedStages.has(stage as AnalyticsStage)) ||
-    !validOptionalString(optionId, 80) ||
-    (durationMs !== undefined &&
-      (!Number.isInteger(durationMs) ||
-        (durationMs as number) < 0 ||
-        (durationMs as number) > MAX_DURATION_MS)) ||
-    (transferScore !== undefined &&
-      (!Number.isInteger(transferScore) ||
-        (transferScore as number) < 0 ||
-        (transferScore as number) > transferChallenge.maxScore)) ||
-    productVersion !== PRODUCT_VERSION ||
-    !validOption(
-      eventName as AnalyticsEventName,
-      caseId as string | undefined,
-      optionId as string | undefined,
-    )
-  ) {
-    return noStoreJson({ error: "invalid_payload" }, { status: 400 });
-  }
-
-  const isTransferEvent = eventName.startsWith("transfer_");
-  const isSurveyEvent =
-    eventName === "pilot_baseline_recorded" ||
-    eventName === "pilot_exit_recorded";
-  if (
-    (isTransferEvent && caseId !== transferChallenge.id) ||
-    (isSurveyEvent && caseId !== PILOT_EVALUATION_CASE_ID) ||
-    (!isTransferEvent &&
-      !isSurveyEvent &&
-      !auraCases.some((item) => item.id === caseId)) ||
-    !validEventShape(
-      eventName as AnalyticsEventName,
-      stage as AnalyticsStage | undefined,
-      durationMs as number | undefined,
-      transferScore as number | undefined,
-    )
-  ) {
-    return noStoreJson({ error: "invalid_event_context" }, { status: 400 });
+  const validation = validateAnalyticsEvent(payload);
+  if (!validation.ok) {
+    return noStoreJson(
+      { error: validation.error },
+      { status: 400 },
+    );
   }
 
   const supabaseUrl = process.env.SUPABASE_URL;
@@ -325,20 +109,7 @@ export async function POST(request: Request) {
           "Content-Type": "application/json",
           Prefer: "return=minimal",
         },
-        body: JSON.stringify({
-          event_id: eventId,
-          anonymous_session_id: sessionId,
-          pilot_code: pilotCode ?? null,
-          event_name: eventName,
-          occurred_at: occurredAt,
-          locale,
-          case_id: caseId ?? null,
-          stage: stage ?? null,
-          option_id: optionId ?? null,
-          duration_ms: durationMs ?? null,
-          transfer_score: transferScore ?? null,
-          product_version: productVersion,
-        }),
+        body: JSON.stringify(analyticsEventToRow(validation.event)),
         cache: "no-store",
       },
     );
