@@ -444,8 +444,8 @@ export const balancedAuraCases: AuraCase[] = [
     },
     result: {
       cardSubtitle: {
-        es: "Caso 03 · emitida por la persona, no por la IA",
-        en: "Case 03 · issued by the person, not the AI",
+        es: "Caso 03 · construida con las decisiones de la persona",
+        en: "Case 03 · built from the learner’s decisions",
       },
       conclusion: {
         es: "Existe evidencia de que la actividad física regular puede beneficiar la salud mental y reducir síntomas de depresión. Las fuentes no respaldan que una caminata de 20 minutos cure de inmediato a todas las personas ni que sustituya automáticamente otros apoyos.",
@@ -906,8 +906,8 @@ export const balancedAuraCases: AuraCase[] = [
     },
     result: {
       cardSubtitle: {
-        es: "Caso 04 · emitida por la persona, no por la IA",
-        en: "Case 04 · issued by the person, not the AI",
+        es: "Caso 04 · construida con las decisiones de la persona",
+        en: "Case 04 · built from the learner’s decisions",
       },
       conclusion: {
         es: "El piloto ficticio produce una señal interesante, pero su muestra pequeña y voluntaria, la ausencia de comparación y el resultado medido no permiten afirmar que la escala de grises cause una mejora de 27% en calificaciones. Tampoco prueban que no tenga ningún efecto.",

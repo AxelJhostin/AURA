@@ -13,7 +13,7 @@ function event(suffix) {
     locale: "es",
     caseId: "energy-memory",
     stage: "analyze",
-    productVersion: "0.8.0",
+    productVersion: "0.9.0",
   };
 }
 

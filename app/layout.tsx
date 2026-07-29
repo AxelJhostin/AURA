@@ -9,9 +9,9 @@ const canonicalUrl =
 
 export const metadata: Metadata = {
   metadataBase: new URL(canonicalUrl),
-  title: "AURA — De la reacción a la evidencia",
+  title: "AURA — Investiga antes de compartir",
   description:
-    "Laboratorio bilingüe de evidencia para entrenar alfabetización mediática e informacional mediante el método Analiza, Ubica, Rastrea y Actúa.",
+    "Laboratorio bilingüe para comprobar becas, salud, emergencias y otras afirmaciones virales antes de compartirlas o entregar datos.",
   applicationName: "AURA Evidence Lab",
   keywords: [
     "alfabetización mediática",
@@ -23,9 +23,9 @@ export const metadata: Metadata = {
   authors: [{ name: "Equipo AURA" }],
   creator: "Equipo AURA",
   openGraph: {
-    title: "AURA — De la reacción a la evidencia",
+    title: "AURA — Investiga antes de compartir",
     description:
-      "Un laboratorio de evidencia que entrena a jóvenes para investigar, justificar y actuar.",
+      "Practica cómo verificar el origen, comparar evidencia y actuar responsablemente antes de compartir una afirmación viral.",
     type: "website",
     locale: "es_EC",
     alternateLocale: "en",
@@ -34,15 +34,15 @@ export const metadata: Metadata = {
         url: "/og.png",
         width: 1731,
         height: 909,
-        alt: "AURA — De la reacción a la evidencia",
+        alt: "AURA — Investiga antes de compartir",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "AURA — De la reacción a la evidencia",
+    title: "AURA — Investiga antes de compartir",
     description:
-      "Laboratorio bilingüe de evidencia para Alfabetización Mediática e Informacional.",
+      "Comprueba el origen, compara evidencia y actúa antes de compartir.",
     images: ["/og.png"],
   },
 };

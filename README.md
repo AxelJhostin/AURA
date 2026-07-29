@@ -18,7 +18,7 @@ Este repositorio reúne tres entregables que deben evolucionar juntos:
 
 ## Estado actual
 
-- **Versión:** MVP técnico `0.8.0`, **100 % del alcance definido**
+- **Versión:** MVP técnico `0.9.0`, **100 % del alcance definido**
 - **Objetivo:** UNESCO Youth Hackathon 2026
 - **Equipo final confirmado:** Hernández Axel + Nicole Madelyne Pincay
   Soledispa + José Luis Cañarte Plúa
@@ -34,14 +34,18 @@ La demo ya permite:
 - Elegir entre cuatro misiones mediante un catálogo reutilizable y validado en
   cada build.
 - Registrar una reacción inicial sin señalarla como correcta o incorrecta.
-- Identificar señales que justifican una pausa.
-- Elegir fuentes y construir un mapa de evidencia.
+- Identificar señales que justifican una pausa sin revelar la respuesta antes
+  de elegir.
+- Examinar fuentes candidatas y construir un mapa de evidencia.
 - Auditar la procedencia de cada pieza simulada y abrir referencias reales
   separadas del expediente educativo.
 - Decidir una acción proporcional a la evidencia.
-- Generar y copiar una Tarjeta de evidencia.
+- Construir y copiar una Tarjeta de evidencia con hallazgo, límite y acción
+  elegidos por la persona.
 - Resolver un reto final no guiado sobre un tema diferente.
-- Obtener una puntuación de transferencia `0–2` basada en acciones observables.
+- Obtener una puntuación de transferencia `0–6` basada en seis conductas
+  observables: afirmación, origen, procedencia, corroboración, incertidumbre y
+  acción.
 - Registrar métricas anónimas con consentimiento explícito.
 - Comparar un pulso opcional de confianza pre/post mediante opciones `1–5`.
 - Generar un código de piloto y un enlace compartible sin crear cuentas.
@@ -142,7 +146,8 @@ AURA-UNESCO-2026/
 ├── supabase/migrations/
 │   ├── *_aura_learning_events.sql # tabla y RLS de analítica anónima
 │   ├── *_anonymous_pilot_code.sql # agrupación e índice del piloto
-│   └── *_anonymous_pilot_pulse.sql # instrumento pre/post codificado
+│   ├── *_anonymous_pilot_pulse.sql # instrumento pre/post codificado
+│   └── *_reasoning_and_transfer_v2.sql # eventos de conclusión y escala 0–6
 ├── .env.example                 # nombres de variables, nunca secretos
 ├── CONTRIBUTING.md
 ├── package.json
@@ -157,6 +162,11 @@ El plan operativo del equipo, la matriz de los cinco criterios oficiales y la
 compuerta de elegibilidad están en:
 
 [`public/docs/AURA_Dossier_Postulacion_y_Matriz_Evaluacion_2026.md`](public/docs/AURA_Dossier_Postulacion_y_Matriz_Evaluacion_2026.md)
+
+La especificación página por página para redactar, diseñar, sustentar y revisar
+el PDF final de la candidatura está en:
+
+[`public/docs/AURA_Estructura_Definitiva_PDF_UNESCO_2026.md`](public/docs/AURA_Estructura_Definitiva_PDF_UNESCO_2026.md)
 
 Para una URL de producción, configurar `NEXT_PUBLIC_SITE_URL` con el origen
 canónico antes de compilar; así la portada social usa una URL absoluta correcta.
@@ -296,11 +306,13 @@ Panel y CSV agregados del piloto
 
 ## Siguiente etapa recomendada
 
-El código del MVP quedó al **100 % del alcance técnico congelado** en `0.8.0`:
+El código del MVP quedó al **100 % del alcance técnico congelado** en `0.9.0`:
 catálogo equilibrado, validación editorial estructural, instrumento pre/post,
 exportación agregada, confiabilidad de eventos y salvaguardas de accesibilidad
-están implementados. La prioridad ya no es ampliar funciones, sino producir
-evidencia real y cerrar la candidatura:
+están implementados. La versión 0.9.0 además aclara el propósito desde el primer
+pantallazo, evita pistas que revelaban respuestas y fortalece la transferencia
+con una rúbrica de seis conductas. La prioridad ya no es ampliar funciones, sino
+producir evidencia real y cerrar la candidatura:
 
 1. Ejecutar un ensayo interno con cinco personas.
 2. Corregir defectos observados, sin inventar resultados.
@@ -340,7 +352,7 @@ incluye una licencia de código porque esa decisión todavía pertenece al equip
 La guía maestra contiene:
 
 - briefing y responsabilidades del equipo final de tres personas;
-- estado verificable de AURA 0.8.0 y capacidades pendientes;
+- estado verificable de AURA 0.9.0 y capacidades pendientes;
 - lectura completa de la convocatoria;
 - propuesta de valor y diferenciación;
 - especificación del producto;

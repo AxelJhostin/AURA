@@ -4,14 +4,14 @@
 
 **Proyecto:** AURA — Assess · Uncover · Research · Act  
 **Descriptor:** Bilingual evidence-training lab for Media and Information Literacy  
-**Versión funcional:** AURA 0.8.0  
+**Versión funcional:** AURA 0.9.0
 **Estado técnico:** 100 % del alcance técnico del MVP, probado y desplegado
-**Fecha de referencia:** 28 de julio de 2026  
+**Fecha de referencia:** 29 de julio de 2026
 **Fecha límite oficial:** 16 de agosto de 2026, 23:59, hora de París  
 **Objetivo interno de envío:** 15 de agosto de 2026, 18:00, hora de Ecuador  
 **Prototipo público:** <https://aura-opal-beta.vercel.app/>  
 **Repositorio:** <https://github.com/AxelJhostin/AURA>  
-**Commit de producción de referencia:** [`c1228d2`](https://github.com/AxelJhostin/AURA/commit/c1228d2850a3075344c053585b86aca7c726478a)
+**Rama de producción:** [`main`](https://github.com/AxelJhostin/AURA/commits/main/) — registrar el hash vigente en la ficha final de envío
 **Fuente estratégica completa:** [Guía maestra de AURA](./AURA_Guia_Maestra_UNESCO_Youth_Hackathon_2026.md)
 
 ---
@@ -304,14 +304,14 @@ misma conducta en un caso nuevo sin guía.
 - comparación “veredicto” frente a “laboratorio”;
 - IA socrática y modo degradado;
 - Mapa y Tarjeta de Evidencia;
-- reto de transferencia 0–2;
+- reto de transferencia 0–6 sobre seis conductas observables;
 - catálogo editorial equilibrado;
 - estados de evidencia distintos de verdadero/falso.
 
 **Falta:**
 
 - una comparación visual sobria con fact-checkers, chatbots educativos y
-  TITAN;
+  TITAN, reconociendo también el alcance curricular de Checkology;
 - explicar que la innovación es la combinación y la ejecución, no una falsa
   afirmación de ser “los primeros”.
 
@@ -397,7 +397,7 @@ debe presentarse como objetivo, hipótesis o plan.
 | La experiencia es bilingüe | Selector ES/EN + prueba | VERIFICADO |
 | Hay cuatro misiones equilibradas | Catálogo + compuerta editorial | VERIFICADO |
 | La IA no decide el veredicto | Producto + contrato de API | VERIFICADO |
-| Se mide transferencia | Reto no guiado + rúbrica 0–2 | VERIFICADO |
+| Se mide transferencia | Reto no guiado + rúbrica 0–6 | VERIFICADO |
 | La analítica evita datos sensibles | Esquema, API, RLS y documentación | VERIFICADO |
 | Funciona en móvil | Prueba a 320 px | VERIFICADO |
 | Mejora una habilidad | Resultado de piloto | PENDIENTE |
@@ -868,7 +868,7 @@ Después del piloto:
 - tasa de finalización;
 - tiempo mediano;
 - número de retos de transferencia;
-- promedio y distribución de transferencia 0–2;
+- promedio y distribución de transferencia 0–6;
 - número de respuestas pre/post pareadas;
 - promedio inicial y final de autoconfianza;
 - diferencia pre/post, descrita como autopercepción;
@@ -880,7 +880,7 @@ Después del piloto:
 
 > In a pilot with **N** participants, **X/N** completed a guided mission and
 > **Y/N** completed the unguided transfer challenge. The average transfer score
-> was **Z/2**. Among **P** paired optional responses, self-reported confidence
+> was **Z/6**. Among **P** paired optional responses, self-reported confidence
 > changed from **A/5** to **B/5**. Because this was a small, non-random pilot,
 > these findings are presented as early usability and learning signals, not
 > causal proof.

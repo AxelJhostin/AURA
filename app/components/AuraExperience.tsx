@@ -95,13 +95,13 @@ const text = {
     navTeam: "Equipo",
     navCta: "Probar misión",
     hackathon: "UNESCO Youth Hackathon 2026 · Prototipo funcional",
-    heroTitleA: "De la reacción",
-    heroTitleB: "a la evidencia.",
+    heroTitleA: "Antes de compartirlo,",
+    heroTitleB: "investígalo.",
     heroBody:
-      "AURA no decide qué creer. Entrena a jóvenes para investigar contenido viral, hacer visible su razonamiento y actuar con evidencia.",
+      "Practica cómo comprobar becas, consejos de salud, videos de emergencia y otras afirmaciones virales antes de compartirlas o entregar tus datos.",
     start: "Iniciar misión",
     explore: "Conocer el método",
-    heroNote: "Caso educativo simulado · Sin registro · 3 minutos",
+    heroNote: "Caso educativo simulado · Sin registro · 5–7 minutos",
     artifact: "Artefacto de aprendizaje",
     cardStatus: "Conclusión trazable",
     claim: "Afirmación",
@@ -111,9 +111,9 @@ const text = {
     action: "Acción",
     actionShort: "Pausar y explicar límites",
     previewStages: ["ANALIZA", "UBICA", "RASTREA", "ACTÚA"],
-    proofOne: "4 acciones memorables",
-    proofTwo: "Evidencia siempre visible",
-    proofThree: "Habilidad transferible",
+    proofOne: "Becas y oportunidades",
+    proofTwo: "Salud y emergencias",
+    proofThree: "Práctica + transferencia",
     caseLibraryEyebrow: "BIBLIOTECA DE MISIONES",
     caseLibraryTitle: "Elige un caso para investigar",
     caseActive: "Caso activo",
@@ -149,13 +149,13 @@ const text = {
       "Decisión inicial guardada. AURA todavía no te dice si la publicación es verdadera o falsa.",
     stage1Title: "¿Qué justifica una pausa?",
     stage1Body:
-      "Selecciona las señales que deberían convertirse en preguntas de investigación.",
+      "Elige primero. La explicación de cada señal aparece después de seleccionarla.",
     stage1Coach:
       "Pregunta AURA: una cifra precisa puede parecer rigurosa. ¿Sabes qué variable representa?",
     selected: "seleccionadas",
     stage2Title: "Construye un mapa de evidencia",
     stage2Body:
-      "Elige dos fuentes para abrir. Prioriza cercanía a la evidencia y contexto independiente.",
+      "Elige dos fuentes usando su procedencia, no una etiqueta de AURA. La retroalimentación aparece después de abrirlas.",
     stage2Coach:
       "Pregunta AURA: ¿quién hizo la afirmación original, qué midió y quién más puede contextualizarla?",
     sourcesSelected: "fuentes abiertas",
@@ -178,25 +178,35 @@ const text = {
     mapGapText: "No demuestra memoria ni generalización",
     stage3Title: "Actúa de forma proporcional",
     stage3Body:
-      "Tu acción debe corresponder a la fuerza y a los límites de la evidencia disponible.",
+      "Elige una acción y construye tu posición: qué sostiene la evidencia y qué límite debes nombrar.",
     stage3Coach:
       "Pregunta AURA: si la evidencia no demuestra la frase, ¿cómo puedes evitar amplificarla sin convertir incertidumbre en censura?",
     generate: "Generar tarjeta de evidencia",
     cardTitle: "Tarjeta de evidencia",
-    cardSubtitle: "Caso 01 · emitida por la persona, no por la IA",
+    cardSubtitle: "Tus fuentes, tu posición y tu acción",
     original: "Afirmación original",
     consulted: "Fuentes consultadas",
-    conclusion: "Conclusión provisional",
-    conclusionText:
-      "La evidencia revisada no respalda que la memoria mejore 40%. El estudio disponible es pequeño, mide alerta y tiene patrocinio comercial.",
+    conclusion: "Lo que la evidencia sí sostiene",
+    uncertainty: "Límite o incertidumbre",
     decision: "Decisión tomada",
     habit: "Habilidad transferible",
-    habitText:
-      "Antes de compartir una cifra, comprobar qué se midió, con cuántas personas y quién financió la fuente.",
+    reasoningTitle: "Construye tu conclusión",
+    reasoningBody:
+      "AURA no redactará esta parte por ti. Selecciona la afirmación respaldada y el límite que conservarás.",
+    findingPrompt: "¿Qué sostiene mejor la evidencia revisada?",
+    limitPrompt: "¿Qué límite o incertidumbre debes conservar?",
+    viralClaimOption: "La afirmación viral queda demostrada tal como fue publicada.",
+    popularityOption: "La popularidad de la publicación confirma su precisión.",
+    noLimitOption: "No quedan límites relevantes después de abrir dos fuentes.",
+    uncertaintyFalseOption: "Cualquier incertidumbre demuestra que todo el contenido es falso.",
+    caseReviewTitle: "Revisión educativa del caso",
+    caseReviewBody:
+      "Esta retroalimentación aparece después de tu Tarjeta y está separada de tus propias decisiones.",
     copied: "Tarjeta copiada",
     copy: "Copiar resumen",
     newCase: "Probar de nuevo",
-    notVerdict: "AURA no emitió un veredicto. Tú construiste una conclusión rastreable.",
+    notVerdict:
+      "La Tarjeta registra tus elecciones. La revisión de AURA aparece por separado.",
     methodEyebrow: "UNA ACCIÓN, NO SOLO UN NOMBRE",
     methodTitle: "El método A-U-R-A",
     methodBody:
@@ -225,7 +235,7 @@ const text = {
     pilotStats: [
       ["30–50", "participantes objetivo"],
       ["ES / EN", "experiencia bilingüe"],
-      ["3 min", "misión demostrable"],
+      ["5–7 min", "misión demostrable"],
       ["0", "datos sensibles requeridos"],
     ],
     pilotSteps: [
@@ -277,13 +287,13 @@ const text = {
     navTeam: "Team",
     navCta: "Try mission",
     hackathon: "UNESCO Youth Hackathon 2026 · Functional prototype",
-    heroTitleA: "From reaction",
-    heroTitleB: "to evidence.",
+    heroTitleA: "Before you share it,",
+    heroTitleB: "investigate it.",
     heroBody:
-      "AURA does not decide what to believe. It trains young people to investigate viral content, make their reasoning visible and act on evidence.",
+      "Practise how to check scholarships, health advice, emergency videos and other viral claims before sharing them or giving away your data.",
     start: "Start mission",
     explore: "Explore the method",
-    heroNote: "Simulated learning case · No sign-up · 3 minutes",
+    heroNote: "Simulated learning case · No sign-up · 5–7 minutes",
     artifact: "Learning artifact",
     cardStatus: "Traceable conclusion",
     claim: "Claim",
@@ -293,9 +303,9 @@ const text = {
     action: "Action",
     actionShort: "Pause and explain limits",
     previewStages: ["ASSESS", "UNCOVER", "RESEARCH", "ACT"],
-    proofOne: "4 memorable actions",
-    proofTwo: "Evidence always visible",
-    proofThree: "Transferable skill",
+    proofOne: "Scholarships and opportunities",
+    proofTwo: "Health and emergencies",
+    proofThree: "Practice + transfer",
     caseLibraryEyebrow: "MISSION LIBRARY",
     caseLibraryTitle: "Choose a case to investigate",
     caseActive: "Active case",
@@ -331,13 +341,13 @@ const text = {
       "Initial decision saved. AURA still has not told you whether the post is true or false.",
     stage1Title: "What justifies a pause?",
     stage1Body:
-      "Select the signals that should become research questions.",
+      "Choose first. The explanation for each signal appears only after you select it.",
     stage1Coach:
       "AURA asks: a precise figure may look rigorous. Do you know which variable it represents?",
     selected: "selected",
     stage2Title: "Build an evidence map",
     stage2Body:
-      "Choose two sources to open. Prioritize proximity to evidence and independent context.",
+      "Choose two sources from their provenance, not an AURA label. Feedback appears after you open them.",
     stage2Coach:
       "AURA asks: who made the original claim, what did they measure and who else can contextualize it?",
     sourcesSelected: "sources opened",
@@ -360,25 +370,35 @@ const text = {
     mapGapText: "It does not demonstrate memory or generalization",
     stage3Title: "Act proportionally",
     stage3Body:
-      "Your action should match the strength and limits of the available evidence.",
+      "Choose an action and build your position: what the evidence supports and which limit you must keep.",
     stage3Coach:
       "AURA asks: if the evidence does not demonstrate the claim, how can you avoid amplifying it without turning uncertainty into censorship?",
     generate: "Generate evidence card",
     cardTitle: "Evidence card",
-    cardSubtitle: "Case 01 · issued by the person, not the AI",
+    cardSubtitle: "Your sources, your position and your action",
     original: "Original claim",
     consulted: "Sources consulted",
-    conclusion: "Provisional conclusion",
-    conclusionText:
-      "Reviewed evidence does not support a 40% memory improvement. The available study is small, measures alertness and has commercial sponsorship.",
+    conclusion: "What the evidence supports",
+    uncertainty: "Limit or uncertainty",
     decision: "Decision taken",
     habit: "Transferable skill",
-    habitText:
-      "Before sharing a number, check what was measured, with how many people and who funded the source.",
+    reasoningTitle: "Build your conclusion",
+    reasoningBody:
+      "AURA will not write this part for you. Select the supported statement and the limit you will preserve.",
+    findingPrompt: "What is best supported by the evidence you reviewed?",
+    limitPrompt: "Which limit or uncertainty must you preserve?",
+    viralClaimOption: "The viral claim is proven exactly as published.",
+    popularityOption: "The post’s popularity confirms its accuracy.",
+    noLimitOption: "No relevant limits remain after opening two sources.",
+    uncertaintyFalseOption: "Any uncertainty proves that all the content is false.",
+    caseReviewTitle: "Educational case review",
+    caseReviewBody:
+      "This feedback appears after your Evidence Card and remains separate from your own decisions.",
     copied: "Card copied",
     copy: "Copy summary",
     newCase: "Try again",
-    notVerdict: "AURA did not issue a verdict. You built a traceable conclusion.",
+    notVerdict:
+      "The card records your choices. AURA’s case review appears separately.",
     methodEyebrow: "AN ACTION, NOT ONLY A NAME",
     methodTitle: "The A-U-R-A method",
     methodBody:
@@ -407,7 +427,7 @@ const text = {
     pilotStats: [
       ["30–50", "target participants"],
       ["ES / EN", "bilingual experience"],
-      ["3 min", "demonstrable mission"],
+      ["5–7 min", "demonstrable mission"],
       ["0", "sensitive data required"],
     ],
     pilotSteps: [
@@ -467,6 +487,8 @@ export function AuraExperience() {
   const [signals, setSignals] = useState<string[]>([]);
   const [sources, setSources] = useState<string[]>([]);
   const [action, setAction] = useState("");
+  const [finding, setFinding] = useState("");
+  const [limit, setLimit] = useState("");
   const [cardReady, setCardReady] = useState(false);
   const [copied, setCopied] = useState(false);
   const [analyticsConsent, setAnalyticsConsent] =
@@ -529,11 +551,52 @@ export function AuraExperience() {
     activeCase.actions.find((choice) => choice.id === action)?.title[locale] ??
     "—";
 
+  const findingOptions = useMemo(
+    () => [
+      {
+        id: "traced-finding",
+        title: activeCase.evidenceMap.finding[locale],
+      },
+      {
+        id: "viral-claim",
+        title: t.viralClaimOption,
+      },
+      {
+        id: "popularity-proof",
+        title: t.popularityOption,
+      },
+    ],
+    [activeCase, locale, t.popularityOption, t.viralClaimOption],
+  );
+
+  const limitOptions = useMemo(
+    () => [
+      {
+        id: "evidence-gap",
+        title: activeCase.evidenceMap.gap[locale],
+      },
+      {
+        id: "no-limit",
+        title: t.noLimitOption,
+      },
+      {
+        id: "uncertainty-means-false",
+        title: t.uncertaintyFalseOption,
+      },
+    ],
+    [activeCase, locale, t.noLimitOption, t.uncertaintyFalseOption],
+  );
+
+  const selectedFinding =
+    findingOptions.find((option) => option.id === finding)?.title ?? "—";
+  const selectedLimit =
+    limitOptions.find((option) => option.id === limit)?.title ?? "—";
+
   const canContinue =
     (step === 0 && Boolean(initialDecision)) ||
     (step === 1 && signals.length > 0) ||
     (step === 2 && sources.length === activeCase.sourceLimit) ||
-    (step === 3 && Boolean(action));
+    (step === 3 && Boolean(action && finding && limit));
 
   function toggleSignal(id: string) {
     setSignals((current) => {
@@ -601,6 +664,28 @@ export function AuraExperience() {
     });
   }
 
+  function chooseFinding(id: string) {
+    setFinding(id);
+    trackEvent({
+      eventName: "reasoning_finding_selected",
+      locale,
+      caseId: activeCase.id,
+      stage: "act",
+      optionId: id,
+    });
+  }
+
+  function chooseLimit(id: string) {
+    setLimit(id);
+    trackEvent({
+      eventName: "reasoning_limit_selected",
+      locale,
+      caseId: activeCase.id,
+      stage: "act",
+      optionId: id,
+    });
+  }
+
   function advance() {
     if (!canContinue) return;
     if (step < 3) {
@@ -643,6 +728,8 @@ export function AuraExperience() {
     setSignals([]);
     setSources([]);
     setAction("");
+    setFinding("");
+    setLimit("");
     setCardReady(false);
     setCopied(false);
     missionStartedAt.current = 0;
@@ -683,9 +770,9 @@ export function AuraExperience() {
       `AURA — ${t.cardTitle}`,
       `${t.original}: ${activeCase.artifact.claim[locale]}`,
       `${t.consulted}: ${selectedSourceNames.join(", ")}`,
-      `${t.conclusion}: ${activeCase.result.conclusion[locale]}`,
+      `${t.conclusion}: ${selectedFinding}`,
+      `${t.uncertainty}: ${selectedLimit}`,
       `${t.decision}: ${selectedAction}`,
-      `${t.habit}: ${activeCase.result.habit[locale]}`,
     ].join("\n");
 
     try {
@@ -1059,6 +1146,7 @@ export function AuraExperience() {
                             detail={choice.detail[locale]}
                             onClick={() => toggleSignal(choice.id)}
                             compact
+                            detailMode="selected"
                           />
                         ))}
                       </div>
@@ -1112,39 +1200,51 @@ export function AuraExperience() {
                               >
                                 <span className="source-code">{source.code}</span>
                                 <span className="source-kind">
-                                  {source.kind[locale]}
+                                  {locale === "es"
+                                    ? "FUENTE CANDIDATA"
+                                    : "CANDIDATE SOURCE"}
                                 </span>
                                 <strong>{source.title[locale]}</strong>
                                 <span className="source-detail">
-                                  {source.detail[locale]}
+                                  {source.provenance.publisher[locale]} ·{" "}
+                                  {source.provenance.publishedAt}
                                 </span>
-                                <span className="source-clue">
-                                  {active ? "✓ " : "+ "}
-                                  {source.clue[locale]}
-                                </span>
+                                {active && (
+                                  <>
+                                    <span className="source-detail">
+                                      {source.detail[locale]}
+                                    </span>
+                                    <span className="source-clue">
+                                      ✓ {source.kind[locale]} ·{" "}
+                                      {source.clue[locale]}
+                                    </span>
+                                  </>
+                                )}
                               </button>
-                              <div className="source-provenance">
-                                <span className="source-status">
-                                  {t.simulatedSource}
-                                </span>
-                                <dl>
-                                  <div>
-                                    <dt>{t.sourceFile}</dt>
-                                    <dd>{source.provenance.documentId}</dd>
-                                  </div>
-                                  <div>
-                                    <dt>{t.sourcePublisher}</dt>
-                                    <dd>
-                                      {source.provenance.publisher[locale]}
-                                    </dd>
-                                  </div>
-                                  <div>
-                                    <dt>{t.sourceDate}</dt>
-                                    <dd>{source.provenance.publishedAt}</dd>
-                                  </div>
-                                </dl>
-                                <p>{source.provenance.disclosure[locale]}</p>
-                              </div>
+                              {active && (
+                                <div className="source-provenance">
+                                  <span className="source-status">
+                                    {t.simulatedSource}
+                                  </span>
+                                  <dl>
+                                    <div>
+                                      <dt>{t.sourceFile}</dt>
+                                      <dd>{source.provenance.documentId}</dd>
+                                    </div>
+                                    <div>
+                                      <dt>{t.sourcePublisher}</dt>
+                                      <dd>
+                                        {source.provenance.publisher[locale]}
+                                      </dd>
+                                    </div>
+                                    <div>
+                                      <dt>{t.sourceDate}</dt>
+                                      <dd>{source.provenance.publishedAt}</dd>
+                                    </div>
+                                  </dl>
+                                  <p>{source.provenance.disclosure[locale]}</p>
+                                </div>
+                              )}
                             </article>
                           );
                         })}
@@ -1153,65 +1253,71 @@ export function AuraExperience() {
                         {sources.length} / {activeCase.sourceLimit}{" "}
                         {t.sourcesSelected}
                       </p>
-                      <aside
-                        className="reference-dossier"
-                        aria-labelledby={`reference-title-${activeCase.id}`}
-                      >
-                        <div className="reference-intro">
-                          <span>{t.realReferences}</span>
-                          <h4 id={`reference-title-${activeCase.id}`}>
-                            {t.realReferencesTitle}
-                          </h4>
-                          <p>{t.realReferencesBody}</p>
-                        </div>
-                        <div className="reference-list">
-                          {activeCase.references.map((reference) => (
-                            <article key={reference.id}>
-                              <div>
-                                <span>{reference.publisher}</span>
-                                <strong>{reference.title[locale]}</strong>
-                                <small>{reference.author}</small>
-                              </div>
-                              <p>{reference.relevance[locale]}</p>
-                              <div className="reference-meta">
-                                <span>
-                                  {t.published}: {reference.publishedAt}
-                                </span>
-                                <span>
-                                  {t.accessed}: {reference.accessedAt}
-                                </span>
-                              </div>
-                              <a
-                                href={reference.url}
-                                target="_blank"
-                                rel="noreferrer"
-                              >
-                                {t.openReference}
-                                <span aria-hidden="true">↗</span>
-                              </a>
-                            </article>
-                          ))}
-                        </div>
-                      </aside>
                       {sources.length === activeCase.sourceLimit && (
-                        <div className="evidence-map">
-                          <div>
-                            <span>{t.mapClaim}</span>
-                            <strong>{activeCase.evidenceMap.claim[locale]}</strong>
+                        <>
+                          <aside
+                            className="reference-dossier"
+                            aria-labelledby={`reference-title-${activeCase.id}`}
+                          >
+                            <div className="reference-intro">
+                              <span>{t.realReferences}</span>
+                              <h4 id={`reference-title-${activeCase.id}`}>
+                                {t.realReferencesTitle}
+                              </h4>
+                              <p>{t.realReferencesBody}</p>
+                            </div>
+                            <div className="reference-list">
+                              {activeCase.references.map((reference) => (
+                                <article key={reference.id}>
+                                  <div>
+                                    <span>{reference.publisher}</span>
+                                    <strong>{reference.title[locale]}</strong>
+                                    <small>{reference.author}</small>
+                                  </div>
+                                  <p>{reference.relevance[locale]}</p>
+                                  <div className="reference-meta">
+                                    <span>
+                                      {t.published}: {reference.publishedAt}
+                                    </span>
+                                    <span>
+                                      {t.accessed}: {reference.accessedAt}
+                                    </span>
+                                  </div>
+                                  <a
+                                    href={reference.url}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                  >
+                                    {t.openReference}
+                                    <span aria-hidden="true">↗</span>
+                                  </a>
+                                </article>
+                              ))}
+                            </div>
+                          </aside>
+                          <div className="evidence-map">
+                            <div>
+                              <span>{t.mapClaim}</span>
+                              <strong>
+                                {activeCase.evidenceMap.claim[locale]}
+                              </strong>
+                            </div>
+                            <i aria-hidden="true">→</i>
+                            <div>
+                              <span>{t.mapEvidence}</span>
+                              <strong>
+                                {activeCase.evidenceMap.finding[locale]}
+                              </strong>
+                            </div>
+                            <i aria-hidden="true">→</i>
+                            <div>
+                              <span>{t.mapGap}</span>
+                              <strong>
+                                {activeCase.evidenceMap.gap[locale]}
+                              </strong>
+                            </div>
                           </div>
-                          <i aria-hidden="true">→</i>
-                          <div>
-                            <span>{t.mapEvidence}</span>
-                            <strong>
-                              {activeCase.evidenceMap.finding[locale]}
-                            </strong>
-                          </div>
-                          <i aria-hidden="true">→</i>
-                          <div>
-                            <span>{t.mapGap}</span>
-                            <strong>{activeCase.evidenceMap.gap[locale]}</strong>
-                          </div>
-                        </div>
+                        </>
                       )}
                       <CoachPrompt
                         key={`${activeCase.id}-research-${locale}-${sources.join("-")}`}
@@ -1243,8 +1349,51 @@ export function AuraExperience() {
                             detail={choice.detail[locale]}
                             onClick={() => chooseAction(choice.id)}
                             compact
+                            detailMode="selected"
                           />
                         ))}
+                      </div>
+                      <div className="reasoning-builder">
+                        <div className="reasoning-builder-heading">
+                          <span>{t.reasoningTitle}</span>
+                          <p>{t.reasoningBody}</p>
+                        </div>
+                        <fieldset>
+                          <legend>{t.findingPrompt}</legend>
+                          <div className="reasoning-options">
+                            {findingOptions.map((option) => (
+                              <button
+                                key={option.id}
+                                type="button"
+                                className={
+                                  finding === option.id ? "is-active" : undefined
+                                }
+                                aria-pressed={finding === option.id}
+                                onClick={() => chooseFinding(option.id)}
+                              >
+                                {option.title}
+                              </button>
+                            ))}
+                          </div>
+                        </fieldset>
+                        <fieldset>
+                          <legend>{t.limitPrompt}</legend>
+                          <div className="reasoning-options">
+                            {limitOptions.map((option) => (
+                              <button
+                                key={option.id}
+                                type="button"
+                                className={
+                                  limit === option.id ? "is-active" : undefined
+                                }
+                                aria-pressed={limit === option.id}
+                                onClick={() => chooseLimit(option.id)}
+                              >
+                                {option.title}
+                              </button>
+                            ))}
+                          </div>
+                        </fieldset>
                       </div>
                       <CoachPrompt
                         key={`${activeCase.id}-act-${locale}-${action}`}
@@ -1296,20 +1445,6 @@ export function AuraExperience() {
                     <span className="result-seal" aria-hidden="true">A</span>
                   </div>
 
-                  <div
-                    className={`evidence-state evidence-state-${activeCase.editorial.evidenceState}`}
-                  >
-                    <span>{evidenceStateCopy[locale].label}</span>
-                    <strong>
-                      {
-                        evidenceStateCopy[locale][
-                          activeCase.editorial.evidenceState
-                        ]
-                      }
-                    </strong>
-                    <p>{activeCase.editorial.learningObjective[locale]}</p>
-                  </div>
-
                   <div className="result-grid">
                     <ResultItem
                       label={t.original}
@@ -1321,14 +1456,15 @@ export function AuraExperience() {
                     />
                     <ResultItem
                       label={t.conclusion}
-                      text={activeCase.result.conclusion[locale]}
+                      text={selectedFinding}
+                      wide
+                    />
+                    <ResultItem
+                      label={t.uncertainty}
+                      text={selectedLimit}
                       wide
                     />
                     <ResultItem label={t.decision} text={selectedAction} />
-                    <ResultItem
-                      label={t.habit}
-                      text={activeCase.result.habit[locale]}
-                    />
                   </div>
 
                   <div className="result-note">
@@ -1344,6 +1480,31 @@ export function AuraExperience() {
                       {t.newCase}
                     </button>
                   </div>
+
+                  <aside className="case-review" aria-label={t.caseReviewTitle}>
+                    <div>
+                      <span>{t.caseReviewTitle}</span>
+                      <p>{t.caseReviewBody}</p>
+                    </div>
+                    <div
+                      className={`evidence-state evidence-state-${activeCase.editorial.evidenceState}`}
+                    >
+                      <span>{evidenceStateCopy[locale].label}</span>
+                      <strong>
+                        {
+                          evidenceStateCopy[locale][
+                            activeCase.editorial.evidenceState
+                          ]
+                        }
+                      </strong>
+                      <p>{activeCase.result.conclusion[locale]}</p>
+                    </div>
+                    <ResultItem
+                      label={t.habit}
+                      text={activeCase.result.habit[locale]}
+                      wide
+                    />
+                  </aside>
                 </div>
               )}
             </div>
@@ -1581,13 +1742,18 @@ function ChoiceButton({
   detail,
   onClick,
   compact = false,
+  detailMode = "always",
 }: {
   active: boolean;
   title: string;
   detail: string;
   onClick: () => void;
   compact?: boolean;
+  detailMode?: "always" | "selected" | "hidden";
 }) {
+  const showDetail =
+    detailMode === "always" || (detailMode === "selected" && active);
+
   return (
     <button
       className={`${active ? "choice-card is-active" : "choice-card"}${compact ? " compact" : ""}`}
@@ -1598,7 +1764,7 @@ function ChoiceButton({
       <span className="choice-radio" aria-hidden="true">{active ? "✓" : ""}</span>
       <span>
         <strong>{title}</strong>
-        <small>{detail}</small>
+        {showDetail && <small>{detail}</small>}
       </span>
     </button>
   );

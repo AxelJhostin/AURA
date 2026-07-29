@@ -564,8 +564,8 @@ const coreAuraCases: AuraCase[] = [
     },
     result: {
       cardSubtitle: {
-        es: "Caso 01 · emitida por la persona, no por la IA",
-        en: "Case 01 · issued by the person, not the AI",
+        es: "Caso 01 · construida con las decisiones de la persona",
+        en: "Case 01 · built from the learner’s decisions",
       },
       conclusion: {
         es: "La evidencia revisada no respalda que la memoria mejore 40%. El estudio disponible es pequeño, mide alerta y tiene patrocinio comercial.",
@@ -1011,8 +1011,8 @@ const coreAuraCases: AuraCase[] = [
     },
     result: {
       cardSubtitle: {
-        es: "Caso 02 · emitida por la persona, no por la IA",
-        en: "Case 02 · issued by the person, not the AI",
+        es: "Caso 02 · construida con las decisiones de la persona",
+        en: "Case 02 · built from the learner’s decisions",
       },
       conclusion: {
         es: "La evidencia revisada muestra que el video existía desde 2023 y corresponde a otro país. No respalda la afirmación de una inundación actual en Puerto Azul.",

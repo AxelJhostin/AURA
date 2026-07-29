@@ -1,5 +1,8 @@
 import { auraCases } from "../../../data/cases";
-import { transferChallenge } from "../../../data/transfer";
+import {
+  transferChallenge,
+  transferOptionIds,
+} from "../../../data/transfer";
 import {
   PILOT_CODE_PATTERN,
   PILOT_EVALUATION_CASE_ID,
@@ -27,11 +30,12 @@ const allowedEventNames = new Set<AnalyticsEventName>([
   "signal_selected",
   "source_opened",
   "action_selected",
+  "reasoning_finding_selected",
+  "reasoning_limit_selected",
   "evidence_card_generated",
   "mission_abandoned",
   "transfer_started",
-  "transfer_first_move_selected",
-  "transfer_reason_selected",
+  "transfer_choice_selected",
   "transfer_completed",
   "pilot_baseline_recorded",
   "pilot_exit_recorded",
@@ -112,23 +116,27 @@ function validOption(
     );
   }
 
-  if (
-    eventName === "transfer_first_move_selected" ||
-    eventName === "transfer_reason_selected"
-  ) {
-    const list =
-      eventName === "transfer_first_move_selected"
-        ? transferChallenge.firstMoves
-        : transferChallenge.reasons;
+  if (eventName === "transfer_choice_selected") {
     return (
       caseId === transferChallenge.id &&
       typeof optionId === "string" &&
-      list.some((item) => item.id === optionId)
+      transferOptionIds.has(optionId)
     );
   }
 
   const activeCase = auraCases.find((item) => item.id === caseId);
   if (!activeCase || typeof optionId !== "string") return false;
+
+  if (
+    eventName === "reasoning_finding_selected" ||
+    eventName === "reasoning_limit_selected"
+  ) {
+    const allowedReasoningIds =
+      eventName === "reasoning_finding_selected"
+        ? new Set(["traced-finding", "viral-claim", "popularity-proof"])
+        : new Set(["evidence-gap", "no-limit", "uncertainty-means-false"]);
+    return allowedReasoningIds.has(optionId);
+  }
 
   const list =
     eventName === "initial_decision_recorded"
@@ -153,10 +161,11 @@ function validEventShape(
     signal_selected: "uncover",
     source_opened: "research",
     action_selected: "act",
+    reasoning_finding_selected: "act",
+    reasoning_limit_selected: "act",
     evidence_card_generated: "act",
     transfer_started: "transfer",
-    transfer_first_move_selected: "transfer",
-    transfer_reason_selected: "transfer",
+    transfer_choice_selected: "transfer",
     transfer_completed: "transfer",
     pilot_baseline_recorded: "survey",
     pilot_exit_recorded: "survey",
@@ -266,7 +275,7 @@ export async function POST(request: Request) {
     (transferScore !== undefined &&
       (!Number.isInteger(transferScore) ||
         (transferScore as number) < 0 ||
-        (transferScore as number) > 2)) ||
+        (transferScore as number) > transferChallenge.maxScore)) ||
     productVersion !== PRODUCT_VERSION ||
     !validOption(
       eventName as AnalyticsEventName,

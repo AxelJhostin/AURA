@@ -3,7 +3,7 @@
 - **Propietario técnico:** Hernández Axel
 - **Propietaria de estrategia e impacto:** Nicole
 - **Propietario de investigación, inglés y edición:** José Luis Cañarte Plúa
-- **Estado base:** MVP técnico 0.8.0 — 100 % del alcance definido
+- **Estado base:** MVP técnico 0.9.0 — 100 % del alcance definido
 - **Objetivo:** convertir el flujo actual en un piloto medible y una candidatura
 respaldada por evidencia real.
 
@@ -20,7 +20,7 @@ respaldada por evidencia real.
 - Referencias reales auditables separadas del material ficticio.
 - Mapa de evidencia.
 - Tarjeta de evidencia copiable.
-- Reto de transferencia no guiado con rúbrica `0–2`.
+- Reto de transferencia no guiado con rúbrica `0–6`.
 - Consentimiento de analítica y reporte CSV por sesión.
 - Ruta validada para persistencia opcional en Supabase.
 - Código aleatorio y enlace compartible para cada piloto.
@@ -130,16 +130,17 @@ type AuraCase = {
 **Aceptación alcanzada:** cambiar o añadir un caso no exige editar el componente
 de la misión ni las listas permitidas de la ruta de IA.
 
-#### P0.2 Reto de transferencia — implementado en 0.5.0
+#### P0.2 Reto de transferencia — reforzado en 0.9.0
 
 - [x] Presentar una afirmación nueva sobre una convocatoria de becas.
-- [x] Pedir el primer movimiento de investigación.
+- [x] Evaluar seis conductas: afirmación, origen, procedencia, corroboración,
+  incertidumbre y acción.
 - [x] No mostrar fuentes, pistas ni preguntas de AURA.
-- [x] Registrar una justificación mediante opciones codificadas.
-- [x] Calcular una puntuación observable `0–2`.
+- [x] Registrar las decisiones mediante opciones codificadas.
+- [x] Calcular una puntuación observable `0–6`.
 
-**Aceptación alcanzada:** el reto permite medir si la persona identifica la
-fuente primaria y justifica la importancia de la procedencia sin ayuda.
+**Aceptación alcanzada:** el reto permite observar si la persona reconstruye el
+proceso completo en un tema nuevo, sin pistas ni explicaciones antes de enviar.
 
 #### P0.3 Instrumentación mínima — implementada en 0.5.0
 
@@ -150,11 +151,12 @@ Eventos implementados:
 - `signal_selected`
 - `source_opened`
 - `action_selected`
+- `reasoning_finding_selected`
+- `reasoning_limit_selected`
 - `evidence_card_generated`
 - `mission_abandoned`
 - `transfer_started`
-- `transfer_first_move_selected`
-- `transfer_reason_selected`
+- `transfer_choice_selected`
 - `transfer_completed`
 - `pilot_baseline_recorded`
 - `pilot_exit_recorded`
@@ -283,7 +285,8 @@ veredicto institucional de UNESCO.
 
 #### P1.4 Demo y video
 
-- Recorrido de 2–3 minutos.
+- Recorrido de producto de 5–7 minutos; demostración narrada condensada para el
+  video oficial de máximo tres minutos.
 - Caso con cambio visible de razonamiento.
 - Subtítulos ES/EN.
 - Capturas reales del producto.

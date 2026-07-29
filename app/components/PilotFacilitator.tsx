@@ -12,6 +12,8 @@ type Props = {
 
 export type PilotReport = {
   code: string;
+  productVersion: string;
+  transferMaxScore: number;
   participants: number;
   missionStarts: number;
   evidenceCards: number;
@@ -46,7 +48,9 @@ export function pilotReportToCsv(report: PilotReport) {
     ["completed_participants", report.completedParticipants],
     ["completion_rate_percent", report.completionRate],
     ["transfer_completions", report.transferCompletions],
-    ["average_transfer_score_out_of_2", report.averageTransferScore],
+    ["product_version", report.productVersion],
+    ["transfer_max_score", report.transferMaxScore],
+    ["average_transfer_score", report.averageTransferScore],
     ["baseline_responses", report.baselineResponses],
     ["exit_responses", report.exitResponses],
     ["matched_confidence_responses", report.matchedConfidenceResponses],
@@ -111,7 +115,7 @@ export function PilotFacilitator({
           participants: "participantes",
           completion: "completaron misión",
           transfer: "transferencias",
-          score: "promedio / 2",
+          score: "promedio / 6",
           starts: "misiones iniciadas",
           cards: "tarjetas creadas",
           time: "tiempo promedio",
@@ -141,7 +145,7 @@ export function PilotFacilitator({
           participants: "participants",
           completion: "completed mission",
           transfer: "transfers",
-          score: "average / 2",
+          score: "average / 6",
           starts: "missions started",
           cards: "cards created",
           time: "average time",
@@ -288,7 +292,7 @@ export function PilotFacilitator({
             <strong>
               {report.averageTransferScore === null
                 ? "—"
-                : `${report.averageTransferScore}/2`}
+                : `${report.averageTransferScore}/${report.transferMaxScore}`}
             </strong>
             <span>{copy.score}</span>
           </div>

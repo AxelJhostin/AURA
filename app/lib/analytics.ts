@@ -1,6 +1,6 @@
 import type { Locale } from "../data/cases";
 
-export const PRODUCT_VERSION = "0.8.0";
+export const PRODUCT_VERSION = "0.9.0";
 export const PILOT_EVALUATION_CASE_ID = "pilot-evaluation";
 export const PILOT_CODE_PATTERN =
   /^AURA-[ABCDEFGHJKLMNPQRSTUVWXYZ23456789]{12}$/;
@@ -12,11 +12,12 @@ export type AnalyticsEventName =
   | "signal_selected"
   | "source_opened"
   | "action_selected"
+  | "reasoning_finding_selected"
+  | "reasoning_limit_selected"
   | "evidence_card_generated"
   | "mission_abandoned"
   | "transfer_started"
-  | "transfer_first_move_selected"
-  | "transfer_reason_selected"
+  | "transfer_choice_selected"
   | "transfer_completed"
   | "pilot_baseline_recorded"
   | "pilot_exit_recorded";

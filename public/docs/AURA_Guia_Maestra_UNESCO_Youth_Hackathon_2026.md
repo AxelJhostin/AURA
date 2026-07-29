@@ -8,22 +8,22 @@
 **Eslogan en inglés:** From reaction to evidence.  
 **Promesa del producto:** AURA no decide qué creer. Entrena a las personas para investigar con evidencia.  
 **Estado de este documento:** Fuente pública de estrategia, producto, operación
-y candidatura — versión 2.4.
+y candidatura — versión 2.5.
 
-**Versión funcional de referencia:** AURA 0.8.0 — 100 % del alcance técnico
+**Versión funcional de referencia:** AURA 0.9.0 — 100 % del alcance técnico
 definido para el MVP.
 
 **Ubicación en el proyecto:** `public/docs/`, accesible desde el prototipo y versionada junto al código.  
-**Fecha de referencia:** 28 de julio de 2026.
+**Fecha de referencia:** 29 de julio de 2026.
 **Fecha límite oficial:** 16 de agosto de 2026, 23:59, hora de París. En Ecuador continental equivale aproximadamente a las 16:59. El objetivo interno es enviar el 15 de agosto a las 18:00 de Ecuador.
 
 **Prototipo público:** [https://aura-opal-beta.vercel.app/](https://aura-opal-beta.vercel.app/)
 
 **Repositorio:** [https://github.com/AxelJhostin/AURA](https://github.com/AxelJhostin/AURA)
 
-**Versión en producción:** `main`, commit
-[`c1228d2`](https://github.com/AxelJhostin/AURA/commit/c1228d2850a3075344c053585b86aca7c726478a),
-con la corrección crítica de analítica fusionada mediante el
+**Rama de producción:** [`main`](https://github.com/AxelJhostin/AURA/commits/main/).
+El hash vigente debe registrarse en la ficha final de envío; la corrección crítica
+de analítica quedó documentada en el
 [#4](https://github.com/AxelJhostin/AURA/pull/4).
 
 **Plan operativo de postulación para el equipo final:**
@@ -41,8 +41,9 @@ controles detallados.
 ### 1. AURA en noventa segundos
 
 **AURA es un laboratorio bilingüe de evidencia para Alfabetización Mediática e
-Informacional.** Entrena a jóvenes para pasar de una reacción rápida ante una
-publicación a una decisión justificada con fuentes.
+Informacional.** Entrena a jóvenes para investigar antes de compartir enlaces
+de becas, consejos de salud, videos de emergencia y otras afirmaciones virales
+que pueden afectar sus decisiones, datos o comunidades.
 
 La persona no recibe una etiqueta automática de “verdadero” o “falso”. En una
 misión breve debe realizar cuatro acciones:
@@ -146,7 +147,7 @@ proyectos ya trabajan en espacios cercanos. La originalidad está en la
 integración concreta de acciones, trazabilidad, transferencia, contexto
 latinoamericano y participación juvenil.
 
-### 5. Estado real del producto — AURA 0.8.0, MVP técnico al 100 %
+### 5. Estado real del producto — AURA 0.9.0, MVP técnico al 100 %
 
 La siguiente tabla es la fuente de verdad. “Implementado” significa que existe
 en `main` y en el dominio público de Vercel. No significa que ya fue validado
@@ -163,16 +164,16 @@ con usuarios.
 | Motor reutilizable de casos | Implementado | Contenido separado de la interfaz |
 | Compuerta editorial del catálogo | Implementada | El build valida ES/EN, IDs, procedencia, referencias y equilibrio |
 | Decisión inicial | Implementado | Opción codificada antes de investigar |
-| Señales investigables | Implementado | Selección de señales por caso |
-| Mapa de fuentes | Implementado | Dos fuentes seleccionadas por misión |
+| Señales investigables | Implementado | La explicación aparece después de elegir, sin regalar la respuesta |
+| Mapa de fuentes | Implementado | La persona inspecciona fuentes candidatas antes de conocer su función |
 | Expediente de procedencia | Implementado | Cada pieza simulada muestra ID, origen, fecha y declaración explícita |
 | Referencias reales | Implementado | Enlaces auditables separados del material ficticio de cada caso |
 | Acción proporcional | Implementado | Selección y justificación mediante el caso |
-| Tarjeta de Evidencia | Implementado | Artefacto copiable al finalizar |
+| Tarjeta de Evidencia | Implementado | Hallazgo, límite y acción construidos por la persona; revisión pedagógica separada |
 | Entrenador socrático con OpenAI | Implementado | Pregunta adaptada por caso y etapa |
 | Respaldo sin IA | Implementado | Preguntas curadas si la API falla |
 | Reto de transferencia sin guía | Implementado | Caso de enlace de becas |
-| Puntuación de transferencia | Implementado | Rúbrica observable de 0 a 2 |
+| Puntuación de transferencia | Implementado | Rúbrica 0–6 de afirmación, origen, procedencia, corroboración, incertidumbre y acción |
 | Consentimiento de métricas | Implementado | Envío anónimo o modo solo local |
 | Pulso opcional pre/post | Implementado en 0.8.0 | Opción codificada `1–5`, sin nombre ni texto libre |
 | Informe de sesión | Implementado | Eventos, tiempo y puntuación |
@@ -184,13 +185,14 @@ con usuarios.
 | Comparación agregada pre/post | Implementada en 0.8.0 | Promedios inicial/final, delta y número de pares |
 | Exportación agregada CSV | Implementada en 0.8.0 | Solo métricas del piloto; no contiene IDs de sesión |
 | Migración de piloto en producción | Activa y verificada | Columna, restricción, índice, RLS y privilegios comprobados |
+| Migración de razonamiento y transferencia 0.9 | Activa y verificada | Nuevos eventos codificados y puntuación `0–6` probados en transacción revertida |
 | Accesibilidad técnica | Implementada en 0.8.0 | Enlace de salto, foco visible, movimiento reducido y layout de 320 px |
 | Pilotos con participantes reales | Pendiente | No existen resultados que puedan afirmarse |
 | Revisión AMI externa de los casos | Pendiente | La revisión interna está registrada; falta el gate externo |
 | Propuesta final en inglés | Pendiente | Banco de texto disponible en esta guía |
 | Pitch grabado | Pendiente | Guion y lista de planos disponibles |
 
-Validaciones técnicas completadas para AURA 0.8.0:
+Validaciones técnicas completadas para AURA 0.9.0:
 
 - compilación de producción Next.js correcta;
 - TypeScript y lint sin errores;
@@ -199,9 +201,8 @@ Validaciones técnicas completadas para AURA 0.8.0:
 - ruta pública de eventos probada con aceptación, rechazo y persistencia real;
 - generación, normalización y propagación del código de piloto verificadas;
 - ruta de resumen limitada a resultados agregados y clave server-side;
-- prueba desplegada completa a 320 px: consentimiento, pulso inicial `3/5`,
-  caso 03, tarjeta `Respaldada con límites`, transferencia `2/2`, pulso final
-  `5/5` y lectura agregada con cambio pre/post de `+2`;
+- recorrido de código revisado para 320 px: consentimiento, misión guiada,
+  conclusión estructurada, transferencia `0–6`, pulso final y lectura agregada;
 - revisión visual a 320 px exactos con `scrollWidth = clientWidth = 320`, sin
   desbordamiento horizontal;
 - RLS activa en Supabase, sin permisos para `anon` ni `authenticated`, y
@@ -209,6 +210,8 @@ Validaciones técnicas completadas para AURA 0.8.0:
 - asesores de seguridad y rendimiento de Supabase sin errores ni advertencias;
   solo permanecen tres avisos informativos de índices aún no utilizados,
   esperables antes del piloto real;
+- migración 0.9 verificada con eventos de razonamiento y transferencia `6/6`
+  dentro de una transacción revertida, sin conservar filas de prueba;
 - cero errores o advertencias en la consola del navegador de producción;
 - secretos fuera del repositorio;
 - despliegue Production de Vercel confirmado.
@@ -249,21 +252,22 @@ Sí se puede decir:
 6. Registra qué haría inicialmente.
 7. Selecciona las señales que justifican una pausa.
 8. Puede pedir una pregunta adicional a la IA.
-9. Abre exactamente dos fuentes y observa el mapa de evidencia.
+9. Abre exactamente dos fuentes candidatas y después observa el mapa de
+   evidencia.
 10. Elige una acción proporcional.
-11. Genera una Tarjeta de Evidencia con afirmación, fuentes, conclusión, decisión
-    y hábito transferible.
-12. Inicia un reto diferente, sin la guía A-U-R-A visible paso a paso.
-13. Selecciona su primer movimiento de investigación.
-14. Selecciona la razón que mejor lo justifica.
-15. Recibe una puntuación `0–2` y feedback formativo.
+11. Construye un hallazgo, explicita el límite de la evidencia y genera una
+    Tarjeta de Evidencia con sus propias decisiones.
+12. Recibe la revisión pedagógica del caso, separada de su tarjeta.
+13. Inicia un reto diferente, sin la guía A-U-R-A visible paso a paso.
+14. Responde seis decisiones sobre afirmación, origen, procedencia,
+    corroboración, incertidumbre y acción.
+15. Recibe una puntuación `0–6` y feedback criterio por criterio únicamente
+    después de enviar.
 16. Puede descargar el reporte anónimo de la sesión en CSV.
 
-El reto no pregunta “¿es verdadero o falso?”. Evalúa dos acciones:
-
-- si la persona busca primero una fuente oficial o primaria;
-- si justifica esa acción mediante procedencia y evidencia, no mediante
-  popularidad, urgencia o apariencia.
+El reto no pregunta solamente “¿es verdadero o falso?”. Observa si la persona
+puede reconstruir un proceso de investigación completo sin depender de pistas,
+popularidad, urgencia o apariencia.
 
 ### 8. Cómo se mide el aprendizaje
 
@@ -585,7 +589,7 @@ Resultados permitidos:
 - número real de participantes;
 - tasa de finalización;
 - mediana de tiempo;
-- distribución de puntuación `0–2`;
+- distribución de puntuación `0–6`;
 - errores observados;
 - temas de feedback;
 - cambios hechos después de la prueba.
@@ -879,11 +883,12 @@ entonces:
 
 ### Mapa competitivo
 
-| Solución o enfoque | Aporte | Límite frente a AURA |
+| Solución o enfoque | Aporte | Brecha específica que AURA trabaja |
 |---|---|---|
 | Fact-checkers | Verifican afirmaciones concretas. | El usuario puede recibir el resultado sin aprender el proceso. |
 | Etiquetas verdadero/falso | Respuesta rápida. | Simplifican ambigüedad y pueden aumentar dependencia. |
-| TITAN | Entrenamiento socrático, microlessons y evaluación. | AURA debe diferenciarse mediante acciones de investigación, trazabilidad, transferencia y contexto latinoamericano. |
+| [TITAN](https://www.titanthinking.eu/) | Entrenamiento socrático, microlessons y evaluación de pensamiento crítico. | AURA no compite por “ser socrática”: se concentra en una misión compacta con artefacto trazable, seis conductas de transferencia, bilingüismo ES/EN y operación juvenil sin registro. |
+| [Checkology](https://newslit.org/our-checkology-virtual-classroom/) | Plataforma educativa consolidada con lecciones, recursos, cuentas de clase y evaluación. | AURA ofrece una práctica breve y autónoma para pilotos o círculos juveniles, sin sustituir un currículo escolar completo. |
 | Bad News / prebunking games | Enseñan tácticas de manipulación. | No necesariamente entrenan la investigación de un contenido elegido por el usuario. |
 | Civic Online Reasoning | Enseña lectura lateral con evidencia pedagógica. | AURA lo convierte en una experiencia breve, adaptativa, bilingüe y comunitaria. |
 | MAHW | IA, fact-checking y cuestionarios. | AURA evita el veredicto automático y mide el proceso de razonamiento. |
@@ -904,6 +909,11 @@ AURA combina:
 9. Tarjeta de Evidencia creada por el participante.
 10. AURA Circles para educación entre pares.
 11. Diseño móvil, bilingüe y de bajo consumo de datos.
+
+La defensa no es que ningún componente exista por separado. La innovación es la
+integración verificable de una práctica corta: reacción inicial → procedencia →
+evidencia → límite → acción → transferencia. Si esa secuencia no puede verse en
+la demo y medirse en el piloto, la afirmación de innovación pierde fuerza.
 
 ### Lo que no debe afirmarse
 
@@ -1387,7 +1397,7 @@ El MVP técnico está terminado cuando:
 9. El equipo puede demostrarlo en menos de 90 segundos.
 10. Producción, pruebas automatizadas y analítica están operativas.
 
-AURA 0.8.0 cumple esta definición técnica. La prueba con personas reales es el
+AURA 0.9.0 cumple esta definición técnica. La prueba con personas reales es el
 siguiente gate de validación y no una razón para ampliar funciones.
 
 ### Función estrella
@@ -1402,7 +1412,7 @@ Si el tiempo escasea, proteger:
 
 ## 12. Función de la IA
 
-### Implementación real en AURA 0.8.0
+### Implementación real en AURA 0.9.0
 
 La IA actual tiene un alcance deliberadamente estrecho: recibe el identificador
 del caso, la etapa, el idioma y opciones codificadas ya seleccionadas. Devuelve
@@ -1416,7 +1426,7 @@ pregunta de respaldo. Este alcance es suficiente para demostrar el uso
 responsable de IA sin convertirla en una autoridad de verdad.
 
 Las capacidades descritas a continuación representan límites y posibles
-extensiones, no todas están implementadas en la versión 0.8.0.
+extensiones, no todas están implementadas en la versión 0.9.0.
 
 ### La IA sí puede
 
@@ -1527,7 +1537,7 @@ Revisar:
 
 El objetivo es minimizar componentes.
 
-AURA 0.8.0 ya sigue esta decisión: una sola aplicación Next.js desplegada en
+AURA 0.9.0 ya sigue esta decisión: una sola aplicación Next.js desplegada en
 Vercel contiene interfaz, rutas de servidor, motor de casos y modo degradado. No
 existe un segundo backend que deba desplegarse o mantenerse.
 
@@ -1838,13 +1848,15 @@ Puntaje final - puntaje inicial
 #### Transferencia
 
 ```text
-Puntuación automática actual: 0–2
+Puntuación automática actual: 0–6
 ```
 
-La puntuación `0–2` evalúa el primer movimiento y su justificación. La rúbrica
-manual `0–18` puede aplicarse por un facilitador para una evaluación educativa
-más rica, pero no debe presentarse como calculada automáticamente por la versión
-0.8.0.
+La puntuación `0–6` asigna un punto a cada conducta observable: formular la
+afirmación, buscar el origen, comprobar procedencia, corroborar de forma
+independiente, expresar incertidumbre y elegir una acción proporcional. La
+rúbrica manual `0–18` puede aplicarse por un facilitador para una evaluación
+educativa más rica, pero no debe presentarse como calculada automáticamente por
+la versión 0.9.0.
 
 #### Calibración
 
@@ -2179,7 +2191,7 @@ El desarrollo está adelantado respecto al plan inicial: landing, flujo A-U-R-A,
 cuatro misiones guiadas equilibradas, IA, modo degradado, bilingüismo, Tarjeta
 de Evidencia, transferencia, analítica local, expediente de procedencia,
 referencias reales, instrumento pre/post y modo facilitador ya existen en AURA
-0.8.0. La ruta
+0.9.0. La ruta
 crítica cambia de “construir una demo” a **probar, documentar y presentar una
 intervención creíble**.
 
@@ -2190,7 +2202,7 @@ intervención creíble**.
 - Congelar one-liner, público y alcance final.
 - Revisar los cuatro casos implementados con una persona experta en AMI.
 - Preparar lista de participantes.
-- Verificar el modo piloto completo después del despliegue 0.8.0.
+- Verificar el modo piloto completo después del despliegue 0.9.0.
 - Crear tablero y responsables.
 
 ### 30 de julio–2 de agosto — Ensayo interno y facilitación
@@ -2833,7 +2845,7 @@ Estado verificado al 27 de julio de 2026:
 | 28-07-2026 | El alcance técnico del MVP está completo al 100 % | Build, TypeScript, lint, 17 pruebas y producción verificadas | Hernández Axel | Congelada |
 | 27-07-2026 | Arquitectura única Next.js desplegada en Vercel | Reducir complejidad y riesgo de demo | Hernández Axel | Congelada |
 | 27-07-2026 | La IA pregunta, no verifica ni puntúa | Proteger autonomía y reducir alucinaciones | Hernández Axel | Congelada |
-| 27-07-2026 | Medir transferencia mediante acciones `0–2` | Probar conducta reutilizable sin premiar obediencia | Equipo | Revisar con piloto |
+| 29-07-2026 | Ampliar transferencia a seis conductas `0–6` y ocultar pistas previas | Probar un proceso reutilizable sin premiar obediencia | Hernández Axel | Implementada; revisar con piloto |
 | 27-07-2026 | No aceptar texto libre ni datos personales en analítica | Privacidad y minimización | Hernández Axel | Congelada |
 
 ## 37. Datos que deben reemplazarse

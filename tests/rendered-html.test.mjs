@@ -10,9 +10,9 @@ test("builds the AURA page as standard Next.js output", async () => {
     "utf8",
   );
 
-  assert.match(html, /<title>AURA — De la reacción a la evidencia<\/title>/i);
-  assert.match(html, /De la reacción/);
-  assert.match(html, /AURA no decide qué creer/);
+  assert.match(html, /<title>AURA — Investiga antes de compartir<\/title>/i);
+  assert.match(html, /Antes de compartirlo/);
+  assert.match(html, /becas, consejos de salud, videos de emergencia/);
   assert.match(html, /Analiza/);
   assert.match(html, /Ubica/);
   assert.match(html, /Rastrea/);
@@ -114,10 +114,22 @@ test("separates simulated case evidence from auditable real references", async (
   assert.match(component, /rel="noreferrer"/);
 });
 
-test("implements an unguided transfer challenge with anonymous coded analytics", async () => {
-  const [component, transfer, analytics, route, migration] = await Promise.all([
+test("implements structured reasoning and a six-behavior transfer challenge", async () => {
+  const [
+    component,
+    transferComponent,
+    transfer,
+    analytics,
+    route,
+    baseMigration,
+    v2Migration,
+  ] = await Promise.all([
     readFile(
       new URL("app/components/AuraExperience.tsx", root),
+      "utf8",
+    ),
+    readFile(
+      new URL("app/components/TransferChallenge.tsx", root),
       "utf8",
     ),
     readFile(new URL("app/data/transfer.ts", root), "utf8"),
@@ -130,16 +142,39 @@ test("implements an unguided transfer challenge with anonymous coded analytics",
       ),
       "utf8",
     ),
+    readFile(
+      new URL(
+        "supabase/migrations/20260729113000_aura_reasoning_and_transfer_v2.sql",
+        root,
+      ),
+      "utf8",
+    ),
   ]);
 
   assert.match(component, /<TransferChallenge/);
   assert.match(component, /analyticsConsent/);
   assert.match(component, /evidence_card_generated/);
-  assert.match(transfer, /id: "scholarship-link"/);
-  assert.match(transfer, /RETO DE TRANSFERENCIA · SIN GUÍA/);
+  assert.match(component, /reasoning_finding_selected/);
+  assert.match(component, /reasoning_limit_selected/);
+  assert.match(component, /selectedFinding/);
+  assert.match(component, /selectedLimit/);
+  assert.match(component, /className="case-review"/);
+  assert.match(component, /detailMode="selected"/);
+  assert.match(transfer, /id: "scholarship-link-v2"/);
+  assert.match(transfer, /RETO DE TRANSFERENCIA · SIN PISTAS/);
+  assert.match(transfer, /maxScore: 6/);
+  assert.match(transfer, /id: "claim"/);
+  assert.match(transfer, /id: "origin"/);
+  assert.match(transfer, /id: "provenance"/);
+  assert.match(transfer, /id: "corroboration"/);
+  assert.match(transfer, /id: "uncertainty"/);
+  assert.match(transfer, /id: "action"/);
   assert.match(transfer, /score: 1/);
   assert.doesNotMatch(transfer, /textarea|freeText/);
-  assert.match(analytics, /PRODUCT_VERSION = "0.8.0"/);
+  assert.doesNotMatch(transferComponent, /option\.detail/);
+  assert.match(transferComponent, /transfer_choice_selected/);
+  assert.match(transferComponent, /\{score\}\/\{challenge\.maxScore\}/);
+  assert.match(analytics, /PRODUCT_VERSION = "0.9.0"/);
   assert.match(analytics, /analyticsEventsToCsv/);
   assert.match(analytics, /cryptoApi\.getRandomValues/);
   assert.match(route, /process\.env\.SUPABASE_SECRET_KEY/);
@@ -147,19 +182,27 @@ test("implements an unguided transfer challenge with anonymous coded analytics",
   assert.match(route, /request\.text\(\)/);
   assert.match(route, /TextEncoder/);
   assert.match(route, /validOption/);
+  assert.match(route, /transferOptionIds/);
+  assert.match(route, /transferChallenge\.maxScore/);
   assert.match(route, /apikey: supabaseSecretKey/);
   assert.doesNotMatch(route, /Authorization: `Bearer \$\{supabaseSecretKey\}`/);
   assert.doesNotMatch(route, /NEXT_PUBLIC_SUPABASE/);
-  assert.match(migration, /enable row level security/i);
+  assert.match(baseMigration, /enable row level security/i);
   assert.match(
-    migration,
+    baseMigration,
     /revoke all on table public\.aura_learning_events from anon, authenticated/i,
   );
   assert.match(
-    migration,
+    baseMigration,
     /grant insert on table public\.aura_learning_events to service_role/i,
   );
-  assert.doesNotMatch(migration, /\b(email|full_name|user_agent|ip_address)\b/i);
+  assert.doesNotMatch(
+    baseMigration,
+    /\b(email|full_name|user_agent|ip_address)\b/i,
+  );
+  assert.match(v2Migration, /reasoning_finding_selected/);
+  assert.match(v2Migration, /transfer_choice_selected/);
+  assert.match(v2Migration, /transfer_score between 0 and 6/);
 });
 
 test("uses the Vercel-compatible Next.js build contract", async () => {
@@ -167,7 +210,7 @@ test("uses the Vercel-compatible Next.js build contract", async () => {
     await readFile(new URL("package.json", root), "utf8"),
   );
 
-  assert.equal(packageJson.version, "0.8.0");
+  assert.equal(packageJson.version, "0.9.0");
   assert.equal(packageJson.scripts.dev, "next dev");
   assert.equal(packageJson.scripts.build, "next build");
   assert.equal(packageJson.scripts.start, "next start");
@@ -302,10 +345,10 @@ test("keeps a current, self-contained master handoff for the team", async () => 
   );
 
   assert.match(guide, /Briefing de incorporación para Axel, Nicole y José/);
-  assert.match(guide, /Versión funcional de referencia:\*\* AURA 0\.8\.0/);
+  assert.match(guide, /Versión funcional de referencia:\*\* AURA 0\.9\.0/);
   assert.match(
     guide,
-    /Estado real del producto — AURA 0\.8\.0, MVP técnico al 100 %/,
+    /Estado real del producto — AURA 0\.9\.0, MVP técnico al 100 %/,
   );
   assert.match(guide, /Ruta crítica hasta el 16 de agosto/);
   assert.match(guide, /Persistencia central \| Activa y verificada/);

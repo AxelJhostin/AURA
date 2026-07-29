@@ -33,8 +33,7 @@ export function TransferChallenge({
   trackEvent,
 }: Props) {
   const [started, setStarted] = useState(false);
-  const [firstMove, setFirstMove] = useState("");
-  const [reason, setReason] = useState("");
+  const [answers, setAnswers] = useState<Record<string, string>>({});
   const [completed, setCompleted] = useState(false);
   const [score, setScore] = useState(0);
   const startedAt = useRef(0);
@@ -53,6 +52,9 @@ export function TransferChallenge({
           local: "Datos conservados solo en este dispositivo",
           granted: "Envío anónimo autorizado; existe respaldo local",
           pending: "Sin decisión de envío; existe respaldo local",
+          selected: "Tu elección",
+          achieved: "Conducta demostrada",
+          review: "Revisar esta conducta",
         }
       : {
           score: "Transfer score",
@@ -65,6 +67,9 @@ export function TransferChallenge({
           local: "Data kept only on this device",
           granted: "Anonymous delivery allowed; local backup available",
           pending: "Delivery undecided; local backup available",
+          selected: "Your choice",
+          achieved: "Behavior demonstrated",
+          review: "Review this behavior",
         };
 
   const sessionEventCount = events.filter(
@@ -81,11 +86,13 @@ export function TransferChallenge({
   const guidedSeconds = guidedCompletion?.durationMs
     ? Math.round(guidedCompletion.durationMs / 1_000)
     : 0;
+  const allAnswered = challenge.questions.every(
+    (question) => answers[question.id],
+  );
 
   function startChallenge() {
     setStarted(true);
-    setFirstMove("");
-    setReason("");
+    setAnswers({});
     setCompleted(false);
     setScore(0);
     startedAt.current = nowMs();
@@ -97,21 +104,10 @@ export function TransferChallenge({
     });
   }
 
-  function chooseFirstMove(optionId: string) {
-    setFirstMove(optionId);
+  function chooseAnswer(questionId: string, optionId: string) {
+    setAnswers((current) => ({ ...current, [questionId]: optionId }));
     trackEvent({
-      eventName: "transfer_first_move_selected",
-      locale,
-      caseId: challenge.id,
-      stage: "transfer",
-      optionId,
-    });
-  }
-
-  function chooseReason(optionId: string) {
-    setReason(optionId);
-    trackEvent({
-      eventName: "transfer_reason_selected",
+      eventName: "transfer_choice_selected",
       locale,
       caseId: challenge.id,
       stage: "transfer",
@@ -120,11 +116,14 @@ export function TransferChallenge({
   }
 
   function finishChallenge() {
-    const firstMoveScore =
-      challenge.firstMoves.find((item) => item.id === firstMove)?.score ?? 0;
-    const reasonScore =
-      challenge.reasons.find((item) => item.id === reason)?.score ?? 0;
-    const finalScore = firstMoveScore + reasonScore;
+    if (!allAnswered) return;
+
+    const finalScore = challenge.questions.reduce((total, question) => {
+      const selected = question.options.find(
+        (option) => option.id === answers[question.id],
+      );
+      return total + (selected?.score ?? 0);
+    }, 0);
 
     setScore(finalScore);
     setCompleted(true);
@@ -139,11 +138,13 @@ export function TransferChallenge({
   }
 
   const feedback =
-    score === 2
+    score === challenge.maxScore
       ? challenge.feedback.strong
-      : score === 1
-        ? challenge.feedback.emerging
-        : challenge.feedback.needsPractice;
+      : score >= 4
+        ? challenge.feedback.solid
+        : score >= 2
+          ? challenge.feedback.emerging
+          : challenge.feedback.needsPractice;
 
   return (
     <section className="transfer-challenge" aria-labelledby="transfer-title">
@@ -177,54 +178,37 @@ export function TransferChallenge({
 
           {!completed && (
             <>
-              <fieldset className="transfer-question">
-                <legend>1. {challenge.questionOne[locale]}</legend>
-                <div className="transfer-options">
-                  {challenge.firstMoves.map((option) => (
-                    <button
-                      key={option.id}
-                      type="button"
-                      className={
-                        firstMove === option.id
-                          ? "transfer-option is-active"
-                          : "transfer-option"
-                      }
-                      aria-pressed={firstMove === option.id}
-                      onClick={() => chooseFirstMove(option.id)}
-                    >
-                      <strong>{option.title[locale]}</strong>
-                      <span>{option.detail[locale]}</span>
-                    </button>
-                  ))}
-                </div>
-              </fieldset>
-
-              <fieldset className="transfer-question">
-                <legend>2. {challenge.questionTwo[locale]}</legend>
-                <div className="transfer-options">
-                  {challenge.reasons.map((option) => (
-                    <button
-                      key={option.id}
-                      type="button"
-                      className={
-                        reason === option.id
-                          ? "transfer-option is-active"
-                          : "transfer-option"
-                      }
-                      aria-pressed={reason === option.id}
-                      onClick={() => chooseReason(option.id)}
-                    >
-                      <strong>{option.title[locale]}</strong>
-                      <span>{option.detail[locale]}</span>
-                    </button>
-                  ))}
-                </div>
-              </fieldset>
+              {challenge.questions.map((question, index) => (
+                <fieldset className="transfer-question" key={question.id}>
+                  <legend>
+                    {index + 1}. {question.prompt[locale]}
+                  </legend>
+                  <div className="transfer-options">
+                    {question.options.map((option) => (
+                      <button
+                        key={option.id}
+                        type="button"
+                        className={
+                          answers[question.id] === option.id
+                            ? "transfer-option is-active"
+                            : "transfer-option"
+                        }
+                        aria-pressed={answers[question.id] === option.id}
+                        onClick={() =>
+                          chooseAnswer(question.id, option.id)
+                        }
+                      >
+                        <strong>{option.title[locale]}</strong>
+                      </button>
+                    ))}
+                  </div>
+                </fieldset>
+              ))}
 
               <button
                 className="button button-primary"
                 type="button"
-                disabled={!firstMove || !reason}
+                disabled={!allAnswered}
                 onClick={finishChallenge}
               >
                 {challenge.submit[locale]} <span aria-hidden="true">→</span>
@@ -233,24 +217,61 @@ export function TransferChallenge({
           )}
 
           {completed && (
-            <div className="transfer-result" aria-live="polite">
-              <div className="transfer-score">
-                <span>{copy.score}</span>
-                <strong>{score}/2</strong>
+            <>
+              <div className="transfer-result" aria-live="polite">
+                <div className="transfer-score">
+                  <span>{copy.score}</span>
+                  <strong>
+                    {score}/{challenge.maxScore}
+                  </strong>
+                </div>
+                <div>
+                  <span>{challenge.resultTitle[locale]}</span>
+                  <h4>{feedback.title[locale]}</h4>
+                  <p>{feedback.body[locale]}</p>
+                </div>
+                <button
+                  className="button button-ghost"
+                  type="button"
+                  onClick={startChallenge}
+                >
+                  {challenge.reset[locale]}
+                </button>
               </div>
-              <div>
-                <span>{challenge.resultTitle[locale]}</span>
-                <h4>{feedback.title[locale]}</h4>
-                <p>{feedback.body[locale]}</p>
+
+              <div className="transfer-review">
+                <div className="transfer-review-heading">
+                  <span>{challenge.reviewTitle[locale]}</span>
+                  <strong>
+                    {score}/{challenge.maxScore}
+                  </strong>
+                </div>
+                {challenge.questions.map((question) => {
+                  const selected = question.options.find(
+                    (option) => option.id === answers[question.id],
+                  );
+                  const achieved = selected?.score === 1;
+
+                  return (
+                    <article
+                      className={achieved ? "is-achieved" : "needs-review"}
+                      key={question.id}
+                    >
+                      <div>
+                        <span>{question.criterion[locale]}</span>
+                        <strong>
+                          {achieved ? `✓ ${copy.achieved}` : `↗ ${copy.review}`}
+                        </strong>
+                      </div>
+                      <p>
+                        <b>{copy.selected}:</b> {selected?.title[locale] ?? "—"}
+                      </p>
+                      <small>{question.feedback[locale]}</small>
+                    </article>
+                  );
+                })}
               </div>
-              <button
-                className="button button-ghost"
-                type="button"
-                onClick={startChallenge}
-              >
-                {challenge.reset[locale]}
-              </button>
-            </div>
+            </>
           )}
 
           {completed && (
@@ -293,7 +314,9 @@ export function TransferChallenge({
                   <span>{copy.guidedTime}</span>
                 </div>
                 <div>
-                  <strong>{score}/2</strong>
+                  <strong>
+                    {score}/{challenge.maxScore}
+                  </strong>
                   <span>{copy.score}</span>
                 </div>
               </div>

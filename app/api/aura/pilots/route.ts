@@ -1,4 +1,8 @@
-import { PILOT_CODE_PATTERN } from "../../../lib/analytics";
+import {
+  PILOT_CODE_PATTERN,
+  PRODUCT_VERSION,
+} from "../../../lib/analytics";
+import { transferChallenge } from "../../../data/transfer";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -11,6 +15,7 @@ type PilotEventRow = {
   transfer_score: number | null;
   duration_ms: number | null;
   occurred_at: string;
+  product_version: string;
 };
 
 const RATE_LIMIT = 30;
@@ -95,7 +100,7 @@ export async function GET(request: Request) {
 
   const query = new URLSearchParams({
     select:
-      "anonymous_session_id,event_name,option_id,transfer_score,duration_ms,occurred_at",
+      "anonymous_session_id,event_name,option_id,transfer_score,duration_ms,occurred_at,product_version",
     pilot_code: `eq.${code}`,
     order: "occurred_at.desc",
     limit: String(MAX_ROWS),
@@ -115,7 +120,10 @@ export async function GET(request: Request) {
       return noStoreJson({ error: "reporting_unavailable" }, { status: 503 });
     }
 
-    const rows = (await response.json()) as PilotEventRow[];
+    const allRows = (await response.json()) as PilotEventRow[];
+    const rows = allRows.filter(
+      (row) => row.product_version === PRODUCT_VERSION,
+    );
     const participants = new Set(
       rows.map((row) => row.anonymous_session_id),
     );
@@ -170,6 +178,8 @@ export async function GET(request: Request) {
 
     return noStoreJson({
       code,
+      productVersion: PRODUCT_VERSION,
+      transferMaxScore: transferChallenge.maxScore,
       participants: participants.size,
       missionStarts,
       evidenceCards,
@@ -198,7 +208,7 @@ export async function GET(request: Request) {
         return average === null ? null : Math.round(average / 1_000);
       })(),
       latestActivity: rows[0]?.occurred_at ?? null,
-      truncated: rows.length === MAX_ROWS,
+      truncated: allRows.length === MAX_ROWS,
     });
   } catch {
     return noStoreJson({ error: "reporting_unavailable" }, { status: 503 });
