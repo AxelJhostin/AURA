@@ -333,3 +333,47 @@ test("maps the official UNESCO criteria to evidence and submission gates", async
     /sk-proj-|sb_secret_|SUPABASE_SECRET_KEY=/,
   );
 });
+
+test("closes the five scoped MVP technical fixes", async () => {
+  const [facilitator, coachRoute, component] = await Promise.all([
+    readFile(
+      new URL("app/components/PilotFacilitator.tsx", root),
+      "utf8",
+    ),
+    readFile(new URL("app/api/aura/coach/route.ts", root), "utf8"),
+    readFile(
+      new URL("app/components/AuraExperience.tsx", root),
+      "utf8",
+    ),
+  ]);
+
+  assert.match(
+    facilitator,
+    /\["report_timestamp", new Date\(\)\.toISOString\(\)\]/,
+  );
+  assert.doesNotMatch(facilitator, /report\.timestamp/);
+
+  assert.match(coachRoute, /requestOrigin/);
+  assert.match(coachRoute, /origin_not_allowed/);
+  assert.match(coachRoute, /requestOrigin !== new URL\(request\.url\)\.origin/);
+
+  assert.match(component, /value === "granted"/);
+  assert.match(component, /analyticsConsent !== "granted"/);
+  assert.match(component, /sessionEvents\(sessionId\)\.forEach/);
+  assert.match(component, /void sendAnalyticsEvent\(event\)/);
+
+  assert.match(
+    component,
+    /previewStages: \["ANALIZA", "UBICA", "RASTREA", "ACTÚA"\]/,
+  );
+  assert.match(
+    component,
+    /previewStages: \["ASSESS", "UNCOVER", "RESEARCH", "ACT"\]/,
+  );
+  assert.match(component, /commonModelLabel: "MODELO COMÚN"/);
+  assert.match(component, /commonModelLabel: "COMMON MODEL"/);
+  assert.match(component, /auraModelLabel: "MODELO AURA"/);
+  assert.match(component, /auraModelLabel: "AURA MODEL"/);
+  assert.doesNotMatch(component, /<p>MODELO COMÚN<\/p>/);
+  assert.doesNotMatch(component, /<p>AURA MODEL<\/p>/);
+});
