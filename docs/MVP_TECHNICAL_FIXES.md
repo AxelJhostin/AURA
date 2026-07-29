@@ -1,5 +1,12 @@
 # AURA 0.8.0 — Correcciones técnicas del MVP
 
+> **Documento histórico cerrado.** FIX-01 a FIX-05 fueron implementados y
+> verificados. No contiene trabajo pendiente ni debe usarse como backlog
+> vigente. El estado técnico actual de AURA 0.9.0 está en
+> [`ARCHITECTURE_AND_TESTING.md`](./ARCHITECTURE_AND_TESTING.md): 50
+> comprobaciones automatizadas, CI verde y MVP técnico completo al 29 de julio
+> de 2026. Las referencias de líneas que siguen son aproximaciones históricas.
+
 **Audiencia:** agente o persona de implementación (OpenAI / Codex / Cursor).
 **Origen:** revisión externa del código (28 jul 2026).
 **Alcance:** solo defectos técnicos del MVP ya implementado.

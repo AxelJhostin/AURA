@@ -12,6 +12,7 @@
 **Prototipo público:** <https://aura-opal-beta.vercel.app/>  
 **Repositorio:** <https://github.com/AxelJhostin/AURA>  
 **Rama de producción:** [`main`](https://github.com/AxelJhostin/AURA/commits/main/) — registrar el hash vigente en la ficha final de envío
+**Línea base técnica verificada:** [`315e03f`](https://github.com/AxelJhostin/AURA/commit/315e03f8a788ec4d6a818901a6e28c8418b9a714) + [CI aprobada](https://github.com/AxelJhostin/AURA/actions/runs/30493787795)
 **Fuente estratégica completa:** [Guía maestra de AURA](./AURA_Guia_Maestra_UNESCO_Youth_Hackathon_2026.md)
 
 ---
@@ -53,8 +54,10 @@ para el MVP** está implementado. Es una aplicación bilingüe pública que:
 8. compara un pulso opcional pre/post;
 9. permite operar pilotos y consultar resultados agregados;
 10. funciona en español, inglés y pantallas de 320 px;
-11. superó build de producción, TypeScript, lint y 17 pruebas automatizadas;
-12. tiene entrega de eventos serializada y reintentos ante fallos transitorios.
+11. superó build de producción, TypeScript, lint y 50 comprobaciones
+    automatizadas en cuatro capas;
+12. mantiene cobertura instrumentada por encima de los umbrales definidos;
+13. tiene entrega de eventos serializada y reintentos ante fallos transitorios.
 
 ### Lo que falta
 
@@ -194,7 +197,7 @@ conozca la calidad del producto.
 | Equipo de 2–6 integrantes | LISTO | Axel, Nicole y José confirmados; equipo cerrado | Los tres |
 | Todos tienen 18–30 años | VERIFICAR | Confirmar fechas y edades a la fecha del envío | Nicole + José |
 | Nombres legales y correos correctos | PARCIAL | Nombres y correos recibidos; confirmar división First/Last y demás campos privados | Nicole + José |
-| Líder del equipo definido | POR CONFIRMAR | Propuesta: Axel; registrar acuerdo de los tres | Los tres |
+| Líder del equipo definido | LISTO | Hernández Axel | Los tres |
 | Valores de paz, diversidad y libertad de expresión | LISTO | Principios de diseño y narrativa AMI | Nicole |
 | Equilibrio e inclusión considerados | EN PROGRESO | Equipo, público, accesibilidad y plan comunitario | Nicole + José |
 | Documento PDF o Word | PENDIENTE | Nicole y José producen; Axel verifica hechos técnicos | Nicole + José |
@@ -332,7 +335,12 @@ sin cuentas.
 
 - producción en Vercel;
 - Next.js, OpenAI server-side y Supabase;
-- 17 pruebas automatizadas;
+- 50 comprobaciones automatizadas: 13 unitarias, 7 de integración, 18 de
+  contrato/build y 12 aserciones pgTAP;
+- CI reproducible para aplicación y base, sin secretos;
+- cobertura instrumentada de 94,23 % líneas, 76,70 % ramas y 78,21 %
+  funciones;
+- reglas críticas extraídas de React y HTTP a módulos de dominio;
 - RLS y privilegios mínimos;
 - cuatro casos reutilizables;
 - CSV y panel agregado;
@@ -400,6 +408,7 @@ debe presentarse como objetivo, hipótesis o plan.
 | Se mide transferencia | Reto no guiado + rúbrica 0–6 | VERIFICADO |
 | La analítica evita datos sensibles | Esquema, API, RLS y documentación | VERIFICADO |
 | Funciona en móvil | Prueba a 320 px | VERIFICADO |
+| El software reduce riesgo de regresión | 50 comprobaciones + CI verde | VERIFICADO |
 | Mejora una habilidad | Resultado de piloto | PENDIENTE |
 | Es útil para el público | Observación y encuesta de piloto | PENDIENTE |
 | Puede facilitarse en comunidad | Ensayo de facilitación | PENDIENTE |
@@ -421,7 +430,7 @@ debe presentarse como objetivo, hipótesis o plan.
 
 **Nicole + José**
 
-- confirmar edades, nombres legales, correos y rol del líder;
+- confirmar edades, nombres legales y correos; Axel ya está definido como líder;
 - reclutar cinco personas para ensayo;
 - identificar 30–50 contactos para el piloto principal;
 - preparar mensaje de invitación y horarios;
@@ -545,7 +554,7 @@ El 16 de agosto queda únicamente como margen de emergencia.
 ### Prioridad 1 — Equipo y elegibilidad
 
 - confirmar que todos cumplen 18–30 años;
-- decidir quién será líder;
+- comprobar que los datos privados de Axel estén completos como líder;
 - mantener una sola lista de nombres y correos;
 - incluir solo integrantes realmente confirmados;
 - describir la complementariedad entre ingeniería y negocios internacionales.
@@ -621,6 +630,7 @@ El 16 de agosto queda únicamente como margen de emergencia.
 - exportar métricas agregadas después de cada cohorte;
 - corregir únicamente fallos observados;
 - conservar commit, fecha y versión de cada piloto;
+- conservar la ejecución de CI y ejecutar `npm run check` antes de cada release;
 - preparar capturas limpias;
 - generar QR del dominio canónico;
 - calcular costos reales;
@@ -928,6 +938,7 @@ La candidatura está terminada únicamente cuando:
 ## 20. Fuentes oficiales
 
 - [UNESCO Youth Hackathon 2026](https://www.unesco.org/en/articles/unesco-youth-hackathon-2026)
+- [Página general oficial del UNESCO Youth Hackathon](https://www.unesco.org/en/media-information-literacy/youth-hackathon)
 - [Portal oficial de envío](https://tally.so/r/MePkYk)
 - [Ganadores UNESCO Youth Hackathon 2025](https://www.unesco.org/en/articles/global-youth-lead-way-media-and-information-literacy-meet-unesco-hackathon-2025-winners)
 

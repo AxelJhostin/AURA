@@ -4,8 +4,8 @@
 presupuesto y datos del equipo en el PDF / dossier.
 **No es backlog de código.** Los defectos del MVP están en
 [`MVP_TECHNICAL_FIXES.md`](./MVP_TECHNICAL_FIXES.md).
-**Fecha de captura:** 28 de julio de 2026.
-**Fuente:** Hernández Menéndez Axel.
+**Fecha de actualización:** 29 de julio de 2026.
+**Fuente:** Hernández Axel.
 
 Regla de lenguaje (igual que el dossier):
 
@@ -19,8 +19,9 @@ Regla de lenguaje (igual que el dossier):
 
 | Campo | Valor | Estado |
 |---|---|---|
-| Líder del equipo (postulación) | Hernández Menéndez Axel | **DECIDIDO** |
-| Nombre a usar en formularios | Hernández Menéndez Axel | **DECIDIDO** |
+| Líder del equipo (postulación) | Hernández Axel | **DECIDIDO** |
+| Nombre público del proyecto | Hernández Axel | **DECIDIDO** |
+| Nombre legal para el formulario | Confirmar contra documento de identidad antes del envío | **PENDIENTE ADMINISTRATIVO** |
 | Equipo confirmado | Axel + Nicole + José | **DECIDIDO; equipo cerrado** |
 | Licencia del repositorio | Aún no se publica licencia | **DECIDIDO (por ahora)** |
 
@@ -39,10 +40,26 @@ en GitHub y que la licencia se definirá con el equipo.
 | Dominio | Solo `*.vercel.app` (sin dominio propio) | **DECIDIDO** |
 | URL de demo hoy | `https://aura-opal-beta.vercel.app/` (existente en docs) | Operativa hoy |
 | URL canónica final para PDF/video | Por definir | **PENDIENTE** |
+| CI | GitHub Actions: aplicación + Supabase pgTAP | **OPERATIVA Y VERIFICADA** |
+| Calidad automatizada | 50 comprobaciones; cobertura con umbrales | **VERIFICADA 29-07-2026** |
 
 **Nota para redacción:** usar la URL pública actual para capturas y demo. No
 prometer dominio propio hasta decidirlo. Si más adelante hay dominio, actualizar
 este archivo y el dossier.
+
+Evidencia técnica de referencia:
+
+- commit estable:
+  [`315e03f`](https://github.com/AxelJhostin/AURA/commit/315e03f8a788ec4d6a818901a6e28c8418b9a714);
+- CI completa:
+  [`30493787795`](https://github.com/AxelJhostin/AURA/actions/runs/30493787795);
+- 13 pruebas unitarias, 7 de integración, 18 comprobaciones de
+  contrato/build y 12 aserciones pgTAP;
+- cobertura instrumentada: 94,23 % líneas, 76,70 % ramas y 78,21 % funciones;
+- auditoría npm: cero vulnerabilidades conocidas al verificar esta versión.
+
+Estas cifras respaldan capacidad técnica y reducción de riesgo. No prueban
+aprendizaje, impacto ni accesibilidad con personas reales.
 
 ---
 
@@ -101,7 +118,7 @@ aprender.
 
 | Tema | Responsable sugerido | Notas |
 |---|---|---|
-| Plan técnico a 6 meses (bullets de Axel) | Axel | Resolver después; Nicole aporta adopción/alianzas y José edita |
+| Plan técnico a 6 meses (versión final y costos) | Axel | Existe estructura preliminar; faltan supuestos cuantificados y aprobación del equipo |
 | Mantenimiento editorial de casos (quién + frecuencia) | Los tres | Sin decisión aún |
 | Dos riesgos técnicos principales + mitigación (texto final) | Axel | Pendiente de redacción; el dossier ya tiene borradores de riesgos |
 | URL canónica definitiva | Axel | Después; mientras tanto usar demo Vercel |
@@ -112,7 +129,7 @@ aprender.
 
 ## 7. Texto usable en la propuesta (borrador, solo hechos)
 
-> AURA is led by Hernández Menéndez Axel (technical and product lead), Nicole
+> AURA is led by Hernández Axel (technical and product lead), Nicole
 > Madelyne Pincay Soledispa (strategy and impact) and José Luis Cañarte Plúa
 > (research, English and editorial review). The public MVP runs on Vercel’s free tier and optional
 > Supabase free-tier analytics, currently served at a `*.vercel.app` URL. The
@@ -126,7 +143,7 @@ aprender.
 
 Versión ES (misma restricción de hechos):
 
-> AURA está liderada por Hernández Menéndez Axel (liderazgo técnico y de
+> AURA está liderada por Hernández Axel (liderazgo técnico y de
 > producto), Nicole Madelyne Pincay Soledispa (estrategia e impacto) y José
 > Luis Cañarte Plúa (investigación, inglés y revisión editorial). El MVP público
 > corre en el plan gratuito de Vercel y
@@ -154,5 +171,6 @@ Versión ES (misma restricción de hechos):
 
 ---
 
-**Próxima actualización esperada de Axel:** plan 6 meses, riesgos técnicos
-cerrados, cadencia editorial, y (si aplica) URL canónica + licencia.
+**Próxima actualización esperada de Axel:** supuestos y costos del plan de seis
+meses, riesgos técnicos para el PDF, cadencia editorial y, si aplica, URL
+canónica + licencia. El código del MVP no tiene tareas críticas abiertas.

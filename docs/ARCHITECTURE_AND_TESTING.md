@@ -3,6 +3,8 @@
 **Versión de referencia:** AURA 0.9.0
 **Objetivo:** permitir cambios grandes sin mezclar pedagogía, interfaz,
 persistencia y medición; detectar regresiones antes de publicar.
+**Estado verificado:** 29 de julio de 2026, commit
+[`315e03f`](https://github.com/AxelJhostin/AURA/commit/315e03f8a788ec4d6a818901a6e28c8418b9a714).
 
 ## Respuesta corta y honesta
 
@@ -33,6 +35,10 @@ Esta revisión extrae las tres reglas de mayor riesgo a módulos puros y añade
 pruebas en cuatro capas. No se realizó una división visual masiva del componente
 principal porque hacerlo al mismo tiempo que se introducía la suite habría
 aumentado innecesariamente el riesgo del MVP ya desplegado.
+
+Resultado actual: la base es suficientemente modular para el MVP, los pilotos
+y cambios acotados. No es todavía la arquitectura final para cuentas, roles,
+autoría dinámica de casos o varios recorridos simultáneos.
 
 ## Límites de arquitectura
 
@@ -76,7 +82,7 @@ npm run test:unit
 
 Cubren puntuación de transferencia, opciones y etapas válidas, conversión
 anónima a filas, agregados de pilotos y validación editorial bilingüe. No usan
-red, navegador ni base de datos.
+red, navegador ni base de datos. Estado actual: **13 pruebas**.
 
 ### 2. Integración
 
@@ -87,7 +93,7 @@ npm run test:integration
 Ejecutan las rutas de Next.js con `Request` y `Response` reales, pero sustituyen
 el límite externo de Supabase. Cubren modo local, inserción REST, deduplicación,
 seguridad de origen, agregados privados y errores del proveedor. Nunca usan
-claves ni datos de producción.
+claves ni datos de producción. Estado actual: **7 pruebas**.
 
 ### 3. Contrato y build
 
@@ -97,6 +103,7 @@ npm run test:contract
 
 Construye Next.js como producción y comprueba HTML, metadatos, catálogo,
 privacidad, migraciones, documentación y entrega de analítica.
+Estado actual: **18 comprobaciones**.
 
 ### 4. Base de datos
 
@@ -110,7 +117,8 @@ npm run db:stop
 
 pgTAP reconstruye el esquema desde las migraciones y verifica tabla, índice,
 RLS, privilegios y rechazo de puntuaciones, códigos y pulsos inválidos. Cada
-archivo se ejecuta en una transacción y se revierte.
+archivo se ejecuta en una transacción y se revierte. Estado actual:
+**12 aserciones pgTAP**.
 
 ### Cobertura y verificación completa
 
@@ -122,6 +130,19 @@ npm run check
 `npm run check` ejecuta lint, TypeScript, unitarias, integración y contrato de
 producción. La base se mantiene separada porque requiere Docker.
 
+Último resultado local verificado:
+
+| Capa instrumentada | Resultado | Umbral |
+|---|---:|---:|
+| Líneas | 94,23 % | 90 % |
+| Ramas | 76,70 % | 70 % |
+| Funciones | 78,21 % | 75 % |
+
+En total existen **50 comprobaciones automatizadas distintas**: 13 unitarias,
+7 de integración, 18 de contrato/build y 12 de base de datos. La cobertura
+instrumentada corresponde a unitarias e integración; no debe presentarse como
+cobertura integral del navegador o del impacto educativo.
+
 ## Integración continua
 
 `.github/workflows/quality.yml` ejecuta en cada pull request y cambio de `main`:
@@ -131,6 +152,12 @@ producción. La base se mantiene separada porque requiere Docker.
 3. Supabase local y pgTAP en un trabajo aislado.
 
 No necesita secretos del proyecto.
+
+La ejecución de referencia
+[`30493787795`](https://github.com/AxelJhostin/AURA/actions/runs/30493787795)
+terminó correctamente en sus dos trabajos: **Application checks** y
+**Supabase pgTAP**. La aplicación pública también fue comprobada después de ese
+commit en <https://aura-opal-beta.vercel.app/>.
 
 ## Cómo hacer cambios grandes
 
@@ -165,3 +192,9 @@ recorridos pedagógicos, conviene:
 
 Cualquier cambio que agregue más de un estado nuevo o más de una rama
 pedagógica al componente principal debe comenzar por esa extracción.
+
+La suite actual no automatiza un navegador real y no realiza una llamada real a
+OpenAI. Esos dos límites son deliberados: los contratos externos se simulan en
+integración y la experiencia se verifica hoy con contrato de HTML más recorrido
+manual. Añadir E2E de navegador es la siguiente mejora técnica útil, no un
+bloqueo para iniciar pilotos.

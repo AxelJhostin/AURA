@@ -4,6 +4,8 @@
 - **Propietaria de estrategia e impacto:** Nicole
 - **Propietario de investigación, inglés y edición:** José Luis Cañarte Plúa
 - **Estado base:** MVP técnico 0.9.0 — 100 % del alcance definido
+- **Calidad verificada:** 50 comprobaciones automatizadas, CI de aplicación y
+  pgTAP aprobada, cobertura instrumentada sobre sus umbrales
 - **Objetivo:** convertir el flujo actual en un piloto medible y una candidatura
 respaldada por evidencia real.
 
@@ -32,6 +34,9 @@ respaldada por evidencia real.
 - Equipo y hoja de ruta visibles.
 - Diseño responsivo y navegación por teclado.
 - Guía maestra versionada junto al proyecto.
+- Reglas críticas extraídas a módulos de dominio puros.
+- Pruebas unitarias, de integración, contrato/build y base de datos.
+- CI reproducible sin secretos para la aplicación y Supabase local.
 
 ## 2. Alcance congelado del MVP
 
@@ -65,6 +70,7 @@ Quedan fuera hasta validar lo anterior:
 ```text
 Interfaz React
 ├── Catálogo de casos versionado
+├── Dominio puro: eventos, agregación y transferencia
 ├── Motor determinista del flujo A-U-R-A
 ├── Preguntas de respaldo sin IA
 ├── Adaptador opcional de IA
@@ -76,6 +82,11 @@ Interfaz React
 
 Principio: la misión debe poder completarse si el servicio de IA no está
 disponible.
+
+La arquitectura vigente y el procedimiento para cambios grandes están en
+[`ARCHITECTURE_AND_TESTING.md`](./ARCHITECTURE_AND_TESTING.md). La deuda
+controlada es `AuraExperience.tsx`: no bloquea los pilotos, pero debe dividirse
+antes de agregar cuentas, roles o recorridos adicionales.
 
 ## 4. Modelo de datos de casos — primera versión implementada
 
@@ -222,6 +233,20 @@ con personas reales antes de declarar alcanzada la aceptación operativa.
 320 px sin defectos críticos. La prueba física pertenece al protocolo del
 ensayo, no al backlog de código.
 
+#### P0.6 Modularidad y compuertas de calidad — implementado el 29-07-2026
+
+- [x] Validación de eventos separada del transporte HTTP.
+- [x] Agregación de pilotos separada de la ruta.
+- [x] Puntuación de transferencia separada de React.
+- [x] 13 pruebas unitarias y 7 de integración.
+- [x] 18 comprobaciones de contrato/build.
+- [x] 12 aserciones pgTAP para esquema, restricciones, RLS y privilegios.
+- [x] Umbrales de cobertura: 90 % líneas, 70 % ramas y 75 % funciones.
+- [x] GitHub Actions verifica aplicación y base en cada cambio de `main`.
+
+**Aceptación alcanzada:** 50 comprobaciones aprobadas localmente y en Linux CI.
+Las pruebas no llaman servicios de producción ni contienen secretos.
+
 ### P1 — candidatura y demo final
 
 #### P1.1 Casos equilibrados — implementado en 0.8.0
@@ -297,6 +322,8 @@ evidencia y siguiente paso sin explicación adicional.
 
 ### P2 — después de enviar
 
+- Suite E2E de navegador para recorrido, idioma, teclado y móvil.
+- Dividir `AuraExperience.tsx` antes de ampliar el modelo de estado.
 - AURA Circles.
 - Herramienta de creación local de casos.
 - Panel institucional.
@@ -364,10 +391,10 @@ evidencia y siguiente paso sin explicación adicional.
 | Decisión | Responsable | Fecha límite | Criterio |
 |---|---|---:|---|
 | Licencia del repositorio | Los tres | Antes de definir licencia | Apertura vs. protección |
-| Modelo y costo de IA | Hernández Axel | Antes del piloto | evaluar calidad, costo y latencia |
-| Infraestructura del piloto | Hernández Axel | Antes de P0.3 | privacidad y simplicidad |
+| Modelo y costo de IA | Hernández Axel | Antes del piloto | confirmar calidad, costo y latencia con uso real |
+| Infraestructura del piloto | Hernández Axel | Resuelta | Vercel + Supabase server-side, consentimiento y modo local |
 | Institución o comunidad piloto | Nicole + José | Antes del piloto | acceso real y permiso |
-| Integrantes 3 y 4 | Equipo | Lo antes posible | complementariedad real |
+| Equipo final | Los tres | Resuelta | Axel + Nicole + José; no incorporar más personas |
 | Revisor AMI externo | Nicole + José | Antes del piloto | rigor pedagógico |
 
 ## 8. Métricas de piloto
@@ -415,7 +442,9 @@ No medir solo “acertó/no acertó”.
 - [ ] El flujo funciona en móvil.
 - [ ] Los eventos no contienen datos sensibles.
 - [ ] `npm run lint` pasa.
-- [ ] `npm test` pasa.
+- [ ] `npm run check` pasa.
+- [ ] `npm run test:coverage` mantiene los umbrales.
+- [ ] `npm run test:db` pasa cuando cambia Supabase.
 - [ ] README y guía siguen vigentes.
 
 ## 10. Criterio de victoria
