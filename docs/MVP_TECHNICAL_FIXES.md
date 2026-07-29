@@ -1,8 +1,8 @@
 # AURA 0.8.0 — Correcciones técnicas del MVP
 
-**Audiencia:** agente o persona de implementación (OpenAI / Codex / Cursor).  
-**Origen:** revisión externa del código (28 jul 2026).  
-**Alcance:** solo defectos técnicos del MVP ya implementado.  
+**Audiencia:** agente o persona de implementación (OpenAI / Codex / Cursor).
+**Origen:** revisión externa del código (28 jul 2026).
+**Alcance:** solo defectos técnicos del MVP ya implementado.
 **Fuera de alcance:** pilotos, PDF de postulación, video pitch, nuevas features, rediseño.
 
 Antes de tocar código, leer:
@@ -23,7 +23,7 @@ Antes de tocar código, leer:
 
 ## FIX-01 — CSV del piloto escribe `undefined` en `report_timestamp`
 
-**Severidad:** alta (rompe evidencia exportable del panel de facilitación).  
+**Severidad:** alta (rompe evidencia exportable del panel de facilitación).
 **Estado:** cerrado.
 
 ### Problema
@@ -60,12 +60,12 @@ y eliminar la referencia a `report.timestamp`.
 
 ## FIX-02 — `/api/aura/coach` no valida Origin (asimetría de defensa)
 
-**Severidad:** media (events y pilots sí lo hacen; coach queda expuesto a llamadas cross-origin).  
+**Severidad:** media (events y pilots sí lo hacen; coach queda expuesto a llamadas cross-origin).
 **Estado:** cerrado.
 
 ### Problema
 
-`POST /api/aura/events` y `GET /api/aura/pilots` rechazan `Origin` distinto al del request con `403` + `origin_not_allowed`.  
+`POST /api/aura/events` y `GET /api/aura/pilots` rechazan `Origin` distinto al del request con `403` + `origin_not_allowed`.
 `POST /api/aura/coach` solo aplica rate limit por IP y validación de payload; **no** comprueba Origin.
 
 ### Archivos
@@ -98,7 +98,7 @@ Colocarlo **después** del rate limit y **antes** de parsear el body, igual que 
 
 ## FIX-03 — Consentimiento `granted` no reenvía eventos locales previos
 
-**Severidad:** media (sesiones de piloto pueden perder métricas si la persona acepta tarde).  
+**Severidad:** media (sesiones de piloto pueden perder métricas si la persona acepta tarde).
 **Estado:** cerrado.
 
 ### Problema
@@ -136,7 +136,7 @@ No hace falta backfill si el usuario elige `local-only`.
 
 ## FIX-04 — Hero preview: etapas A-U-R-A fijas en español
 
-**Severidad:** baja (rompe paridad bilingüe visible en el primer viewport).  
+**Severidad:** baja (rompe paridad bilingüe visible en el primer viewport).
 **Estado:** cerrado.
 
 ### Problema
@@ -179,7 +179,7 @@ Preferible: claves en el objeto `text` ES/EN del componente, no ternarios suelto
 
 ## FIX-05 — Comparación “MODELO COMÚN” / “AURA MODEL” sin localizar
 
-**Severidad:** baja (sección `#diferencia` mezcla idiomas).  
+**Severidad:** baja (sección `#diferencia` mezcla idiomas).
 **Estado:** cerrado.
 
 ### Problema
@@ -214,10 +214,10 @@ Añadir strings al diccionario `text` del componente y consumirlos con `t.*`.
 
 ## Orden sugerido de implementación
 
-1. **FIX-01** — export CSV usable  
-2. **FIX-02** — alinear seguridad del coach  
-3. **FIX-03** — no perder métricas al otorgar consentimiento  
-4. **FIX-04** y **FIX-05** — paridad i18n visible  
+1. **FIX-01** — export CSV usable
+2. **FIX-02** — alinear seguridad del coach
+3. **FIX-03** — no perder métricas al otorgar consentimiento
+4. **FIX-04** y **FIX-05** — paridad i18n visible
 
 ## Verificación final del lote
 
@@ -235,11 +235,11 @@ Comprobar manualmente (local o preview):
 
 ## No incluir en este lote
 
-- Ensayos / pilotos con personas reales  
-- PDF o video de candidatura UNESCO  
-- Export imagen/PDF de la Tarjeta de evidencia (backlog P1.3)  
-- Rúbrica adversarial de IA  
-- Nuevos casos o cambios editoriales de contenido  
-- Licencia del repositorio  
+- Ensayos / pilotos con personas reales
+- PDF o video de candidatura UNESCO
+- Export imagen/PDF de la Tarjeta de evidencia (backlog P1.3)
+- Rúbrica adversarial de IA
+- Nuevos casos o cambios editoriales de contenido
+- Licencia del repositorio
 
 Cuando este archivo esté resuelto, marcar cada criterio de aceptación y archivar el lote como cerrado en el mensaje de PR/commit.

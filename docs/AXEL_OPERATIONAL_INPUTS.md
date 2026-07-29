@@ -1,10 +1,10 @@
 # AURA — Insumos operativos de Axel (candidatura)
 
 **Propósito:** respuestas del liderazgo técnico para completar viabilidad,
-presupuesto y datos del equipo en el PDF / dossier.  
+presupuesto y datos del equipo en el PDF / dossier.
 **No es backlog de código.** Los defectos del MVP están en
-[`MVP_TECHNICAL_FIXES.md`](./MVP_TECHNICAL_FIXES.md).  
-**Fecha de captura:** 28 de julio de 2026.  
+[`MVP_TECHNICAL_FIXES.md`](./MVP_TECHNICAL_FIXES.md).
+**Fecha de captura:** 28 de julio de 2026.
 **Fuente:** Hernández Menéndez Axel.
 
 Regla de lenguaje (igual que el dossier):
