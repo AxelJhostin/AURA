@@ -43,6 +43,20 @@ seguridad de las personas.
 Consulta [`docs/ARCHITECTURE_AND_TESTING.md`](docs/ARCHITECTURE_AND_TESTING.md)
 antes de agregar estados, rutas, eventos o migraciones.
 
+### Pruebas según el cambio
+
+| Si cambia… | Prueba mínima |
+|---|---|
+| regla de puntuación, validación o agregación | unitaria en `tests/unit/` |
+| ruta HTTP o comportamiento ante un proveedor | integración en `tests/integration/` |
+| HTML, metadatos, catálogo, privacidad o build | contrato en `tests/*.test.mjs` |
+| tabla, restricción, índice, privilegio o RLS | migración nueva + pgTAP |
+| flujo, idioma, teclado o layout | recorrido manual ES/EN y móvil; E2E cuando exista |
+
+Las reglas reutilizables deben vivir en `app/domain/`, sin dependencias de
+React, red ni Supabase. Las rutas y componentes actúan como adaptadores. No
+dupliques una regla de negocio en el componente y en la API.
+
 ## Definición de terminado
 
 Una tarea está terminada cuando:
@@ -53,6 +67,7 @@ Una tarea está terminada cuando:
 - funciona con teclado y en pantalla móvil;
 - no inventa datos, alianzas o métricas;
 - tiene pruebas proporcionales al riesgo;
+- mantiene los umbrales de cobertura definidos por `npm run test:coverage`;
 - actualiza la documentación afectada.
 
 ## Commits
@@ -93,6 +108,10 @@ Una función de IA requiere:
 - costo estimado.
 
 No se aceptará un chatbot general como sustituto del flujo A-U-R-A.
+
+Las pruebas de integración no deben llamar a OpenAI ni a Supabase de
+producción. Los límites externos se simulan; la base local se valida mediante
+migraciones y pgTAP, sin secretos.
 
 ## Licencia
 

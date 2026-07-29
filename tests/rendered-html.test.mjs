@@ -225,7 +225,15 @@ test("uses the Vercel-compatible Next.js build contract", async () => {
 });
 
 test("keeps layered automated quality gates in the repository", async () => {
-  const [packageText, architecture, workflow, databaseTest] =
+  const [
+    packageText,
+    architecture,
+    workflow,
+    databaseTest,
+    dossier,
+    pdfStructure,
+    masterGuide,
+  ] =
     await Promise.all([
       readFile(new URL("package.json", root), "utf8"),
       readFile(new URL("docs/ARCHITECTURE_AND_TESTING.md", root), "utf8"),
@@ -233,6 +241,27 @@ test("keeps layered automated quality gates in the repository", async () => {
       readFile(
         new URL(
           "supabase/tests/database/aura_learning_events.test.sql",
+          root,
+        ),
+        "utf8",
+      ),
+      readFile(
+        new URL(
+          "public/docs/AURA_Dossier_Postulacion_y_Matriz_Evaluacion_2026.md",
+          root,
+        ),
+        "utf8",
+      ),
+      readFile(
+        new URL(
+          "public/docs/AURA_Estructura_Definitiva_PDF_UNESCO_2026.md",
+          root,
+        ),
+        "utf8",
+      ),
+      readFile(
+        new URL(
+          "public/docs/AURA_Guia_Maestra_UNESCO_Youth_Hackathon_2026.md",
           root,
         ),
         "utf8",
@@ -251,6 +280,13 @@ test("keeps layered automated quality gates in the repository", async () => {
   assert.match(workflow, /supabase test db --local/);
   assert.match(databaseTest, /select plan\(12\)/);
   assert.match(databaseTest, /row level security is enabled/);
+  assert.match(dossier, /50 comprobaciones automatizadas/);
+  assert.match(pdfStructure, /50 comprobaciones automatizadas/);
+  assert.match(masterGuide, /50 comprobaciones automatizadas aprobadas/);
+  assert.doesNotMatch(
+    `${dossier}\n${pdfStructure}\n${masterGuide}`,
+    /17 pruebas automatizadas|seis casos completos|transfer_first_move_selected/,
+  );
 });
 
 test("validates the balanced editorial catalog during every build", async () => {
@@ -387,7 +423,7 @@ test("keeps a current, self-contained master handoff for the team", async () => 
   );
   assert.match(guide, /Ruta crítica hasta el 16 de agosto/);
   assert.match(guide, /Persistencia central \| Activa y verificada/);
-  assert.match(guide, /17 pruebas automatizadas aprobadas/);
+  assert.match(guide, /50 comprobaciones automatizadas aprobadas/);
   assert.match(guide, /José Luis Cañarte Plúa/);
   assert.match(guide, /https:\/\/aura-opal-beta\.vercel\.app\//);
   assert.doesNotMatch(
@@ -412,7 +448,7 @@ test("maps the official UNESCO criteria to evidence and submission gates", async
   assert.match(dossier, /16 de agosto de 2026, 23:59, hora de París/);
   assert.match(dossier, /Cada proyecto será revisado por tres expertos/i);
   assert.match(dossier, /Campos confirmados del formulario Tally/);
-  assert.match(dossier, /17 pruebas automatizadas/);
+  assert.match(dossier, /50 comprobaciones automatizadas/);
   assert.match(dossier, /Consistency with the Theme and MIL Principles/);
   assert.match(dossier, /Clarity of Presentation/);
   assert.match(dossier, /Innovation and Creativity/);

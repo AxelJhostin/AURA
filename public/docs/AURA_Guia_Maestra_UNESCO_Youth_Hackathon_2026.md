@@ -8,7 +8,7 @@
 **Eslogan en inglés:** From reaction to evidence.  
 **Promesa del producto:** AURA no decide qué creer. Entrena a las personas para investigar con evidencia.  
 **Estado de este documento:** Fuente pública de estrategia, producto, operación
-y candidatura — versión 2.5.
+y candidatura — versión 2.6.
 
 **Versión funcional de referencia:** AURA 0.9.0 — 100 % del alcance técnico
 definido para el MVP.
@@ -25,6 +25,10 @@ definido para el MVP.
 El hash vigente debe registrarse en la ficha final de envío; la corrección crítica
 de analítica quedó documentada en el
 [#4](https://github.com/AxelJhostin/AURA/pull/4).
+
+**Línea base técnica verificada:**
+[`315e03f`](https://github.com/AxelJhostin/AURA/commit/315e03f8a788ec4d6a818901a6e28c8418b9a714),
+con [CI de aplicación y Supabase aprobada](https://github.com/AxelJhostin/AURA/actions/runs/30493787795).
 
 **Plan operativo de postulación para el equipo final:**
 [Dossier y matriz de evaluación UNESCO 2026](./AURA_Dossier_Postulacion_y_Matriz_Evaluacion_2026.md).
@@ -187,6 +191,9 @@ con usuarios.
 | Migración de piloto en producción | Activa y verificada | Columna, restricción, índice, RLS y privilegios comprobados |
 | Migración de razonamiento y transferencia 0.9 | Activa y verificada | Nuevos eventos codificados y puntuación `0–6` probados en transacción revertida |
 | Accesibilidad técnica | Implementada en 0.8.0 | Enlace de salto, foco visible, movimiento reducido y layout de 320 px |
+| Reglas de dominio modulares | Implementadas | Eventos, agregación de pilotos y transferencia fuera de React/HTTP |
+| Calidad automatizada | Verificada | 50 comprobaciones en cuatro capas y cobertura sobre umbrales |
+| Integración continua | Activa | GitHub Actions valida aplicación y pgTAP en cada cambio de `main` |
 | Pilotos con participantes reales | Pendiente | No existen resultados que puedan afirmarse |
 | Revisión AMI externa de los casos | Pendiente | La revisión interna está registrada; falta el gate externo |
 | Propuesta final en inglés | Pendiente | Banco de texto disponible en esta guía |
@@ -196,8 +203,12 @@ Validaciones técnicas completadas para AURA 0.9.0:
 
 - compilación de producción Next.js correcta;
 - TypeScript y lint sin errores;
-- 17 pruebas automatizadas aprobadas;
-- cero vulnerabilidades reportadas en dependencias de producción;
+- 50 comprobaciones automatizadas aprobadas: 13 unitarias, 7 de integración,
+  18 de contrato/build y 12 aserciones pgTAP;
+- cobertura instrumentada: 94,23 % de líneas, 76,70 % de ramas y 78,21 % de
+  funciones, por encima de los umbrales 90/70/75;
+- GitHub Actions aprobada en Linux para aplicación y base local;
+- cero vulnerabilidades conocidas reportadas por `npm audit`;
 - ruta pública de eventos probada con aceptación, rechazo y persistencia real;
 - generación, normalización y propagación del código de piloto verificadas;
 - ruta de resumen limitada a resultados agregados y clave server-side;
@@ -215,6 +226,11 @@ Validaciones técnicas completadas para AURA 0.9.0:
 - cero errores o advertencias en la consola del navegador de producción;
 - secretos fuera del repositorio;
 - despliegue Production de Vercel confirmado.
+
+Límite técnico declarado: aún no existe una suite E2E automatizada en navegador
+ni una prueba de integración que consuma OpenAI real. Los límites externos se
+simulan y el recorrido se ha revisado manualmente. Esto no bloquea el piloto,
+pero es la siguiente mejora técnica útil después del envío.
 
 ### 6. Lo que todavía no se puede afirmar
 
@@ -295,12 +311,15 @@ Eventos codificados disponibles:
 - `signal_selected`;
 - `source_opened`;
 - `action_selected`;
+- `reasoning_finding_selected`;
+- `reasoning_limit_selected`;
 - `evidence_card_generated`;
 - `mission_abandoned`;
 - `transfer_started`;
-- `transfer_first_move_selected`;
-- `transfer_reason_selected`;
-- `transfer_completed`.
+- `transfer_choice_selected`;
+- `transfer_completed`;
+- `pilot_baseline_recorded`;
+- `pilot_exit_recorded`.
 
 Estos eventos registran únicamente identificadores aleatorios, caso, etapa,
 opción codificada, idioma, duración, versión y puntuación. No aceptan nombres,
@@ -314,6 +333,7 @@ Navegador
   +--> Next.js 16 / React / TypeScript
   |      |
   |      +--> Motor bilingüe de casos curados
+  |      +--> Dominio puro: eventos, agregación y transferencia
   |      +--> Tarjeta de Evidencia
   |      +--> Reto de transferencia
   |      +--> Métricas locales + CSV
@@ -350,7 +370,13 @@ Infraestructura:
 - migración base aplicada y versionada:
   `supabase/migrations/20260728033416_aura_learning_events.sql`;
 - migración de piloto aplicada, verificada y versionada:
-  `supabase/migrations/20260728141033_add_anonymous_pilot_code.sql`.
+  `supabase/migrations/20260728141033_add_anonymous_pilot_code.sql`;
+- migración de pulso pre/post aplicada y versionada:
+  `supabase/migrations/20260728164500_add_anonymous_pilot_pulse.sql`;
+- migración de razonamiento y transferencia 0.9 aplicada y versionada:
+  `supabase/migrations/20260729113000_aura_reasoning_and_transfer_v2.sql`;
+- pruebas de base:
+  `supabase/tests/database/aura_learning_events.test.sql`.
 
 ### 10. Privacidad y límites de IA
 
@@ -375,9 +401,10 @@ equipo. La migración:
 - aplica restricciones a nombres de evento, etapas, tiempos y puntuación;
 - no contiene columnas de identidad o texto libre.
 
-Hasta que ese proyecto exista y sus variables estén configuradas en Vercel, el
-modo público conserva los eventos únicamente en el dispositivo y permite
-descargarlos como CSV.
+Si Supabase no está configurado o está temporalmente indisponible, la misión
+sigue funcionando y conserva eventos en el dispositivo para exportarlos como
+CSV. La aplicación pública sí tiene la persistencia central configurada; solo
+envía después del consentimiento explícito.
 
 ### 11. Responsabilidades del equipo
 
@@ -1342,7 +1369,7 @@ La demo debe incluir una fuente primaria, una fuente secundaria fiable y una fue
 ## 11. Alcance del MVP
 
 Esta sección define el alcance objetivo para la candidatura. El estado real se
-encuentra en la tabla del briefing de incorporación. A 28 de julio, AURA tiene
+encuentra en la tabla del briefing de incorporación. A 29 de julio, AURA tiene
 cuatro casos guiados equilibrados y un reto de transferencia; los pilotos con
 personas reales y los entregables de candidatura siguen pendientes.
 
@@ -1546,7 +1573,7 @@ existe un segundo backend que deba desplegarse o mantenerse.
 - Next.js.
 - TypeScript.
 - CSS utilitario o sistema de componentes accesibles.
-- Aplicación web progresiva.
+- Aplicación web responsiva; una PWA instalable queda fuera del MVP.
 - Internacionalización.
 - Diseño mobile-first.
 
@@ -1570,6 +1597,8 @@ Navegador móvil
 Aplicación web
     |
     +--> Motor de misiones curadas
+    |
+    +--> Dominio puro de reglas y medición
     |
     +--> Servicio de preguntas de IA
     |
@@ -1620,10 +1649,12 @@ FacilitatorGroup
 GET  /                       experiencia completa
 POST /api/aura/coach         pregunta socrática server-side
 POST /api/aura/events        evento anónimo validado
+GET  /api/aura/pilots        resumen agregado por código de piloto
 ```
 
 Los casos se incorporan al build desde archivos TypeScript revisables. No existe
-todavía una API pública de casos, sesiones o facilitadores.
+una API pública de casos ni sesiones. La única lectura de facilitación es el
+resumen agregado por código; nunca devuelve filas o identificadores.
 
 ### Endpoints conceptuales posteriores
 
@@ -2176,7 +2207,7 @@ Congelar antes del 30 de julio:
 - Público.
 - One-liner.
 - Método AURA.
-- Seis casos.
+- Cuatro casos equilibrados y auditables.
 - Stack.
 - Métricas.
 - Guion de demo.
@@ -2670,25 +2701,27 @@ Duración: 75–90 segundos.
 
 ## 29. Checklist de producto
 
-Estado verificado al 27 de julio de 2026:
+Estado verificado al 29 de julio de 2026:
 
 - [x] El método A-U-R-A aparece igual en todo el producto.
 - [x] El recorrido tiene implementación responsiva para móvil.
-- [ ] Seis casos completos.
-- [ ] Casos verdaderos, engañosos e inciertos.
-- [ ] Fuentes primarias verificadas.
-- [ ] Enlaces funcionan.
+- [x] Cuatro casos completos y equilibrados.
+- [x] Casos respaldados con límites, engañosos e insuficientes.
+- [x] Referencias reales separadas de los artefactos simulados.
+- [x] Enlaces del producto verificados.
 - [x] La IA no emite veredicto.
-- [ ] La IA puede abstenerse.
+- [ ] La abstención formal de la IA está evaluada con la rúbrica adversarial.
 - [x] Existe modo degradado.
 - [x] Tarjeta de Evidencia.
 - [x] Misión de transferencia.
 - [x] Registro anónimo local y CSV.
 - [x] Inglés y español.
-- [ ] Teclado y contraste revisados.
+- [x] Teclado, foco visible, contraste y ancho de 320 px revisados técnicamente.
 - [x] El esquema técnico no almacena datos sensibles.
 - [x] Demo pública.
 - [ ] Video de respaldo.
+- [x] `npm run check` y 50 comprobaciones automatizadas aprobadas.
+- [x] CI de aplicación y Supabase pgTAP aprobada.
 
 ## 30. Checklist de piloto
 
@@ -2810,6 +2843,8 @@ Estado verificado al 27 de julio de 2026:
 
 - [Supabase — Understanding API keys](https://supabase.com/docs/guides/getting-started/api-keys)
 - [Supabase — Securing the Data API](https://supabase.com/docs/guides/api/securing-your-api)
+- [Supabase — Testing overview](https://supabase.com/docs/guides/local-development/testing/overview)
+- [Supabase — Testing your database with pgTAP](https://supabase.com/docs/guides/database/testing)
 - [Supabase — Breaking change: explicit grants for new tables](https://supabase.com/changelog/45329-breaking-change-tables-not-exposed-to-data-and-graphql-api-automatically)
 - [OpenAI — Data controls in the API platform](https://platform.openai.com/docs/guides/your-data)
 
@@ -2820,10 +2855,11 @@ Estado verificado al 27 de julio de 2026:
 ## 35. Decisiones que el equipo debe cerrar
 
 - [x] Integrantes finales: Axel, Nicole y José.
-- [ ] Persona líder.
-- [ ] Público exacto.
+- [x] Persona líder: Hernández Axel.
+- [ ] Público exacto; base estratégica actual: estudiantes universitarios y
+  líderes juveniles de 18–24 años en Ecuador.
 - [ ] Instituciones donde se realizará el piloto, si hay autorización.
-- [ ] Seis casos.
+- [x] Cuatro casos guiados equilibrados; no ampliar antes del piloto.
 - [x] Nombre visual: AURA.
 - [x] Idioma principal español con experiencia completa en inglés.
 - [x] Stack: Next.js, Vercel, OpenAI server-side y Supabase server-side.
@@ -2842,7 +2878,8 @@ Estado verificado al 27 de julio de 2026:
 | 27-07-2026 | Método A-U-R-A bilingüe | Claridad y memorabilidad | Equipo | Congelada |
 | 27-07-2026 | Público inicial universitario/juvenil en Ecuador | Viabilidad de piloto | Equipo | Por confirmar |
 | 28-07-2026 | Hernández Axel, Nicole Madelyne Pincay Soledispa y José Luis Cañarte Plúa forman el equipo final | Los tres tienen compromiso confirmado y roles complementarios | Equipo | Congelada |
-| 28-07-2026 | El alcance técnico del MVP está completo al 100 % | Build, TypeScript, lint, 17 pruebas y producción verificadas | Hernández Axel | Congelada |
+| 28-07-2026 | El alcance técnico del MVP está completo al 100 % | Build, TypeScript, lint y producción verificadas | Hernández Axel | Congelada |
+| 29-07-2026 | Añadir arquitectura de dominio y compuertas de calidad en cuatro capas | Reducir regresiones antes de pilotos y cambios grandes | Hernández Axel | 50 comprobaciones y CI verificadas |
 | 27-07-2026 | Arquitectura única Next.js desplegada en Vercel | Reducir complejidad y riesgo de demo | Hernández Axel | Congelada |
 | 27-07-2026 | La IA pregunta, no verifica ni puntúa | Proteger autonomía y reducir alucinaciones | Hernández Axel | Congelada |
 | 29-07-2026 | Ampliar transferencia a seis conductas `0–6` y ocultar pistas previas | Probar un proceso reutilizable sin premiar obediencia | Hernández Axel | Implementada; revisar con piloto |

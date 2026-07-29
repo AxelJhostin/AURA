@@ -23,6 +23,9 @@ Este repositorio reúne tres entregables que deben evolucionar juntos:
 - **Equipo final confirmado:** Hernández Axel + Nicole Madelyne Pincay
   Soledispa + José Luis Cañarte Plúa
 - **Modo:** Next.js estándar, publicado en GitHub y preparado para Vercel
+- **Calidad verificada al 29-07-2026:** 50 comprobaciones automatizadas
+  aprobadas (13 unitarias, 7 de integración, 18 de contrato/build y 12 pgTAP),
+  CI verde en Linux y auditoría npm sin vulnerabilidades conocidas
 - **Casos incluidos:** cuatro misiones educativas simuladas que cubren
   afirmaciones engañosas, una afirmación respaldada con límites y una
   afirmación con evidencia insuficiente, más un reto de transferencia sobre un
@@ -102,13 +105,15 @@ La terminal mostrará la URL local, normalmente
 ### Verificaciones
 
 ```bash
-npm run lint
-npm run typecheck
-npm test
+npm run check
+npm run test:coverage
 ```
 
-`npm test` ejecuta pruebas unitarias, integración de rutas y el contrato del
-build de producción. Para Supabase local y pgTAP:
+`npm run check` ejecuta lint, TypeScript, pruebas unitarias, integración de
+rutas, build de producción y pruebas de contrato. `npm run test:coverage`
+verifica umbrales mínimos de 90 % en líneas, 70 % en ramas y 75 % en funciones
+para los módulos instrumentados. Para reconstruir Supabase local y ejecutar
+pgTAP:
 
 ```bash
 npm run db:start
@@ -119,6 +124,12 @@ npm run db:stop
 La arquitectura, límites de módulos, pirámide de pruebas y procedimiento para
 cambios grandes están documentados en
 [`docs/ARCHITECTURE_AND_TESTING.md`](docs/ARCHITECTURE_AND_TESTING.md).
+
+La última verificación completa registrada para el MVP obtuvo 94,23 % de
+cobertura de líneas, 76,70 % de ramas y 78,21 % de funciones en las pruebas
+unitarias y de integración. Estas cifras prueban reglas y adaptadores
+instrumentados; no sustituyen las pruebas con personas ni una suite E2E de
+navegador, que sigue siendo una mejora posterior al MVP.
 
 ## Estructura del repositorio
 
@@ -153,11 +164,14 @@ AURA-UNESCO-2026/
 ├── public/
 │   ├── docs/
 │   │   ├── AURA_Guia_Maestra_UNESCO_Youth_Hackathon_2026.md
-│   │   └── AURA_Dossier_Postulacion_y_Matriz_Evaluacion_2026.md
+│   │   ├── AURA_Dossier_Postulacion_y_Matriz_Evaluacion_2026.md
+│   │   └── AURA_Estructura_Definitiva_PDF_UNESCO_2026.md
 │   └── og.png                    # portada social del proyecto
 ├── docs/
 │   ├── ARCHITECTURE_AND_TESTING.md # modularidad y estrategia de pruebas
-│   └── DEVELOPMENT_ROADMAP.md      # plan técnico y criterios de aceptación
+│   ├── AXEL_OPERATIONAL_INPUTS.md  # hechos técnicos para la candidatura
+│   ├── DEVELOPMENT_ROADMAP.md      # plan técnico y criterios de aceptación
+│   └── MVP_TECHNICAL_FIXES.md      # lote 0.8 cerrado; referencia histórica
 ├── tests/
 │   ├── unit/                    # reglas puras, rápidas y aisladas
 │   ├── integration/             # rutas Next.js con límites simulados
@@ -194,6 +208,19 @@ canónico antes de compilar; así la portada social usa una URL absoluta correct
 El backlog técnico y las decisiones de evolución están en:
 
 [`docs/DEVELOPMENT_ROADMAP.md`](docs/DEVELOPMENT_ROADMAP.md)
+
+Mapa de lectura:
+
+| Documento | Uso actual |
+|---|---|
+| `README.md` | estado, ejecución y entrada al repositorio |
+| `public/docs/AURA_Dossier_Postulacion_y_Matriz_Evaluacion_2026.md` | plan diario, responsables y matriz de los cinco criterios |
+| `public/docs/AURA_Estructura_Definitiva_PDF_UNESCO_2026.md` | plano página por página del entregable final |
+| `public/docs/AURA_Guia_Maestra_UNESCO_Youth_Hackathon_2026.md` | fuente completa de producto, estrategia, piloto, pitch y controles |
+| `docs/ARCHITECTURE_AND_TESTING.md` | límites técnicos, calidad y cambios grandes |
+| `docs/DEVELOPMENT_ROADMAP.md` | alcance congelado, backlog y releases |
+| `docs/AXEL_OPERATIONAL_INPUTS.md` | hechos técnicos aprobados y campos no resueltos |
+| `docs/MVP_TECHNICAL_FIXES.md` | archivo histórico del lote FIX-01 a FIX-05, ya cerrado |
 
 ## Equipo
 
@@ -241,7 +268,10 @@ El prototipo usa:
 - CSS propio para identidad visual, diseño responsivo y accesibilidad.
 - Estado local de React para la misión.
 - Catálogo tipado de casos separado de la interfaz.
+- Reglas de eventos, agregación de pilotos y transferencia extraídas a módulos
+  de dominio puros.
 - Analítica local con envío server-side opcional a Supabase.
+- CI de GitHub Actions con compuertas separadas para aplicación y pgTAP.
 
 La ruta de IA acepta solamente el identificador de un caso publicado y opciones
 predefinidas dentro de ese caso. Limita el tamaño y la frecuencia de las
@@ -331,14 +361,20 @@ catálogo equilibrado, validación editorial estructural, instrumento pre/post,
 exportación agregada, confiabilidad de eventos y salvaguardas de accesibilidad
 están implementados. La versión 0.9.0 además aclara el propósito desde el primer
 pantallazo, evita pistas que revelaban respuestas y fortalece la transferencia
-con una rúbrica de seis conductas. La prioridad ya no es ampliar funciones, sino
-producir evidencia real y cerrar la candidatura:
+con una rúbrica de seis conductas. La capa de dominio, la suite automatizada y
+la CI reducen el riesgo de regresiones. La prioridad ya no es ampliar
+funciones, sino producir evidencia real y cerrar la candidatura:
 
 1. Ejecutar un ensayo interno con cinco personas.
 2. Corregir defectos observados, sin inventar resultados.
 3. Realizar el piloto objetivo con consentimiento y protocolo.
 4. Evaluar las preguntas generadas por IA con una rúbrica adversarial.
 5. Integrar métricas reales, demo bilingüe y video final.
+
+La única deuda técnica estructural relevante es el tamaño de
+`AuraExperience.tsx`. No bloquea el piloto. Antes de incorporar cuentas, roles,
+creación dinámica de casos o nuevos recorridos, debe dividirse el estado de la
+misión y añadirse una suite E2E de navegador.
 
 Cada elemento tiene criterios de aceptación en
 [`docs/DEVELOPMENT_ROADMAP.md`](docs/DEVELOPMENT_ROADMAP.md).
@@ -351,9 +387,11 @@ El repositorio remoto es
 ```bash
 git status
 git diff --check
-npm run lint
-npm test
+npm run check
 ```
+
+Si cambian migraciones, restricciones, privilegios o RLS, ejecutar además
+`npm run test:db` contra Supabase local.
 
 Confirmar especialmente que `.env.local` no aparezca en `git status`. No se
 incluye una licencia de código porque esa decisión todavía pertenece al equipo.

@@ -14,6 +14,8 @@
 **Fecha límite oficial:** 16 de agosto de 2026, 23:59, hora de París
 **Objetivo interno de envío:** 15 de agosto de 2026, 18:00, hora de Ecuador
 **Formato oficial:** PDF o Word, máximo 10 MB
+**Base técnica comprobable:** 50 comprobaciones automatizadas, CI aprobada y
+commit estable [`315e03f`](https://github.com/AxelJhostin/AURA/commit/315e03f8a788ec4d6a818901a6e28c8418b9a714)
 
 ---
 
@@ -474,6 +476,11 @@ Seleccionar solo las más relevantes:
 - optional pre/post confidence pulse;
 - facilitator pilot links and aggregate reporting;
 - mobile layout and Spanish/English interface.
+- automated quality gates across domain rules, API routes, production build
+  and database security.
+
+La evidencia técnica debe ocupar como máximo una línea o un pequeño pie. Es una
+prueba de capacidad y viabilidad, no el argumento pedagógico principal.
 
 ### IA responsable
 
@@ -848,6 +855,8 @@ Explicar en lenguaje no técnico:
 - medición anónima con consentimiento;
 - infraestructura pequeña y de bajo costo;
 - repositorio versionado.
+- reglas críticas separadas de la interfaz y CI reproducible;
+- pruebas de restricciones y RLS en una base local aislada.
 
 ### Plan de seis meses
 
@@ -945,6 +954,7 @@ recopila los correos.
 Mostrar:
 
 - MVP diseñado, construido y desplegado;
+- release estable con 50 comprobaciones automatizadas y CI aprobada;
 - responsabilidades complementarias;
 - plan de piloto;
 - sistema de medición;
@@ -1125,6 +1135,7 @@ Antes de redactar, crear una fila por cada cifra o afirmación fuerte:
 | ID | Afirmación | Tipo | Fuente | Fecha | Página | Responsable | Estado |
 |---|---|---|---|---|---:|---|---|
 | C-01 | MVP has four bilingual guided missions | Built | production demo/repository | [[DATE]] | 1, 4 | Axel | Verified |
+| C-01b | Technical release passed 50 automated checks | Built | CI run + stable commit | 29-07-2026 | 4, 9 | Axel | Verified |
 | C-02 | Pilot included N participants | Observed | pilot export | [[DATE]] | 1, 7 | Axel + Nicole | Pending |
 | C-03 | AURA Circles will be piloted | Planned | six-month roadmap | [[DATE]] | 8, 9 | Nicole | Approved |
 
@@ -1145,13 +1156,20 @@ Una afirmación no entra al PDF si:
 ### Evidencia técnica
 
 - demo pública;
-- commit o release estable;
+- commit estable
+  [`315e03f`](https://github.com/AxelJhostin/AURA/commit/315e03f8a788ec4d6a818901a6e28c8418b9a714);
+- [CI aprobada](https://github.com/AxelJhostin/AURA/actions/runs/30493787795);
 - capturas de producción;
-- build y pruebas;
+- build, TypeScript y lint;
+- 13 pruebas unitarias, 7 de integración, 18 comprobaciones de
+  contrato/build y 12 aserciones pgTAP;
 - recorrido bilingüe;
 - modo sin IA;
 - instrumento de medición;
 - política de datos mínimos.
+
+No convertir cobertura o número de pruebas en una afirmación de impacto. Solo
+demuestran disciplina de implementación y reducción de riesgo técnico.
 
 ### Evidencia educativa
 
@@ -1344,6 +1362,8 @@ antiguas del documento.
 ### Evidencia
 
 - [ ] Cada cifra tiene fuente, fecha y responsable.
+- [ ] El commit estable y la ejecución de CI corresponden a la versión mostrada.
+- [ ] “50 comprobaciones” se usa como evidencia técnica, no como impacto educativo.
 - [ ] Cada cita del piloto tiene autorización.
 - [ ] No hay participantes identificables.
 - [ ] No hay aliados no confirmados.
