@@ -19,6 +19,8 @@ test("builds the AURA page as standard Next.js output", async () => {
   assert.match(html, /Actúa/);
   assert.match(html, /Hernández Axel/);
   assert.match(html, /Nicole/);
+  assert.match(html, /José Luis Cañarte Plúa/);
+  assert.match(html, /MVP técnico al 100%/);
   assert.match(html, /data-ai-coach="analyze"/);
   assert.match(html, /role="progressbar"/);
   assert.match(html, /Contenido simulado para aprendizaje/);
@@ -299,13 +301,21 @@ test("keeps a current, self-contained master handoff for the team", async () => 
     "utf8",
   );
 
-  assert.match(guide, /Briefing de incorporación para Nicole/);
+  assert.match(guide, /Briefing de incorporación para Axel, Nicole y José/);
   assert.match(guide, /Versión funcional de referencia:\*\* AURA 0\.8\.0/);
-  assert.match(guide, /Estado real del producto — AURA 0\.8\.0/);
+  assert.match(
+    guide,
+    /Estado real del producto — AURA 0\.8\.0, MVP técnico al 100 %/,
+  );
   assert.match(guide, /Ruta crítica hasta el 16 de agosto/);
   assert.match(guide, /Persistencia central \| Activa y verificada/);
+  assert.match(guide, /17 pruebas automatizadas aprobadas/);
+  assert.match(guide, /José Luis Cañarte Plúa/);
   assert.match(guide, /https:\/\/aura-opal-beta\.vercel\.app\//);
-  assert.doesNotMatch(guide, /sk-proj-|sb_secret_|SUPABASE_SECRET_KEY=/);
+  assert.doesNotMatch(
+    guide,
+    /sk-proj-|sb_secret_|SUPABASE_SECRET_KEY=|axelhernan69@gmail\.com|pincaynicole9@gmail\.com|jocanart@espol\.edu\.ec/,
+  );
 });
 
 test("maps the official UNESCO criteria to evidence and submission gates", async () => {
@@ -317,9 +327,14 @@ test("maps the official UNESCO criteria to evidence and submission gates", async
     "utf8",
   );
 
-  assert.match(dossier, /Documento operativo para Hernández Axel, Nicole/);
+  assert.match(
+    dossier,
+    /Documento operativo para Hernández Axel, Nicole y José Luis/,
+  );
   assert.match(dossier, /16 de agosto de 2026, 23:59, hora de París/);
   assert.match(dossier, /Cada proyecto será revisado por tres expertos/i);
+  assert.match(dossier, /Campos confirmados del formulario Tally/);
+  assert.match(dossier, /17 pruebas automatizadas/);
   assert.match(dossier, /Consistency with the Theme and MIL Principles/);
   assert.match(dossier, /Clarity of Presentation/);
   assert.match(dossier, /Innovation and Creativity/);
@@ -330,7 +345,7 @@ test("maps the official UNESCO criteria to evidence and submission gates", async
   assert.match(dossier, /15 de agosto de 2026, 18:00, hora de Ecuador/);
   assert.doesNotMatch(
     dossier,
-    /sk-proj-|sb_secret_|SUPABASE_SECRET_KEY=/,
+    /sk-proj-|sb_secret_|SUPABASE_SECRET_KEY=|axelhernan69@gmail\.com|pincaynicole9@gmail\.com|jocanart@espol\.edu\.ec/,
   );
 });
 

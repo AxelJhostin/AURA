@@ -2714,9 +2714,8 @@ input:focus-visible {
   box-shadow: var(--shadow);
 }
 
-.person-card.open {
-  border-style: dashed;
-  background: transparent;
+.person-card.jose {
+  background: rgba(225, 242, 238, 0.72);
 }
 
 .person-monogram {
@@ -2742,12 +2741,9 @@ input:focus-visible {
   color: var(--coral);
 }
 
-.open .person-monogram {
-  border: 1px dashed var(--ink-soft);
-  background: transparent;
-  color: var(--ink-soft);
-  font-size: 36px;
-  font-style: normal;
+.jose .person-monogram {
+  background: var(--teal-pale);
+  color: var(--teal-dark);
 }
 
 .person-role {

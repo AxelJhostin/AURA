@@ -235,26 +235,25 @@ const text = {
       ["04", "Multiplicar", "Facilitar AURA Circles con casos locales."],
     ],
     teamEyebrow: "EQUIPO NÚCLEO CONFIRMADO",
-    teamTitle: "Producto y estrategia desde el primer día",
+    teamTitle: "Tres perfiles, una sola ejecución",
     teamBody:
-      "AURA empieza con dos perfiles complementarios y mantiene abiertas dos plazas solo si fortalecen pedagogía, investigación o implementación.",
+      "El equipo final reúne ingeniería, estrategia de impacto e investigación editorial. Las tres personas están confirmadas y no hay plazas abiertas.",
     axelRole: "Liderazgo técnico",
     axelText:
       "Ingeniero de software. Arquitectura, desarrollo del MVP, integración responsable de IA, analítica y demo.",
     nicolRole: "Estrategia e impacto",
     nicolText:
       "Estudiante de Negocios Internacionales. Público, piloto, alianzas, sostenibilidad, narrativa y pitch.",
-    openRole: "Perfil complementario",
-    openName: "Próxima incorporación",
-    openText:
-      "Prioridad: AMI, educación, periodismo, investigación o diseño de experiencias de aprendizaje.",
-    teamNote: "2 personas confirmadas · hasta 2 incorporaciones en evaluación",
+    joseRole: "Investigación y edición",
+    joseText:
+      "Investigación, estructura de informes, control de evidencia y revisión editorial en inglés para la postulación.",
+    teamNote: "3 personas confirmadas · equipo final cerrado",
     roadmapEyebrow: "ESTADO DEL MVP",
-    roadmapTitle: "Ya no es solo una idea.",
+    roadmapTitle: "MVP técnico al 100%.",
     roadmapItems: [
-      ["Ahora", "Cuatro casos equilibrados, transferencia, pre/post y facilitación."],
-      ["Validación", "Accesibilidad 320 px, catálogo auditado y datos anónimos."],
-      ["Antes de aplicar", "Piloto con personas reales, demo bilingüe y video."],
+      ["Producto", "Alcance técnico completo, probado y desplegado en producción."],
+      ["Validación", "Pilotos reales, métricas honestas y revisión externa AMI."],
+      ["Postulación", "Propuesta en inglés, video de tres minutos y envío final."],
     ],
     guideTitle: "La estrategia completa vive junto al código.",
     guideBody:
@@ -418,26 +417,25 @@ const text = {
       ["04", "Multiply", "Facilitate AURA Circles with local cases."],
     ],
     teamEyebrow: "CONFIRMED CORE TEAM",
-    teamTitle: "Product and strategy from day one",
+    teamTitle: "Three profiles, one execution",
     teamBody:
-      "AURA starts with two complementary profiles and keeps two places open only if they strengthen pedagogy, research or implementation.",
+      "The final team combines engineering, impact strategy and editorial research. All three members are confirmed and no places remain open.",
     axelRole: "Technical lead",
     axelText:
       "Software engineer. Architecture, MVP development, responsible AI integration, analytics and demo.",
     nicolRole: "Strategy and impact",
     nicolText:
       "International Business student. Audience, pilot, partnerships, sustainability, narrative and pitch.",
-    openRole: "Complementary profile",
-    openName: "Next contributor",
-    openText:
-      "Priority: MIL, education, journalism, research or learning-experience design.",
-    teamNote: "2 people confirmed · up to 2 additions under consideration",
+    joseRole: "Research and editing",
+    joseText:
+      "Research, report structure, evidence control and English-language editorial review for the submission.",
+    teamNote: "3 confirmed members · final team closed",
     roadmapEyebrow: "MVP STATUS",
-    roadmapTitle: "It is no longer only an idea.",
+    roadmapTitle: "Technical MVP at 100%.",
     roadmapItems: [
-      ["Now", "Four balanced cases, transfer, pre/post and facilitation."],
-      ["Validation", "320 px accessibility, audited catalog and anonymous data."],
-      ["Before submission", "Pilot with real people, bilingual demo and video."],
+      ["Product", "Technical scope complete, tested and deployed to production."],
+      ["Validation", "Real pilots, honest metrics and external MIL review."],
+      ["Submission", "English proposal, three-minute video and final submission."],
     ],
     guideTitle: "The full strategy lives beside the code.",
     guideBody:
@@ -1493,19 +1491,19 @@ export function AuraExperience() {
             <article className="person-card nicol">
               <div className="person-monogram" aria-hidden="true">NO</div>
               <span className="person-role">{t.nicolRole}</span>
-              <h3>Nicole</h3>
+              <h3>Nicole Madelyne Pincay Soledispa</h3>
               <p>{t.nicolText}</p>
               <div className="person-tags">
                 <span>Strategy</span><span>Impact</span><span>Pitch</span>
               </div>
             </article>
-            <article className="person-card open">
-              <div className="person-monogram" aria-hidden="true">+</div>
-              <span className="person-role">{t.openRole}</span>
-              <h3>{t.openName}</h3>
-              <p>{t.openText}</p>
+            <article className="person-card jose">
+              <div className="person-monogram" aria-hidden="true">JC</div>
+              <span className="person-role">{t.joseRole}</span>
+              <h3>José Luis Cañarte Plúa</h3>
+              <p>{t.joseText}</p>
               <div className="person-tags">
-                <span>MIL</span><span>Education</span><span>Research</span>
+                <span>Research</span><span>Reports</span><span>English</span>
               </div>
             </article>
           </div>
