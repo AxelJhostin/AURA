@@ -110,6 +110,7 @@ const text = {
     evidenceShort: "Fuente primaria + contexto",
     action: "Acción",
     actionShort: "Pausar y explicar límites",
+    previewStages: ["ANALIZA", "UBICA", "RASTREA", "ACTÚA"],
     proofOne: "4 acciones memorables",
     proofTwo: "Evidencia siempre visible",
     proofThree: "Habilidad transferible",
@@ -205,6 +206,8 @@ const text = {
     differenceTitle: "No es otro detector de noticias falsas.",
     differenceBody:
       "Los verificadores resuelven una pieza. AURA entrena la habilidad necesaria para investigar la siguiente.",
+    commonModelLabel: "MODELO COMÚN",
+    auraModelLabel: "MODELO AURA",
     versusA: "Un veredicto automático",
     versusAText: "La herramienta decide y el usuario consume la respuesta.",
     versusB: "Un laboratorio de evidencia",
@@ -290,6 +293,7 @@ const text = {
     evidenceShort: "Primary source + context",
     action: "Action",
     actionShort: "Pause and explain limits",
+    previewStages: ["ASSESS", "UNCOVER", "RESEARCH", "ACT"],
     proofOne: "4 memorable actions",
     proofTwo: "Evidence always visible",
     proofThree: "Transferable skill",
@@ -385,6 +389,8 @@ const text = {
     differenceTitle: "Not another fake-news detector.",
     differenceBody:
       "Fact-checkers resolve one piece. AURA trains the skill needed to investigate the next one.",
+    commonModelLabel: "COMMON MODEL",
+    auraModelLabel: "AURA MODEL",
     versusA: "An automated verdict",
     versusAText: "The tool decides and the user consumes the answer.",
     versusB: "An evidence lab",
@@ -655,6 +661,13 @@ export function AuraExperience() {
   ) {
     setAnalyticsConsent(value);
     writeAnalyticsConsent(value);
+
+    if (value === "granted" && analyticsConsent !== "granted") {
+      const sessionId = analyticsSessionId || getOrCreateSessionId();
+      sessionEvents(sessionId).forEach((event) => {
+        void sendAnalyticsEvent(event);
+      });
+    }
   }
 
   function activatePilotCode(code: string) {
@@ -807,10 +820,9 @@ export function AuraExperience() {
               <span />
             </div>
             <div className="preview-footer">
-              <span>ANALIZA</span>
-              <span>UBICA</span>
-              <span>RASTREA</span>
-              <span>ACTÚA</span>
+              {t.previewStages.map((stage) => (
+                <span key={stage}>{stage}</span>
+              ))}
             </div>
           </div>
         </div>
@@ -1397,7 +1409,7 @@ export function AuraExperience() {
           <div className="comparison">
             <article className="comparison-card muted">
               <span className="comparison-symbol" aria-hidden="true">＝</span>
-              <p>MODELO COMÚN</p>
+              <p>{t.commonModelLabel}</p>
               <h3>{t.versusA}</h3>
               <p>{t.versusAText}</p>
               <div className="comparison-flow">
@@ -1410,7 +1422,7 @@ export function AuraExperience() {
             </article>
             <article className="comparison-card aura">
               <span className="comparison-symbol" aria-hidden="true">↗</span>
-              <p>AURA MODEL</p>
+              <p>{t.auraModelLabel}</p>
               <h3>{t.versusB}</h3>
               <p>{t.versusBText}</p>
               <div className="comparison-flow">

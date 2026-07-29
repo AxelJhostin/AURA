@@ -88,6 +88,11 @@ export async function POST(request: Request) {
     );
   }
 
+  const requestOrigin = request.headers.get("origin");
+  if (requestOrigin && requestOrigin !== new URL(request.url).origin) {
+    return noStoreJson({ error: "origin_not_allowed" }, { status: 403 });
+  }
+
   const contentLength = Number(request.headers.get("content-length") ?? 0);
   if (contentLength > MAX_BODY_BYTES) {
     return noStoreJson({ error: "payload_too_large" }, { status: 413 });

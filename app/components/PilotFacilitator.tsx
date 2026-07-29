@@ -38,6 +38,7 @@ function csvCell(value: string | number | boolean | null) {
 
 export function pilotReportToCsv(report: PilotReport) {
   const rows: Array<[string, string | number | boolean | null]> = [
+    ["report_timestamp", new Date().toISOString()],
     ["pilot_code", report.code],
     ["participants", report.participants],
     ["mission_starts", report.missionStarts],
