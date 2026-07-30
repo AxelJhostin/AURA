@@ -13,7 +13,7 @@
 **Prototipo público:** <https://aura-opal-beta.vercel.app/>  
 **Repositorio:** <https://github.com/AxelJhostin/AURA>  
 **Rama de producción:** [`main`](https://github.com/AxelJhostin/AURA/commits/main/) — registrar el hash vigente en la ficha final de envío
-**Línea base técnica verificada:** [`315e03f`](https://github.com/AxelJhostin/AURA/commit/315e03f8a788ec4d6a818901a6e28c8418b9a714) + [CI aprobada](https://github.com/AxelJhostin/AURA/actions/runs/30493787795)
+**Línea base técnica verificada:** [`b6b7943`](https://github.com/AxelJhostin/AURA/commit/b6b7943fc6b0dfa778ab269d56d3ba6a77d02ca5) + [CI aprobada](https://github.com/AxelJhostin/AURA/actions/runs/30505243112)
 **Fuente estratégica completa:** [Guía maestra de AURA](./AURA_Guia_Maestra_UNESCO_Youth_Hackathon_2026.md)
 **Guía operativa:** [Opportunity Circles — facilitación y piloto](./AURA_Opportunity_Circles_Guia_Facilitacion.md)
 
@@ -430,7 +430,7 @@ debe presentarse como objetivo, hipótesis o plan.
 | Se mide transferencia | Reto no guiado + rúbrica 0–6 | VERIFICADO |
 | La analítica evita datos sensibles | Esquema, API, RLS y documentación | VERIFICADO |
 | Funciona en móvil | Prueba a 320 px | VERIFICADO |
-| El software reduce riesgo de regresión | 52 comprobaciones + cobertura sobre umbrales | VERIFICADO LOCALMENTE; CI 1.0.0 PENDIENTE |
+| El software reduce riesgo de regresión | 52 comprobaciones + cobertura sobre umbrales + CI de 1.0.0 | VERIFICADO |
 | Mejora una habilidad | Resultado de piloto | PENDIENTE |
 | Es útil para el público | Observación y encuesta de piloto | PENDIENTE |
 | Puede facilitarse en comunidad | Ensayo de facilitación | PENDIENTE |

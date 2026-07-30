@@ -4,7 +4,7 @@
 **Objetivo:** permitir cambios grandes sin mezclar pedagogía, interfaz,
 persistencia y medición; detectar regresiones antes de publicar.
 **Estado verificado:** 29 de julio de 2026, commit
-[`315e03f`](https://github.com/AxelJhostin/AURA/commit/315e03f8a788ec4d6a818901a6e28c8418b9a714).
+[`b6b7943`](https://github.com/AxelJhostin/AURA/commit/b6b7943fc6b0dfa778ab269d56d3ba6a77d02ca5).
 
 ## Respuesta corta y honesta
 
@@ -156,7 +156,7 @@ cobertura integral del navegador o del impacto educativo.
 No necesita secretos del proyecto.
 
 La ejecución de referencia
-[`30493787795`](https://github.com/AxelJhostin/AURA/actions/runs/30493787795)
+[`30505243112`](https://github.com/AxelJhostin/AURA/actions/runs/30505243112)
 terminó correctamente en sus dos trabajos: **Application checks** y
 **Supabase pgTAP**. La aplicación pública también fue comprobada después de ese
 commit en <https://aura-opal-beta.vercel.app/>.

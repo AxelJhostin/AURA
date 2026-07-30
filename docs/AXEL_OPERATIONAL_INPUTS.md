@@ -50,9 +50,9 @@ este archivo y el dossier.
 Evidencia técnica de referencia:
 
 - commit estable:
-  [`315e03f`](https://github.com/AxelJhostin/AURA/commit/315e03f8a788ec4d6a818901a6e28c8418b9a714);
+  [`b6b7943`](https://github.com/AxelJhostin/AURA/commit/b6b7943fc6b0dfa778ab269d56d3ba6a77d02ca5);
 - CI completa:
-  [`30493787795`](https://github.com/AxelJhostin/AURA/actions/runs/30493787795);
+  [`30505243112`](https://github.com/AxelJhostin/AURA/actions/runs/30505243112);
 - 14 pruebas unitarias, 7 de integración, 19 comprobaciones de
   contrato/build y 12 aserciones pgTAP;
 - cobertura instrumentada: 95,54 % líneas, 77,36 % ramas y 79,52 % funciones;
