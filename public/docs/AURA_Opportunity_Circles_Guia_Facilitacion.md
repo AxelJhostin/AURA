@@ -5,6 +5,7 @@
 **Versión:** 1.0  
 **Fecha de corte:** 30 de julio de 2026
 **Equipo:** Hernández Axel · Nicole Madelyne Pincay Soledispa · José Luis Cañarte Plúa  
+**Archivo único para el equipo:** [Dossier colaborativo completo](./AURA_DOSSIER_COLABORATIVO_COMPLETO_2026.md)
 **Programa:** primera implementación comunitaria del método AURA  
 **Duración recomendada:** 25 minutos  
 **Tamaño recomendado:** 6–20 participantes  

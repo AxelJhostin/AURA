@@ -16,12 +16,17 @@
 **Línea base técnica verificada:** [`b6b7943`](https://github.com/AxelJhostin/AURA/commit/b6b7943fc6b0dfa778ab269d56d3ba6a77d02ca5) + [CI aprobada](https://github.com/AxelJhostin/AURA/actions/runs/30505243112)
 **Fuente estratégica completa:** [Guía maestra de AURA](./AURA_Guia_Maestra_UNESCO_Youth_Hackathon_2026.md)
 **Guía operativa:** [Opportunity Circles — facilitación y piloto](./AURA_Opportunity_Circles_Guia_Facilitacion.md)
+**Archivo único para el equipo:** [Dossier colaborativo completo](./AURA_DOSSIER_COLABORATIVO_COMPLETO_2026.md)
 
 ---
 
 ## 1. Para qué sirve este documento
 
-Este es el documento público que Axel, Nicole y José deben leer primero. Resume:
+Esta es la matriz operativa de la postulación. Para incorporación y
+colaboración, Axel, Nicole y José deben empezar por el
+[dossier colaborativo completo](./AURA_DOSSIER_COLABORATIVO_COMPLETO_2026.md),
+que incorpora íntegramente este archivo y las demás fuentes vigentes. Esta
+matriz resume:
 
 - qué es AURA;
 - qué ya existe y puede demostrarse;
