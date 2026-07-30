@@ -1,5 +1,6 @@
 import { balancedAuraCases } from "./balanced-cases";
 import { validateAuraCases } from "./case-validation";
+import { opportunityCircleCases } from "./opportunity-cases";
 
 export type Locale = "es" | "en";
 export type LocalizedText = Record<Locale, string>;
@@ -45,7 +46,15 @@ export type AuraCase = {
   id: string;
   number: string;
   status: "published";
-  theme: "energy" | "context" | "wellbeing" | "uncertainty";
+  theme:
+    | "energy"
+    | "context"
+    | "wellbeing"
+    | "uncertainty"
+    | "scholarship"
+    | "employment"
+    | "exchange"
+    | "ambassador";
   editorial: {
     evidenceState: "supported-with-limits" | "misleading" | "insufficient";
     reviewStatus: "internal-review-complete";
@@ -1032,10 +1041,14 @@ const coreAuraCases: AuraCase[] = [
   },
 ];
 
-export const auraCases: AuraCase[] = [
+// The original cross-topic catalog remains available as the reusable AURA
+// curriculum foundation. Opportunity Circles is the focused 2026 pilot track.
+export const legacyAuraCases: AuraCase[] = [
   ...coreAuraCases,
   ...balancedAuraCases,
 ];
+
+export const auraCases: AuraCase[] = opportunityCircleCases;
 
 const caseValidationIssues = validateAuraCases(auraCases);
 if (caseValidationIssues.length > 0) {

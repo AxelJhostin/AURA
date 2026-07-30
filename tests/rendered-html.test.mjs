@@ -10,9 +10,12 @@ test("builds the AURA page as standard Next.js output", async () => {
     "utf8",
   );
 
-  assert.match(html, /<title>AURA — Investiga antes de compartir<\/title>/i);
-  assert.match(html, /Antes de compartirlo/);
-  assert.match(html, /becas, consejos de salud, videos de emergencia/);
+  assert.match(
+    html,
+    /<title>AURA Opportunity Circles — Investiga antes de entregar tus datos<\/title>/i,
+  );
+  assert.match(html, /Antes de entregar tus datos/);
+  assert.match(html, /becas, empleos, intercambios y programas juveniles/);
   assert.match(html, /Analiza/);
   assert.match(html, /Ubica/);
   assert.match(html, /Rastrea/);
@@ -20,18 +23,23 @@ test("builds the AURA page as standard Next.js output", async () => {
   assert.match(html, /Hernández Axel/);
   assert.match(html, /Nicole/);
   assert.match(html, /José Luis Cañarte Plúa/);
-  assert.match(html, /MVP técnico al 100%/);
+  assert.match(html, /Producto listo para pilotos/);
   assert.match(html, /data-ai-coach="analyze"/);
   assert.match(html, /role="progressbar"/);
   assert.match(html, /Contenido simulado para aprendizaje/);
-  assert.match(html, /La promesa del 40%/);
-  assert.match(html, /La inundación de “ahora”/);
-  assert.match(html, /La caminata “milagrosa”/);
-  assert.match(html, /El modo foco “definitivo”/);
-  assert.match(html, /data-case-id="energy-memory"/);
-  assert.match(html, /data-case-id="recycled-storm-video"/);
-  assert.match(html, /data-case-id="miracle-walk"/);
-  assert.match(html, /data-case-id="grayscale-grades"/);
+  assert.match(html, /La beca que vence hoy/);
+  assert.match(html, /Contratado sin entrevista/);
+  assert.match(html, /La organización que aún no se puede comprobar/);
+  assert.match(html, /La oportunidad real con un video equivocado/);
+  assert.match(html, /data-case-id="scholarship-data-trap"/);
+  assert.match(html, /data-case-id="remote-job-equipment-fee"/);
+  assert.match(html, /data-case-id="exchange-program-uncertain"/);
+  assert.match(html, /data-case-id="ambassador-outdated-endorsement"/);
+  assert.match(html, /Convierte la misión en un Opportunity Circle/);
+  assert.match(
+    html,
+    /\/docs\/AURA_Opportunity_Circles_Guia_Facilitacion\.md/,
+  );
   assert.match(html, /Medición anónima del aprendizaje/);
   assert.match(html, /Saltar a la misión/);
   assert.match(
@@ -68,23 +76,24 @@ test("keeps the OpenAI key server-only and provides a fallback", async () => {
 });
 
 test("renders published bilingual cases through the reusable case engine", async () => {
-  const [cases, balancedCases, component] = await Promise.all([
+  const [cases, opportunityCases, component] = await Promise.all([
     readFile(new URL("app/data/cases.ts", root), "utf8"),
-    readFile(new URL("app/data/balanced-cases.ts", root), "utf8"),
+    readFile(new URL("app/data/opportunity-cases.ts", root), "utf8"),
     readFile(
       new URL("app/components/AuraExperience.tsx", root),
       "utf8",
     ),
   ]);
 
-  assert.match(cases, /id: "energy-memory"/);
-  assert.match(cases, /id: "recycled-storm-video"/);
-  assert.match(balancedCases, /id: "miracle-walk"/);
-  assert.match(balancedCases, /id: "grayscale-grades"/);
-  assert.match(balancedCases, /evidenceState: "supported-with-limits"/);
-  assert.match(balancedCases, /evidenceState: "insufficient"/);
-  assert.match(cases, /status: "published"/);
-  assert.match(cases, /sourceLimit: 2/);
+  assert.match(cases, /opportunityCircleCases/);
+  assert.match(opportunityCases, /id: "scholarship-data-trap"/);
+  assert.match(opportunityCases, /id: "remote-job-equipment-fee"/);
+  assert.match(opportunityCases, /id: "exchange-program-uncertain"/);
+  assert.match(opportunityCases, /id: "ambassador-outdated-endorsement"/);
+  assert.match(opportunityCases, /evidenceState: "supported-with-limits"/);
+  assert.match(opportunityCases, /evidenceState: "insufficient"/);
+  assert.match(opportunityCases, /status: "published"/);
+  assert.match(opportunityCases, /sourceLimit: 2/);
   assert.match(component, /auraCases\.map/);
   assert.match(component, /activeCase\.sources/);
   assert.match(component, /activeCase\.result\.conclusion/);
@@ -93,7 +102,7 @@ test("renders published bilingual cases through the reusable case engine", async
 
 test("separates simulated case evidence from auditable real references", async () => {
   const [cases, component] = await Promise.all([
-    readFile(new URL("app/data/cases.ts", root), "utf8"),
+    readFile(new URL("app/data/opportunity-cases.ts", root), "utf8"),
     readFile(
       new URL("app/components/AuraExperience.tsx", root),
       "utf8",
@@ -101,12 +110,12 @@ test("separates simulated case evidence from auditable real references", async (
   ]);
 
   assert.match(cases, /status: "simulated"/);
-  assert.match(cases, /documentId: "AURA-01-S3"/);
-  assert.match(cases, /documentId: "AURA-02-S3"/);
-  assert.match(cases, /Fictional study abstract/);
-  assert.match(cases, /https:\/\/pubmed\.ncbi\.nlm\.nih\.gov\/33800853\//);
+  assert.match(cases, /`AURA-\$\{caseNumber\}-S\$\{sourceNumber\}`/);
+  assert.match(cases, /Fictional training message/);
+  assert.match(cases, /https:\/\/consumer\.ftc\.gov\/articles\/how-avoid-scholarship-and-financial-aid-scams/);
+  assert.match(cases, /https:\/\/www\.arcotel\.gob\.ec\/circulan-en-redes-sociales-mensajes-promocionales-fraudulentos\//);
   assert.match(cases, /https:\/\/www\.unesco\.org\/en\/articles\/journalism-fake-news-disinformation/);
-  assert.match(cases, /accessedAt: "2026-07-28"/);
+  assert.match(cases, /accessedAt = "2026-07-29"/);
   assert.match(component, /source\.provenance\.documentId/);
   assert.match(component, /source\.provenance\.disclosure/);
   assert.match(component, /className="reference-dossier"/);
@@ -162,7 +171,7 @@ test("implements structured reasoning and a six-behavior transfer challenge", as
   assert.match(component, /selectedLimit/);
   assert.match(component, /className="case-review"/);
   assert.match(component, /detailMode="selected"/);
-  assert.match(transfer, /id: "scholarship-link-v2"/);
+  assert.match(transfer, /id: "internship-partner-transfer-v1"/);
   assert.match(transfer, /RETO DE TRANSFERENCIA · SIN PISTAS/);
   assert.match(transfer, /maxScore: 6/);
   assert.match(transfer, /id: "claim"/);
@@ -176,7 +185,7 @@ test("implements structured reasoning and a six-behavior transfer challenge", as
   assert.doesNotMatch(transferComponent, /option\.detail/);
   assert.match(transferComponent, /transfer_choice_selected/);
   assert.match(transferComponent, /\{score\}\/\{challenge\.maxScore\}/);
-  assert.match(analytics, /PRODUCT_VERSION = "0.9.0"/);
+  assert.match(analytics, /PRODUCT_VERSION = "1.0.0"/);
   assert.match(analytics, /analyticsEventsToCsv/);
   assert.match(analytics, /cryptoApi\.getRandomValues/);
   assert.match(route, /process\.env\.SUPABASE_SECRET_KEY/);
@@ -214,7 +223,7 @@ test("uses the Vercel-compatible Next.js build contract", async () => {
     await readFile(new URL("package.json", root), "utf8"),
   );
 
-  assert.equal(packageJson.version, "0.9.0");
+  assert.equal(packageJson.version, "1.0.0");
   assert.equal(packageJson.scripts.dev, "next dev");
   assert.equal(packageJson.scripts.build, "next build");
   assert.equal(packageJson.scripts.start, "next start");
@@ -280,9 +289,9 @@ test("keeps layered automated quality gates in the repository", async () => {
   assert.match(workflow, /supabase test db --local/);
   assert.match(databaseTest, /select plan\(12\)/);
   assert.match(databaseTest, /row level security is enabled/);
-  assert.match(dossier, /50 comprobaciones automatizadas/);
-  assert.match(pdfStructure, /50 comprobaciones automatizadas/);
-  assert.match(masterGuide, /50 comprobaciones automatizadas aprobadas/);
+  assert.match(dossier, /52 comprobaciones automatizadas/);
+  assert.match(pdfStructure, /52 comprobaciones automatizadas/);
+  assert.match(masterGuide, /52 comprobaciones automatizadas aprobadas/);
   assert.doesNotMatch(
     `${dossier}\n${pdfStructure}\n${masterGuide}`,
     /17 pruebas automatizadas|seis casos completos|transfer_first_move_selected/,
@@ -290,9 +299,9 @@ test("keeps layered automated quality gates in the repository", async () => {
 });
 
 test("validates the balanced editorial catalog during every build", async () => {
-  const [cases, balancedCases, validation] = await Promise.all([
+  const [cases, opportunityCases, validation] = await Promise.all([
     readFile(new URL("app/data/cases.ts", root), "utf8"),
-    readFile(new URL("app/data/balanced-cases.ts", root), "utf8"),
+    readFile(new URL("app/data/opportunity-cases.ts", root), "utf8"),
     readFile(new URL("app/data/case-validation.ts", root), "utf8"),
   ]);
 
@@ -302,10 +311,12 @@ test("validates the balanced editorial catalog during every build", async () => 
   assert.match(validation, /at least three published cases are required/);
   assert.match(validation, /duplicate simulated document id/);
   assert.match(validation, /must contain non-empty ES and EN text/);
-  assert.match(balancedCases, /https:\/\/www\.who\.int\/news-room\/fact-sheets\/detail\/physical-activity/);
-  assert.match(balancedCases, /https:\/\/pubmed\.ncbi\.nlm\.nih\.gov\/38355154\//);
-  assert.match(balancedCases, /https:\/\/www\.nih\.gov\/about-nih\/science-health-public-trust\/tools\/understanding-clinical-studies/);
-  assert.match(balancedCases, /https:\/\/www\.nccih\.nih\.gov\/health\/know-science/);
+  assert.match(opportunityCases, /evidenceState: "misleading"/);
+  assert.match(opportunityCases, /evidenceState: "supported-with-limits"/);
+  assert.match(opportunityCases, /evidenceState: "insufficient"/);
+  assert.match(opportunityCases, /https:\/\/consumer\.ftc\.gov\/consumer-alerts\/2023\/12\/how-spot-latest-job-scams/);
+  assert.match(opportunityCases, /https:\/\/www\.seps\.gob\.ec\/wp-content\/uploads\/FALSA-OFERTA-DE-EMPLEO\.pdf/);
+  assert.match(opportunityCases, /https:\/\/unesdoc\.unesco\.org\/ark:\/48223\/pf0000386693/);
 });
 
 test("measures anonymous pre/post confidence and exports aggregates only", async () => {
@@ -416,16 +427,47 @@ test("keeps a current, self-contained master handoff for the team", async () => 
   );
 
   assert.match(guide, /Briefing de incorporación para Axel, Nicole y José/);
-  assert.match(guide, /Versión funcional de referencia:\*\* AURA 0\.9\.0/);
   assert.match(
     guide,
-    /Estado real del producto — AURA 0\.9\.0, MVP técnico al 100 %/,
+    /Versión funcional de referencia:\*\* AURA Opportunity Circles 1\.0\.0/,
+  );
+  assert.match(
+    guide,
+    /Estado real del producto — Opportunity Circles 1\.0\.0, listo para pilotos/,
   );
   assert.match(guide, /Ruta crítica hasta el 16 de agosto/);
   assert.match(guide, /Persistencia central \| Activa y verificada/);
-  assert.match(guide, /50 comprobaciones automatizadas aprobadas/);
+  assert.match(guide, /52 comprobaciones automatizadas aprobadas/);
   assert.match(guide, /José Luis Cañarte Plúa/);
   assert.match(guide, /https:\/\/aura-opal-beta\.vercel\.app\//);
+  assert.doesNotMatch(
+    guide,
+    /sk-proj-|sb_secret_|SUPABASE_SECRET_KEY=|axelhernan69@gmail\.com|pincaynicole9@gmail\.com|jocanart@espol\.edu\.ec/,
+  );
+});
+
+test("ships an operational and privacy-preserving Opportunity Circle guide", async () => {
+  const [guide, component] = await Promise.all([
+    readFile(
+      new URL(
+        "public/docs/AURA_Opportunity_Circles_Guia_Facilitacion.md",
+        root,
+      ),
+      "utf8",
+    ),
+    readFile(
+      new URL("app/components/OpportunityCircleGuide.tsx", root),
+      "utf8",
+    ),
+  ]);
+
+  assert.match(guide, /Duración recomendada:\*\* 25 minutos/);
+  assert.match(guide, /6–20 participantes/);
+  assert.match(guide, /No solicitar nombres, correos/);
+  assert.match(guide, /puntuación 0–6/);
+  assert.match(guide, /al menos dos Circles realizados/);
+  assert.match(component, /GUÍA DE FACILITACIÓN · 25 MINUTOS/);
+  assert.match(component, /No abrir enlaces reales/);
   assert.doesNotMatch(
     guide,
     /sk-proj-|sb_secret_|SUPABASE_SECRET_KEY=|axelhernan69@gmail\.com|pincaynicole9@gmail\.com|jocanart@espol\.edu\.ec/,
@@ -448,7 +490,7 @@ test("maps the official UNESCO criteria to evidence and submission gates", async
   assert.match(dossier, /16 de agosto de 2026, 23:59, hora de París/);
   assert.match(dossier, /Cada proyecto será revisado por tres expertos/i);
   assert.match(dossier, /Campos confirmados del formulario Tally/);
-  assert.match(dossier, /50 comprobaciones automatizadas/);
+  assert.match(dossier, /52 comprobaciones automatizadas/);
   assert.match(dossier, /Consistency with the Theme and MIL Principles/);
   assert.match(dossier, /Clarity of Presentation/);
   assert.match(dossier, /Innovation and Creativity/);

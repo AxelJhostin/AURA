@@ -15,7 +15,7 @@ function event(overrides: Record<string, unknown> = {}) {
     eventName: "mission_started",
     occurredAt: new Date(now).toISOString(),
     locale: "es",
-    caseId: "energy-memory",
+    caseId: "scholarship-data-trap",
     stage: "analyze",
     productVersion: PRODUCT_VERSION,
     ...overrides,
@@ -34,7 +34,7 @@ test("accepts a valid coded mission event and maps it to a database row", () => 
     event_name: "mission_started",
     occurred_at: "2026-07-29T12:00:00.000Z",
     locale: "es",
-    case_id: "energy-memory",
+    case_id: "scholarship-data-trap",
     stage: "analyze",
     option_id: null,
     duration_ms: null,
@@ -47,7 +47,7 @@ test("accepts the six-point transfer completion contract", () => {
   const result = validateAnalyticsEvent(
     event({
       eventName: "transfer_completed",
-      caseId: "scholarship-link-v2",
+      caseId: "internship-partner-transfer-v1",
       stage: "transfer",
       durationMs: 15_000,
       transferScore: 6,

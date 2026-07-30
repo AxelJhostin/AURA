@@ -80,7 +80,7 @@ function downloadPilotReportCsv(report: PilotReport) {
   const url = URL.createObjectURL(blob);
   const anchor = document.createElement("a");
   anchor.href = url;
-  anchor.download = `aura-pilot-${report.code}.csv`;
+  anchor.download = `aura-opportunity-circle-${report.code}.csv`;
   anchor.click();
   URL.revokeObjectURL(url);
 }
@@ -99,16 +99,16 @@ export function PilotFacilitator({
   const copy =
     locale === "es"
       ? {
-          eyebrow: "MODO FACILITADOR · SIN CUENTAS",
-          title: "Opera un piloto real con un enlace anónimo",
-          body: "Genera un código, comparte el enlace y consulta resultados agregados. AURA no pide nombres, correos ni texto libre.",
-          generate: "Generar nuevo piloto",
-          codeLabel: "Código del piloto",
+          eyebrow: "MODO FACILITADOR · OPPORTUNITY CIRCLE",
+          title: "Opera un Circle real con un enlace anónimo",
+          body: "Genera un código para la sesión, comparte el enlace y consulta resultados agregados. AURA no pide nombres, correos, documentos ni texto libre.",
+          generate: "Generar nuevo Circle",
+          codeLabel: "Código del Circle",
           activate: "Activar código",
           copyLink: "Copiar enlace",
           copied: "Enlace copiado",
-          active: "Piloto activo",
-          noActive: "Aún no hay un piloto activo en este dispositivo.",
+          active: "Circle activo",
+          noActive: "Aún no hay un Circle activo en este dispositivo.",
           load: "Ver resultados agregados",
           loading: "Calculando…",
           error: "No se pudo cargar el reporte. Verifica el código o inténtalo de nuevo.",
@@ -125,20 +125,20 @@ export function PilotFacilitator({
           delta: "cambio pre/post",
           paired: "respuestas pareadas",
           export: "Descargar resumen CSV",
-          empty: "El reporte comenzará a llenarse cuando las personas usen el enlace y permitan métricas anónimas.",
-          privacy: "El código funciona como acceso al agregado: compártelo solo con el equipo facilitador y participantes del piloto.",
+          empty: "El reporte comenzará a llenarse cuando las personas participen en el Circle y permitan métricas anónimas.",
+          privacy: "El código funciona como acceso al agregado: compártelo solo con el equipo facilitador y participantes del Circle.",
         }
       : {
-          eyebrow: "FACILITATOR MODE · NO ACCOUNTS",
-          title: "Run a real pilot through an anonymous link",
-          body: "Generate a code, share the link and inspect aggregate outcomes. AURA asks for no names, emails or free text.",
-          generate: "Generate new pilot",
-          codeLabel: "Pilot code",
+          eyebrow: "FACILITATOR MODE · OPPORTUNITY CIRCLE",
+          title: "Run a real Circle through an anonymous link",
+          body: "Generate a session code, share the link and inspect aggregate outcomes. AURA asks for no names, emails, documents or free text.",
+          generate: "Generate new Circle",
+          codeLabel: "Circle code",
           activate: "Activate code",
           copyLink: "Copy link",
           copied: "Link copied",
-          active: "Active pilot",
-          noActive: "There is no active pilot on this device yet.",
+          active: "Active Circle",
+          noActive: "There is no active Circle on this device yet.",
           load: "View aggregate results",
           loading: "Calculating…",
           error: "The report could not be loaded. Check the code or try again.",
@@ -155,8 +155,8 @@ export function PilotFacilitator({
           delta: "pre/post change",
           paired: "paired responses",
           export: "Download aggregate CSV",
-          empty: "The report will populate once people use the link and allow anonymous metrics.",
-          privacy: "The code grants access to the aggregate: share it only with the facilitation team and pilot participants.",
+          empty: "The report will populate once people participate in the Circle and allow anonymous metrics.",
+          privacy: "The code grants access to the aggregate: share it only with the facilitation team and Circle participants.",
         };
 
   function generateCode() {

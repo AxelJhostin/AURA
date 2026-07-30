@@ -1,9 +1,10 @@
-# AURA — Estructura definitiva del PDF para UNESCO Youth Hackathon 2026
+# AURA Opportunity Circles — Estructura definitiva del PDF UNESCO 2026
 
 ## Plano editorial, argumental y de evidencia para una candidatura de nivel ganador
 
-**Proyecto:** AURA — Assess · Uncover · Research · Act
-**Descriptor:** Bilingual evidence-training lab for Media and Information Literacy
+**Proyecto:** AURA Opportunity Circles
+**Método:** AURA — Assess · Uncover · Research · Act
+**Descriptor:** Youth-led practice for safer digital opportunities
 **Categoría:** Applications / Websites
 **Áreas principales:** AI and MIL · MIL Education
 **Áreas complementarias:** Community Impact · Youth Engagement
@@ -14,8 +15,8 @@
 **Fecha límite oficial:** 16 de agosto de 2026, 23:59, hora de París
 **Objetivo interno de envío:** 15 de agosto de 2026, 18:00, hora de Ecuador
 **Formato oficial:** PDF o Word, máximo 10 MB
-**Base técnica comprobable:** 50 comprobaciones automatizadas, CI aprobada y
-commit estable [`315e03f`](https://github.com/AxelJhostin/AURA/commit/315e03f8a788ec4d6a818901a6e28c8418b9a714)
+**Base técnica comprobable:** 52 comprobaciones automatizadas; confirmar CI de
+la versión 1.0.0 y reemplazar el commit estable antes del envío.
 
 ---
 
@@ -38,9 +39,9 @@ resultados del piloto y la estrategia del proyecto en una candidatura:
 La meta no es producir el documento más largo. La meta es que cada página haga
 avanzar una sola tesis:
 
-> **AURA is a working, youth-led and inclusive MIL intervention that turns
-> passive fact-check consumption into transferable evidence-investigation
-> practice.**
+> **AURA Opportunity Circles trains young people to investigate scholarships,
+> jobs, exchanges and youth programmes before giving away data, money or trust,
+> then measures whether they can repeat the process without depending on AI.**
 
 ---
 
@@ -92,21 +93,22 @@ comprender.
 
 El PDF debe demostrar cinco ideas en este orden:
 
-1. **Existe una brecha real:** conocer el veredicto sobre una publicación no
-   garantiza saber investigar la siguiente.
-2. **AURA ofrece una intervención concreta:** convierte competencias AMI/MIL en
-   una práctica breve, observable y repetible.
+1. **Existe un daño concreto:** oportunidades digitales urgentes pueden
+   obtener documentos, dinero o credenciales aprovechando aspiraciones
+   educativas y laborales.
+2. **AURA ofrece una intervención concreta:** un Circle de 25 minutos combina
+   práctica guiada, conversación entre pares y transferencia sin pistas.
 3. **No es solo una idea:** existe un MVP público, bilingüe y funcional que
    completa todo el ciclo de aprendizaje.
 4. **Su innovación es defendible:** IA socrática sin veredicto, evidencia
    visible, acción responsable y una prueba de transferencia.
-5. **Puede generar impacto realista:** comienza con jóvenes de Ecuador, puede
-   ser facilitado por pares y tiene un camino de adopción, evaluación y escala.
+5. **Puede generar impacto realista:** comienza con jóvenes de Ecuador, forma
+   facilitadores pares y puede expandirse a otros tipos de decisiones.
 
 ### Posicionamiento que debe permanecer constante
 
-> **AURA does not tell people what to believe. It trains them to investigate
-> with evidence.**
+> **Before giving away data, money or trust, investigate the opportunity. AURA
+> trains the process and tests whether it transfers.**
 
 ### Lo que AURA no es
 
@@ -119,6 +121,8 @@ El PDF no debe presentar AURA como:
 - prueba definitiva de impacto educativo;
 - producto ya adoptado por instituciones;
 - plataforma que puede resolver cualquier contenido enviado por una persona.
+- directorio que garantiza becas, empleos o intercambios;
+- detector que declara fraude automáticamente.
 
 ---
 
@@ -209,10 +213,10 @@ No usar:
 
 El documento debe sentirse como una sola historia:
 
-> **A young person receives a viral claim → current tools often provide an
-> answer → AURA provides deliberate practice → the person builds and transfers
-> an investigation habit → youth facilitators can bring that practice into
-> communities.**
+> **A young person receives an urgent digital opportunity → the message asks
+> for data, money or trust → AURA provides deliberate practice → the person
+> traces the source and takes a proportionate action → an unguided challenge
+> tests transfer → youth facilitators replicate the Circle.**
 
 ---
 
@@ -954,7 +958,7 @@ recopila los correos.
 Mostrar:
 
 - MVP diseñado, construido y desplegado;
-- release estable con 50 comprobaciones automatizadas y CI aprobada;
+- release 1.0.0 con 52 comprobaciones automatizadas y CI aprobada;
 - responsabilidades complementarias;
 - plan de piloto;
 - sistema de medición;
@@ -1135,7 +1139,7 @@ Antes de redactar, crear una fila por cada cifra o afirmación fuerte:
 | ID | Afirmación | Tipo | Fuente | Fecha | Página | Responsable | Estado |
 |---|---|---|---|---|---:|---|---|
 | C-01 | MVP has four bilingual guided missions | Built | production demo/repository | [[DATE]] | 1, 4 | Axel | Verified |
-| C-01b | Technical release passed 50 automated checks | Built | CI run + stable commit | 29-07-2026 | 4, 9 | Axel | Verified |
+| C-01b | Technical release passed 52 automated checks | Built | CI run + stable commit | 29-07-2026 | 4, 9 | Axel | Local verification complete; CI pending |
 | C-02 | Pilot included N participants | Observed | pilot export | [[DATE]] | 1, 7 | Axel + Nicole | Pending |
 | C-03 | AURA Circles will be piloted | Planned | six-month roadmap | [[DATE]] | 8, 9 | Nicole | Approved |
 
@@ -1161,7 +1165,7 @@ Una afirmación no entra al PDF si:
 - [CI aprobada](https://github.com/AxelJhostin/AURA/actions/runs/30493787795);
 - capturas de producción;
 - build, TypeScript y lint;
-- 13 pruebas unitarias, 7 de integración, 18 comprobaciones de
+- 14 pruebas unitarias, 7 de integración, 19 comprobaciones de
   contrato/build y 12 aserciones pgTAP;
 - recorrido bilingüe;
 - modo sin IA;
@@ -1363,7 +1367,7 @@ antiguas del documento.
 
 - [ ] Cada cifra tiene fuente, fecha y responsable.
 - [ ] El commit estable y la ejecución de CI corresponden a la versión mostrada.
-- [ ] “50 comprobaciones” se usa como evidencia técnica, no como impacto educativo.
+- [ ] “52 comprobaciones” se usa como evidencia técnica, no como impacto educativo.
 - [ ] Cada cita del piloto tiene autorización.
 - [ ] No hay participantes identificables.
 - [ ] No hay aliados no confirmados.

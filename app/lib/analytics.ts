@@ -1,6 +1,6 @@
 import type { Locale } from "../data/cases";
 
-export const PRODUCT_VERSION = "0.9.0";
+export const PRODUCT_VERSION = "1.0.0";
 export const PILOT_EVALUATION_CASE_ID = "pilot-evaluation";
 export const PILOT_CODE_PATTERN =
   /^AURA-[ABCDEFGHJKLMNPQRSTUVWXYZ23456789]{12}$/;

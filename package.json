@@ -1,6 +1,6 @@
 {
   "name": "aura-evidence-lab",
-  "version": "0.9.0",
+  "version": "1.0.0",
   "description": "Prototipo bilingüe de AURA para UNESCO Youth Hackathon 2026.",
   "private": true,
   "type": "module",

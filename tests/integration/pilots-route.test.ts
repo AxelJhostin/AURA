@@ -44,7 +44,7 @@ test("returns only aggregate pilot metrics from Supabase rows", async () => {
         transfer_score: null,
         duration_ms: 300_000,
         occurred_at: "2026-07-29T12:00:00.000Z",
-        product_version: "0.9.0",
+        product_version: "1.0.0",
       },
       {
         anonymous_session_id: "session-a",
@@ -53,7 +53,7 @@ test("returns only aggregate pilot metrics from Supabase rows", async () => {
         transfer_score: 5,
         duration_ms: 30_000,
         occurred_at: "2026-07-29T11:59:00.000Z",
-        product_version: "0.9.0",
+        product_version: "1.0.0",
       },
     ]);
   };
