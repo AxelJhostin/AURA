@@ -11,6 +11,31 @@ test("accepts the published bilingual catalog", () => {
   assert.deepEqual(validateAuraCases(copyCases()), []);
 });
 
+test("publishes the four Opportunity Circle cases with balanced evidence states", () => {
+  assert.deepEqual(
+    auraCases.map((item) => item.id),
+    [
+      "scholarship-data-trap",
+      "remote-job-equipment-fee",
+      "exchange-program-uncertain",
+      "ambassador-outdated-endorsement",
+    ],
+  );
+  assert.deepEqual(
+    new Set(auraCases.map((item) => item.editorial.evidenceState)),
+    new Set(["misleading", "insufficient", "supported-with-limits"]),
+  );
+  assert.equal(
+    auraCases.every(
+      (item) =>
+        item.references.length >= 2 &&
+        item.sources.length >= 4 &&
+        item.sourceLimit === 2,
+    ),
+    true,
+  );
+});
+
 test("detects duplicate identifiers and missing bilingual copy", () => {
   const cases = copyCases();
   cases[1].id = cases[0].id;

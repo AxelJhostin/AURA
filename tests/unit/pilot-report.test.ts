@@ -17,7 +17,7 @@ function row(
     transfer_score: null,
     duration_ms: null,
     occurred_at: "2026-07-29T12:00:00.000Z",
-    product_version: "0.9.0",
+    product_version: "1.0.0",
     ...overrides,
   };
 }
@@ -52,7 +52,7 @@ test("builds anonymous aggregates and excludes previous product versions", () =>
   const report = buildPilotReport({
     code: "AURA-ABCDEFGHJKLM",
     allRows: rows,
-    productVersion: "0.9.0",
+    productVersion: "1.0.0",
     transferMaxScore: 6,
     maximumRows: 5_000,
   });
@@ -72,7 +72,7 @@ test("returns stable empty aggregates", () => {
   const report = buildPilotReport({
     code: "AURA-ABCDEFGHJKLM",
     allRows: [],
-    productVersion: "0.9.0",
+    productVersion: "1.0.0",
     transferMaxScore: 6,
     maximumRows: 5_000,
   });

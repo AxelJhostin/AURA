@@ -15,7 +15,7 @@ function payload(overrides: Record<string, unknown> = {}) {
     eventName: "mission_started",
     occurredAt: new Date().toISOString(),
     locale: "es",
-    caseId: "energy-memory",
+    caseId: "scholarship-data-trap",
     stage: "analyze",
     productVersion: PRODUCT_VERSION,
     ...overrides,

@@ -21,7 +21,7 @@ export type TransferQuestion = {
 };
 
 export const transferChallenge = {
-  id: "scholarship-link-v2",
+  id: "internship-partner-transfer-v1",
   maxScore: 6,
   eyebrow: {
     es: "RETO DE TRANSFERENCIA · SIN PISTAS",
@@ -32,20 +32,20 @@ export const transferChallenge = {
     en: "Now demonstrate the method without help",
   },
   intro: {
-    es: "Este caso cambia de tema. Las opciones no explican cuál es correcta y AURA no muestra retroalimentación hasta que termines.",
-    en: "This case changes topic. Options do not explain which one is correct, and AURA shows no feedback until you finish.",
+    es: "Este caso presenta una oportunidad nueva. Las opciones no dan pistas y AURA no muestra retroalimentación hasta que termines.",
+    en: "This case presents a new opportunity. Options provide no clues, and AURA shows no feedback until you finish.",
   },
   privacy: {
     es: "Solo se registran identificadores de opciones, tiempo y puntuación 0–6. Nunca se guarda texto libre ni identidad.",
     en: "Only option identifiers, time and a 0–6 score are recorded. Free text and identity are never stored.",
   },
   scenarioLabel: {
-    es: "Mensaje reenviado en un grupo estudiantil",
-    en: "Message forwarded in a student group",
+    es: "Historia compartida por una cuenta estudiantil",
+    en: "Story shared by a student account",
   },
   scenario: {
-    es: "“La Universidad Global abrió 500 becas internacionales. El registro cierra esta noche. Completa tus datos en becas-global.info y comparte.”",
-    en: "“Global University opened 500 international scholarships. Registration closes tonight. Submit your details at global-scholarships.info and share.”",
+    es: "“TalentBridge LATAM y GreenWave abrieron 40 pasantías internacionales pagadas. Postula antes de las 18:00 subiendo tu cédula y un video a talentbridge-careers.net. Cupos garantizados para estudiantes.”",
+    en: "“TalentBridge LATAM and GreenWave opened 40 paid international internships. Apply before 6 p.m. by uploading your ID and a video to talentbridge-careers.net. Places guaranteed for students.”",
   },
   questions: [
     {
@@ -59,28 +59,28 @@ export const transferChallenge = {
         en: "Checkable claim",
       },
       feedback: {
-        es: "La afirmación verificable es que existe una convocatoria de 500 becas, con una fecha y un canal de registro determinados.",
-        en: "The checkable claim is that a 500-scholarship call exists with a stated deadline and registration channel.",
+        es: "La afirmación verificable es que ambas organizaciones ofrecen 40 pasantías pagadas, con un plazo y un canal de postulación determinados.",
+        en: "The checkable claim is that both organizations offer 40 paid internships through a stated deadline and application channel.",
       },
       options: [
         {
-          id: "claim-scholarship-call",
+          id: "claim-internship-call",
           title: {
-            es: "Existe una convocatoria de 500 becas que cierra esta noche.",
-            en: "A 500-scholarship call exists and closes tonight.",
+            es: "Existe una convocatoria conjunta de 40 pasantías pagadas que cierra a las 18:00.",
+            en: "A joint call for 40 paid internships exists and closes at 6 p.m.",
           },
           score: 1,
         },
         {
-          id: "claim-university-generous",
+          id: "claim-company-generous",
           title: {
-            es: "La universidad es generosa con sus estudiantes.",
-            en: "The university is generous with its students.",
+            es: "GreenWave es una empresa generosa con estudiantes.",
+            en: "GreenWave is a generous company toward students.",
           },
           score: 0,
         },
         {
-          id: "claim-message-urgent",
+          id: "claim-story-urgent",
           title: {
             es: "El mensaje utiliza un tono urgente.",
             en: "The message uses an urgent tone.",
@@ -88,10 +88,10 @@ export const transferChallenge = {
           score: 0,
         },
         {
-          id: "claim-friends-interested",
+          id: "claim-students-interested",
           title: {
-            es: "A muchas amistades podría interesarles una beca.",
-            en: "Many friends might be interested in a scholarship.",
+            es: "A muchas personas estudiantes podrían interesarles pasantías.",
+            en: "Many students might be interested in internships.",
           },
           score: 0,
         },
@@ -108,23 +108,23 @@ export const transferChallenge = {
         en: "Origin tracing",
       },
       feedback: {
-        es: "El primer movimiento seguro es salir del enlace reenviado y buscar la convocatoria en el sitio oficial de la institución.",
-        en: "The safest first move is to leave the forwarded link and search for the call on the institution’s official website.",
+        es: "El primer movimiento seguro es salir de la historia y buscar la vacante en los portales oficiales de las organizaciones mencionadas.",
+        en: "The safest first move is to leave the story and search for the vacancy on the named organizations’ official portals.",
       },
       options: [
         {
-          id: "origin-official-website",
+          id: "origin-official-careers",
           title: {
-            es: "En la sección de becas del sitio oficial de la universidad.",
-            en: "In the scholarship section of the university’s official site.",
+            es: "En las secciones de empleo o programas del sitio oficial de ambas organizaciones.",
+            en: "In the careers or programmes sections of both organizations’ official sites.",
           },
           score: 1,
         },
         {
-          id: "origin-forwarder-profile",
+          id: "origin-student-profile",
           title: {
-            es: "En el perfil de la persona que reenvió el mensaje.",
-            en: "On the profile of the person who forwarded the message.",
+            es: "En las historias anteriores de la cuenta estudiantil.",
+            en: "In the student account’s previous stories.",
           },
           score: 0,
         },
@@ -157,15 +157,15 @@ export const transferChallenge = {
         en: "Provenance",
       },
       feedback: {
-        es: "Dominio, bases oficiales, datos de contacto y responsable institucional permiten comprobar procedencia.",
-        en: "The domain, official terms, contact details and institutional owner establish provenance.",
+        es: "El dominio, las bases, la entidad responsable y la conexión declarada por ambas organizaciones permiten comprobar procedencia.",
+        en: "The domain, terms, accountable entity and connection declared by both organizations establish provenance.",
       },
       options: [
         {
           id: "provenance-domain-owner",
           title: {
-            es: "Comparar dominio, bases y contacto con los canales institucionales.",
-            en: "Compare the domain, terms and contact details with institutional channels.",
+            es: "Comparar dominio, bases, responsables y alianza con los canales oficiales de ambas organizaciones.",
+            en: "Compare the domain, terms, owners and partnership with both organizations’ official channels.",
           },
           score: 1,
         },
@@ -206,15 +206,15 @@ export const transferChallenge = {
         en: "Corroboration",
       },
       feedback: {
-        es: "Confirmar mediante otro canal institucional o una entidad reconocida evita depender del mismo enlace.",
-        en: "Confirmation through another institutional channel or recognized body avoids relying on the same link.",
+        es: "Confirmar con la empresa asociada o con orientación laboral universitaria evita depender de TalentBridge y de la cuenta que compartió la historia.",
+        en: "Confirmation with the partner company or university career services avoids relying on TalentBridge and the account that shared the story.",
       },
       options: [
         {
-          id: "corroboration-second-channel",
+          id: "corroboration-partner-careers",
           title: {
-            es: "Confirmar con la oficina de becas o un segundo canal institucional.",
-            en: "Confirm with the scholarship office or a second institutional channel.",
+            es: "Confirmar con GreenWave o con orientación laboral por un contacto obtenido independientemente.",
+            en: "Confirm with GreenWave or career services through independently obtained contact details.",
           },
           score: 1,
         },
@@ -255,31 +255,31 @@ export const transferChallenge = {
         en: "Calibrated uncertainty",
       },
       feedback: {
-        es: "Hasta encontrar confirmación institucional no sabemos si la convocatoria, el plazo o el formulario son auténticos.",
-        en: "Until institutional confirmation is found, we do not know whether the call, deadline or form is authentic.",
+        es: "Hasta encontrar confirmación independiente no sabemos si la alianza, los 40 cupos, el plazo o el formulario son auténticos.",
+        en: "Until independent confirmation is found, we do not know whether the partnership, 40 places, deadline or form are authentic.",
       },
       options: [
         {
           id: "uncertainty-unconfirmed",
           title: {
-            es: "La convocatoria, el plazo y el formulario siguen sin confirmar.",
-            en: "The call, deadline and form remain unconfirmed.",
+            es: "La alianza, los cupos, el plazo y el formulario siguen sin confirmar.",
+            en: "The partnership, places, deadline and form remain unconfirmed.",
           },
           score: 1,
         },
         {
           id: "uncertainty-definitely-false",
           title: {
-            es: "La urgencia demuestra que toda la convocatoria es falsa.",
-            en: "Urgency proves that the entire call is false.",
+            es: "La urgencia demuestra que toda la oferta es falsa.",
+            en: "Urgency proves that the entire offer is false.",
           },
           score: 0,
         },
         {
           id: "uncertainty-definitely-true",
           title: {
-            es: "El número exacto de becas demuestra que es auténtica.",
-            en: "The exact scholarship number proves it is authentic.",
+            es: "El número exacto de pasantías demuestra que es auténtica.",
+            en: "The exact internship number proves it is authentic.",
           },
           score: 0,
         },
@@ -304,39 +304,39 @@ export const transferChallenge = {
         en: "Responsible action",
       },
       feedback: {
-        es: "Pausar protege los datos y evita amplificar el enlace; si se confirma, conviene compartir la convocatoria oficial.",
-        en: "Pausing protects personal data and avoids amplification; if confirmed, share the official call instead.",
+        es: "Pausar protege la cédula y la imagen personal; si se confirma la alianza, conviene postular y compartir únicamente desde el canal oficial.",
+        en: "Pausing protects identity documents and personal imagery; if the partnership is confirmed, apply and share only through the official channel.",
       },
       options: [
         {
           id: "action-pause-confirm",
           title: {
-            es: "No ingresar datos ni reenviar; confirmar y compartir solo el enlace oficial.",
-            en: "Do not submit data or forward; confirm and share only the official link.",
+            es: "No subir cédula ni video; confirmar y usar únicamente la convocatoria oficial.",
+            en: "Do not upload an ID or video; confirm and use only the official call.",
           },
           score: 1,
         },
         {
           id: "action-submit-fast",
           title: {
-            es: "Ingresar los datos rápido para no perder el plazo.",
-            en: "Submit the data quickly to avoid missing the deadline.",
+            es: "Subir los archivos rápido para no perder el plazo.",
+            en: "Upload the files quickly to avoid missing the deadline.",
           },
           score: 0,
         },
         {
           id: "action-forward-question",
           title: {
-            es: "Reenviar el enlace preguntando si alguien sabe algo.",
-            en: "Forward the link and ask whether anyone knows more.",
+            es: "Compartir la historia preguntando si alguien sabe algo.",
+            en: "Share the story and ask whether anyone knows more.",
           },
           score: 0,
         },
         {
           id: "action-report-student",
           title: {
-            es: "Denunciar automáticamente a la persona que lo compartió.",
-            en: "Automatically report the person who shared it.",
+            es: "Denunciar automáticamente a la cuenta estudiantil.",
+            en: "Automatically report the student account.",
           },
           score: 0,
         },

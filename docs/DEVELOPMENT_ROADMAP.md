@@ -1,19 +1,22 @@
-# AURA — Hoja de ruta de desarrollo
+# AURA Opportunity Circles — Hoja de ruta de desarrollo
 
 - **Propietario técnico:** Hernández Axel
 - **Propietaria de estrategia e impacto:** Nicole
 - **Propietario de investigación, inglés y edición:** José Luis Cañarte Plúa
-- **Estado base:** MVP técnico 0.9.0 — 100 % del alcance definido
-- **Calidad verificada:** 50 comprobaciones automatizadas, CI de aplicación y
+- **Estado base:** Opportunity Circles 1.0.0 — producto listo para pilotos
+- **Calidad verificada:** 52 comprobaciones automatizadas, CI de aplicación y
   pgTAP aprobada, cobertura instrumentada sobre sus umbrales
-- **Objetivo:** convertir el flujo actual en un piloto medible y una candidatura
-respaldada por evidencia real.
+- **Objetivo:** validar una intervención juvenil de 25 minutos sobre
+  oportunidades digitales y convertir sus resultados en una candidatura
+  respaldada por evidencia real.
 
 ## 1. Qué ya existe
 
 - Página de presentación bilingüe.
 - Método A-U-R-A explicado.
-- Motor bilingüe con cuatro casos educativos simulados y equilibrados.
+- Motor bilingüe con cuatro casos de oportunidades simuladas y equilibradas:
+  beca engañosa, empleo con pago, intercambio incierto y programa legítimo
+  difundido mediante información desactualizada.
 - Validación formal de paridad bilingüe, procedencia, referencias y estado
   editorial durante cada build.
 - Flujo interactivo de cuatro etapas.
@@ -27,6 +30,7 @@ respaldada por evidencia real.
 - Ruta validada para persistencia opcional en Supabase.
 - Código aleatorio y enlace compartible para cada piloto.
 - Panel de facilitación con métricas agregadas y sin filas individuales.
+- Guía de Opportunity Circle con agenda, salvaguardas, registro y formación.
 - Instrumento opcional pre/post `1–5` sin texto libre.
 - Exportación CSV agregada sin identificadores de sesión.
 - Preguntas socráticas adaptadas mediante OpenAI con respaldo determinista.
@@ -38,11 +42,11 @@ respaldada por evidencia real.
 - Pruebas unitarias, de integración, contrato/build y base de datos.
 - CI reproducible sin secretos para la aplicación y Supabase local.
 
-## 2. Alcance congelado del MVP
+## 2. Alcance congelado de Opportunity Circles 1.0.0
 
 El MVP de candidatura debe demostrar:
 
-1. Una misión completa en menos de cinco minutos.
+1. Una misión completa en seis a ocho minutos.
 2. Fuentes visibles durante la investigación.
 3. Preguntas socráticas breves.
 4. Decisión inicial y decisión final.
@@ -52,6 +56,9 @@ El MVP de candidatura debe demostrar:
 8. Operación en español e inglés.
 9. Funcionamiento correcto en móvil.
 10. Métricas mínimas para el piloto.
+11. Una sesión replicable de 25 minutos para 6–20 participantes.
+12. Casos que distinguen fraude, incertidumbre y oportunidad legítima con
+    información engañosa.
 
 Quedan fuera hasta validar lo anterior:
 
@@ -141,9 +148,9 @@ type AuraCase = {
 **Aceptación alcanzada:** cambiar o añadir un caso no exige editar el componente
 de la misión ni las listas permitidas de la ruta de IA.
 
-#### P0.2 Reto de transferencia — reforzado en 0.9.0
+#### P0.2 Reto de transferencia — actualizado en 1.0.0
 
-- [x] Presentar una afirmación nueva sobre una convocatoria de becas.
+- [x] Presentar una afirmación nueva sobre una alianza para 40 pasantías.
 - [x] Evaluar seis conductas: afirmación, origen, procedencia, corroboración,
   incertidumbre y acción.
 - [x] No mostrar fuentes, pistas ni preguntas de AURA.
@@ -151,7 +158,24 @@ de la misión ni las listas permitidas de la ruta de IA.
 - [x] Calcular una puntuación observable `0–6`.
 
 **Aceptación alcanzada:** el reto permite observar si la persona reconstruye el
-proceso completo en un tema nuevo, sin pistas ni explicaciones antes de enviar.
+proceso completo en una oportunidad desconocida, sin pistas ni explicaciones
+antes de enviar.
+
+#### P0.2b Opportunity Circles — implementado en 1.0.0
+
+- [x] Especializar el catálogo activo en becas, empleos, intercambios y
+  programas juveniles.
+- [x] Conservar los tres estados pedagógicos: engañoso, insuficiente y
+  respaldado con límites.
+- [x] Añadir una agenda comunitaria exacta de 25 minutos.
+- [x] Añadir salvaguardas para datos, relatos, enlaces y acusaciones.
+- [x] Conectar el modo facilitador con el concepto de Circle.
+- [x] Mantener el catálogo general anterior como currículo legado, fuera del
+  piloto activo.
+
+**Aceptación técnica alcanzada:** el producto, la guía y la medición expresan
+una misma intervención. **Aceptación de impacto pendiente:** dos Circles reales,
+25 o más participantes agregados y una iteración documentada.
 
 #### P0.3 Instrumentación mínima — implementada en 0.5.0
 
@@ -238,13 +262,14 @@ ensayo, no al backlog de código.
 - [x] Validación de eventos separada del transporte HTTP.
 - [x] Agregación de pilotos separada de la ruta.
 - [x] Puntuación de transferencia separada de React.
-- [x] 13 pruebas unitarias y 7 de integración.
-- [x] 18 comprobaciones de contrato/build.
+- [x] 14 pruebas unitarias y 7 de integración.
+- [x] 19 comprobaciones de contrato/build.
 - [x] 12 aserciones pgTAP para esquema, restricciones, RLS y privilegios.
 - [x] Umbrales de cobertura: 90 % líneas, 70 % ramas y 75 % funciones.
 - [x] GitHub Actions verifica aplicación y base en cada cambio de `main`.
 
-**Aceptación alcanzada:** 50 comprobaciones aprobadas localmente y en Linux CI.
+**Aceptación objetivo de 1.0.0:** 52 comprobaciones aprobadas localmente y en
+Linux CI.
 Las pruebas no llaman servicios de producción ni contienen secretos.
 
 ### P1 — candidatura y demo final

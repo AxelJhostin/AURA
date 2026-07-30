@@ -9,23 +9,25 @@ const canonicalUrl =
 
 export const metadata: Metadata = {
   metadataBase: new URL(canonicalUrl),
-  title: "AURA — Investiga antes de compartir",
+  title: "AURA Opportunity Circles — Investiga antes de entregar tus datos",
   description:
-    "Laboratorio bilingüe para comprobar becas, salud, emergencias y otras afirmaciones virales antes de compartirlas o entregar datos.",
-  applicationName: "AURA Evidence Lab",
+    "Programa juvenil bilingüe para comprobar becas, empleos, intercambios y otras oportunidades digitales antes de entregar documentos, dinero o confianza.",
+  applicationName: "AURA Opportunity Circles",
   keywords: [
     "alfabetización mediática",
     "media and information literacy",
     "UNESCO Youth Hackathon 2026",
-    "educación",
-    "evidencia",
+    "scholarship scams",
+    "job scams",
+    "oportunidades juveniles",
+    "evidencia y transferencia",
   ],
   authors: [{ name: "Equipo AURA" }],
   creator: "Equipo AURA",
   openGraph: {
-    title: "AURA — Investiga antes de compartir",
+    title: "AURA Opportunity Circles",
     description:
-      "Practica cómo verificar el origen, comparar evidencia y actuar responsablemente antes de compartir una afirmación viral.",
+      "Jóvenes entrenando a jóvenes para proteger sus datos, dinero y confianza ante oportunidades digitales urgentes.",
     type: "website",
     locale: "es_EC",
     alternateLocale: "en",
@@ -34,15 +36,15 @@ export const metadata: Metadata = {
         url: "/og.png",
         width: 1731,
         height: 909,
-        alt: "AURA — Investiga antes de compartir",
+        alt: "AURA Opportunity Circles — de oportunidades urgentes a decisiones informadas",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "AURA — Investiga antes de compartir",
+    title: "AURA Opportunity Circles",
     description:
-      "Comprueba el origen, compara evidencia y actúa antes de compartir.",
+      "Comprueba becas, empleos e intercambios antes de entregar datos, dinero o confianza.",
     images: ["/og.png"],
   },
 };

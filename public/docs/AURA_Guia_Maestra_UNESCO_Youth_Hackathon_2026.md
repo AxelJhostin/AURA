@@ -1,17 +1,18 @@
-# AURA — Guía maestra para UNESCO Youth Hackathon 2026
+# AURA Opportunity Circles — Guía maestra para UNESCO Youth Hackathon 2026
 
 ## Analiza · Ubica · Rastrea · Actúa
 
-**Nombre recomendado en inglés:** AURA — Assess · Uncover · Research · Act  
-**Descriptor:** Bilingual evidence-training lab for Media and Information Literacy  
-**Eslogan principal:** De la reacción a la evidencia.  
-**Eslogan en inglés:** From reaction to evidence.  
-**Promesa del producto:** AURA no decide qué creer. Entrena a las personas para investigar con evidencia.  
+**Marca y método:** AURA — Assess · Uncover · Research · Act
+**Programa inicial:** AURA Opportunity Circles
+**Descriptor:** Youth-led practice for safer digital opportunities
+**Eslogan principal:** De oportunidades urgentes a decisiones informadas.
+**Eslogan en inglés:** From urgent opportunities to informed decisions.
+**Promesa del producto:** AURA entrena a jóvenes para comprobar oportunidades antes de entregar datos, dinero o confianza.
 **Estado de este documento:** Fuente pública de estrategia, producto, operación
-y candidatura — versión 2.6.
+y candidatura — versión 3.0.
 
-**Versión funcional de referencia:** AURA 0.9.0 — 100 % del alcance técnico
-definido para el MVP.
+**Versión funcional de referencia:** AURA Opportunity Circles 1.0.0 — producto
+funcional listo para pilotos; impacto todavía no demostrado.
 
 **Ubicación en el proyecto:** `public/docs/`, accesible desde el prototipo y versionada junto al código.  
 **Fecha de referencia:** 29 de julio de 2026.
@@ -33,6 +34,56 @@ con [CI de aplicación y Supabase aprobada](https://github.com/AxelJhostin/AURA/
 **Plan operativo de postulación para el equipo final:**
 [Dossier y matriz de evaluación UNESCO 2026](./AURA_Dossier_Postulacion_y_Matriz_Evaluacion_2026.md).
 
+**Guía de operación comunitaria:**
+[Guía de facilitación de Opportunity Circles](./AURA_Opportunity_Circles_Guia_Facilitacion.md).
+
+---
+
+## Decisión estratégica vigente — 29 de julio de 2026
+
+AURA conserva su identidad como método y plataforma general. La candidatura
+2026 se especializa en **AURA Opportunity Circles**, su primera implementación
+comunitaria.
+
+### Problema concreto
+
+Jóvenes reciben becas, empleos, intercambios y programas digitales que combinan
+una recompensa importante con urgencia, apariencia institucional y solicitudes
+de documentos, dinero o credenciales. Una lista de señales puede advertir sobre
+un mensaje, pero no demuestra que la persona sabrá investigar el siguiente.
+
+### Intervención
+
+Cada Opportunity Circle dura aproximadamente 25 minutos y combina:
+
+1. una misión guiada del método A-U-R-A;
+2. conversación estructurada entre pares;
+3. un reto desconocido sin pistas;
+4. pulso opcional pre/post;
+5. medición anónima de seis conductas;
+6. preparación para que otra persona joven facilite el siguiente Circle.
+
+### Catálogo activo
+
+| Caso | Estado de evidencia | Conducta principal |
+|---|---|---|
+| La beca que vence hoy | Engañosa | Rastrear convocatoria, dominio y tratamiento de datos |
+| Contratado sin entrevista | Engañosa | Comprobar reclutador, vacante y pago anticipado |
+| La organización que aún no se puede comprobar | Insuficiente | Pausar sin acusar fraude |
+| La oportunidad real con un video equivocado | Respaldada con límites | Conservar la oportunidad y corregir fecha, canal y respaldo sintético |
+
+El reto de transferencia presenta una supuesta alianza para 40 pasantías y
+evalúa afirmación, origen, procedencia, corroboración, incertidumbre y acción
+sin pistas previas.
+
+### Regla de interpretación
+
+Los casos anteriores sobre salud, emergencias y estudios permanecen en el
+repositorio como catálogo legado del método AURA, pero **no forman parte del
+programa piloto ni de la narrativa principal de la candidatura 2026**. Si una
+sección posterior de esta guía describe AURA como un laboratorio general, debe
+interpretarse dentro de la especialización Opportunity Circles definida aquí.
+
 ---
 
 ## Briefing de incorporación para Axel, Nicole y José
@@ -44,10 +95,10 @@ controles detallados.
 
 ### 1. AURA en noventa segundos
 
-**AURA es un laboratorio bilingüe de evidencia para Alfabetización Mediática e
-Informacional.** Entrena a jóvenes para investigar antes de compartir enlaces
-de becas, consejos de salud, videos de emergencia y otras afirmaciones virales
-que pueden afectar sus decisiones, datos o comunidades.
+**AURA Opportunity Circles es un programa bilingüe de Alfabetización Mediática
+e Informacional dirigido por jóvenes.** Entrena a estudiantes para comprobar
+becas, empleos, intercambios y programas juveniles antes de entregar
+documentos, dinero o confianza.
 
 La persona no recibe una etiqueta automática de “verdadero” o “falso”. En una
 misión breve debe realizar cuatro acciones:
@@ -64,25 +115,27 @@ si simplemente obedeció a la IA.
 
 La frase que debe permanecer consistente es:
 
-> AURA no decide qué creer. Entrena a las personas para investigar con
-> evidencia.
+> AURA entrena a jóvenes para comprobar oportunidades antes de entregar datos,
+> dinero o confianza, y mide si pueden repetir el proceso sin depender de la IA.
 
 En inglés:
 
-> AURA does not tell people what to believe. It trains them to investigate with
-> evidence.
+> AURA trains young people to investigate opportunities before giving away
+> data, money or trust, and measures whether they can repeat the process
+> without depending on AI.
 
 ### 2. Qué problema resuelve
 
-El problema no es únicamente que circulen contenidos falsos. También es que las
-personas deben decidir muy rápido y suelen evaluar por emoción, diseño,
-popularidad o familiaridad. Un fact-check puede corregir una publicación, pero
-no necesariamente entrena el proceso que se necesita para la siguiente.
+El problema concreto es que oportunidades digitales urgentes pueden utilizar
+la aspiración educativa y laboral para obtener documentos, dinero o
+credenciales. Las personas deben decidir rápido y suelen evaluar por diseño,
+popularidad o familiaridad. Una alerta puede corregir un mensaje, pero no
+necesariamente entrena el proceso que se necesita para el siguiente.
 
 AURA aborda esa brecha educativa mediante práctica observable:
 
-- detenerse antes de compartir;
-- convertir una publicación en una afirmación verificable;
+- detenerse antes de entregar algo difícil de recuperar;
+- convertir una oportunidad en una afirmación verificable;
 - identificar origen, incentivos, evidencia y contexto;
 - leer lateralmente fuera de la publicación;
 - distinguir fuente primaria, contexto independiente y repetición circular;
@@ -144,14 +197,14 @@ La combinación diferencial es:
 - reto no guiado de transferencia;
 - medición de conductas, no de creencias;
 - diseño móvil, bilingüe y sin registro;
-- extensión comunitaria futura mediante AURA Circles.
+- implementación comunitaria actual mediante Opportunity Circles de 25 minutos.
 
 No afirmar que AURA es la primera solución socrática con IA. TITAN y otros
 proyectos ya trabajan en espacios cercanos. La originalidad está en la
 integración concreta de acciones, trazabilidad, transferencia, contexto
 latinoamericano y participación juvenil.
 
-### 5. Estado real del producto — AURA 0.9.0, MVP técnico al 100 %
+### 5. Estado real del producto — Opportunity Circles 1.0.0, listo para pilotos
 
 La siguiente tabla es la fuente de verdad. “Implementado” significa que existe
 en `main` y en el dominio público de Vercel. No significa que ya fue validado
@@ -161,10 +214,10 @@ con usuarios.
 |---|---|---|
 | Landing bilingüe y responsiva | Implementado | Producción pública en Vercel |
 | Método A-U-R-A | Implementado | Flujo completo de cuatro etapas |
-| Caso 01: bebidas energéticas y memoria | Implementado | Misión guiada bilingüe |
-| Caso 02: video de tormenta reciclado | Implementado | Misión guiada bilingüe |
-| Caso 03: beneficio real presentado como cura instantánea | Implementado | Estado `supported-with-limits` y referencias OMS/BMJ |
-| Caso 04: piloto pequeño generalizado a todo el campus | Implementado | Estado `insufficient` y referencias NIH/NCCIH |
+| Caso 01: beca y solicitud de datos | Implementado | Estado `misleading` y referencias FTC/ARCOTEL |
+| Caso 02: empleo y pago por equipo | Implementado | Estado `misleading` y referencias FTC/SEPS |
+| Caso 03: intercambio sin responsables confirmados | Implementado | Estado `insufficient`; enseña a pausar sin acusar |
+| Caso 04: programa real y respaldo sintético desactualizado | Implementado | Estado `supported-with-limits`; conserva la oportunidad legítima |
 | Motor reutilizable de casos | Implementado | Contenido separado de la interfaz |
 | Compuerta editorial del catálogo | Implementada | El build valida ES/EN, IDs, procedencia, referencias y equilibrio |
 | Decisión inicial | Implementado | Opción codificada antes de investigar |
@@ -176,7 +229,7 @@ con usuarios.
 | Tarjeta de Evidencia | Implementado | Hallazgo, límite y acción construidos por la persona; revisión pedagógica separada |
 | Entrenador socrático con OpenAI | Implementado | Pregunta adaptada por caso y etapa |
 | Respaldo sin IA | Implementado | Preguntas curadas si la API falla |
-| Reto de transferencia sin guía | Implementado | Caso de enlace de becas |
+| Reto de transferencia sin guía | Implementado | Alianza simulada para 40 pasantías |
 | Puntuación de transferencia | Implementado | Rúbrica 0–6 de afirmación, origen, procedencia, corroboración, incertidumbre y acción |
 | Consentimiento de métricas | Implementado | Envío anónimo o modo solo local |
 | Pulso opcional pre/post | Implementado en 0.8.0 | Opción codificada `1–5`, sin nombre ni texto libre |
@@ -186,29 +239,31 @@ con usuarios.
 | Persistencia central | Activa y verificada | Vercel inserta eventos anónimos server-side en Supabase |
 | Código y enlace de piloto | Implementado en 0.7.0 | Código aleatorio de 12 caracteres, sin cuenta ni PII |
 | Vista de facilitador | Implementada en 0.7.0 | Totales y promedios; la API no devuelve filas ni identificadores |
+| Guía de Opportunity Circle | Implementada en 1.0.0 | Agenda de 25 minutos, salvaguardas, registro y formación |
 | Comparación agregada pre/post | Implementada en 0.8.0 | Promedios inicial/final, delta y número de pares |
 | Exportación agregada CSV | Implementada en 0.8.0 | Solo métricas del piloto; no contiene IDs de sesión |
 | Migración de piloto en producción | Activa y verificada | Columna, restricción, índice, RLS y privilegios comprobados |
 | Migración de razonamiento y transferencia 0.9 | Activa y verificada | Nuevos eventos codificados y puntuación `0–6` probados en transacción revertida |
 | Accesibilidad técnica | Implementada en 0.8.0 | Enlace de salto, foco visible, movimiento reducido y layout de 320 px |
 | Reglas de dominio modulares | Implementadas | Eventos, agregación de pilotos y transferencia fuera de React/HTTP |
-| Calidad automatizada | Verificada | 50 comprobaciones en cuatro capas y cobertura sobre umbrales |
+| Calidad automatizada | Verificada localmente en 1.0.0 | 52 comprobaciones en cuatro capas y cobertura sobre umbrales |
 | Integración continua | Activa | GitHub Actions valida aplicación y pgTAP en cada cambio de `main` |
 | Pilotos con participantes reales | Pendiente | No existen resultados que puedan afirmarse |
 | Revisión AMI externa de los casos | Pendiente | La revisión interna está registrada; falta el gate externo |
 | Propuesta final en inglés | Pendiente | Banco de texto disponible en esta guía |
 | Pitch grabado | Pendiente | Guion y lista de planos disponibles |
 
-Validaciones técnicas completadas para AURA 0.9.0:
+Validaciones técnicas ejecutadas para AURA Opportunity Circles 1.0.0 antes de
+integrar en `main`:
 
 - compilación de producción Next.js correcta;
 - TypeScript y lint sin errores;
-- 50 comprobaciones automatizadas aprobadas: 13 unitarias, 7 de integración,
-  18 de contrato/build y 12 aserciones pgTAP;
-- cobertura instrumentada: 94,23 % de líneas, 76,70 % de ramas y 78,21 % de
+- 52 comprobaciones automatizadas aprobadas: 14 unitarias, 7 de integración,
+  19 de contrato/build y 12 aserciones pgTAP;
+- cobertura instrumentada: 95,54 % de líneas, 77,36 % de ramas y 79,52 % de
   funciones, por encima de los umbrales 90/70/75;
-- GitHub Actions aprobada en Linux para aplicación y base local;
-- cero vulnerabilidades conocidas reportadas por `npm audit`;
+- GitHub Actions de 1.0.0 pendiente de ejecutar al integrar en `main`;
+- cero vulnerabilidades conocidas reportadas por `npm audit` para 1.0.0;
 - ruta pública de eventos probada con aceptación, rechazo y persistencia real;
 - generación, normalización y propagación del código de piloto verificadas;
 - ruta de resumen limitada a resultados agregados y clave server-side;
@@ -2720,8 +2775,8 @@ Estado verificado al 29 de julio de 2026:
 - [x] El esquema técnico no almacena datos sensibles.
 - [x] Demo pública.
 - [ ] Video de respaldo.
-- [x] `npm run check` y 50 comprobaciones automatizadas aprobadas.
-- [x] CI de aplicación y Supabase pgTAP aprobada.
+- [x] `npm run check` y 52 comprobaciones automatizadas aprobadas localmente para 1.0.0.
+- [ ] CI de aplicación y Supabase pgTAP aprobada para el commit estable de 1.0.0.
 
 ## 30. Checklist de piloto
 
@@ -2879,7 +2934,7 @@ Estado verificado al 29 de julio de 2026:
 | 27-07-2026 | Público inicial universitario/juvenil en Ecuador | Viabilidad de piloto | Equipo | Por confirmar |
 | 28-07-2026 | Hernández Axel, Nicole Madelyne Pincay Soledispa y José Luis Cañarte Plúa forman el equipo final | Los tres tienen compromiso confirmado y roles complementarios | Equipo | Congelada |
 | 28-07-2026 | El alcance técnico del MVP está completo al 100 % | Build, TypeScript, lint y producción verificadas | Hernández Axel | Congelada |
-| 29-07-2026 | Añadir arquitectura de dominio y compuertas de calidad en cuatro capas | Reducir regresiones antes de pilotos y cambios grandes | Hernández Axel | 50 comprobaciones y CI verificadas |
+| 29-07-2026 | Añadir arquitectura de dominio y compuertas de calidad en cuatro capas | Reducir regresiones antes de pilotos y cambios grandes | Hernández Axel | 52 comprobaciones locales verificadas; CI 1.0.0 pendiente |
 | 27-07-2026 | Arquitectura única Next.js desplegada en Vercel | Reducir complejidad y riesgo de demo | Hernández Axel | Congelada |
 | 27-07-2026 | La IA pregunta, no verifica ni puntúa | Proteger autonomía y reducir alucinaciones | Hernández Axel | Congelada |
 | 29-07-2026 | Ampliar transferencia a seis conductas `0–6` y ocultar pistas previas | Probar un proceso reutilizable sin premiar obediencia | Hernández Axel | Implementada; revisar con piloto |

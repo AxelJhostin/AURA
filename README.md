@@ -1,35 +1,42 @@
-# AURA — Evidence Lab
+# AURA Opportunity Circles
 
 > **Analiza · Ubica · Rastrea · Actúa**  
-> De la reacción a la evidencia.
+> Jóvenes entrenando a jóvenes para investigar oportunidades antes de entregar
+> datos, dinero o confianza.
 
-AURA es un laboratorio bilingüe de Alfabetización Mediática e Informacional
-(AMI/MIL) para jóvenes. No entrega un veredicto automático sobre qué creer:
-entrena a la persona para investigar una afirmación, comparar evidencia,
-justificar una decisión y transferir la habilidad a un caso nuevo.
+AURA es un método y laboratorio bilingüe de Alfabetización Mediática e
+Informacional (AMI/MIL). **Opportunity Circles** es su primera implementación
+comunitaria: sesiones breves dirigidas por jóvenes para comprobar becas,
+empleos, intercambios y programas juveniles antes de entregar documentos,
+dinero o confianza. AURA no entrega un veredicto automático; entrena a la
+persona para investigar, justificar una decisión y transferir la habilidad a
+una oportunidad nueva sin depender de la IA.
 
-Este repositorio reúne tres entregables que deben evolucionar juntos:
+Este repositorio reúne cuatro entregables que deben evolucionar juntos:
 
-1. Un **prototipo web funcional** para demostrar el método A-U-R-A.
+1. Un **prototipo web funcional** con cuatro Opportunity Circles y transferencia.
 2. La **guía maestra del proyecto** para estrategia, candidatura, piloto,
    producto, IA responsable, riesgos, pitch y ejecución.
-3. Un **dossier operativo de postulación** que convierte los criterios
+3. Una **guía operativa de facilitación** para ejecutar Circles con salvaguardas.
+4. Un **dossier operativo de postulación** que convierte los criterios
    oficiales en evidencia, responsables, fechas y controles de envío.
 
 ## Estado actual
 
-- **Versión:** MVP técnico `0.9.0`, **100 % del alcance definido**
+- **Versión:** Opportunity Circles `1.0.0`, **producto listo para pilotos**
 - **Objetivo:** UNESCO Youth Hackathon 2026
 - **Equipo final confirmado:** Hernández Axel + Nicole Madelyne Pincay
   Soledispa + José Luis Cañarte Plúa
 - **Modo:** Next.js estándar, publicado en GitHub y preparado para Vercel
-- **Calidad verificada al 29-07-2026:** 50 comprobaciones automatizadas
-  aprobadas (13 unitarias, 7 de integración, 18 de contrato/build y 12 pgTAP),
-  CI verde en Linux y auditoría npm sin vulnerabilidades conocidas
-- **Casos incluidos:** cuatro misiones educativas simuladas que cubren
-  afirmaciones engañosas, una afirmación respaldada con límites y una
-  afirmación con evidencia insuficiente, más un reto de transferencia sobre un
-  enlace urgente de becas
+- **Calidad:** 52 comprobaciones automatizadas aprobadas localmente: 14
+  unitarias, 7 de integración, 19 de contrato/build y 12 aserciones pgTAP,
+  además de lint, TypeScript, build y cobertura sobre umbrales
+- **Casos incluidos:** beca que suplanta una institución, empleo con pago
+  anticipado, intercambio con evidencia insuficiente y programa legítimo
+  difundido mediante información desactualizada y respaldo sintético no
+  autorizado, más un reto nuevo de transferencia sobre pasantías
+- **Intervención:** sesión replicable de 25 minutos para 6–20 participantes,
+  con guía, salvaguardas, código anónimo y reporte agregado
 
 La demo ya permite:
 
@@ -45,7 +52,7 @@ La demo ya permite:
 - Decidir una acción proporcional a la evidencia.
 - Construir y copiar una Tarjeta de evidencia con hallazgo, límite y acción
   elegidos por la persona.
-- Resolver un reto final no guiado sobre un tema diferente.
+- Resolver un reto final no guiado sobre una oportunidad desconocida.
 - Obtener una puntuación de transferencia `0–6` basada en seis conductas
   observables: afirmación, origen, procedencia, corroboración, incertidumbre y
   acción.
@@ -59,21 +66,23 @@ La demo ya permite:
 - Continuar con preguntas de respaldo cuando la IA no esté disponible.
 - Reiniciar la misión y recorrerla de nuevo.
 - Consultar narrativa, método, diferenciación, piloto, equipo y hoja de ruta.
+- Facilitar un Opportunity Circle con agenda exacta, reglas de seguridad y
+  guía descargable.
 
-> El contenido viral del prototipo es ficticio. Está diseñado para demostrar la
-> experiencia sin amplificar desinformación real ni inventar resultados del
-> proyecto.
+> Todas las oportunidades, organizaciones y personas de los casos son
+> ficticias. Las referencias oficiales respaldan los patrones y el método, no
+> la existencia de los mensajes simulados. El proyecto no inventa resultados.
 
 ## Por qué esta versión importa
 
 La demostración hace visible la diferencia central de AURA:
 
-| Verificador convencional | AURA |
+| Alerta o detector convencional | AURA Opportunity Circles |
 |---|---|
-| Resuelve una pieza de contenido | Entrena una habilidad reutilizable |
+| Resuelve un mensaje | Entrena una habilidad reutilizable |
 | La herramienta entrega un veredicto | La persona construye una conclusión |
 | El resultado principal es una respuesta | El resultado es un artefacto trazable |
-| Éxito = acertar | Éxito = investigar, justificar y transferir |
+| Éxito = acertar o evitar el enlace | Éxito = investigar, proteger, justificar y transferir |
 
 La IA está limitada a formular una pregunta socrática breve según las acciones
 observadas. No determina si la publicación es verdadera o falsa, no elige por la
@@ -125,8 +134,8 @@ La arquitectura, límites de módulos, pirámide de pruebas y procedimiento para
 cambios grandes están documentados en
 [`docs/ARCHITECTURE_AND_TESTING.md`](docs/ARCHITECTURE_AND_TESTING.md).
 
-La última verificación completa registrada para el MVP obtuvo 94,23 % de
-cobertura de líneas, 76,70 % de ramas y 78,21 % de funciones en las pruebas
+La verificación de AURA Opportunity Circles 1.0.0 obtuvo 95,54 % de
+cobertura de líneas, 77,36 % de ramas y 79,52 % de funciones en las pruebas
 unitarias y de integración. Estas cifras prueban reglas y adaptadores
 instrumentados; no sustituyen las pruebas con personas ni una suite E2E de
 navegador, que sigue siendo una mejora posterior al MVP.
@@ -144,12 +153,14 @@ AURA-UNESCO-2026/
 │   │   └── route.ts             # resumen agregado de un piloto
 │   ├── components/
 │   │   ├── AuraExperience.tsx   # experiencia e interacciones
+│   │   ├── OpportunityCircleGuide.tsx # sesión comunitaria y salvaguardas
 │   │   ├── PilotFacilitator.tsx # enlaces y panel agregado del piloto
 │   │   ├── PilotConfidence.tsx  # pulso pre/post anónimo y opcional
 │   │   └── TransferChallenge.tsx # reto no guiado y reporte de sesión
 │   ├── data/
 │   │   ├── cases.ts             # contrato y núcleo del catálogo bilingüe
 │   │   ├── balanced-cases.ts    # casos respaldado-con-límites e insuficiente
+│   │   ├── opportunity-cases.ts # cuatro casos de Opportunity Circles
 │   │   ├── case-validation.ts   # compuerta editorial del build
 │   │   └── transfer.ts          # reto y rúbrica de transferencia
 │   ├── domain/
@@ -163,6 +174,7 @@ AURA-UNESCO-2026/
 │   └── page.tsx                 # entrada principal
 ├── public/
 │   ├── docs/
+│   │   ├── AURA_Opportunity_Circles_Guia_Facilitacion.md
 │   │   ├── AURA_Guia_Maestra_UNESCO_Youth_Hackathon_2026.md
 │   │   ├── AURA_Dossier_Postulacion_y_Matriz_Evaluacion_2026.md
 │   │   └── AURA_Estructura_Definitiva_PDF_UNESCO_2026.md
@@ -192,6 +204,11 @@ La fuente estratégica principal es:
 
 [`public/docs/AURA_Guia_Maestra_UNESCO_Youth_Hackathon_2026.md`](public/docs/AURA_Guia_Maestra_UNESCO_Youth_Hackathon_2026.md)
 
+La agenda exacta, salvaguardas, métricas, registro y formación de
+facilitadores de Opportunity Circles están en:
+
+[`public/docs/AURA_Opportunity_Circles_Guia_Facilitacion.md`](public/docs/AURA_Opportunity_Circles_Guia_Facilitacion.md)
+
 El plan operativo del equipo, la matriz de los cinco criterios oficiales y la
 compuerta de elegibilidad están en:
 
@@ -214,6 +231,7 @@ Mapa de lectura:
 | Documento | Uso actual |
 |---|---|
 | `README.md` | estado, ejecución y entrada al repositorio |
+| `public/docs/AURA_Opportunity_Circles_Guia_Facilitacion.md` | operación de una sesión de 25 minutos, seguridad y medición |
 | `public/docs/AURA_Dossier_Postulacion_y_Matriz_Evaluacion_2026.md` | plan diario, responsables y matriz de los cinco criterios |
 | `public/docs/AURA_Estructura_Definitiva_PDF_UNESCO_2026.md` | plano página por página del entregable final |
 | `public/docs/AURA_Guia_Maestra_UNESCO_Youth_Hackathon_2026.md` | fuente completa de producto, estrategia, piloto, pitch y controles |
@@ -289,9 +307,9 @@ CSV. Con Supabase configurado, solo se envían cuando la persona selecciona
 **Permitir métricas anónimas**.
 
 El código `AURA-XXXXXXXXXXXX` funciona como una capacidad compartida: agrupa
-sesiones y permite abrir un resumen, pero la API nunca devuelve identificadores
-de sesión ni filas individuales. Debe compartirse solo con el equipo de
-facilitación y las personas participantes del piloto.
+sesiones de un Circle y permite abrir un resumen, pero la API nunca devuelve
+identificadores de sesión ni filas individuales. Debe compartirse solo con el
+equipo de facilitación y las personas participantes.
 
 ## Desplegar en Vercel
 
@@ -333,7 +351,7 @@ Vercel espera.
 ## Flujo funcional
 
 ```text
-Publicación simulada
+Oportunidad simulada
         ↓
 Analiza — reacción inicial
         ↓
@@ -351,25 +369,25 @@ Reto de transferencia sin guía
         ↓
 Puntuación + pulso final opcional
         ↓
-Panel y CSV agregados del piloto
+Conversación entre pares
+        ↓
+Panel y CSV agregados del Opportunity Circle
 ```
 
 ## Siguiente etapa recomendada
 
-El código del MVP quedó al **100 % del alcance técnico congelado** en `0.9.0`:
-catálogo equilibrado, validación editorial estructural, instrumento pre/post,
-exportación agregada, confiabilidad de eventos y salvaguardas de accesibilidad
-están implementados. La versión 0.9.0 además aclara el propósito desde el primer
-pantallazo, evita pistas que revelaban respuestas y fortalece la transferencia
-con una rúbrica de seis conductas. La capa de dominio, la suite automatizada y
-la CI reducen el riesgo de regresiones. La prioridad ya no es ampliar
-funciones, sino producir evidencia real y cerrar la candidatura:
+Opportunity Circles `1.0.0` convierte el laboratorio general en una
+intervención concreta sin romper el motor, la transferencia ni la analítica.
+La prioridad ya no es aumentar el número de casos, sino demostrar que el
+formato produce aprendizaje y puede ser facilitado por jóvenes:
 
-1. Ejecutar un ensayo interno con cinco personas.
-2. Corregir defectos observados, sin inventar resultados.
-3. Realizar el piloto objetivo con consentimiento y protocolo.
-4. Evaluar las preguntas generadas por IA con una rúbrica adversarial.
-5. Integrar métricas reales, demo bilingüe y video final.
+1. Ejecutar una prueba de comprensión con cinco personas.
+2. Realizar un Circle interno y corregir únicamente problemas observados.
+3. Ejecutar al menos dos Circles y reunir 25–40 participantes agregados.
+4. Revisar los cuatro casos con una persona externa de AMI, becas u orientación
+   laboral.
+5. Documentar una iteración causada por evidencia del piloto.
+6. Integrar resultados honestos, demo bilingüe y video final.
 
 La única deuda técnica estructural relevante es el tamaño de
 `AuraExperience.tsx`. No bloquea el piloto. Antes de incorporar cuentas, roles,
@@ -407,10 +425,10 @@ incluye una licencia de código porque esa decisión todavía pertenece al equip
 
 ## Documentación de referencia
 
-La guía maestra contiene:
+La guía maestra y la guía de Opportunity Circles contienen:
 
 - briefing y responsabilidades del equipo final de tres personas;
-- estado verificable de AURA 0.9.0 y capacidades pendientes;
+- estado verificable de AURA Opportunity Circles 1.0.0 y capacidades pendientes;
 - lectura completa de la convocatoria;
 - propuesta de valor y diferenciación;
 - especificación del producto;
@@ -425,4 +443,4 @@ La guía maestra contiene:
 
 ---
 
-**AURA — From reaction to evidence.**
+**AURA Opportunity Circles — From urgent opportunities to informed decisions.**

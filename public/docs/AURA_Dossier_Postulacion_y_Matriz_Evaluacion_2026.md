@@ -1,11 +1,12 @@
-# AURA — Dossier de postulación y matriz de evaluación UNESCO 2026
+# AURA Opportunity Circles — Dossier de postulación y matriz UNESCO 2026
 
 ## Documento operativo para Hernández Axel, Nicole y José Luis
 
-**Proyecto:** AURA — Assess · Uncover · Research · Act  
-**Descriptor:** Bilingual evidence-training lab for Media and Information Literacy  
-**Versión funcional:** AURA 0.9.0
-**Estado técnico:** 100 % del alcance técnico del MVP, probado y desplegado
+**Proyecto:** AURA Opportunity Circles
+**Método:** AURA — Assess · Uncover · Research · Act
+**Descriptor:** Youth-led practice for safer digital opportunities
+**Versión funcional:** AURA Opportunity Circles 1.0.0
+**Estado técnico:** producto funcional listo para pilotos; impacto no demostrado
 **Fecha de referencia:** 29 de julio de 2026
 **Fecha límite oficial:** 16 de agosto de 2026, 23:59, hora de París  
 **Objetivo interno de envío:** 15 de agosto de 2026, 18:00, hora de Ecuador  
@@ -14,6 +15,7 @@
 **Rama de producción:** [`main`](https://github.com/AxelJhostin/AURA/commits/main/) — registrar el hash vigente en la ficha final de envío
 **Línea base técnica verificada:** [`315e03f`](https://github.com/AxelJhostin/AURA/commit/315e03f8a788ec4d6a818901a6e28c8418b9a714) + [CI aprobada](https://github.com/AxelJhostin/AURA/actions/runs/30493787795)
 **Fuente estratégica completa:** [Guía maestra de AURA](./AURA_Guia_Maestra_UNESCO_Youth_Hackathon_2026.md)
+**Guía operativa:** [Opportunity Circles — facilitación y piloto](./AURA_Opportunity_Circles_Guia_Facilitacion.md)
 
 ---
 
@@ -41,10 +43,10 @@ un plan de entrega.
 
 ### Lo que ya tenemos
 
-AURA ya no es una idea ni un mockup. El **100 % del alcance técnico definido
-para el MVP** está implementado. Es una aplicación bilingüe pública que:
+AURA Opportunity Circles ya no es una idea ni un mockup. Es una intervención
+juvenil con producto bilingüe funcional y protocolo de 25 minutos que:
 
-1. presenta cuatro misiones AMI equilibradas;
+1. presenta cuatro casos de becas, empleos, intercambios y programas juveniles;
 2. guía a la persona mediante Analiza, Ubica, Rastrea y Actúa;
 3. mantiene visibles las fuentes y sus límites;
 4. usa IA para hacer preguntas, no para emitir un veredicto;
@@ -52,21 +54,22 @@ para el MVP** está implementado. Es una aplicación bilingüe pública que:
 6. mide transferencia en un caso nuevo y sin guía;
 7. registra métricas anónimas con consentimiento;
 8. compara un pulso opcional pre/post;
-9. permite operar pilotos y consultar resultados agregados;
+9. permite operar Opportunity Circles y consultar resultados agregados;
 10. funciona en español, inglés y pantallas de 320 px;
-11. superó build de producción, TypeScript, lint y 50 comprobaciones
+11. debe cerrar build de producción, TypeScript, lint y 52 comprobaciones
     automatizadas en cuatro capas;
 12. mantiene cobertura instrumentada por encima de los umbrales definidos;
-13. tiene entrega de eventos serializada y reintentos ante fallos transitorios.
+13. tiene entrega de eventos serializada y reintentos ante fallos transitorios;
+14. incorpora agenda, salvaguardas, registro y formación de facilitadores.
 
 ### Lo que falta
 
-No falta una función crítica del MVP. Pilotos, PDF y video no son código
-incompleto: son la fase de validación y candidatura. Falta convertir el
+No falta una función crítica para iniciar Circles. Pilotos, revisión externa,
+PDF y video son la fase de validación y candidatura. Falta convertir el
 producto en evidencia y la evidencia en una candidatura excelente:
 
 - piloto de ensayo con cinco personas;
-- piloto principal con participantes reales;
+- al menos dos Opportunity Circles con participantes reales;
 - análisis honesto de resultados y limitaciones;
 - revisión externa de AMI/MIL;
 - propuesta final en inglés;
@@ -76,8 +79,27 @@ producto en evidencia y la evidencia en una candidatura excelente:
 
 ### La decisión estratégica
 
-Desde este momento se congela el alcance. Solo se modifica código para corregir
-un problema observado en pilotos o una falla que amenace la demostración.
+Desde este momento se congela el alcance de Opportunity Circles 1.0.0. Solo se
+modifica código para corregir un problema observado en pilotos o una falla que
+amenace la demostración.
+
+### Tesis competitiva vigente
+
+> **AURA Opportunity Circles trains young people to investigate scholarships,
+> jobs, exchanges and youth programmes before giving away data, money or trust.
+> A guided evidence lab, peer discussion and an unguided transfer challenge
+> turn media literacy into observable behavior that other young facilitators
+> can replicate.**
+
+La especialización mejora la candidatura porque:
+
+- hace visible una víctima, un daño y una acción concreta;
+- conecta AI and MIL, MIL Education, Community Impact y Youth Engagement;
+- conserva el MVP y reduce riesgo de ejecución;
+- convierte “AURA Circles” de proyección futura en formato operativo;
+- permite medir seis conductas sin recopilar datos personales;
+- evita enseñar desconfianza generalizada mediante casos engañosos,
+  insuficientes y respaldados con límites.
 
 ---
 
@@ -335,10 +357,10 @@ sin cuentas.
 
 - producción en Vercel;
 - Next.js, OpenAI server-side y Supabase;
-- 50 comprobaciones automatizadas: 13 unitarias, 7 de integración, 18 de
+- 52 comprobaciones automatizadas: 14 unitarias, 7 de integración, 19 de
   contrato/build y 12 aserciones pgTAP;
 - CI reproducible para aplicación y base, sin secretos;
-- cobertura instrumentada de 94,23 % líneas, 76,70 % ramas y 78,21 %
+- cobertura instrumentada de 95,54 % líneas, 77,36 % ramas y 79,52 %
   funciones;
 - reglas críticas extraídas de React y HTTP a módulos de dominio;
 - RLS y privilegios mínimos;
@@ -408,7 +430,7 @@ debe presentarse como objetivo, hipótesis o plan.
 | Se mide transferencia | Reto no guiado + rúbrica 0–6 | VERIFICADO |
 | La analítica evita datos sensibles | Esquema, API, RLS y documentación | VERIFICADO |
 | Funciona en móvil | Prueba a 320 px | VERIFICADO |
-| El software reduce riesgo de regresión | 50 comprobaciones + CI verde | VERIFICADO |
+| El software reduce riesgo de regresión | 52 comprobaciones + cobertura sobre umbrales | VERIFICADO LOCALMENTE; CI 1.0.0 PENDIENTE |
 | Mejora una habilidad | Resultado de piloto | PENDIENTE |
 | Es útil para el público | Observación y encuesta de piloto | PENDIENTE |
 | Puede facilitarse en comunidad | Ensayo de facilitación | PENDIENTE |

@@ -1,6 +1,6 @@
 # Arquitectura y estrategia de pruebas de AURA
 
-**Versión de referencia:** AURA 0.9.0
+**Versión de referencia:** AURA Opportunity Circles 1.0.0
 **Objetivo:** permitir cambios grandes sin mezclar pedagogía, interfaz,
 persistencia y medición; detectar regresiones antes de publicar.
 **Estado verificado:** 29 de julio de 2026, commit
@@ -71,6 +71,8 @@ La dirección de dependencias debe mantenerse de arriba hacia abajo:
 | `app/domain/pilot-report.ts` | Construir agregados anónimos sin devolver sesiones individuales |
 | `app/domain/transfer-scoring.ts` | Comprobar respuestas, puntuar seis conductas y elegir retroalimentación |
 | `app/data/case-validation.ts` | Impedir casos incompletos, duplicados o sin paridad bilingüe |
+| `app/data/opportunity-cases.ts` | Definir el catálogo activo de Opportunity Circles sin acoplarlo a React |
+| `app/components/OpportunityCircleGuide.tsx` | Presentar el protocolo comunitario sin mezclarlo con el motor de misión |
 
 ## Pirámide de pruebas
 
@@ -82,7 +84,7 @@ npm run test:unit
 
 Cubren puntuación de transferencia, opciones y etapas válidas, conversión
 anónima a filas, agregados de pilotos y validación editorial bilingüe. No usan
-red, navegador ni base de datos. Estado actual: **13 pruebas**.
+red, navegador ni base de datos. Estado actual: **14 pruebas**.
 
 ### 2. Integración
 
@@ -103,7 +105,7 @@ npm run test:contract
 
 Construye Next.js como producción y comprueba HTML, metadatos, catálogo,
 privacidad, migraciones, documentación y entrega de analítica.
-Estado actual: **18 comprobaciones**.
+Estado actual: **19 comprobaciones**.
 
 ### 4. Base de datos
 
@@ -134,12 +136,12 @@ producción. La base se mantiene separada porque requiere Docker.
 
 | Capa instrumentada | Resultado | Umbral |
 |---|---:|---:|
-| Líneas | 94,23 % | 90 % |
-| Ramas | 76,70 % | 70 % |
-| Funciones | 78,21 % | 75 % |
+| Líneas | 95,54 % | 90 % |
+| Ramas | 77,36 % | 70 % |
+| Funciones | 79,52 % | 75 % |
 
-En total existen **50 comprobaciones automatizadas distintas**: 13 unitarias,
-7 de integración, 18 de contrato/build y 12 de base de datos. La cobertura
+En total existen **52 comprobaciones automatizadas distintas**: 14 unitarias,
+7 de integración, 19 de contrato/build y 12 de base de datos. La cobertura
 instrumentada corresponde a unitarias e integración; no debe presentarse como
 cobertura integral del navegador o del impacto educativo.
 

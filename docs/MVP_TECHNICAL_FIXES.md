@@ -2,7 +2,7 @@
 
 > **Documento histórico cerrado.** FIX-01 a FIX-05 fueron implementados y
 > verificados. No contiene trabajo pendiente ni debe usarse como backlog
-> vigente. El estado técnico actual de AURA 0.9.0 está en
+> vigente. El estado técnico actual de AURA Opportunity Circles 1.0.0 está en
 > [`ARCHITECTURE_AND_TESTING.md`](./ARCHITECTURE_AND_TESTING.md): 50
 > comprobaciones automatizadas, CI verde y MVP técnico completo al 29 de julio
 > de 2026. Las referencias de líneas que siguen son aproximaciones históricas.

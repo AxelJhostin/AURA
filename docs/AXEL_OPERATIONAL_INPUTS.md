@@ -41,7 +41,7 @@ en GitHub y que la licencia se definirá con el equipo.
 | URL de demo hoy | `https://aura-opal-beta.vercel.app/` (existente en docs) | Operativa hoy |
 | URL canónica final para PDF/video | Por definir | **PENDIENTE** |
 | CI | GitHub Actions: aplicación + Supabase pgTAP | **OPERATIVA Y VERIFICADA** |
-| Calidad automatizada | 50 comprobaciones; cobertura con umbrales | **VERIFICADA 29-07-2026** |
+| Calidad automatizada | 52 comprobaciones; cobertura con umbrales | **VERIFICADA 29-07-2026** |
 
 **Nota para redacción:** usar la URL pública actual para capturas y demo. No
 prometer dominio propio hasta decidirlo. Si más adelante hay dominio, actualizar
@@ -53,9 +53,9 @@ Evidencia técnica de referencia:
   [`315e03f`](https://github.com/AxelJhostin/AURA/commit/315e03f8a788ec4d6a818901a6e28c8418b9a714);
 - CI completa:
   [`30493787795`](https://github.com/AxelJhostin/AURA/actions/runs/30493787795);
-- 13 pruebas unitarias, 7 de integración, 18 comprobaciones de
+- 14 pruebas unitarias, 7 de integración, 19 comprobaciones de
   contrato/build y 12 aserciones pgTAP;
-- cobertura instrumentada: 94,23 % líneas, 76,70 % ramas y 78,21 % funciones;
+- cobertura instrumentada: 95,54 % líneas, 77,36 % ramas y 79,52 % funciones;
 - auditoría npm: cero vulnerabilidades conocidas al verificar esta versión.
 
 Estas cifras respaldan capacidad técnica y reducción de riesgo. No prueban

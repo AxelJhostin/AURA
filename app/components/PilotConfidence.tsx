@@ -39,7 +39,7 @@ export function PilotConfidence({
               ? "Antes de investigar"
               : "Después de aplicar el método",
           question:
-            "¿Qué tan capaz te sientes de comprobar una afirmación antes de compartirla?",
+            "¿Qué tan capaz te sientes de comprobar una oportunidad antes de entregar datos o dinero?",
           low: "Nada capaz",
           high: "Muy capaz",
           saved: "Respuesta anónima guardada",
@@ -56,7 +56,7 @@ export function PilotConfidence({
               ? "Before investigating"
               : "After applying the method",
           question:
-            "How capable do you feel of checking a claim before sharing it?",
+            "How capable do you feel of checking an opportunity before giving away data or money?",
           low: "Not capable",
           high: "Very capable",
           saved: "Anonymous response saved",

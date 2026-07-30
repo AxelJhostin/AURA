@@ -11,9 +11,9 @@ function event(suffix) {
     eventName: "mission_started",
     occurredAt: "2026-07-29T00:00:00.000Z",
     locale: "es",
-    caseId: "energy-memory",
+    caseId: "scholarship-data-trap",
     stage: "analyze",
-    productVersion: "0.9.0",
+    productVersion: "1.0.0",
   };
 }
 
