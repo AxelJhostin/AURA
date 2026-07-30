@@ -28,8 +28,8 @@ de analítica quedó documentada en el
 [#4](https://github.com/AxelJhostin/AURA/pull/4).
 
 **Línea base técnica verificada:**
-[`315e03f`](https://github.com/AxelJhostin/AURA/commit/315e03f8a788ec4d6a818901a6e28c8418b9a714),
-con [CI de aplicación y Supabase aprobada](https://github.com/AxelJhostin/AURA/actions/runs/30493787795).
+[`b6b7943`](https://github.com/AxelJhostin/AURA/commit/b6b7943fc6b0dfa778ab269d56d3ba6a77d02ca5),
+con [CI de aplicación y Supabase aprobada](https://github.com/AxelJhostin/AURA/actions/runs/30505243112).
 
 **Plan operativo de postulación para el equipo final:**
 [Dossier y matriz de evaluación UNESCO 2026](./AURA_Dossier_Postulacion_y_Matriz_Evaluacion_2026.md).
@@ -262,7 +262,7 @@ integrar en `main`:
   19 de contrato/build y 12 aserciones pgTAP;
 - cobertura instrumentada: 95,54 % de líneas, 77,36 % de ramas y 79,52 % de
   funciones, por encima de los umbrales 90/70/75;
-- GitHub Actions de 1.0.0 pendiente de ejecutar al integrar en `main`;
+- GitHub Actions de 1.0.0 aprobada en Linux para aplicación y base local;
 - cero vulnerabilidades conocidas reportadas por `npm audit` para 1.0.0;
 - ruta pública de eventos probada con aceptación, rechazo y persistencia real;
 - generación, normalización y propagación del código de piloto verificadas;
@@ -2776,7 +2776,7 @@ Estado verificado al 29 de julio de 2026:
 - [x] Demo pública.
 - [ ] Video de respaldo.
 - [x] `npm run check` y 52 comprobaciones automatizadas aprobadas localmente para 1.0.0.
-- [ ] CI de aplicación y Supabase pgTAP aprobada para el commit estable de 1.0.0.
+- [x] CI de aplicación y Supabase pgTAP aprobada para el commit estable de 1.0.0.
 
 ## 30. Checklist de piloto
 
@@ -2934,7 +2934,7 @@ Estado verificado al 29 de julio de 2026:
 | 27-07-2026 | Público inicial universitario/juvenil en Ecuador | Viabilidad de piloto | Equipo | Por confirmar |
 | 28-07-2026 | Hernández Axel, Nicole Madelyne Pincay Soledispa y José Luis Cañarte Plúa forman el equipo final | Los tres tienen compromiso confirmado y roles complementarios | Equipo | Congelada |
 | 28-07-2026 | El alcance técnico del MVP está completo al 100 % | Build, TypeScript, lint y producción verificadas | Hernández Axel | Congelada |
-| 29-07-2026 | Añadir arquitectura de dominio y compuertas de calidad en cuatro capas | Reducir regresiones antes de pilotos y cambios grandes | Hernández Axel | 52 comprobaciones locales verificadas; CI 1.0.0 pendiente |
+| 29-07-2026 | Añadir arquitectura de dominio y compuertas de calidad en cuatro capas | Reducir regresiones antes de pilotos y cambios grandes | Hernández Axel | 52 comprobaciones y CI 1.0.0 verificadas |
 | 27-07-2026 | Arquitectura única Next.js desplegada en Vercel | Reducir complejidad y riesgo de demo | Hernández Axel | Congelada |
 | 27-07-2026 | La IA pregunta, no verifica ni puntúa | Proteger autonomía y reducir alucinaciones | Hernández Axel | Congelada |
 | 29-07-2026 | Ampliar transferencia a seis conductas `0–6` y ocultar pistas previas | Probar un proceso reutilizable sin premiar obediencia | Hernández Axel | Implementada; revisar con piloto |

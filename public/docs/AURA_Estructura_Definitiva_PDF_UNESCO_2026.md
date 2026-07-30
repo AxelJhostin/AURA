@@ -15,8 +15,8 @@
 **Fecha límite oficial:** 16 de agosto de 2026, 23:59, hora de París
 **Objetivo interno de envío:** 15 de agosto de 2026, 18:00, hora de Ecuador
 **Formato oficial:** PDF o Word, máximo 10 MB
-**Base técnica comprobable:** 52 comprobaciones automatizadas; confirmar CI de
-la versión 1.0.0 y reemplazar el commit estable antes del envío.
+**Base técnica comprobable:** 52 comprobaciones automatizadas y CI de 1.0.0
+aprobada para el commit estable `b6b7943`.
 
 ---
 
@@ -1161,8 +1161,8 @@ Una afirmación no entra al PDF si:
 
 - demo pública;
 - commit estable
-  [`315e03f`](https://github.com/AxelJhostin/AURA/commit/315e03f8a788ec4d6a818901a6e28c8418b9a714);
-- [CI aprobada](https://github.com/AxelJhostin/AURA/actions/runs/30493787795);
+  [`b6b7943`](https://github.com/AxelJhostin/AURA/commit/b6b7943fc6b0dfa778ab269d56d3ba6a77d02ca5);
+- [CI aprobada](https://github.com/AxelJhostin/AURA/actions/runs/30505243112);
 - capturas de producción;
 - build, TypeScript y lint;
 - 14 pruebas unitarias, 7 de integración, 19 comprobaciones de
@@ -1366,8 +1366,8 @@ antiguas del documento.
 ### Evidencia
 
 - [ ] Cada cifra tiene fuente, fecha y responsable.
-- [ ] El commit estable y la ejecución de CI corresponden a la versión mostrada.
-- [ ] “52 comprobaciones” se usa como evidencia técnica, no como impacto educativo.
+- [x] El commit estable y la ejecución de CI corresponden a la versión mostrada.
+- [x] “52 comprobaciones” se usa como evidencia técnica, no como impacto educativo.
 - [ ] Cada cita del piloto tiene autorización.
 - [ ] No hay participantes identificables.
 - [ ] No hay aliados no confirmados.
