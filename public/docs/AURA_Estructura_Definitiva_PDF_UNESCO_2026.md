@@ -124,6 +124,35 @@ El PDF no debe presentar AURA como:
 - directorio que garantiza becas, empleos o intercambios;
 - detector que declara fraude automáticamente.
 
+### Oportunidades y límites que deben guiar la narrativa
+
+La valoración interna del MVP es **8,5/10 como producto antes de pilotos**. Esta
+cifra sirve para priorizar trabajo interno; no debe presentarse como nota de
+UNESCO, probabilidad de ganar ni resultado educativo.
+
+La narrativa debe aprovechar cinco oportunidades:
+
+1. un problema concreto ligado con aspiraciones juveniles;
+2. una intervención que puede salir de la pantalla mediante facilitadores;
+3. transferencia medible como diferencia frente a alertas y chatbots;
+4. IA responsable, opcional y subordinada a evidencia visible;
+5. escala mediante paquetes locales y alianzas, no solo mediante más usuarios.
+
+También debe declarar límites:
+
+- casos simulados pendientes de revisión AMI externa;
+- medición dentro de una sesión, sin evidencia longitudinal;
+- calidad dependiente de facilitación y mantenimiento editorial;
+- inclusión, conectividad y comprensión aún no probadas con públicos diversos;
+- referencias ecuatorianas y latinoamericanas por fortalecer;
+- funcionamiento offline/PWA todavía no implementado;
+- impacto, adopción y alianzas no demostrados.
+
+El MVP 1.0.0 permanece congelado. Las expansiones —más verticales, paneles,
+PWA/offline, autoría distribuida e investigación longitudinal— pertenecen a la
+hoja de ruta posterior al piloto y no deben inflar la descripción de lo
+construido.
+
 ---
 
 ## 4. Patrones de proyectos ganadores que AURA debe incorporar

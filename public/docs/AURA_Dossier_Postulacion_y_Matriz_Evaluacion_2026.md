@@ -101,6 +101,35 @@ La especialización mejora la candidatura porque:
 - evita enseñar desconfianza generalizada mediante casos engañosos,
   insuficientes y respaldados con límites.
 
+### Lectura estratégica actual del MVP
+
+**Evaluación interna: 8,5/10 como propuesta de producto antes de pilotos.** No
+es una calificación oficial, una predicción del jurado ni una probabilidad de
+ganar.
+
+| Activo actual | Oportunidad que habilita | Evidencia que todavía falta | Responsable |
+|---|---|---|---|
+| Problema concreto sobre becas, empleos e intercambios | Comunicar propósito en una frase y conectar con aspiraciones juveniles | Necesidades observadas del público | Nicole + José |
+| Circle de 25 minutos | Implementación en universidades, bibliotecas y grupos juveniles | Dos sesiones y aprendizaje de facilitación | Nicole |
+| Reto de transferencia `0–6` | Medir conductas, no solo satisfacción | Resultados agregados y limitaciones | Axel + José |
+| IA socrática con respaldo | Demostrar IA responsable y resiliente | Observación de utilidad real de las preguntas | Axel |
+| Casos desacoplados y bilingües | Paquetes regionales revisados por país | Revisión AMI y referencias latinoamericanas adicionales | José |
+| Datos mínimos y panel agregado | Colaboraciones sin recopilar expedientes personales | Prueba de consentimiento y comprensión | Los tres |
+
+Las oportunidades de expansión —red de facilitadores, paquetes por país,
+investigación educativa agregada, PWA/offline y paneles institucionales— se
+presentan como **ruta posterior al piloto**, nunca como capacidades ya
+construidas.
+
+Los límites que deben permanecer visibles son: casos simulados, ausencia de
+seguimiento longitudinal, dependencia de la calidad de facilitación,
+comprensión aún no probada con públicos diversos, fuentes regionales por
+fortalecer e impacto e inclusión todavía no demostrados.
+
+**Decisión operativa:** congelar funciones de 1.0.0. Solo se corrigen errores
+críticos, privacidad, accesibilidad, exactitud editorial o barreras que impidan
+completar y medir el Circle.
+
 ---
 
 ## 3. Qué sabemos realmente sobre la evaluación

@@ -40,6 +40,19 @@ Resultado actual: la base es suficientemente modular para el MVP, los pilotos
 y cambios acotados. No es todavía la arquitectura final para cuentas, roles,
 autoría dinámica de casos o varios recorridos simultáneos.
 
+### Límite estratégico de la arquitectura
+
+La arquitectura habilita crecimiento, pero no lo autoriza automáticamente. La
+prioridad actual es aprender de Opportunity Circles reales, no preparar de
+antemano todas las expansiones posibles.
+
+Después del piloto podrían justificarse paquetes regionales de casos, formación
+de facilitadores, modo de bajo consumo, PWA/offline, autoría revisada o paneles
+institucionales. Antes de construirlos debe existir una necesidad observada, una
+persona responsable, un criterio de éxito y pruebas proporcionales al riesgo.
+La modularidad sirve para reducir el costo del cambio cuando exista evidencia,
+no para ampliar alcance sin ella.
+
 ## Límites de arquitectura
 
 ```text

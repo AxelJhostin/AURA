@@ -418,13 +418,37 @@ test("groups anonymous sessions into private aggregate pilot reports", async () 
 });
 
 test("keeps a current, self-contained master handoff for the team", async () => {
-  const guide = await readFile(
-    new URL(
-      "public/docs/AURA_Guia_Maestra_UNESCO_Youth_Hackathon_2026.md",
-      root,
+  const [
+    guide,
+    readme,
+    contributing,
+    architecture,
+    operationalInputs,
+    roadmap,
+    technicalFixes,
+    pdfStructure,
+  ] = await Promise.all([
+    readFile(
+      new URL(
+        "public/docs/AURA_Guia_Maestra_UNESCO_Youth_Hackathon_2026.md",
+        root,
+      ),
+      "utf8",
     ),
-    "utf8",
-  );
+    readFile(new URL("README.md", root), "utf8"),
+    readFile(new URL("CONTRIBUTING.md", root), "utf8"),
+    readFile(new URL("docs/ARCHITECTURE_AND_TESTING.md", root), "utf8"),
+    readFile(new URL("docs/AXEL_OPERATIONAL_INPUTS.md", root), "utf8"),
+    readFile(new URL("docs/DEVELOPMENT_ROADMAP.md", root), "utf8"),
+    readFile(new URL("docs/MVP_TECHNICAL_FIXES.md", root), "utf8"),
+    readFile(
+      new URL(
+        "public/docs/AURA_Estructura_Definitiva_PDF_UNESCO_2026.md",
+        root,
+      ),
+      "utf8",
+    ),
+  ]);
 
   assert.match(guide, /Briefing de incorporación para Axel, Nicole y José/);
   assert.match(
@@ -438,11 +462,35 @@ test("keeps a current, self-contained master handoff for the team", async () => 
   assert.match(guide, /Ruta crítica hasta el 16 de agosto/);
   assert.match(guide, /Persistencia central \| Activa y verificada/);
   assert.match(guide, /52 comprobaciones automatizadas aprobadas/);
+  assert.match(guide, /Evaluación estratégica actual del MVP/);
+  assert.match(guide, /Valoración interna del producto: 8,5\/10/);
+  assert.match(guide, /Impacto demostrado \| Pendiente/);
+  assert.match(guide, /todavía no ofrece funcionamiento offline\/PWA completo/);
+  assert.match(readme, /Lectura estratégica del MVP/);
+  assert.match(
+    readme,
+    /permanece congelado hasta obtener\s+evidencia de pilotos/,
+  );
+  assert.match(contributing, /Compuerta de alcance vigente/);
+  assert.match(architecture, /Límite estratégico de la arquitectura/);
+  assert.match(operationalInputs, /Postura estratégica del producto/);
+  assert.match(roadmap, /Puerta para cualquier expansión/);
+  assert.match(technicalFixes, /52[\s>]+comprobaciones automatizadas/);
+  assert.match(pdfStructure, /Oportunidades y límites que deben guiar la narrativa/);
   assert.match(guide, /José Luis Cañarte Plúa/);
   assert.match(guide, /https:\/\/aura-opal-beta\.vercel\.app\//);
   assert.doesNotMatch(
-    guide,
-    /sk-proj-|sb_secret_|SUPABASE_SECRET_KEY=|axelhernan69@gmail\.com|pincaynicole9@gmail\.com|jocanart@espol\.edu\.ec/,
+    [
+      guide,
+      readme,
+      contributing,
+      architecture,
+      operationalInputs,
+      roadmap,
+      technicalFixes,
+      pdfStructure,
+    ].join("\n"),
+    /sk-proj-[A-Za-z0-9_-]{20,}|sb_secret_[A-Za-z0-9_-]{20,}|SUPABASE_SECRET_KEY=(?!<)|axelhernan69@gmail\.com|pincaynicole9@gmail\.com|jocanart@espol\.edu\.ec/,
   );
 });
 
@@ -465,6 +513,8 @@ test("ships an operational and privacy-preserving Opportunity Circle guide", asy
   assert.match(guide, /6–20 participantes/);
   assert.match(guide, /No solicitar nombres, correos/);
   assert.match(guide, /puntuación 0–6/);
+  assert.match(guide, /Escala responsable y límites operativos/);
+  assert.match(guide, /no demuestra conducta futura/);
   assert.match(guide, /al menos dos Circles realizados/);
   assert.match(component, /GUÍA DE FACILITACIÓN · 25 MINUTOS/);
   assert.match(component, /No abrir enlaces reales/);
@@ -491,6 +541,9 @@ test("maps the official UNESCO criteria to evidence and submission gates", async
   assert.match(dossier, /Cada proyecto será revisado por tres expertos/i);
   assert.match(dossier, /Campos confirmados del formulario Tally/);
   assert.match(dossier, /52 comprobaciones automatizadas/);
+  assert.match(dossier, /Lectura estratégica actual del MVP/);
+  assert.match(dossier, /8,5\/10 como propuesta de producto antes de pilotos/);
+  assert.match(dossier, /congelar funciones de 1\.0\.0/);
   assert.match(dossier, /Consistency with the Theme and MIL Principles/);
   assert.match(dossier, /Clarity of Presentation/);
   assert.match(dossier, /Innovation and Creativity/);

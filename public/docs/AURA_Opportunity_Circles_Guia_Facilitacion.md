@@ -346,7 +346,40 @@ La multiplicación no debe medirse por enlaces compartidos, sino por Circles rea
 
 ---
 
-## 12. Evidencias para la postulación
+## 12. Escala responsable y límites operativos
+
+Opportunity Circles puede crecer formando facilitadores juveniles y adaptando
+paquetes de casos con revisión local. La escala no se mide solo en visitas:
+también en facilitadores preparados, sesiones completadas, casos revisados,
+instituciones que repiten el formato y mejoras basadas en evidencia.
+
+Entornos potenciales:
+
+- universidades y oficinas de relaciones internacionales o empleabilidad;
+- colegios, bibliotecas y centros comunitarios;
+- organizaciones juveniles y de alfabetización mediática;
+- iniciativas de protección de datos y seguridad digital.
+
+Estas son oportunidades, no alianzas confirmadas.
+
+Límites que cada facilitador debe comprender:
+
+- una transferencia `0–6` dentro del Circle no demuestra conducta futura;
+- los casos simulados no son denuncias ni sustituyen revisión experta;
+- una sesión mal facilitada puede inducir respuestas, vergüenza o
+  sobreconfianza;
+- el formato aún debe probarse con distintos niveles educativos, de
+  conectividad, accesibilidad y experiencia digital;
+- AURA no funciona todavía como experiencia offline/PWA completa;
+- una mayor confianza después de la sesión no equivale por sí sola a
+  competencia.
+
+Antes de formar nuevos facilitadores a escala, el equipo debe observar al menos
+dos Circles, documentar dudas frecuentes y actualizar el guion de formación.
+
+---
+
+## 13. Evidencias para la postulación
 
 Guardar:
 
@@ -371,7 +404,7 @@ No afirmar:
 
 ---
 
-## 13. Criterio para estar listos
+## 14. Criterio para estar listos
 
 Opportunity Circles estará listo para presentarse como intervención validada cuando exista:
 
@@ -388,7 +421,6 @@ Hasta entonces debe describirse como **prototipo funcional listo para pilotos**,
 
 ---
 
-## 14. Frase de cierre
+## 15. Frase de cierre
 
 > AURA no decide si una oportunidad merece tu confianza. Te entrena para construir esa decisión con evidencia y demostrar que puedes repetir el proceso sin depender de la IA.
-
