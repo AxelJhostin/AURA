@@ -104,6 +104,13 @@ son igualmente explícitos: casos simulados, ausencia de seguimiento
 longitudinal, dependencia de la calidad de facilitación, referencias regionales
 por fortalecer y funcionamiento offline/PWA todavía incompleto.
 
+Como primera exploración de localización comunitaria, la hoja de ruta propone
+**AURA Community Localization Pilot — Kichwa**. Hoy no existe traducción,
+contacto, alianza ni validación con una comunidad Kichwa. Solo avanzará después
+del piloto principal si hablantes, educadores interculturales y jóvenes de una
+comunidad aceptan codiseñar, revisar y compartir reconocimiento sobre un Circle
+completo. No se utilizará traducción automática como sustituto de participación.
+
 **Regla vigente:** Opportunity Circles 1.0.0 permanece congelado hasta obtener
 evidencia de pilotos. Antes de eso solo se corrigen errores críticos,
 privacidad, accesibilidad o barreras que impidan completar y medir el recorrido.

@@ -7,7 +7,7 @@
 **Descriptor:** Youth-led practice for safer digital opportunities
 **Versión funcional:** AURA Opportunity Circles 1.0.0
 **Estado técnico:** producto funcional listo para pilotos; impacto no demostrado
-**Fecha de referencia:** 29 de julio de 2026
+**Fecha de referencia:** 30 de julio de 2026
 **Fecha límite oficial:** 16 de agosto de 2026, 23:59, hora de París  
 **Objetivo interno de envío:** 15 de agosto de 2026, 18:00, hora de Ecuador  
 **Prototipo público:** <https://aura-opal-beta.vercel.app/>  
@@ -121,6 +121,13 @@ investigación educativa agregada, PWA/offline y paneles institucionales— se
 presentan como **ruta posterior al piloto**, nunca como capacidades ya
 construidas.
 
+La primera exploración lingüística propuesta es **AURA Community Localization
+Pilot — Kichwa**. Su estado es `FUTURO CONDICIONADO`: no hay traducción,
+contactos, alianza, variante elegida ni comunidad confirmada. Solo podría
+activarse después del piloto inicial mediante codiseño con hablantes,
+educadores interculturales y jóvenes de una comunidad participante. El primer
+Circle usaría contenido humano curado y no generación libre de IA.
+
 Los límites que deben permanecer visibles son: casos simulados, ausencia de
 seguimiento longitudinal, dependencia de la calidad de facilitación,
 comprensión aún no probada con públicos diversos, fuentes regionales por
@@ -129,6 +136,11 @@ fortalecer e impacto e inclusión todavía no demostrados.
 **Decisión operativa:** congelar funciones de 1.0.0. Solo se corrigen errores
 críticos, privacidad, accesibilidad, exactitud editorial o barreras que impidan
 completar y medir el Circle.
+
+No escribir “AURA supports Kichwa”, “partnered with Kichwa communities” ni
+“preserves indigenous languages”. El único lenguaje permitido antes de una
+colaboración real es que el equipo **planea explorar** un piloto de localización
+comunitaria Kichwa sujeto a codiseño, revisión y prueba con hablantes.
 
 ---
 

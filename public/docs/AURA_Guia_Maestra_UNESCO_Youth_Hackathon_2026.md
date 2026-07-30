@@ -15,7 +15,7 @@ y candidatura — versión 3.0.
 funcional listo para pilotos; impacto todavía no demostrado.
 
 **Ubicación en el proyecto:** `public/docs/`, accesible desde el prototipo y versionada junto al código.  
-**Fecha de referencia:** 29 de julio de 2026.
+**Fecha de referencia:** 30 de julio de 2026.
 **Fecha límite oficial:** 16 de agosto de 2026, 23:59, hora de París. En Ecuador continental equivale aproximadamente a las 16:59. El objetivo interno es enviar el 15 de agosto a las 18:00 de Ecuador.
 
 **Prototipo público:** [https://aura-opal-beta.vercel.app/](https://aura-opal-beta.vercel.app/)
@@ -287,7 +287,7 @@ ni una prueba de integración que consuma OpenAI real. Los límites externos se
 simulan y el recorrido se ha revisado manualmente. Esto no bloquea el piloto,
 pero es la siguiente mejora técnica útil después del envío.
 
-### Evaluación estratégica actual del MVP — 29 de julio de 2026
+### Evaluación estratégica actual del MVP — 30 de julio de 2026
 
 Esta evaluación analiza el producto disponible **antes** de incorporar
 resultados de pilotos, PDF final o video. No es una nota de UNESCO, una
@@ -335,7 +335,9 @@ completa todavía depende de evidencia con personas reales.
 8. **Expandirse por verticales después de validar el núcleo.** Becas, empleos,
    intercambios y programas juveniles pueden convertirse en paquetes de casos
    adaptados por país. Salud, contenido cívico, finanzas y contenido sintético
-   permanecen como expansiones futuras, no como promesas del MVP.
+   permanecen como expansiones futuras, no como promesas del MVP. La primera
+   exploración lingüística propuesta es un piloto comunitario Kichwa,
+   condicionado a codiseño con hablantes y educadores.
 
 #### Límites y vulnerabilidades que deben declararse
 
@@ -1195,7 +1197,57 @@ No afirmar que Ecuador es “el país más afectado” sin datos sólidos. El ar
 2. Paquetes de casos para organizaciones juveniles de América Latina.
 3. Adaptación con facilitadores locales en otros países.
 4. Biblioteca internacional bilingüe.
-5. Idiomas adicionales mediante alianzas y revisión humana.
+5. AURA Community Localization Pilot — Kichwa, condicionado a colaboración
+   comunitaria verificable.
+6. Otros idiomas mediante codiseño, revisión humana y pruebas locales.
+
+### AURA Community Localization Pilot — Kichwa
+
+**Estado al 30 de julio de 2026:** exploración futura. AURA no está disponible
+en Kichwa y el equipo no conoce todavía a hablantes, docentes, organizaciones ni
+comunidades Kichwa que hayan aceptado colaborar. No existe traducción, alianza,
+aval, variante elegida ni fecha de implementación.
+
+La motivación es apoyar una expansión ecuatoriana con pertinencia cultural, no
+añadir un idioma para aparentar alcance. El Ministerio de Educación distingue a
+la nacionalidad Kichwa y a la nacionalidad Tsa’chi dentro del Sistema de
+Educación Intercultural Bilingüe; la lengua del pueblo Tsáchila es
+Tsáfiqui/Tsafiki, no Kichwa. Fuentes:
+[Educación Intercultural Bilingüe](https://educacion.gob.ec/educacion-intercultural-bilingue-princ/),
+[currículos interculturales bilingües](https://educacion.gob.ec/curriculos-nacionales-interculturales-bilingues/)
+y [materiales en Tsafiki](https://educacion.gob.ec/capacitan-a-docentes-interculturales-bilingues-sobre-uso-de-materiales-didacticos-en-tsafiki/).
+La Constitución reconoce al Kichwa y al Shuar como idiomas oficiales de
+relación intercultural, según la
+[Asamblea Nacional](https://www.asambleanacional.gob.ec/es/noticia/asamblea_entrega_al_pais_constitucion_en_kichwa).
+
+#### Condiciones para activar la exploración
+
+1. Encontrar una persona hablante, docente intercultural u organización Kichwa
+   que quiera participar sin que el equipo presuponga representación.
+2. Acordar comunidad, variante, escritura, glosario, reconocimiento,
+   compensación y uso del contenido.
+3. Codiseñar un Opportunity Circle completo; no limitarse a traducir botones.
+4. Adaptar oportunidad, instituciones, fuentes, consentimiento, acciones y
+   preguntas a un contexto elegido por la comunidad colaboradora.
+5. Empezar con preguntas socráticas curadas por personas. La generación libre
+   de IA permanece desactivada hasta que hablantes evalúen calidad y seguridad.
+6. Probar comprensión y pertinencia con jóvenes hablantes.
+7. Registrar correcciones, aprobación, autoría y límites antes de publicar.
+
+#### Lenguaje permitido mientras no exista colaboración
+
+> AURA plans to explore a Kichwa community localization pilot after its initial
+> validation, contingent on co-design with speakers, intercultural educators
+> and young people from a participating community.
+
+No afirmar:
+
+- que AURA ya ofrece Kichwa;
+- que fue diseñada con o para comunidades Kichwa;
+- que existe una alianza o contacto confirmado;
+- que representa a todas las comunidades o variantes Kichwa;
+- que preserva una lengua;
+- que una traducción automática equivale a inclusión.
 
 ---
 

@@ -4,7 +4,7 @@
 presupuesto y datos del equipo en el PDF / dossier.
 **No es backlog de código.** Los defectos del MVP están en
 [`MVP_TECHNICAL_FIXES.md`](./MVP_TECHNICAL_FIXES.md).
-**Fecha de actualización:** 29 de julio de 2026.
+**Fecha de actualización:** 30 de julio de 2026.
 **Fuente:** Hernández Axel.
 
 Regla de lenguaje (igual que el dossier):
@@ -120,7 +120,8 @@ aprender.
   transferencia `0–6`, datos mínimos, modo sin IA, CI y arquitectura pequeña.
 - **Oportunidades posteriores al piloto:** paquetes de casos por país,
   formación de facilitadores, alianzas universitarias, análisis agregado de
-  aprendizaje y modo de conectividad reducida.
+  aprendizaje, modo de conectividad reducida y un piloto de localización
+  comunitaria Kichwa si aparece una colaboración real.
 - **Límites técnicos honestos:** no existe seguimiento longitudinal, PWA/offline
   completo, autoría dinámica ni validación con públicos diversos.
 - **Decisión:** no ampliar funciones hasta que un piloto revele una necesidad
@@ -138,6 +139,9 @@ aprender.
 | URL canónica definitiva | Axel | Después; mientras tanto usar demo Vercel |
 | Desglose de costos 100 / 1.000 / 10.000 | Axel | Solo cuando haya estimaciones honestas |
 | Licencia pública concreta (MIT, etc.) | Los tres | Cuando decidan publicarla |
+| Contacto Kichwa o de educación intercultural bilingüe | Nicole + José | No existe hoy; buscar después del piloto sin afirmar alianza |
+| Variante, glosario, reconocimiento y compensación para localización Kichwa | Comunidad colaboradora + equipo | No decidir sin hablantes y educadores participantes |
+| Viabilidad técnica de IA en Kichwa | Axel + revisores hablantes | Empezar con preguntas curadas; no habilitar generación libre sin validación |
 
 ---
 

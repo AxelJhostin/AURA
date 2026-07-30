@@ -28,6 +28,12 @@ No se aceptan por ahora más casos, verticales, gamificación, perfiles, chat
 abierto, panel institucional ni PWA. Esas oportunidades se reconsideran con
 evidencia del piloto y una decisión explícita del equipo.
 
+La futura exploración Kichwa no autoriza traducciones espontáneas. Antes de
+aceptar contenido debe existir una colaboración verificable con hablantes o
+educadores, definición comunitaria de variante y terminología, revisión humana,
+atribución acordada y una prueba de comprensión. Hasta entonces la experiencia
+publicada permanece únicamente en español e inglés.
+
 ## Flujo de trabajo
 
 1. Crea una rama con un objetivo claro:

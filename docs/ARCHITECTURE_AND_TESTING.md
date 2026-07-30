@@ -53,6 +53,14 @@ persona responsable, un criterio de éxito y pruebas proporcionales al riesgo.
 La modularidad sirve para reducir el costo del cambio cuando exista evidencia,
 no para ampliar alcance sin ella.
 
+La exploración futura **AURA Community Localization Pilot — Kichwa** requerirá
+generalizar el contrato actual `LocalizedContent` más allá de `es`/`en`, pero
+esa migración no se implementará por adelantado. Primero deben existir
+colaboración comunitaria, variante acordada, glosario revisado, un Circle
+adaptado y criterios de prueba. La IA generativa permanecerá desactivada para
+Kichwa hasta que hablantes revisen su comportamiento; el primer piloto usará
+preguntas curadas y respaldo determinista.
+
 ## Límites de arquitectura
 
 ```text
