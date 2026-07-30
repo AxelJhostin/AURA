@@ -427,6 +427,8 @@ test("keeps a current, self-contained master handoff for the team", async () => 
     roadmap,
     technicalFixes,
     pdfStructure,
+    collaborationDossier,
+    dossierGenerator,
   ] = await Promise.all([
     readFile(
       new URL(
@@ -446,6 +448,17 @@ test("keeps a current, self-contained master handoff for the team", async () => 
         "public/docs/AURA_Estructura_Definitiva_PDF_UNESCO_2026.md",
         root,
       ),
+      "utf8",
+    ),
+    readFile(
+      new URL(
+        "public/docs/AURA_DOSSIER_COLABORATIVO_COMPLETO_2026.md",
+        root,
+      ),
+      "utf8",
+    ),
+    readFile(
+      new URL("scripts/build-collaboration-dossier.mjs", root),
       "utf8",
     ),
   ]);
@@ -491,6 +504,35 @@ test("keeps a current, self-contained master handoff for the team", async () => 
     /Opportunity Circles\*\* are 25-minute peer-led sessions/,
   );
   assert.match(pdfStructure, /6–20 participantes/);
+  assert.match(
+    collaborationDossier,
+    /AURA Opportunity Circles — Dossier colaborativo completo 2026/,
+  );
+  assert.match(
+    collaborationDossier,
+    /MVP técnico \| \*\*100 % del alcance congelado\*\*/,
+  );
+  assert.match(collaborationDossier, /Arquitectura definitiva del PDF/);
+  assert.match(collaborationDossier, /Registro obligatorio de evidencia/);
+  assert.match(collaborationDossier, /Gate final de candidatura/);
+  assert.match(
+    collaborationDossier,
+    /Anexo 1 — public\/docs\/AURA_Dossier_Postulacion_y_Matriz_Evaluacion_2026\.md/,
+  );
+  assert.match(collaborationDossier, /Anexo 5 — README\.md/);
+  assert.match(collaborationDossier, /Anexo 10 — CONTRIBUTING\.md/);
+  assert.match(
+    collaborationDossier,
+    /no existe traducción, contacto con hablantes, alianza/,
+  );
+  assert.ok(collaborationDossier.split("\n").length > 8_000);
+  assert.doesNotMatch(collaborationDossier, /AURA 0\.9\.0|versión 0\.9\.0/);
+  assert.match(dossierGenerator, /const sources = \[/);
+  assert.match(
+    dossierGenerator,
+    /public\/docs\/AURA_Estructura_Definitiva_PDF_UNESCO_2026\.md/,
+  );
+  assert.doesNotMatch(dossierGenerator, /docs\/private/);
   assert.match(guide, /José Luis Cañarte Plúa/);
   assert.match(guide, /https:\/\/aura-opal-beta\.vercel\.app\//);
   assert.doesNotMatch(
@@ -503,6 +545,7 @@ test("keeps a current, self-contained master handoff for the team", async () => 
       roadmap,
       technicalFixes,
       pdfStructure,
+      collaborationDossier,
     ].join("\n"),
     /sk-proj-[A-Za-z0-9_-]{20,}|sb_secret_[A-Za-z0-9_-]{20,}|SUPABASE_SECRET_KEY=(?!<)|axelhernan69@gmail\.com|pincaynicole9@gmail\.com|jocanart@espol\.edu\.ec/,
   );

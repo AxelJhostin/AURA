@@ -13,6 +13,7 @@ y candidatura — versión 3.0.
 
 **Versión funcional de referencia:** AURA Opportunity Circles 1.0.0 — producto
 funcional listo para pilotos; impacto todavía no demostrado.
+**Archivo único para el equipo:** [Dossier colaborativo completo](./AURA_DOSSIER_COLABORATIVO_COMPLETO_2026.md)
 
 **Ubicación en el proyecto:** `public/docs/`, accesible desde el prototipo y versionada junto al código.  
 **Fecha de referencia:** 30 de julio de 2026.
@@ -1614,7 +1615,7 @@ El MVP técnico está terminado cuando:
 9. El equipo puede demostrarlo en menos de 90 segundos.
 10. Producción, pruebas automatizadas y analítica están operativas.
 
-AURA 0.9.0 cumple esta definición técnica. La prueba con personas reales es el
+AURA Opportunity Circles 1.0.0 cumple esta definición técnica. La prueba con personas reales es el
 siguiente gate de validación y no una razón para ampliar funciones.
 
 ### Función estrella
@@ -1629,7 +1630,7 @@ Si el tiempo escasea, proteger:
 
 ## 12. Función de la IA
 
-### Implementación real en AURA 0.9.0
+### Implementación real en AURA Opportunity Circles 1.0.0
 
 La IA actual tiene un alcance deliberadamente estrecho: recibe el identificador
 del caso, la etapa, el idioma y opciones codificadas ya seleccionadas. Devuelve
@@ -1643,7 +1644,7 @@ pregunta de respaldo. Este alcance es suficiente para demostrar el uso
 responsable de IA sin convertirla en una autoridad de verdad.
 
 Las capacidades descritas a continuación representan límites y posibles
-extensiones, no todas están implementadas en la versión 0.9.0.
+extensiones; no todas están implementadas en la versión 1.0.0.
 
 ### La IA sí puede
 
@@ -1754,7 +1755,7 @@ Revisar:
 
 El objetivo es minimizar componentes.
 
-AURA 0.9.0 ya sigue esta decisión: una sola aplicación Next.js desplegada en
+AURA Opportunity Circles 1.0.0 ya sigue esta decisión: una sola aplicación Next.js desplegada en
 Vercel contiene interfaz, rutas de servidor, motor de casos y modo degradado. No
 existe un segundo backend que deba desplegarse o mantenerse.
 
@@ -2077,7 +2078,7 @@ afirmación, buscar el origen, comprobar procedencia, corroborar de forma
 independiente, expresar incertidumbre y elegir una acción proporcional. La
 rúbrica manual `0–18` puede aplicarse por un facilitador para una evaluación
 educativa más rica, pero no debe presentarse como calculada automáticamente por
-la versión 0.9.0.
+la versión 1.0.0.
 
 #### Calibración
 
@@ -2296,43 +2297,18 @@ Responsabilidades:
 - Sesgo e inclusión.
 - Pruebas de usuario.
 
-### Si quedan dos personas
+### Distribución definitiva del equipo de tres
 
-| Área | Desarrollador | Negocios |
+| Área | Lidera | Apoyo y aprobación |
 |---|---|---|
-| Producto | Responsable | Consultada |
-| Desarrollo | Responsable | Pruebas |
-| Casos | Revisión técnica | Responsable |
-| Investigación AMI | Compartida | Compartida |
-| Piloto | Instrumentación | Reclutamiento y ejecución |
-| Propuesta | Sección técnica | Lidera |
-| Video | Demo | Narrativa/edición/coordinación |
-| Sostenibilidad | Consultado | Responsable |
-| Presentación | Demo | Pitch |
+| Producto, ingeniería, seguridad y demo | Hernández Axel | Nicole + José |
+| Problema, estrategia, impacto, sostenibilidad y pilotos | Nicole | Axel + José |
+| Investigación, inglés, referencias y edición | José Luis | Axel + Nicole |
+| PDF, video, cifras finales y envío | Responsabilidad compartida | Aprobación de los tres |
 
-### Si quedan tres
-
-- Desarrollador: producto.
-- Negocios 1: estrategia, propuesta y sostenibilidad.
-- Negocios 2: piloto, alianzas, video y comunicación.
-
-La revisión pedagógica debe buscarse mediante mentoría o revisión externa puntual, sin inventar que esa persona forma parte del equipo.
-
-### Si quedan cuatro
-
-Agregar el perfil AMI/educación/UX. Esta es la composición más fuerte.
-
-### Criterios para aceptar nuevos integrantes
-
-- Edad entre 18 y 30.
-- Disponibilidad diaria real.
-- Capacidad complementaria.
-- Cumplimiento.
-- Comunicación.
-- Alineación ética.
-- Disposición a trabajar con fechas cerradas.
-
-No incorporar a alguien únicamente para aumentar el número.
+La revisión pedagógica debe buscarse mediante mentoría o revisión externa
+puntual, sin inventar que esa persona forma parte del equipo. El equipo está
+cerrado y no mantiene plazas en evaluación.
 
 ### Presentación del equipo
 
@@ -2412,7 +2388,7 @@ El desarrollo está adelantado respecto al plan inicial: landing, flujo A-U-R-A,
 cuatro misiones guiadas equilibradas, IA, modo degradado, bilingüismo, Tarjeta
 de Evidencia, transferencia, analítica local, expediente de procedencia,
 referencias reales, instrumento pre/post y modo facilitador ya existen en AURA
-0.9.0. La ruta
+Opportunity Circles 1.0.0. La ruta
 crítica cambia de “construir una demo” a **probar, documentar y presentar una
 intervención creíble**.
 
@@ -2423,7 +2399,7 @@ intervención creíble**.
 - Congelar one-liner, público y alcance final.
 - Revisar los cuatro casos implementados con una persona experta en AMI.
 - Preparar lista de participantes.
-- Verificar el modo piloto completo después del despliegue 0.9.0.
+- Verificar el modo piloto completo en la versión desplegada 1.0.0.
 - Crear tablero y responsables.
 
 ### 30 de julio–2 de agosto — Ensayo interno y facilitación

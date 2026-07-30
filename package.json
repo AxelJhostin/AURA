@@ -21,6 +21,7 @@
     "test:db": "node scripts/run-supabase.mjs test db --local",
     "db:start": "node scripts/run-supabase.mjs start",
     "db:stop": "node scripts/run-supabase.mjs stop",
+    "docs:collab": "node scripts/build-collaboration-dossier.mjs",
     "typecheck": "tsc --noEmit",
     "check": "npm run lint && npm run typecheck && npm run test:all",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next"

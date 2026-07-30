@@ -17,6 +17,7 @@
 **Formato oficial:** PDF o Word, máximo 10 MB
 **Base técnica comprobable:** 52 comprobaciones automatizadas y CI de 1.0.0
 aprobada para el commit estable `b6b7943`.
+**Archivo único para el equipo:** [Dossier colaborativo completo](./AURA_DOSSIER_COLABORATIVO_COMPLETO_2026.md)
 
 ---
 

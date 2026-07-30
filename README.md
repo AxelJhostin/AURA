@@ -12,13 +12,15 @@ dinero o confianza. AURA no entrega un veredicto automático; entrena a la
 persona para investigar, justificar una decisión y transferir la habilidad a
 una oportunidad nueva sin depender de la IA.
 
-Este repositorio reúne cuatro entregables que deben evolucionar juntos:
+Este repositorio reúne cinco entregables que deben evolucionar juntos:
 
 1. Un **prototipo web funcional** con cuatro Opportunity Circles y transferencia.
-2. La **guía maestra del proyecto** para estrategia, candidatura, piloto,
+2. Un **dossier colaborativo completo** que reúne en un solo archivo el estado
+   canónico y el contenido íntegro de toda la documentación pública vigente.
+3. La **guía maestra del proyecto** para estrategia, candidatura, piloto,
    producto, IA responsable, riesgos, pitch y ejecución.
-3. Una **guía operativa de facilitación** para ejecutar Circles con salvaguardas.
-4. Un **dossier operativo de postulación** que convierte los criterios
+4. Una **guía operativa de facilitación** para ejecutar Circles con salvaguardas.
+5. Un **dossier operativo de postulación** que convierte los criterios
    oficiales en evidencia, responsables, fechas y controles de envío.
 
 ## Estado actual
@@ -454,7 +456,16 @@ incluye una licencia de código porque esa decisión todavía pertenece al equip
 
 ## Documentación de referencia
 
-La guía maestra y la guía de Opportunity Circles contienen:
+El punto de entrada recomendado para el equipo es el
+[`AURA_DOSSIER_COLABORATIVO_COMPLETO_2026.md`](public/docs/AURA_DOSSIER_COLABORATIVO_COMPLETO_2026.md).
+Se reconstruye después de actualizar cualquier documento fuente con:
+
+```bash
+npm run docs:collab
+```
+
+Este dossier incorpora íntegramente las diez fuentes públicas vigentes y añade
+una capa canónica con:
 
 - briefing y responsabilidades del equipo final de tres personas;
 - estado verificable de AURA Opportunity Circles 1.0.0 y capacidades pendientes;
@@ -469,6 +480,9 @@ La guía maestra y la guía de Opportunity Circles contienen:
 - riesgos y mitigaciones;
 - candidatura, video, pitch y preguntas del jurado;
 - cronograma y controles finales.
+
+No incorpora correos, fechas de nacimiento ni otros datos privados del
+formulario.
 
 ---
 
