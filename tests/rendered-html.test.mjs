@@ -466,17 +466,31 @@ test("keeps a current, self-contained master handoff for the team", async () => 
   assert.match(guide, /Valoración interna del producto: 8,5\/10/);
   assert.match(guide, /Impacto demostrado \| Pendiente/);
   assert.match(guide, /todavía no ofrece funcionamiento offline\/PWA completo/);
+  assert.match(guide, /AURA Community Localization Pilot — Kichwa/);
+  assert.match(guide, /el equipo no conoce todavía a hablantes/);
+  assert.match(guide, /que AURA ya ofrece Kichwa/);
+  assert.match(guide, /la lengua del pueblo Tsáchila es\s+Tsáfiqui\/Tsafiki/);
   assert.match(readme, /Lectura estratégica del MVP/);
+  assert.match(readme, /no existe traducción,\s+contacto, alianza ni validación/);
   assert.match(
     readme,
     /permanece congelado hasta obtener\s+evidencia de pilotos/,
   );
   assert.match(contributing, /Compuerta de alcance vigente/);
+  assert.match(contributing, /no autoriza traducciones espontáneas/);
   assert.match(architecture, /Límite estratégico de la arquitectura/);
+  assert.match(architecture, /generativa permanecerá desactivada para\s+Kichwa/);
   assert.match(operationalInputs, /Postura estratégica del producto/);
+  assert.match(operationalInputs, /Contacto Kichwa o de educación intercultural/);
   assert.match(roadmap, /Puerta para cualquier expansión/);
+  assert.match(roadmap, /idea aprobada para exploración futura/);
   assert.match(technicalFixes, /52[\s>]+comprobaciones automatizadas/);
   assert.match(pdfStructure, /Oportunidades y límites que deben guiar la narrativa/);
+  assert.match(
+    pdfStructure,
+    /Opportunity Circles\*\* are 25-minute peer-led sessions/,
+  );
+  assert.match(pdfStructure, /6–20 participantes/);
   assert.match(guide, /José Luis Cañarte Plúa/);
   assert.match(guide, /https:\/\/aura-opal-beta\.vercel\.app\//);
   assert.doesNotMatch(
@@ -515,6 +529,8 @@ test("ships an operational and privacy-preserving Opportunity Circle guide", asy
   assert.match(guide, /puntuación 0–6/);
   assert.match(guide, /Escala responsable y límites operativos/);
   assert.match(guide, /no demuestra conducta futura/);
+  assert.match(guide, /Futura localización comunitaria Kichwa/);
+  assert.match(guide, /todavía no autoriza facilitar AURA en Kichwa/);
   assert.match(guide, /al menos dos Circles realizados/);
   assert.match(component, /GUÍA DE FACILITACIÓN · 25 MINUTOS/);
   assert.match(component, /No abrir enlaces reales/);
@@ -544,6 +560,8 @@ test("maps the official UNESCO criteria to evidence and submission gates", async
   assert.match(dossier, /Lectura estratégica actual del MVP/);
   assert.match(dossier, /8,5\/10 como propuesta de producto antes de pilotos/);
   assert.match(dossier, /congelar funciones de 1\.0\.0/);
+  assert.match(dossier, /FUTURO CONDICIONADO/);
+  assert.match(dossier, /no hay traducción,\s+contactos, alianza/);
   assert.match(dossier, /Consistency with the Theme and MIL Principles/);
   assert.match(dossier, /Clarity of Presentation/);
   assert.match(dossier, /Innovation and Creativity/);

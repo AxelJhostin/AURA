@@ -87,6 +87,28 @@ Las oportunidades estratégicas posteriores al piloto son:
 Ninguna entra al alcance por ser atractiva. Para avanzar debe responder a una
 necesidad observada, tener responsable, costo, salvaguarda y métrica de éxito.
 
+### Exploración posterior — AURA Community Localization Pilot: Kichwa
+
+**Estado actual:** idea aprobada para exploración futura; sin traducción,
+contactos, alianza, variante seleccionada ni comunidad confirmada. El producto
+publicado continúa en español e inglés.
+
+Esta exploración busca apoyar una adaptación comunitaria ecuatoriana, no añadir
+un idioma como elemento decorativo. Solo se activa si se cumplen estas puertas:
+
+1. una persona hablante, docente intercultural u organización Kichwa acepta
+   participar;
+2. la comunidad colaboradora define variante, escritura, terminología,
+   reconocimiento y condiciones de uso;
+3. se adapta un Circle completo, incluyendo consentimiento, fuentes,
+   instituciones, acciones y preguntas de respaldo;
+4. la primera versión usa contenido humano curado; no generación libre de IA;
+5. jóvenes hablantes prueban comprensión, pertinencia y seguridad;
+6. las correcciones y la aprobación quedan registradas antes de publicar.
+
+No afirmar disponibilidad en Kichwa, codiseño, alianza, preservación lingüística
+ni representación de pueblos indígenas hasta que exista evidencia.
+
 ## 3. Arquitectura objetivo inmediata
 
 ```text
@@ -370,7 +392,9 @@ evidencia y siguiente paso sin explicación adicional.
 - Biblioteca de micromódulos.
 - Modo de bajo consumo de datos.
 - PWA/offline si los pilotos confirman una barrera de conectividad.
-- Nuevos países e idiomas.
+- AURA Community Localization Pilot — Kichwa, condicionado a codiseño y revisión
+  con hablantes y educadores.
+- Otros países e idiomas únicamente mediante localización comunitaria revisada.
 - Evaluación longitudinal.
 
 ## 6. Plan de sprints

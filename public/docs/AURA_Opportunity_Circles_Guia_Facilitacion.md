@@ -3,7 +3,7 @@
 ## Guía operativa de facilitación y piloto
 
 **Versión:** 1.0  
-**Fecha de corte:** 29 de julio de 2026  
+**Fecha de corte:** 30 de julio de 2026
 **Equipo:** Hernández Axel · Nicole Madelyne Pincay Soledispa · José Luis Cañarte Plúa  
 **Programa:** primera implementación comunitaria del método AURA  
 **Duración recomendada:** 25 minutos  
@@ -376,6 +376,18 @@ Límites que cada facilitador debe comprender:
 
 Antes de formar nuevos facilitadores a escala, el equipo debe observar al menos
 dos Circles, documentar dudas frecuentes y actualizar el guion de formación.
+
+### Futura localización comunitaria Kichwa
+
+Esta guía todavía no autoriza facilitar AURA en Kichwa. El equipo no tiene
+traducción, hablantes revisores, comunidad participante ni alianza confirmada.
+Si después del piloto inicial aparece una colaboración real, las personas
+hablantes y educadoras deben compartir decisiones sobre variante, glosario,
+ejemplos, consentimiento, preguntas, atribución y aprobación.
+
+No se debe traducir esta guía automáticamente y presentarla como material
+comunitario. El primer Circle localizado debe usar preguntas curadas por
+personas, probarse con jóvenes hablantes y registrar cambios antes de publicarse.
 
 ---
 

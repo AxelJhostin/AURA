@@ -11,7 +11,7 @@
 **Equipo:** Hernández Axel · Nicole Madelyne Pincay Soledispa · José Luis Cañarte Plúa
 **Prototipo:** <https://aura-opal-beta.vercel.app/>
 **Repositorio:** <https://github.com/AxelJhostin/AURA>
-**Fecha de esta guía:** 29 de julio de 2026
+**Fecha de esta guía:** 30 de julio de 2026
 **Fecha límite oficial:** 16 de agosto de 2026, 23:59, hora de París
 **Objetivo interno de envío:** 15 de agosto de 2026, 18:00, hora de Ecuador
 **Formato oficial:** PDF o Word, máximo 10 MB
@@ -808,24 +808,25 @@ Presentar una tabla:
 | Barrera | Respuesta actual | Próximo paso verificable |
 |---|---|---|
 | Mobile-first access | responsive interface down to 320 px | test on low-end Android devices |
-| Language | Spanish and English | youth-reviewed localization |
+| Language | complete Spanish and English experiences | explore a Kichwa community localization pilot only after co-design with speakers and educators |
 | Limited connectivity | short sessions and non-AI fallback | downloadable facilitator materials |
 | Privacy concerns | no account for core experience; consent-based anonymous metrics | publish plain-language privacy notice |
 | Unequal access to individual devices | facilitator-led group use | pilot AURA Circles |
 | Different confidence or literacy levels | Socratic prompts and visible evidence | accessibility and comprehension testing |
 
-### AURA Circles
+### Opportunity Circles
 
-Presentar como fase planificada, no implementada:
+Presentar como formato implementado y listo para pilotos, no como impacto ya
+demostrado:
 
-> **AURA Circles** are small peer-led sessions in universities and youth
-> organizations where a trained facilitator guides participants through one
-> evidence mission, a group reflection and an unguided transfer case.
+> **AURA Opportunity Circles** are 25-minute peer-led sessions where young
+> people investigate a simulated opportunity, discuss evidence and complete an
+> unguided transfer challenge.
 
 Definir el formato:
 
-- 30–45 minutos;
-- 8–20 participantes;
+- 25 minutos;
+- 6–20 participantes;
 - un facilitador joven;
 - un dispositivo por persona o trabajo en parejas;
 - guía reutilizable;
@@ -899,7 +900,7 @@ Explicar en lenguaje no técnico:
 | Months 2–3 | run university/youth-organization pilots | sessions, completion and transfer data |
 | Months 3–4 | publish facilitator kit and case-authoring standard | reviewed kit and reusable case template |
 | Months 4–5 | train youth facilitators | facilitators trained and sessions delivered |
-| Months 5–6 | evaluate and prepare regional adaptation | report, partner feedback and localization plan |
+| Months 5–6 | evaluate regional adaptation and the feasibility of a Kichwa community localization pilot | report, partner feedback and a go/no-go decision based on real collaboration |
 
 ### Modelo de sostenibilidad
 
