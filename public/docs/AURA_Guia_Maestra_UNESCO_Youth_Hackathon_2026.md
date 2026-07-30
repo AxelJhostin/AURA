@@ -287,6 +287,89 @@ ni una prueba de integración que consuma OpenAI real. Los límites externos se
 simulan y el recorrido se ha revisado manualmente. Esto no bloquea el piloto,
 pero es la siguiente mejora técnica útil después del envío.
 
+### Evaluación estratégica actual del MVP — 29 de julio de 2026
+
+Esta evaluación analiza el producto disponible **antes** de incorporar
+resultados de pilotos, PDF final o video. No es una nota de UNESCO, una
+predicción del jurado ni una probabilidad de ganar.
+
+**Valoración interna del producto: 8,5/10.** AURA ya tiene nivel competitivo
+como propuesta porque combina un problema reconocible, una intervención
+replicable, un MVP funcional y medición de transferencia. La candidatura
+completa todavía depende de evidencia con personas reales.
+
+| Dimensión | Evaluación interna | Lectura honesta |
+|---|---:|---|
+| Claridad del problema | 9/10 | Becas, empleos e intercambios conectan aspiración, urgencia y riesgo recuperable |
+| Encaje con juventud y AMI/MIL | 9/10 | Jóvenes investigan, deliberan y facilitan; la evidencia permanece visible |
+| Innovación defendible | 8/10 | La diferencia está en acciones trazables y transferencia, no en afirmar que inventamos lo socrático |
+| Viabilidad técnica | 9/10 | Producto público, bilingüe, sin cuentas, con modo sin IA y calidad automatizada |
+| Privacidad e IA responsable | 9/10 | Datos mínimos, consentimiento, RLS y ausencia de veredicto automático |
+| Capacidad de medición | 8,5/10 | Seis conductas observables y comparación guiada/no guiada; falta seguimiento longitudinal |
+| Escalabilidad | 8,5/10 | Casos desacoplados y sesiones facilitadas; falta probar formación y mantenimiento editorial |
+| Inclusión demostrada | 5/10 | Existen decisiones de diseño, pero todavía no evidencia con públicos diversos |
+| Impacto demostrado | Pendiente | No debe puntuarse ni afirmarse antes de los pilotos |
+
+#### Oportunidades estratégicas
+
+1. **Resolver un problema emocionalmente importante.** Investigar una
+   oportunidad educativa o laboral antes de entregar datos, dinero o confianza
+   es más concreto que “combatir la desinformación” en general.
+2. **Ser un programa juvenil, no solo una web.** Opportunity Circles permite
+   operar en universidades, colegios, bibliotecas, grupos juveniles y centros
+   comunitarios mediante facilitación entre pares.
+3. **Diferenciarse de detectores y chatbots.** AURA no resuelve un enlace:
+   entrena afirmación, origen, procedencia, corroboración, incertidumbre y
+   acción, y prueba si esas conductas se transfieren.
+4. **Mostrar IA responsable.** La IA formula preguntas, no decide; las fuentes
+   permanecen visibles y el recorrido funciona con preguntas de respaldo.
+5. **Construir una red de facilitadores.** La escala puede medirse mediante
+   personas formadas, Circles realizados, paquetes locales revisados y nuevas
+   personas capaces de facilitar.
+6. **Activar alianzas naturales.** Universidades, oficinas de relaciones
+   internacionales y empleabilidad, bibliotecas, ONG juveniles y organizaciones
+   de protección de datos tienen un motivo concreto para probar el formato.
+7. **Crear una línea de aprendizaje e investigación.** Con consentimiento y
+   resultados agregados, AURA puede estudiar qué conductas cuestan más, cuándo
+   aparece exceso de confianza y si la práctica se transfiere.
+8. **Expandirse por verticales después de validar el núcleo.** Becas, empleos,
+   intercambios y programas juveniles pueden convertirse en paquetes de casos
+   adaptados por país. Salud, contenido cívico, finanzas y contenido sintético
+   permanecen como expansiones futuras, no como promesas del MVP.
+
+#### Límites y vulnerabilidades que deben declararse
+
+- Los cuatro casos son simulados; protegen a participantes y evitan acusaciones,
+  pero necesitan revisión AMI externa y pruebas de realismo.
+- La transferencia dentro de una sesión no demuestra comportamiento semanas
+  después ni reducción de pérdidas reales.
+- La calidad de la experiencia depende de que la persona facilitadora respete
+  tiempos, salvaguardas y preguntas abiertas.
+- Falta comprobar comprensión con distintos niveles educativos, conectividad,
+  discapacidad y experiencia digital.
+- Conviene fortalecer referencias ecuatorianas y latinoamericanas sin eliminar
+  fuentes internacionales primarias.
+- La IA añade adaptación, pero no es indispensable; esto debe presentarse como
+  resiliencia pedagógica, no como una promesa de automatización.
+- AURA todavía no ofrece funcionamiento offline/PWA completo.
+- Impacto, inclusión, adopción institucional y alianzas continúan pendientes de
+  evidencia.
+
+#### Decisión de producto
+
+El alcance funcional de Opportunity Circles 1.0.0 queda congelado. Antes de los
+pilotos solo se corrige:
+
+- un error crítico reproducible;
+- una barrera que impida consentimiento, misión, transferencia o lectura
+  agregada;
+- un problema de privacidad, accesibilidad o exactitud editorial;
+- una falla que amenace la demostración pública.
+
+No se añaden más casos, paneles, gamificación, perfiles, chat abierto ni
+verticales. El siguiente salto de valor debe venir de evidencia con personas,
+revisión externa y una iteración documentada.
+
 ### 6. Lo que todavía no se puede afirmar
 
 Hasta completar pilotos reales, no decir:

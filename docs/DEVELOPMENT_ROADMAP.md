@@ -72,6 +72,21 @@ Quedan fuera hasta validar lo anterior:
 - generación automática de casos sin revisión;
 - clasificación universal de verdad.
 
+### Puerta para cualquier expansión
+
+Las oportunidades estratégicas posteriores al piloto son:
+
+- paquetes de casos de becas, empleos, intercambios y programas juveniles
+  adaptados por país;
+- formación y acreditación interna de facilitadores;
+- alianzas con universidades, bibliotecas y organizaciones juveniles;
+- análisis agregado para investigación educativa;
+- modo de bajo consumo y funcionamiento offline/PWA;
+- revisión editorial distribuida con control humano.
+
+Ninguna entra al alcance por ser atractiva. Para avanzar debe responder a una
+necesidad observada, tener responsable, costo, salvaguarda y métrica de éxito.
+
 ## 3. Arquitectura objetivo inmediata
 
 ```text
@@ -349,11 +364,12 @@ evidencia y siguiente paso sin explicación adicional.
 
 - Suite E2E de navegador para recorrido, idioma, teclado y móvil.
 - Dividir `AuraExperience.tsx` antes de ampliar el modelo de estado.
-- AURA Circles.
+- Kit regional y formación de facilitadores de Opportunity Circles.
 - Herramienta de creación local de casos.
 - Panel institucional.
 - Biblioteca de micromódulos.
 - Modo de bajo consumo de datos.
+- PWA/offline si los pilotos confirman una barrera de conectividad.
 - Nuevos países e idiomas.
 - Evaluación longitudinal.
 

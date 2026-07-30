@@ -89,6 +89,28 @@ observadas. No determina si la publicación es verdadera o falsa, no elige por l
 persona y no puede inventar nuevas fuentes. El recorrido completo sigue
 funcionando sin IA mediante preguntas de respaldo.
 
+## Lectura estratégica del MVP
+
+La evaluación interna actual sitúa al producto en **8,5/10 como propuesta de
+MVP**, no como nota de UNESCO ni probabilidad de ganar. Sus mayores fortalezas
+son la claridad del problema, la intervención juvenil de 25 minutos, la
+transferencia medible, la privacidad y una IA que pregunta sin emitir
+veredictos.
+
+Las oportunidades posteriores al piloto son formar una red de facilitadores,
+adaptar paquetes por país, colaborar con universidades y organizaciones
+juveniles, y estudiar resultados agregados de aprendizaje. Sus límites actuales
+son igualmente explícitos: casos simulados, ausencia de seguimiento
+longitudinal, dependencia de la calidad de facilitación, referencias regionales
+por fortalecer y funcionamiento offline/PWA todavía incompleto.
+
+**Regla vigente:** Opportunity Circles 1.0.0 permanece congelado hasta obtener
+evidencia de pilotos. Antes de eso solo se corrigen errores críticos,
+privacidad, accesibilidad o barreras que impidan completar y medir el recorrido.
+El análisis completo está en la sección “Evaluación estratégica actual del MVP”
+de la
+[guía maestra](public/docs/AURA_Guia_Maestra_UNESCO_Youth_Hackathon_2026.md).
+
 ## Inicio rápido
 
 ### Requisitos

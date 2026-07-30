@@ -20,7 +20,7 @@ Regla de lenguaje (igual que el dossier):
 | Campo | Valor | Estado |
 |---|---|---|
 | Líder del equipo (postulación) | Hernández Axel | **DECIDIDO** |
-| Nombre público del proyecto | Hernández Axel | **DECIDIDO** |
+| Nombre público del proyecto | AURA Opportunity Circles | **DECIDIDO** |
 | Nombre legal para el formulario | Confirmar contra documento de identidad antes del envío | **PENDIENTE ADMINISTRATIVO** |
 | Equipo confirmado | Axel + Nicole + José | **DECIDIDO; equipo cerrado** |
 | Licencia del repositorio | Aún no se publica licencia | **DECIDIDO (por ahora)** |
@@ -111,6 +111,20 @@ usuarios, ni presupuestos mensuales inventados.
 
 Alineado con el principio del producto: datos sensibles no son requisito para
 aprender.
+
+### Postura estratégica del producto
+
+- **Evaluación interna actual:** 8,5/10 como MVP; no es nota oficial ni
+  probabilidad de ganar.
+- **Fortalezas que Axel puede demostrar:** producto público, flujo bilingüe,
+  transferencia `0–6`, datos mínimos, modo sin IA, CI y arquitectura pequeña.
+- **Oportunidades posteriores al piloto:** paquetes de casos por país,
+  formación de facilitadores, alianzas universitarias, análisis agregado de
+  aprendizaje y modo de conectividad reducida.
+- **Límites técnicos honestos:** no existe seguimiento longitudinal, PWA/offline
+  completo, autoría dinámica ni validación con públicos diversos.
+- **Decisión:** no ampliar funciones hasta que un piloto revele una necesidad
+  concreta; solo corregir fallas críticas, privacidad, accesibilidad o exactitud.
 
 ---
 

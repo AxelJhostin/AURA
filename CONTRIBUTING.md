@@ -13,6 +13,21 @@ seguridad de las personas.
 3. Revisa [`docs/DEVELOPMENT_ROADMAP.md`](docs/DEVELOPMENT_ROADMAP.md).
 4. Confirma que la tarea pertenece al MVP vigente.
 
+### Compuerta de alcance vigente
+
+Opportunity Circles 1.0.0 está congelado hasta completar pilotos. Una
+contribución anterior al piloto debe resolver al menos una de estas condiciones:
+
+- error crítico reproducible;
+- barrera de consentimiento, misión, transferencia o lectura agregada;
+- riesgo de privacidad o accesibilidad;
+- error editorial o factual en un caso;
+- falla de build, prueba, producción o demostración pública.
+
+No se aceptan por ahora más casos, verticales, gamificación, perfiles, chat
+abierto, panel institucional ni PWA. Esas oportunidades se reconsideran con
+evidencia del piloto y una decisión explícita del equipo.
+
 ## Flujo de trabajo
 
 1. Crea una rama con un objetivo claro:
