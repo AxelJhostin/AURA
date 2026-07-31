@@ -24,6 +24,22 @@ function confidenceScore(optionId: string | null) {
   return match ? Number(match[1]) : null;
 }
 
+function firstRowBySession(rows: PilotEventRow[]) {
+  const firstBySession = new Map<string, PilotEventRow>();
+
+  for (const row of rows) {
+    const current = firstBySession.get(row.anonymous_session_id);
+    if (
+      !current ||
+      Date.parse(row.occurred_at) < Date.parse(current.occurred_at)
+    ) {
+      firstBySession.set(row.anonymous_session_id, row);
+    }
+  }
+
+  return [...firstBySession.values()];
+}
+
 export function buildPilotReport({
   code,
   allRows,
@@ -48,10 +64,12 @@ export function buildPilotReport({
       .filter((row) => row.event_name === "evidence_card_generated")
       .map((row) => row.anonymous_session_id),
   );
-  const transferRows = rows.filter(
-    (row) =>
-      row.event_name === "transfer_completed" &&
-      typeof row.transfer_score === "number",
+  const transferRows = firstRowBySession(
+    rows.filter(
+      (row) =>
+        row.event_name === "transfer_completed" &&
+        typeof row.transfer_score === "number",
+    ),
   );
   const missionDurationRows = rows.filter(
     (row) =>
