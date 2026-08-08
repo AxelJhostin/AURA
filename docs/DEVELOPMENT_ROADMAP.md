@@ -495,6 +495,13 @@ No medir solo “acertó/no acertó”.
 - no premiar obediencia a la IA;
 - no almacenar contenido privado sin consentimiento explícito.
 
+### Demostración técnica sin piloto humano
+
+`AURA-DEMSAMPLEXYZ` existe únicamente para comprobar visualmente el panel de
+agregados. Sus datos son deterministas, locales y simulados; no se escriben en
+Supabase, no se exportan y no pueden presentarse como métrica de participantes.
+La documentación de candidatura debe separar esta comprobación del piloto real.
+
 ## 9. Revisión antes de cada release
 
 - [ ] La misión puede completarse sin ayuda del equipo.

@@ -477,6 +477,7 @@ debe presentarse como objetivo, hipótesis o plan.
 | La analítica evita datos sensibles | Esquema, API, RLS y documentación | VERIFICADO |
 | Funciona en móvil | Prueba a 320 px | VERIFICADO |
 | El software reduce riesgo de regresión | 52 comprobaciones + cobertura sobre umbrales + CI de 1.0.0 | VERIFICADO |
+| El panel agregado se puede demostrar | Modo `AURA-DEMSAMPLEXYZ`, aviso visible y prueba unitaria | VERIFICADO TÉCNICAMENTE; NO ES PILOTO |
 | Mejora una habilidad | Resultado de piloto | PENDIENTE |
 | Es útil para el público | Observación y encuesta de piloto | PENDIENTE |
 | Puede facilitarse en comunidad | Ensayo de facilitación | PENDIENTE |
@@ -486,6 +487,7 @@ debe presentarse como objetivo, hipótesis o plan.
 ### Regla de lenguaje
 
 - **Realidad actual:** “AURA includes…”, “The public MVP demonstrates…”
+- **Demo técnica:** “This dashboard uses client-only simulated data to demonstrate reporting; no participant outcomes are claimed.”
 - **Resultado observado:** “In our pilot, X of Y participants…”
 - **Meta futura:** “We aim to…”, “The next phase will…”
 - **Prohibido sin evidencia:** “AURA improves critical thinking by…”

@@ -2,34 +2,17 @@
 
 import { useState } from "react";
 import type { Locale } from "../data/cases";
+import {
+  TECHNICAL_DEMO_PILOT_CODE,
+  technicalDemoReportFor,
+} from "../data/demo-pilot";
+import type { PilotReport } from "../domain/pilot-report";
 import { createPilotCode, normalizePilotCode } from "../lib/analytics";
 
 type Props = {
   locale: Locale;
   activePilotCode: string;
   onActivateCode: (code: string) => void;
-};
-
-export type PilotReport = {
-  code: string;
-  productVersion: string;
-  transferMaxScore: number;
-  participants: number;
-  missionStarts: number;
-  evidenceCards: number;
-  completedParticipants: number;
-  completionRate: number;
-  transferCompletions: number;
-  averageTransferScore: number | null;
-  baselineResponses: number;
-  exitResponses: number;
-  matchedConfidenceResponses: number;
-  averageBaselineConfidence: number | null;
-  averageExitConfidence: number | null;
-  averageConfidenceDelta: number | null;
-  averageMissionDurationSeconds: number | null;
-  latestActivity: string | null;
-  truncated: boolean;
 };
 
 function csvCell(value: string | number | boolean | null) {
@@ -126,6 +109,8 @@ export function PilotFacilitator({
           paired: "respuestas pareadas",
           export: "Descargar resumen CSV",
           empty: "El reporte comenzará a llenarse cuando las personas participen en el Circle y permitan métricas anónimas.",
+          demoTitle: "Demostración técnica · datos simulados",
+          demoBody: "Estas cifras se generan localmente para mostrar el panel. No proceden de participantes, no se envían a Supabase y no pueden usarse como evidencia de impacto.",
           privacy: "El código funciona como acceso al agregado: compártelo solo con el equipo facilitador y participantes del Circle.",
         }
       : {
@@ -156,6 +141,8 @@ export function PilotFacilitator({
           paired: "paired responses",
           export: "Download aggregate CSV",
           empty: "The report will populate once people participate in the Circle and allow anonymous metrics.",
+          demoTitle: "Technical demonstration · simulated data",
+          demoBody: "These figures are generated locally to demonstrate the dashboard. They do not come from participants, are not sent to Supabase and cannot be used as impact evidence.",
           privacy: "The code grants access to the aggregate: share it only with the facilitation team and Circle participants.",
         };
 
@@ -206,6 +193,14 @@ export function PilotFacilitator({
     }
 
     setStatus("loading");
+    const technicalDemo = technicalDemoReportFor(code);
+    if (technicalDemo) {
+      setCodeInput(code);
+      setReport(technicalDemo);
+      setStatus("idle");
+      return;
+    }
+
     try {
       const response = await fetch(
         `/api/aura/pilots?code=${encodeURIComponent(code)}`,
@@ -275,7 +270,14 @@ export function PilotFacilitator({
       {status === "error" && <p className="facilitator-error">{copy.error}</p>}
 
       {report && (
-        <div className="pilot-report">
+        <>
+          {report.code === TECHNICAL_DEMO_PILOT_CODE && (
+            <p className="pilot-demo-notice" role="status">
+              <strong>{copy.demoTitle}</strong>
+              {copy.demoBody}
+            </p>
+          )}
+          <div className="pilot-report">
           <div>
             <strong>{report.participants}</strong>
             <span>{copy.participants}</span>
@@ -341,10 +343,11 @@ export function PilotFacilitator({
             <span>{copy.paired}</span>
           </div>
           {report.participants === 0 && <p>{copy.empty}</p>}
-        </div>
+          </div>
+        </>
       )}
 
-      {report && (
+      {report && report.code !== TECHNICAL_DEMO_PILOT_CODE && (
         <button
           className="button button-ghost facilitator-export"
           type="button"

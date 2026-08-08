@@ -146,3 +146,5 @@ export function buildPilotReport({
     truncated: allRows.length === maximumRows,
   };
 }
+
+export type PilotReport = ReturnType<typeof buildPilotReport>;

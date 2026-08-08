@@ -2,10 +2,11 @@
 
 ## Archivo único de trabajo para Hernández Axel, Nicole y José Luis
 
-**Fecha de corte:** 30 de julio de 2026<br>
+**Fecha de corte:** 7 de agosto de 2026<br>
 **Versión funcional:** AURA Opportunity Circles 1.0.0<br>
 **Estado técnico:** alcance del MVP técnico completado y listo para pilotos<br>
 **Estado de impacto:** todavía no demostrado; requiere participantes reales<br>
+**Demo técnica:** datos simulados locales, separados de Supabase y de cualquier piloto<br>
 **Estado de la postulación:** PDF, video, evidencia humana y envío pendientes<br>
 **Demo pública:** <https://aura-opal-beta.vercel.app/><br>
 **Repositorio:** <https://github.com/AxelJhostin/AURA><br>
@@ -15,7 +16,7 @@
 
 > Este es el archivo que el equipo debe compartir y leer primero. Empieza con
 > una capa canónica que resuelve el estado actual y el orden de trabajo. Después
-> incorpora, sin resumir ni recortar, los diez documentos públicos vigentes del
+> incorpora, sin resumir ni recortar, los once documentos públicos vigentes del
 > repositorio. Si una explicación histórica de un anexo parece chocar con la
 > capa canónica, prevalecen el estado y las decisiones indicados al inicio.
 
@@ -50,6 +51,7 @@ codificadas. La misión continúa con preguntas de respaldo cuando la IA falla.
 |---|---|---|
 | MVP técnico | **100 % del alcance congelado** | “Functional prototype ready for pilots” |
 | Calidad técnica | **Verificada** | 52 comprobaciones, CI, build y cobertura sobre umbrales |
+| Demo técnica | **Verificada, datos simulados locales** | “Technical demonstration”; nunca “pilot evidence” |
 | Piloto humano | **Pendiente** | “Pilot-ready”; nunca “impact proven” |
 | Impacto educativo | **No demostrado todavía** | Presentar hipótesis, instrumento y resultados solo cuando existan |
 | Opportunity Circles | **Implementados y listos para probar** | Formato de 25 minutos para 6–20 participantes |
@@ -561,16 +563,17 @@ de privacidad, no una omisión del proyecto.
 
 | # | Ruta original | Para qué se usa | Líneas |
 |---|---|---|---:|
-| 1 | `public/docs/AURA_Dossier_Postulacion_y_Matriz_Evaluacion_2026.md` | Estado de candidatura, matriz UNESCO, responsables, calendario y gates de envío. | 1025 |
-| 2 | `public/docs/AURA_Estructura_Definitiva_PDF_UNESCO_2026.md` | Plano completo, página por página, para redactar y diseñar el PDF final. | 1495 |
-| 3 | `public/docs/AURA_Guia_Maestra_UNESCO_Youth_Hackathon_2026.md` | Investigación, estrategia, producto, IA, piloto, equipo, pitch, riesgos y fuentes. | 3095 |
+| 1 | `public/docs/AURA_Dossier_Postulacion_y_Matriz_Evaluacion_2026.md` | Estado de candidatura, matriz UNESCO, responsables, calendario y gates de envío. | 1027 |
+| 2 | `public/docs/AURA_Estructura_Definitiva_PDF_UNESCO_2026.md` | Plano completo, página por página, para redactar y diseñar el PDF final. | 1498 |
+| 3 | `public/docs/AURA_Guia_Maestra_UNESCO_Youth_Hackathon_2026.md` | Investigación, estrategia, producto, IA, piloto, equipo, pitch, riesgos y fuentes. | 3096 |
 | 4 | `public/docs/AURA_Opportunity_Circles_Guia_Facilitacion.md` | Protocolo de 25 minutos, salvaguardas, métricas y registro de pilotos. | 440 |
-| 5 | `README.md` | Estado verificable del producto, capacidades, ejecución, despliegue y estructura. | 490 |
+| 5 | `README.md` | Estado verificable del producto, capacidades, ejecución, despliegue y estructura. | 503 |
 | 6 | `docs/ARCHITECTURE_AND_TESTING.md` | Arquitectura modular, límites, pirámide de pruebas y cambios seguros. | 224 |
-| 7 | `docs/DEVELOPMENT_ROADMAP.md` | Alcance congelado, trabajo posterior al piloto y expansión responsable. | 523 |
+| 7 | `docs/DEVELOPMENT_ROADMAP.md` | Alcance congelado, trabajo posterior al piloto y expansión responsable. | 530 |
 | 8 | `docs/AXEL_OPERATIONAL_INPUTS.md` | Decisiones reales de infraestructura, IA, presupuesto, equipo y pendientes. | 195 |
 | 9 | `docs/MVP_TECHNICAL_FIXES.md` | Registro histórico de las correcciones técnicas críticas ya cerradas. | 254 |
 | 10 | `CONTRIBUTING.md` | Reglas para cambiar código o contenido sin degradar el MVP ni su integridad. | 141 |
+| 11 | `public/docs/AURA_Nota_Transparencia_Validacion_Tecnica_2026.md` | Regla de transparencia para distinguir demo técnica, MVP y evidencia de participantes. | 76 |
 
 ---
 
@@ -583,7 +586,7 @@ fuente dentro del repositorio.
 # Anexo 1 — public/docs/AURA_Dossier_Postulacion_y_Matriz_Evaluacion_2026.md
 
 > **Propósito de la fuente:** Estado de candidatura, matriz UNESCO, responsables, calendario y gates de envío.<br>
-> **Extensión incorporada:** 1025 líneas<br>
+> **Extensión incorporada:** 1027 líneas<br>
 > **Nota:** el contenido siguiente se conserva íntegro para que este único
 > archivo pueda funcionar sin abrir documentos adicionales.
 
@@ -1066,6 +1069,7 @@ debe presentarse como objetivo, hipótesis o plan.
 | La analítica evita datos sensibles | Esquema, API, RLS y documentación | VERIFICADO |
 | Funciona en móvil | Prueba a 320 px | VERIFICADO |
 | El software reduce riesgo de regresión | 52 comprobaciones + cobertura sobre umbrales + CI de 1.0.0 | VERIFICADO |
+| El panel agregado se puede demostrar | Modo `AURA-DEMSAMPLEXYZ`, aviso visible y prueba unitaria | VERIFICADO TÉCNICAMENTE; NO ES PILOTO |
 | Mejora una habilidad | Resultado de piloto | PENDIENTE |
 | Es útil para el público | Observación y encuesta de piloto | PENDIENTE |
 | Puede facilitarse en comunidad | Ensayo de facilitación | PENDIENTE |
@@ -1075,6 +1079,7 @@ debe presentarse como objetivo, hipótesis o plan.
 ### Regla de lenguaje
 
 - **Realidad actual:** “AURA includes…”, “The public MVP demonstrates…”
+- **Demo técnica:** “This dashboard uses client-only simulated data to demonstrate reporting; no participant outcomes are claimed.”
 - **Resultado observado:** “In our pilot, X of Y participants…”
 - **Meta futura:** “We aim to…”, “The next phase will…”
 - **Prohibido sin evidencia:** “AURA improves critical thinking by…”
@@ -1617,7 +1622,7 @@ capaz y un plan concreto.
 # Anexo 2 — public/docs/AURA_Estructura_Definitiva_PDF_UNESCO_2026.md
 
 > **Propósito de la fuente:** Plano completo, página por página, para redactar y diseñar el PDF final.<br>
-> **Extensión incorporada:** 1495 líneas<br>
+> **Extensión incorporada:** 1498 líneas<br>
 > **Nota:** el contenido siguiente se conserva íntegro para que este único
 > archivo pueda funcionar sin abrir documentos adicionales.
 
@@ -2393,11 +2398,14 @@ No inventar resultados. Sustituir temporalmente la tabla por:
 - instrumento;
 - protocolo;
 - indicadores;
-- fecha del piloto;
-- criterio de análisis.
+- criterio de análisis;
+- una demostración técnica claramente rotulada, si ayuda a explicar el panel.
 
-Sin embargo, la versión enviada debe intentar incluir datos reales aunque la
-muestra sea pequeña.
+Si se muestra `AURA-DEMSAMPLEXYZ`, conservar en la captura y en el texto el
+aviso “Technical demonstration · simulated data”. Su contenido prueba la
+interfaz, no el impacto, y no reemplaza la tabla de un piloto. La versión
+enviada no debe inventar una fecha, muestra ni resultado humano: es preferible
+explicar el piloto futuro con precisión.
 
 ### Presupuesto editorial
 
@@ -3121,7 +3129,7 @@ activo en una historia verificable, humana y memorable.
 # Anexo 3 — public/docs/AURA_Guia_Maestra_UNESCO_Youth_Hackathon_2026.md
 
 > **Propósito de la fuente:** Investigación, estrategia, producto, IA, piloto, equipo, pitch, riesgos y fuentes.<br>
-> **Extensión incorporada:** 3095 líneas<br>
+> **Extensión incorporada:** 3096 líneas<br>
 > **Nota:** el contenido siguiente se conserva íntegro para que este único
 > archivo pueda funcionar sin abrir documentos adicionales.
 
@@ -3376,6 +3384,7 @@ con usuarios.
 | Reglas de dominio modulares | Implementadas | Eventos, agregación de pilotos y transferencia fuera de React/HTTP |
 | Calidad automatizada | Verificada localmente en 1.0.0 | 52 comprobaciones en cuatro capas y cobertura sobre umbrales |
 | Integración continua | Activa | GitHub Actions valida aplicación y pgTAP en cada cambio de `main` |
+| Demo técnica de métricas | Implementada | Código `AURA-DEMSAMPLEXYZ`; datos locales simulados, aviso visible, sin Supabase ni CSV |
 | Pilotos con participantes reales | Pendiente | No existen resultados que puedan afirmarse |
 | Revisión AMI externa de los casos | Pendiente | La revisión interna está registrada; falta el gate externo |
 | Propuesta final en inglés | Pendiente | Banco de texto disponible en esta guía |
@@ -6674,7 +6683,7 @@ Hasta entonces debe describirse como **prototipo funcional listo para pilotos**,
 # Anexo 5 — README.md
 
 > **Propósito de la fuente:** Estado verificable del producto, capacidades, ejecución, despliegue y estructura.<br>
-> **Extensión incorporada:** 490 líneas<br>
+> **Extensión incorporada:** 503 líneas<br>
 > **Nota:** el contenido siguiente se conserva íntegro para que este único
 > archivo pueda funcionar sin abrir documentos adicionales.
 
@@ -6719,6 +6728,9 @@ Este repositorio reúne cinco entregables que deben evolucionar juntos:
   autorizado, más un reto nuevo de transferencia sobre pasantías
 - **Intervención:** sesión replicable de 25 minutos para 6–20 participantes,
   con guía, salvaguardas, código anónimo y reporte agregado
+- **Validación humana:** pendiente; no se afirman resultados de participantes
+- **Demo técnica:** código `AURA-DEMSAMPLEXYZ`, con datos simulados locales y
+  aviso visible; no consulta ni escribe en Supabase
 
 La demo ya permite:
 
@@ -6754,6 +6766,15 @@ La demo ya permite:
 > Todas las oportunidades, organizaciones y personas de los casos son
 > ficticias. Las referencias oficiales respaldan los patrones y el método, no
 > la existencia de los mensajes simulados. El proyecto no inventa resultados.
+
+### Demo técnica de métricas
+
+El código `AURA-DEMSAMPLEXYZ` permite recorrer el panel agregado con una muestra
+determinista generada en el navegador. El panel muestra un aviso permanente y
+no permite exportarla; esos valores no proceden de participantes, no llegan a
+Supabase y no son evidencia de impacto. La regla y el lenguaje autorizado para
+PDF/video están en
+[`public/docs/AURA_Nota_Transparencia_Validacion_Tecnica_2026.md`](public/docs/AURA_Nota_Transparencia_Validacion_Tecnica_2026.md).
 
 ## Por qué esta versión importa
 
@@ -6946,6 +6967,7 @@ Mapa de lectura:
 | `public/docs/AURA_Dossier_Postulacion_y_Matriz_Evaluacion_2026.md` | plan diario, responsables y matriz de los cinco criterios |
 | `public/docs/AURA_Estructura_Definitiva_PDF_UNESCO_2026.md` | plano página por página del entregable final |
 | `public/docs/AURA_Guia_Maestra_UNESCO_Youth_Hackathon_2026.md` | fuente completa de producto, estrategia, piloto, pitch y controles |
+| `public/docs/AURA_Nota_Transparencia_Validacion_Tecnica_2026.md` | distinción obligatoria entre demo técnica, MVP y piloto humano |
 | `docs/ARCHITECTURE_AND_TESTING.md` | límites técnicos, calidad y cambios grandes |
 | `docs/DEVELOPMENT_ROADMAP.md` | alcance congelado, backlog y releases |
 | `docs/AXEL_OPERATIONAL_INPUTS.md` | hechos técnicos aprobados y campos no resueltos |
@@ -7038,7 +7060,7 @@ En **Settings → Environment Variables**, agregar:
 ```text
 OPENAI_API_KEY=<clave del proyecto>
 OPENAI_MODEL=gpt-5.6
-SUPABASE_URL=https://<project-ref>.supabase.co
+SUPABASE_URL=https://pnxnjcngmzcgbyslogcc.supabase.co
 SUPABASE_SECRET_KEY=<clave-secreta-del-servidor>
 ```
 
@@ -7406,7 +7428,7 @@ bloqueo para iniciar pilotos.
 # Anexo 7 — docs/DEVELOPMENT_ROADMAP.md
 
 > **Propósito de la fuente:** Alcance congelado, trabajo posterior al piloto y expansión responsable.<br>
-> **Extensión incorporada:** 523 líneas<br>
+> **Extensión incorporada:** 530 líneas<br>
 > **Nota:** el contenido siguiente se conserva íntegro para que este único
 > archivo pueda funcionar sin abrir documentos adicionales.
 
@@ -7906,6 +7928,13 @@ No medir solo “acertó/no acertó”.
 - no penalizar una decisión inicial;
 - no premiar obediencia a la IA;
 - no almacenar contenido privado sin consentimiento explícito.
+
+### Demostración técnica sin piloto humano
+
+`AURA-DEMSAMPLEXYZ` existe únicamente para comprobar visualmente el panel de
+agregados. Sus datos son deterministas, locales y simulados; no se escriben en
+Supabase, no se exportan y no pueden presentarse como métrica de participantes.
+La documentación de candidatura debe separar esta comprobación del piloto real.
 
 ## 9. Revisión antes de cada release
 
@@ -8549,3 +8578,88 @@ migraciones y pgTAP, sin secretos.
 
 El equipo todavía no ha elegido licencia pública. Hasta tomar esa decisión, no
 se debe asumir permiso de redistribución fuera de la colaboración autorizada.
+
+---
+
+# Anexo 11 — public/docs/AURA_Nota_Transparencia_Validacion_Tecnica_2026.md
+
+> **Propósito de la fuente:** Regla de transparencia para distinguir demo técnica, MVP y evidencia de participantes.<br>
+> **Extensión incorporada:** 76 líneas<br>
+> **Nota:** el contenido siguiente se conserva íntegro para que este único
+> archivo pueda funcionar sin abrir documentos adicionales.
+
+# AURA Opportunity Circles — Nota de transparencia de validación técnica
+
+**Fecha de corte:** 7 de agosto de 2026<br>
+**Estado:** MVP funcional y conexión Vercel → Supabase verificados; no existe un piloto con participantes reales cerrado.
+
+## Propósito
+
+Esta nota evita que una demostración técnica se confunda con evidencia de impacto. AURA enseña a distinguir afirmaciones, evidencia y límites; su candidatura debe cumplir el mismo estándar.
+
+## Tres tipos de evidencia, sin mezclarlos
+
+| Tipo | Qué demuestra | Estado actual | Lenguaje autorizado |
+|---|---|---|---|
+| Producto construido | MVP, privacidad y recorrido | Verificado | `Functional public MVP ready for pilots` |
+| Validación técnica | Que el panel calcula y presenta agregados | Verificada con muestra determinista | `Technical demonstration with simulated data` |
+| Piloto humano | Uso, fricciones o aprendizaje de personas reales | Pendiente | No afirmar resultados, mejoras ni porcentajes |
+
+La conexión de producción a Supabase está activa, pero la base comienza sin eventos de participantes. Esa ausencia es correcta: no se ha introducido ningún dato sintético en Supabase.
+
+## Modo de demostración técnica
+
+En el panel de facilitación, introducir este código:
+
+```text
+AURA-DEMSAMPLEXYZ
+```
+
+El panel mostrará una muestra **determinista y local** para recorrer todas las métricas. El aviso ámbar visible indica que los valores:
+
+- no proceden de personas;
+- no se consultan ni se escriben en Supabase;
+- no se exportan a CSV;
+- no son un piloto, evaluación de usabilidad ni resultado educativo;
+- no pueden convertirse en porcentajes, gráficas o citas del PDF final.
+
+Su único propósito es verificar la interfaz del reporte agregado durante una demo técnica. La muestra incluye resultados mixtos deliberadamente: no pretende probar eficacia, alcance ni mejora.
+
+## Uso permitido en el PDF y el video
+
+Si se muestra el panel, debe verse completo el aviso de “Technical demonstration · simulated data”. El guion autorizado es:
+
+> “AURA includes an aggregate facilitator dashboard. This screen uses a client-only simulated dataset to demonstrate the reporting interface; no participant outcomes are claimed. The public MVP is ready for a future consent-based pilot.”
+
+También es válido presentar solo las capacidades técnicas: misión guiada, transferencia sin pistas, consentimiento, analítica anónima, RLS, panel agregado y pruebas automatizadas.
+
+## Lenguaje no autorizado
+
+No usar la muestra de demostración para afirmar, sugerir o dejar implícito que:
+
+- seis personas participaron;
+- 83 % completó una misión;
+- la confianza aumentó;
+- el promedio de transferencia mide aprendizaje real;
+- AURA ya fue validada con jóvenes, una institución o una comunidad;
+- existe un piloto, testimonio o alianza que no ocurrió.
+
+No se deben recortar capturas para ocultar el aviso ni guardar su contenido como un CSV de resultados.
+
+## Qué sí fortalece la candidatura ahora
+
+La convocatoria 2026 solicita un prototipo o concepto y valora factibilidad, innovación, claridad, impacto e inclusión. No establece que un piloto humano sea obligatorio. Por ello, la candidatura debe ganar credibilidad con:
+
+1. un problema específico y cotidiano;
+2. un MVP público que permite recorrer la solución de extremo a extremo;
+3. una intervención breve, bilingüe, replicable y con privacidad por diseño;
+4. límites honestos y un plan concreto de piloto posterior;
+5. un PDF y video claros que separen lo construido, lo demostrado técnicamente y lo que todavía se evaluará con personas.
+
+La página oficial de UNESCO indica que cada proyecto será revisado por tres expertos internacionales. Por eso la claridad y la trazabilidad importan más que aparentar métricas inexistentes.
+
+Fuente: <https://www.unesco.org/en/articles/unesco-youth-hackathon-2026>
+
+## Próxima validación ética
+
+Cuando termine el periodo de exámenes y exista disponibilidad, el primer piloto debe usar un código nuevo —nunca `AURA-DEMSAMPLEXYZ`—, consentimiento explícito y una cohorte identificada solo fuera de la aplicación. Sus resultados se analizarán como muestra pequeña, no aleatoria y de corto plazo.

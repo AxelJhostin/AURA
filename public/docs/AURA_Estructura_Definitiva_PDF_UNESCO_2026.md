@@ -770,11 +770,14 @@ No inventar resultados. Sustituir temporalmente la tabla por:
 - instrumento;
 - protocolo;
 - indicadores;
-- fecha del piloto;
-- criterio de análisis.
+- criterio de análisis;
+- una demostración técnica claramente rotulada, si ayuda a explicar el panel.
 
-Sin embargo, la versión enviada debe intentar incluir datos reales aunque la
-muestra sea pequeña.
+Si se muestra `AURA-DEMSAMPLEXYZ`, conservar en la captura y en el texto el
+aviso “Technical demonstration · simulated data”. Su contenido prueba la
+interfaz, no el impacto, y no reemplaza la tabla de un piloto. La versión
+enviada no debe inventar una fecha, muestra ni resultado humano: es preferible
+explicar el piloto futuro con precisión.
 
 ### Presupuesto editorial
 

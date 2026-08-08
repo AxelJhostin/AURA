@@ -63,16 +63,22 @@ const sources = [
     purpose:
       "Reglas para cambiar código o contenido sin degradar el MVP ni su integridad.",
   },
+  {
+    path: "public/docs/AURA_Nota_Transparencia_Validacion_Tecnica_2026.md",
+    purpose:
+      "Regla de transparencia para distinguir demo técnica, MVP y evidencia de participantes.",
+  },
 ];
 
 const overview = `# AURA Opportunity Circles — Dossier colaborativo completo 2026
 
 ## Archivo único de trabajo para Hernández Axel, Nicole y José Luis
 
-**Fecha de corte:** 30 de julio de 2026<br>
+**Fecha de corte:** 7 de agosto de 2026<br>
 **Versión funcional:** AURA Opportunity Circles 1.0.0<br>
 **Estado técnico:** alcance del MVP técnico completado y listo para pilotos<br>
 **Estado de impacto:** todavía no demostrado; requiere participantes reales<br>
+**Demo técnica:** datos simulados locales, separados de Supabase y de cualquier piloto<br>
 **Estado de la postulación:** PDF, video, evidencia humana y envío pendientes<br>
 **Demo pública:** <https://aura-opal-beta.vercel.app/><br>
 **Repositorio:** <https://github.com/AxelJhostin/AURA><br>
@@ -82,7 +88,7 @@ const overview = `# AURA Opportunity Circles — Dossier colaborativo completo 2
 
 > Este es el archivo que el equipo debe compartir y leer primero. Empieza con
 > una capa canónica que resuelve el estado actual y el orden de trabajo. Después
-> incorpora, sin resumir ni recortar, los diez documentos públicos vigentes del
+> incorpora, sin resumir ni recortar, los once documentos públicos vigentes del
 > repositorio. Si una explicación histórica de un anexo parece chocar con la
 > capa canónica, prevalecen el estado y las decisiones indicados al inicio.
 
@@ -117,6 +123,7 @@ codificadas. La misión continúa con preguntas de respaldo cuando la IA falla.
 |---|---|---|
 | MVP técnico | **100 % del alcance congelado** | “Functional prototype ready for pilots” |
 | Calidad técnica | **Verificada** | 52 comprobaciones, CI, build y cobertura sobre umbrales |
+| Demo técnica | **Verificada, datos simulados locales** | “Technical demonstration”; nunca “pilot evidence” |
 | Piloto humano | **Pendiente** | “Pilot-ready”; nunca “impact proven” |
 | Impacto educativo | **No demostrado todavía** | Presentar hipótesis, instrumento y resultados solo cuando existan |
 | Opportunity Circles | **Implementados y listos para probar** | Formato de 25 minutos para 6–20 participantes |

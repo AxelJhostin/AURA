@@ -3022,6 +3022,21 @@ input:focus-visible {
   background: var(--line);
 }
 
+.pilot-demo-notice {
+  margin: 20px 0 0;
+  padding: 14px 16px;
+  border: 1px solid #cc8a2f;
+  background: #fff4df;
+  color: #5f3b0d;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.pilot-demo-notice strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
 .pilot-report > div {
   display: grid;
   min-height: 108px;

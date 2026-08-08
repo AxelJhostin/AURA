@@ -39,6 +39,9 @@ Este repositorio reúne cinco entregables que deben evolucionar juntos:
   autorizado, más un reto nuevo de transferencia sobre pasantías
 - **Intervención:** sesión replicable de 25 minutos para 6–20 participantes,
   con guía, salvaguardas, código anónimo y reporte agregado
+- **Validación humana:** pendiente; no se afirman resultados de participantes
+- **Demo técnica:** código `AURA-DEMSAMPLEXYZ`, con datos simulados locales y
+  aviso visible; no consulta ni escribe en Supabase
 
 La demo ya permite:
 
@@ -74,6 +77,15 @@ La demo ya permite:
 > Todas las oportunidades, organizaciones y personas de los casos son
 > ficticias. Las referencias oficiales respaldan los patrones y el método, no
 > la existencia de los mensajes simulados. El proyecto no inventa resultados.
+
+### Demo técnica de métricas
+
+El código `AURA-DEMSAMPLEXYZ` permite recorrer el panel agregado con una muestra
+determinista generada en el navegador. El panel muestra un aviso permanente y
+no permite exportarla; esos valores no proceden de participantes, no llegan a
+Supabase y no son evidencia de impacto. La regla y el lenguaje autorizado para
+PDF/video están en
+[`public/docs/AURA_Nota_Transparencia_Validacion_Tecnica_2026.md`](public/docs/AURA_Nota_Transparencia_Validacion_Tecnica_2026.md).
 
 ## Por qué esta versión importa
 
@@ -266,6 +278,7 @@ Mapa de lectura:
 | `public/docs/AURA_Dossier_Postulacion_y_Matriz_Evaluacion_2026.md` | plan diario, responsables y matriz de los cinco criterios |
 | `public/docs/AURA_Estructura_Definitiva_PDF_UNESCO_2026.md` | plano página por página del entregable final |
 | `public/docs/AURA_Guia_Maestra_UNESCO_Youth_Hackathon_2026.md` | fuente completa de producto, estrategia, piloto, pitch y controles |
+| `public/docs/AURA_Nota_Transparencia_Validacion_Tecnica_2026.md` | distinción obligatoria entre demo técnica, MVP y piloto humano |
 | `docs/ARCHITECTURE_AND_TESTING.md` | límites técnicos, calidad y cambios grandes |
 | `docs/DEVELOPMENT_ROADMAP.md` | alcance congelado, backlog y releases |
 | `docs/AXEL_OPERATIONAL_INPUTS.md` | hechos técnicos aprobados y campos no resueltos |
@@ -358,7 +371,7 @@ En **Settings → Environment Variables**, agregar:
 ```text
 OPENAI_API_KEY=<clave del proyecto>
 OPENAI_MODEL=gpt-5.6
-SUPABASE_URL=https://<project-ref>.supabase.co
+SUPABASE_URL=https://pnxnjcngmzcgbyslogcc.supabase.co
 SUPABASE_SECRET_KEY=<clave-secreta-del-servidor>
 ```
 

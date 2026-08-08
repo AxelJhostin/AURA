@@ -249,6 +249,7 @@ con usuarios.
 | Reglas de dominio modulares | Implementadas | Eventos, agregación de pilotos y transferencia fuera de React/HTTP |
 | Calidad automatizada | Verificada localmente en 1.0.0 | 52 comprobaciones en cuatro capas y cobertura sobre umbrales |
 | Integración continua | Activa | GitHub Actions valida aplicación y pgTAP en cada cambio de `main` |
+| Demo técnica de métricas | Implementada | Código `AURA-DEMSAMPLEXYZ`; datos locales simulados, aviso visible, sin Supabase ni CSV |
 | Pilotos con participantes reales | Pendiente | No existen resultados que puedan afirmarse |
 | Revisión AMI externa de los casos | Pendiente | La revisión interna está registrada; falta el gate externo |
 | Propuesta final en inglés | Pendiente | Banco de texto disponible en esta guía |
